@@ -1,0 +1,76 @@
+{
+  "number": 28,
+  "name": "SCRAP HEAVEN",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 2,
+      "interval": 0.29,
+      "healthMultiplier": 2.21,
+      "speedMultiplier": 1.43
+    },
+    {
+      "startTime": 8.6,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.24,
+      "healthMultiplier": 2.21,
+      "speedMultiplier": 1.43
+    },
+    {
+      "startTime": 15.7,
+      "enemy": "mine",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.55,
+      "healthMultiplier": 2.21,
+      "speedMultiplier": 1.43
+    },
+    {
+      "startTime": 22.8,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.57,
+      "healthMultiplier": 2.21,
+      "speedMultiplier": 1.43
+    },
+    {
+      "startTime": 29.9,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 7,
+      "interval": 0.38,
+      "healthMultiplier": 2.21,
+      "speedMultiplier": 1.43
+    },
+    {
+      "startTime": 37.0,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 8,
+      "interval": 0.25,
+      "healthMultiplier": 2.21,
+      "speedMultiplier": 1.43
+    },
+    {
+      "startTime": 44.1,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.33,
+      "healthMultiplier": 2.21,
+      "speedMultiplier": 1.43
+    }
+  ]
+}

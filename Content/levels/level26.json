@@ -1,0 +1,76 @@
+{
+  "number": 26,
+  "name": "EVENT HORIZON",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "raider",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.42,
+      "healthMultiplier": 2.12,
+      "speedMultiplier": 1.4
+    },
+    {
+      "startTime": 8.7,
+      "enemy": "seeker",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.55,
+      "healthMultiplier": 2.12,
+      "speedMultiplier": 1.4
+    },
+    {
+      "startTime": 15.9,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.45,
+      "healthMultiplier": 2.12,
+      "speedMultiplier": 1.4
+    },
+    {
+      "startTime": 23.1,
+      "enemy": "seeker",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.27,
+      "healthMultiplier": 2.12,
+      "speedMultiplier": 1.4
+    },
+    {
+      "startTime": 30.3,
+      "enemy": "seeker",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.29,
+      "healthMultiplier": 2.12,
+      "speedMultiplier": 1.4
+    },
+    {
+      "startTime": 37.5,
+      "enemy": "seeker",
+      "movement": "zigzag",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.47,
+      "healthMultiplier": 2.12,
+      "speedMultiplier": 1.4
+    },
+    {
+      "startTime": 44.7,
+      "enemy": "seeker",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.57,
+      "healthMultiplier": 2.12,
+      "speedMultiplier": 1.4
+    }
+  ]
+}

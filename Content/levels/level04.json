@@ -1,0 +1,36 @@
+{
+  "number": 4,
+  "name": "MINEFIELD",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.45,
+      "healthMultiplier": 1.14,
+      "speedMultiplier": 1.05
+    },
+    {
+      "startTime": 9.8,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.42,
+      "healthMultiplier": 1.14,
+      "speedMultiplier": 1.05
+    },
+    {
+      "startTime": 18.1,
+      "enemy": "scout",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.52,
+      "healthMultiplier": 1.14,
+      "speedMultiplier": 1.05
+    }
+  ]
+}

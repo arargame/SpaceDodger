@@ -1,0 +1,76 @@
+{
+  "number": 36,
+  "name": "FRACTURE",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.31,
+      "healthMultiplier": 2.58,
+      "speedMultiplier": 1.56
+    },
+    {
+      "startTime": 8.2,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.23,
+      "healthMultiplier": 2.58,
+      "speedMultiplier": 1.56
+    },
+    {
+      "startTime": 14.9,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.51,
+      "healthMultiplier": 2.58,
+      "speedMultiplier": 1.56
+    },
+    {
+      "startTime": 21.6,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.25,
+      "healthMultiplier": 2.58,
+      "speedMultiplier": 1.56
+    },
+    {
+      "startTime": 28.3,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.51,
+      "healthMultiplier": 2.58,
+      "speedMultiplier": 1.56
+    },
+    {
+      "startTime": 35.0,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 2,
+      "interval": 0.38,
+      "healthMultiplier": 2.58,
+      "speedMultiplier": 1.56
+    },
+    {
+      "startTime": 41.7,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 6,
+      "interval": 0.47,
+      "healthMultiplier": 2.58,
+      "speedMultiplier": 1.56
+    }
+  ]
+}

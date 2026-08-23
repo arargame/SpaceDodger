@@ -1,0 +1,76 @@
+{
+  "number": 25,
+  "name": "GUN LINE",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.4,
+      "healthMultiplier": 2.08,
+      "speedMultiplier": 1.38
+    },
+    {
+      "startTime": 8.8,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.34,
+      "healthMultiplier": 2.08,
+      "speedMultiplier": 1.38
+    },
+    {
+      "startTime": 16.0,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.26,
+      "healthMultiplier": 2.08,
+      "speedMultiplier": 1.38
+    },
+    {
+      "startTime": 23.2,
+      "enemy": "raider",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.32,
+      "healthMultiplier": 2.08,
+      "speedMultiplier": 1.38
+    },
+    {
+      "startTime": 30.5,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.44,
+      "healthMultiplier": 2.08,
+      "speedMultiplier": 1.38
+    },
+    {
+      "startTime": 37.8,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.33,
+      "healthMultiplier": 2.08,
+      "speedMultiplier": 1.38
+    },
+    {
+      "startTime": 45.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.52,
+      "healthMultiplier": 2.08,
+      "speedMultiplier": 1.38
+    }
+  ]
+}

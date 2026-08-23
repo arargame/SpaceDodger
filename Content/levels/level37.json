@@ -1,0 +1,76 @@
+{
+  "number": 37,
+  "name": "DEAD RECKONING",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.48,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.58
+    },
+    {
+      "startTime": 8.2,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.33,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.58
+    },
+    {
+      "startTime": 14.8,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.37,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.58
+    },
+    {
+      "startTime": 21.5,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.44,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.58
+    },
+    {
+      "startTime": 28.1,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.44,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.58
+    },
+    {
+      "startTime": 34.8,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.47,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.58
+    },
+    {
+      "startTime": 41.4,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 2,
+      "interval": 0.31,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.58
+    }
+  ]
+}

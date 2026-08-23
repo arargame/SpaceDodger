@@ -1,0 +1,56 @@
+{
+  "number": 14,
+  "name": "SIEGE LINE",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "mine",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.71,
+      "healthMultiplier": 1.58,
+      "speedMultiplier": 1.21
+    },
+    {
+      "startTime": 9.3,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.55,
+      "healthMultiplier": 1.58,
+      "speedMultiplier": 1.21
+    },
+    {
+      "startTime": 17.1,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.63,
+      "healthMultiplier": 1.58,
+      "speedMultiplier": 1.21
+    },
+    {
+      "startTime": 24.9,
+      "enemy": "mine",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.32,
+      "healthMultiplier": 1.58,
+      "speedMultiplier": 1.21
+    },
+    {
+      "startTime": 32.7,
+      "enemy": "mine",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.32,
+      "healthMultiplier": 1.58,
+      "speedMultiplier": 1.21
+    }
+  ]
+}

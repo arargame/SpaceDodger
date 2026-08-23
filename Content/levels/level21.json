@@ -1,0 +1,66 @@
+{
+  "number": 21,
+  "name": "DERELICT FIELD",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.57,
+      "healthMultiplier": 1.9,
+      "speedMultiplier": 1.32
+    },
+    {
+      "startTime": 8.9,
+      "enemy": "seeker",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.46,
+      "healthMultiplier": 1.9,
+      "speedMultiplier": 1.32
+    },
+    {
+      "startTime": 16.4,
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 2,
+      "interval": 0.43,
+      "healthMultiplier": 1.9,
+      "speedMultiplier": 1.32
+    },
+    {
+      "startTime": 23.8,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.27,
+      "healthMultiplier": 1.9,
+      "speedMultiplier": 1.32
+    },
+    {
+      "startTime": 31.3,
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.34,
+      "healthMultiplier": 1.9,
+      "speedMultiplier": 1.32
+    },
+    {
+      "startTime": 38.8,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.31,
+      "healthMultiplier": 1.9,
+      "speedMultiplier": 1.32
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "number": 17,
+  "name": "CRIMSON PASS",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "fighter",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.5,
+      "healthMultiplier": 1.72,
+      "speedMultiplier": 1.26
+    },
+    {
+      "startTime": 9.2,
+      "enemy": "seeker",
+      "movement": "zigzag",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.38,
+      "healthMultiplier": 1.72,
+      "speedMultiplier": 1.26
+    },
+    {
+      "startTime": 16.8,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.29,
+      "healthMultiplier": 1.72,
+      "speedMultiplier": 1.26
+    },
+    {
+      "startTime": 24.5,
+      "enemy": "seeker",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.42,
+      "healthMultiplier": 1.72,
+      "speedMultiplier": 1.26
+    },
+    {
+      "startTime": 32.1,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.33,
+      "healthMultiplier": 1.72,
+      "speedMultiplier": 1.26
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "number": 13,
+  "name": "SHATTERED MOON",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.5,
+      "healthMultiplier": 1.54,
+      "speedMultiplier": 1.19
+    },
+    {
+      "startTime": 9.3,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 2,
+      "interval": 0.71,
+      "healthMultiplier": 1.54,
+      "speedMultiplier": 1.19
+    },
+    {
+      "startTime": 17.2,
+      "enemy": "seeker",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.56,
+      "healthMultiplier": 1.54,
+      "speedMultiplier": 1.19
+    },
+    {
+      "startTime": 25.0,
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.36,
+      "healthMultiplier": 1.54,
+      "speedMultiplier": 1.19
+    },
+    {
+      "startTime": 32.9,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.32,
+      "healthMultiplier": 1.54,
+      "speedMultiplier": 1.19
+    }
+  ]
+}

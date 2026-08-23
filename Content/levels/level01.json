@@ -1,0 +1,30 @@
+{
+  "number": 1,
+  "name": "FIRST CONTACT",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.55
+    },
+    {
+      "startTime": 9.9,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 8,
+      "interval": 0.66
+    },
+    {
+      "startTime": 18.4,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 8,
+      "interval": 0.64
+    }
+  ]
+}

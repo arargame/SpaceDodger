@@ -1,0 +1,36 @@
+{
+  "number": 2,
+  "name": "ASTEROID DRIFT",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "drone",
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 8,
+      "interval": 0.43,
+      "healthMultiplier": 1.04,
+      "speedMultiplier": 1.02
+    },
+    {
+      "startTime": 9.9,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.35,
+      "healthMultiplier": 1.04,
+      "speedMultiplier": 1.02
+    },
+    {
+      "startTime": 18.3,
+      "enemy": "scout",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 7,
+      "interval": 0.48,
+      "healthMultiplier": 1.04,
+      "speedMultiplier": 1.02
+    }
+  ]
+}

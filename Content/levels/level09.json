@@ -1,0 +1,46 @@
+{
+  "number": 9,
+  "name": "BLACK TIDE",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "scout",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.35,
+      "healthMultiplier": 1.36,
+      "speedMultiplier": 1.13
+    },
+    {
+      "startTime": 9.6,
+      "enemy": "scout",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 7,
+      "interval": 0.49,
+      "healthMultiplier": 1.36,
+      "speedMultiplier": 1.13
+    },
+    {
+      "startTime": 17.6,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.69,
+      "healthMultiplier": 1.36,
+      "speedMultiplier": 1.13
+    },
+    {
+      "startTime": 25.7,
+      "enemy": "scout",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.51,
+      "healthMultiplier": 1.36,
+      "speedMultiplier": 1.13
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "number": 3,
+  "name": "OUTER PATROL",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "scout",
+      "movement": "zigzag",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.77,
+      "healthMultiplier": 1.09,
+      "speedMultiplier": 1.03
+    },
+    {
+      "startTime": 9.8,
+      "enemy": "fighter",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.62,
+      "healthMultiplier": 1.09,
+      "speedMultiplier": 1.03
+    },
+    {
+      "startTime": 18.2,
+      "enemy": "scout",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 9,
+      "interval": 0.36,
+      "healthMultiplier": 1.09,
+      "speedMultiplier": 1.03
+    }
+  ]
+}

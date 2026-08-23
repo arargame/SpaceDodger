@@ -1,0 +1,117 @@
+"""Hand-authored 5x7 pixel font, ASCII 32..126.
+
+Each glyph is 7 rows of 5 characters ('X' = ink, '.' = empty).
+Rendered into a 6x8 cell so there is one pixel of natural letter spacing
+on the right and one below.
+"""
+
+GLYPH_W, GLYPH_H = 5, 7
+CELL_W, CELL_H = 6, 8
+
+G = {
+' ': "..... ..... ..... ..... ..... ..... .....",
+'!': "..X.. ..X.. ..X.. ..X.. ..X.. ..... ..X..",
+'"': ".X.X. .X.X. ..... ..... ..... ..... .....",
+'#': "..... .X.X. XXXXX .X.X. XXXXX .X.X. .....",
+'$': "..X.. .XXXX X.X.. .XXX. ..X.X XXXX. ..X..",
+'%': "XX..X XX..X ...X. ..X.. .X... X..XX X..XX",
+'&': ".XX.. X..X. X.X.. .X... X.X.X X..X. .XX.X",
+"'": "..X.. ..X.. ..... ..... ..... ..... .....",
+'(': "...X. ..X.. .X... .X... .X... ..X.. ...X.",
+')': ".X... ..X.. ...X. ...X. ...X. ..X.. .X...",
+'*': "..... X.X.X .XXX. XXXXX .XXX. X.X.X .....",
+'+': "..... ..X.. ..X.. XXXXX ..X.. ..X.. .....",
+',': "..... ..... ..... ..... ..X.. ..X.. .X...",
+'-': "..... ..... ..... XXXXX ..... ..... .....",
+'.': "..... ..... ..... ..... ..... ..X.. ..X..",
+'/': "....X ....X ...X. ..X.. .X... X.... X....",
+'0': ".XXX. X...X X..XX X.X.X XX..X X...X .XXX.",
+'1': "..X.. .XX.. ..X.. ..X.. ..X.. ..X.. .XXX.",
+'2': ".XXX. X...X ....X ...X. ..X.. .X... XXXXX",
+'3': "XXXXX ...X. ..X.. ...X. ....X X...X .XXX.",
+'4': "...X. ..XX. .X.X. X..X. XXXXX ...X. ...X.",
+'5': "XXXXX X.... XXXX. ....X ....X X...X .XXX.",
+'6': "..XX. .X... X.... XXXX. X...X X...X .XXX.",
+'7': "XXXXX ....X ...X. ..X.. .X... .X... .X...",
+'8': ".XXX. X...X X...X .XXX. X...X X...X .XXX.",
+'9': ".XXX. X...X X...X .XXXX ....X ...X. .XX..",
+':': "..... ..X.. ..X.. ..... ..X.. ..X.. .....",
+';': "..... ..X.. ..X.. ..... ..X.. ..X.. .X...",
+'<': "...X. ..X.. .X... X.... .X... ..X.. ...X.",
+'=': "..... ..... XXXXX ..... XXXXX ..... .....",
+'>': ".X... ..X.. ...X. ....X ...X. ..X.. .X...",
+'?': ".XXX. X...X ....X ...X. ..X.. ..... ..X..",
+'@': ".XXX. X...X X.XXX X.X.X X.XXX X.... .XXX.",
+'A': ".XXX. X...X X...X XXXXX X...X X...X X...X",
+'B': "XXXX. X...X X...X XXXX. X...X X...X XXXX.",
+'C': ".XXX. X...X X.... X.... X.... X...X .XXX.",
+'D': "XXXX. X...X X...X X...X X...X X...X XXXX.",
+'E': "XXXXX X.... X.... XXXX. X.... X.... XXXXX",
+'F': "XXXXX X.... X.... XXXX. X.... X.... X....",
+'G': ".XXX. X...X X.... X.XXX X...X X...X .XXX.",
+'H': "X...X X...X X...X XXXXX X...X X...X X...X",
+'I': ".XXX. ..X.. ..X.. ..X.. ..X.. ..X.. .XXX.",
+'J': "..XXX ...X. ...X. ...X. ...X. X..X. .XX..",
+'K': "X...X X..X. X.X.. XX... X.X.. X..X. X...X",
+'L': "X.... X.... X.... X.... X.... X.... XXXXX",
+'M': "X...X XX.XX X.X.X X.X.X X...X X...X X...X",
+'N': "X...X X...X XX..X X.X.X X..XX X...X X...X",
+'O': ".XXX. X...X X...X X...X X...X X...X .XXX.",
+'P': "XXXX. X...X X...X XXXX. X.... X.... X....",
+'Q': ".XXX. X...X X...X X...X X.X.X X..X. .XX.X",
+'R': "XXXX. X...X X...X XXXX. X.X.. X..X. X...X",
+'S': ".XXXX X.... X.... .XXX. ....X ....X XXXX.",
+'T': "XXXXX ..X.. ..X.. ..X.. ..X.. ..X.. ..X..",
+'U': "X...X X...X X...X X...X X...X X...X .XXX.",
+'V': "X...X X...X X...X X...X X...X .X.X. ..X..",
+'W': "X...X X...X X...X X.X.X X.X.X XX.XX X...X",
+'X': "X...X X...X .X.X. ..X.. .X.X. X...X X...X",
+'Y': "X...X X...X .X.X. ..X.. ..X.. ..X.. ..X..",
+'Z': "XXXXX ....X ...X. ..X.. .X... X.... XXXXX",
+'[': ".XXX. .X... .X... .X... .X... .X... .XXX.",
+'\\':"X.... X.... .X... ..X.. ...X. ....X ....X",
+']': ".XXX. ...X. ...X. ...X. ...X. ...X. .XXX.",
+'^': "..X.. .X.X. X...X ..... ..... ..... .....",
+'_': "..... ..... ..... ..... ..... ..... XXXXX",
+'`': ".X... ..X.. ..... ..... ..... ..... .....",
+'a': "..... ..... .XXX. ....X .XXXX X...X .XXXX",
+'b': "X.... X.... XXXX. X...X X...X X...X XXXX.",
+'c': "..... ..... .XXXX X.... X.... X.... .XXXX",
+'d': "....X ....X .XXXX X...X X...X X...X .XXXX",
+'e': "..... ..... .XXX. X...X XXXXX X.... .XXX.",
+'f': "..XX. .X... XXXX. .X... .X... .X... .X...",
+'g': "..... .XXXX X...X X...X .XXXX ....X .XXX.",
+'h': "X.... X.... XXXX. X...X X...X X...X X...X",
+'i': "..X.. ..... .XX.. ..X.. ..X.. ..X.. .XXX.",
+'j': "...X. ..... ..XX. ...X. ...X. X..X. .XX..",
+'k': "X.... X.... X..X. X.X.. XX... X.X.. X..X.",
+'l': ".XX.. ..X.. ..X.. ..X.. ..X.. ..X.. .XXX.",
+'m': "..... ..... XX.X. X.X.X X.X.X X...X X...X",
+'n': "..... ..... XXXX. X...X X...X X...X X...X",
+'o': "..... ..... .XXX. X...X X...X X...X .XXX.",
+'p': "..... XXXX. X...X X...X XXXX. X.... X....",
+'q': "..... .XXXX X...X X...X .XXXX ....X ....X",
+'r': "..... ..... X.XXX XX... X.... X.... X....",
+'s': "..... ..... .XXXX X.... .XXX. ....X XXXX.",
+'t': ".X... .X... XXXX. .X... .X... .X..X ..XX.",
+'u': "..... ..... X...X X...X X...X X...X .XXXX",
+'v': "..... ..... X...X X...X X...X .X.X. ..X..",
+'w': "..... ..... X...X X...X X.X.X X.X.X .X.X.",
+'x': "..... ..... X...X .X.X. ..X.. .X.X. X...X",
+'y': "..... X...X X...X X...X .XXXX ....X .XXX.",
+'z': "..... ..... XXXXX ...X. ..X.. .X... XXXXX",
+'{': "...XX ..X.. ..X.. .X... ..X.. ..X.. ...XX",
+'|': "..X.. ..X.. ..X.. ..X.. ..X.. ..X.. ..X..",
+'}': "XX... ..X.. ..X.. ...X. ..X.. ..X.. XX...",
+'~': "..... ..... .X..X X.XX. ..... ..... .....",
+}
+
+
+def rows(ch):
+    """Return the 7 glyph rows for a character, falling back to '?'."""
+    spec = G.get(ch) or G['?']
+    parts = spec.split()
+    assert len(parts) == GLYPH_H, f"glyph {ch!r} has {len(parts)} rows"
+    for p in parts:
+        assert len(p) == GLYPH_W, f"glyph {ch!r} row {p!r} wrong width"
+    return parts

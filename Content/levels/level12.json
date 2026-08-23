@@ -1,0 +1,56 @@
+{
+  "number": 12,
+  "name": "HUNTER PACK",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "seeker",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.58,
+      "healthMultiplier": 1.5,
+      "speedMultiplier": 1.18
+    },
+    {
+      "startTime": 9.4,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.66,
+      "healthMultiplier": 1.5,
+      "speedMultiplier": 1.18
+    },
+    {
+      "startTime": 17.3,
+      "enemy": "fighter",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.63,
+      "healthMultiplier": 1.5,
+      "speedMultiplier": 1.18
+    },
+    {
+      "startTime": 25.2,
+      "enemy": "fighter",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.45,
+      "healthMultiplier": 1.5,
+      "speedMultiplier": 1.18
+    },
+    {
+      "startTime": 33.1,
+      "enemy": "scout",
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.66,
+      "healthMultiplier": 1.5,
+      "speedMultiplier": 1.18
+    }
+  ]
+}

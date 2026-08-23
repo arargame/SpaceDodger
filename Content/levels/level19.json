@@ -1,0 +1,66 @@
+{
+  "number": 19,
+  "name": "SWARM PROTOCOL",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.5,
+      "healthMultiplier": 1.81,
+      "speedMultiplier": 1.29
+    },
+    {
+      "startTime": 9.1,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.53,
+      "healthMultiplier": 1.81,
+      "speedMultiplier": 1.29
+    },
+    {
+      "startTime": 16.6,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.65,
+      "healthMultiplier": 1.81,
+      "speedMultiplier": 1.29
+    },
+    {
+      "startTime": 24.2,
+      "enemy": "mine",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.65,
+      "healthMultiplier": 1.81,
+      "speedMultiplier": 1.29
+    },
+    {
+      "startTime": 31.7,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.47,
+      "healthMultiplier": 1.81,
+      "speedMultiplier": 1.29
+    },
+    {
+      "startTime": 39.2,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.63,
+      "healthMultiplier": 1.81,
+      "speedMultiplier": 1.29
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "number": 24,
+  "name": "BROKEN CHORUS",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.35,
+      "healthMultiplier": 2.04,
+      "speedMultiplier": 1.37
+    },
+    {
+      "startTime": 8.8,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.58,
+      "healthMultiplier": 2.04,
+      "speedMultiplier": 1.37
+    },
+    {
+      "startTime": 16.1,
+      "enemy": "raider",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.37,
+      "healthMultiplier": 2.04,
+      "speedMultiplier": 1.37
+    },
+    {
+      "startTime": 23.4,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 2,
+      "interval": 0.5,
+      "healthMultiplier": 2.04,
+      "speedMultiplier": 1.37
+    },
+    {
+      "startTime": 30.7,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.41,
+      "healthMultiplier": 2.04,
+      "speedMultiplier": 1.37
+    },
+    {
+      "startTime": 38.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 2,
+      "interval": 0.55,
+      "healthMultiplier": 2.04,
+      "speedMultiplier": 1.37
+    },
+    {
+      "startTime": 45.3,
+      "enemy": "raider",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.51,
+      "healthMultiplier": 2.04,
+      "speedMultiplier": 1.37
+    }
+  ]
+}

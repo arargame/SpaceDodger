@@ -1,0 +1,46 @@
+{
+  "number": 6,
+  "name": "DEBRIS RUN",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.52,
+      "healthMultiplier": 1.23,
+      "speedMultiplier": 1.08
+    },
+    {
+      "startTime": 9.7,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.53,
+      "healthMultiplier": 1.23,
+      "speedMultiplier": 1.08
+    },
+    {
+      "startTime": 17.9,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.36,
+      "healthMultiplier": 1.23,
+      "speedMultiplier": 1.08
+    },
+    {
+      "startTime": 26.1,
+      "enemy": "wasp",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.74,
+      "healthMultiplier": 1.23,
+      "speedMultiplier": 1.08
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
+using SpaceImpact.Graphics;
+
+namespace SpaceImpact.Input
+{
+    /// <summary>
+    /// Touch input for Android:
+    /// - Left ~55% of the screen is a floating virtual joystick (drag to move).
+    /// - A touch on the right side holds fire; moving also auto-fires so the
+    ///   game remains comfortable with one thumb.
+    /// - Quick touches produce Tap events for menus.
+    /// - The hardware back button maps to BackPressed/PausePressed.
+    /// </summary>
+    public sealed class TouchInputProvider : IInputProvider
+    {
+        private const float JoystickRadius = 22f;   // virtual px for full deflection
+        private const float TapMaxDuration = 0.25f; // seconds
+        private const float TapMaxDistance = 6f;    // virtual px
+
+        private readonly VirtualScreen _screen;
+
+        private int _joystickId = -1;
+        private Vector2 _joystickOrigin;
+
+        private int _tapCandidateId = -1;
+        private Vector2 _tapStart;
+        private float _tapTime;
+
+        private bool _backWasDown;
+
+        public InputState State { get; private set; }
+
+        public TouchInputProvider(VirtualScreen screen) => _screen = screen;
+
+        public void Update()
+        {
+            var touches = TouchPanel.GetState();
+            var state = new InputState();
+
+            bool joystickAlive = false;
+
+            foreach (var touch in touches)
+            {
+                var pos = _screen.ToVirtual(touch.Position);
+                bool leftSide = pos.X < _screen.Width * 0.55f;
+
+                if (touch.State == TouchLocationState.Pressed)
+                {
+                    if (leftSide && _joystickId == -1)
+                    {
+                        _joystickId = touch.Id;
+                        _joystickOrigin = pos;
+                    }
+                    _tapCandidateId = touch.Id;
+                    _tapStart = pos;
+                    _tapTime = 0f;
+                }
+
+                if (touch.Id == _joystickId &&
+                    (touch.State == TouchLocationState.Pressed || touch.State == TouchLocationState.Moved))
+                {
+                    joystickAlive = true;
+                    var delta = (pos - _joystickOrigin) / JoystickRadius;
+                    if (delta.LengthSquared() > 1f)
+                        delta.Normalize();
+                    state.Move = delta;
+                }
+
+                // Right-side touches (held) = fire.
+                if (!leftSide &&
+                    (touch.State == TouchLocationState.Pressed || touch.State == TouchLocationState.Moved))
+                {
+                    state.Fire = true;
+                }
+
+                if (touch.Id == _tapCandidateId)
+                {
+                    if (touch.State == TouchLocationState.Moved)
+                    {
+                        _tapTime += 1f / 60f;
+                        if (Vector2.Distance(pos, _tapStart) > TapMaxDistance || _tapTime > TapMaxDuration)
+                            _tapCandidateId = -1;
+                    }
+                    else if (touch.State == TouchLocationState.Released)
+                    {
+                        state.Tap = pos;
+                        state.ConfirmPressed = true;
+                        _tapCandidateId = -1;
+                    }
+                }
+            }
+
+            if (!joystickAlive)
+                _joystickId = -1;
+
+            // One-thumb play is essential on smaller phones.  A movement touch
+            // therefore fires continuously, while a second right-side touch is
+            // still available for players who prefer independent fire control.
+            state.Fire |= joystickAlive;
+
+            // Android hardware back button arrives via GamePad.
+            bool backDown = GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed;
+            if (backDown && !_backWasDown)
+            {
+                state.BackPressed = true;
+                state.PausePressed = true;
+            }
+            _backWasDown = backDown;
+
+            State = state;
+        }
+    }
+}

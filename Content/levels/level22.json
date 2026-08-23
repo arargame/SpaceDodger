@@ -1,0 +1,66 @@
+{
+  "number": 22,
+  "name": "SOLAR FLARE",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 2,
+      "interval": 0.62,
+      "healthMultiplier": 1.94,
+      "speedMultiplier": 1.34
+    },
+    {
+      "startTime": 8.9,
+      "enemy": "raider",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.62,
+      "healthMultiplier": 1.94,
+      "speedMultiplier": 1.34
+    },
+    {
+      "startTime": 16.3,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.62,
+      "healthMultiplier": 1.94,
+      "speedMultiplier": 1.34
+    },
+    {
+      "startTime": 23.7,
+      "enemy": "raider",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.46,
+      "healthMultiplier": 1.94,
+      "speedMultiplier": 1.34
+    },
+    {
+      "startTime": 31.1,
+      "enemy": "seeker",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.52,
+      "healthMultiplier": 1.94,
+      "speedMultiplier": 1.34
+    },
+    {
+      "startTime": 38.5,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.48,
+      "healthMultiplier": 1.94,
+      "speedMultiplier": 1.34
+    }
+  ]
+}

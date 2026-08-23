@@ -1,0 +1,46 @@
+{
+  "number": 8,
+  "name": "IRON RAIN",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "scout",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.52,
+      "healthMultiplier": 1.31,
+      "speedMultiplier": 1.11
+    },
+    {
+      "startTime": 9.6,
+      "enemy": "wasp",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.55,
+      "healthMultiplier": 1.31,
+      "speedMultiplier": 1.11
+    },
+    {
+      "startTime": 17.7,
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.4,
+      "healthMultiplier": 1.31,
+      "speedMultiplier": 1.11
+    },
+    {
+      "startTime": 25.8,
+      "enemy": "fighter",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.7,
+      "healthMultiplier": 1.31,
+      "speedMultiplier": 1.11
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "number": 47,
+  "name": "ZERO HOUR",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.22,
+      "healthMultiplier": 3.07,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 7.7,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 8,
+      "interval": 0.24,
+      "healthMultiplier": 3.07,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 13.8,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.23,
+      "healthMultiplier": 3.07,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 20.0,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 9,
+      "interval": 0.17,
+      "healthMultiplier": 3.07,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 26.1,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.29,
+      "healthMultiplier": 3.07,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 32.2,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.34,
+      "healthMultiplier": 3.07,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 38.4,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.27,
+      "healthMultiplier": 3.07,
+      "speedMultiplier": 1.74
+    }
+  ]
+}

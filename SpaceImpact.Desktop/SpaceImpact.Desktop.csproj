@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RollForward>Major</RollForward>
+    <RootNamespace>SpaceImpact.Desktop</RootNamespace>
+    <AssemblyName>SpaceImpact</AssemblyName>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.2.1105" />
+  </ItemGroup>
+
+  <Import Project="..\SpaceImpact.Shared\SpaceImpact.Shared.projitems" Label="Shared" />
+
+  <!-- Raw content (PNG sprites + JSON levels) copied next to the executable.
+       Loaded at runtime with TitleContainer, no MGCB pipeline needed. -->
+  <ItemGroup>
+    <Content Include="..\Content\**\*.*" Link="Content\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

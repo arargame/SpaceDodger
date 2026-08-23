@@ -1,0 +1,76 @@
+{
+  "number": 42,
+  "name": "STARFALL",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.45,
+      "healthMultiplier": 2.84,
+      "speedMultiplier": 1.66
+    },
+    {
+      "startTime": 7.9,
+      "enemy": "raider",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 8,
+      "interval": 0.25,
+      "healthMultiplier": 2.84,
+      "speedMultiplier": 1.66
+    },
+    {
+      "startTime": 14.3,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.46,
+      "healthMultiplier": 2.84,
+      "speedMultiplier": 1.66
+    },
+    {
+      "startTime": 20.7,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.24,
+      "healthMultiplier": 2.84,
+      "speedMultiplier": 1.66
+    },
+    {
+      "startTime": 27.1,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.38,
+      "healthMultiplier": 2.84,
+      "speedMultiplier": 1.66
+    },
+    {
+      "startTime": 33.5,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 11,
+      "interval": 0.24,
+      "healthMultiplier": 2.84,
+      "speedMultiplier": 1.66
+    },
+    {
+      "startTime": 39.9,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.44,
+      "healthMultiplier": 2.84,
+      "speedMultiplier": 1.66
+    }
+  ]
+}

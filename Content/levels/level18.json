@@ -1,0 +1,66 @@
+{
+  "number": 18,
+  "name": "THE NARROWS",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 9,
+      "interval": 0.66,
+      "healthMultiplier": 1.77,
+      "speedMultiplier": 1.27
+    },
+    {
+      "startTime": 9.1,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.41,
+      "healthMultiplier": 1.77,
+      "speedMultiplier": 1.27
+    },
+    {
+      "startTime": 16.7,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.38,
+      "healthMultiplier": 1.77,
+      "speedMultiplier": 1.27
+    },
+    {
+      "startTime": 24.3,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.51,
+      "healthMultiplier": 1.77,
+      "speedMultiplier": 1.27
+    },
+    {
+      "startTime": 31.9,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.35,
+      "healthMultiplier": 1.77,
+      "speedMultiplier": 1.27
+    },
+    {
+      "startTime": 39.5,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.67,
+      "healthMultiplier": 1.77,
+      "speedMultiplier": 1.27
+    }
+  ]
+}

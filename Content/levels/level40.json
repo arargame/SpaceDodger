@@ -1,0 +1,95 @@
+{
+  "number": 40,
+  "name": "CORE BREACH",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.23,
+      "healthMultiplier": 2.75,
+      "speedMultiplier": 1.62
+    },
+    {
+      "startTime": 8.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 6,
+      "interval": 0.27,
+      "healthMultiplier": 2.75,
+      "speedMultiplier": 1.62
+    },
+    {
+      "startTime": 14.5,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 11,
+      "interval": 0.22,
+      "healthMultiplier": 2.75,
+      "speedMultiplier": 1.62
+    },
+    {
+      "startTime": 21.0,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 1,
+      "interval": 0.2,
+      "healthMultiplier": 2.75,
+      "speedMultiplier": 1.62
+    },
+    {
+      "startTime": 27.5,
+      "enemy": "scout",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 11,
+      "interval": 0.3,
+      "healthMultiplier": 2.75,
+      "speedMultiplier": 1.62
+    },
+    {
+      "startTime": 34.0,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 7,
+      "interval": 0.43,
+      "healthMultiplier": 2.75,
+      "speedMultiplier": 1.62
+    },
+    {
+      "startTime": 40.5,
+      "enemy": "seeker",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.29,
+      "healthMultiplier": 2.75,
+      "speedMultiplier": 1.62
+    },
+    {
+      "startTime": 25.9,
+      "enemy": "boss_core",
+      "movement": "boss",
+      "formation": "Column",
+      "count": 1,
+      "interval": 1.0,
+      "healthMultiplier": 1.36
+    },
+    {
+      "startTime": 31.9,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 1.3,
+      "healthMultiplier": 2.75,
+      "speedMultiplier": 1.62
+    }
+  ]
+}

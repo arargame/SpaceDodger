@@ -1,0 +1,76 @@
+{
+  "number": 29,
+  "name": "LAST BEACON",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "seeker",
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.51,
+      "healthMultiplier": 2.26,
+      "speedMultiplier": 1.45
+    },
+    {
+      "startTime": 8.6,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.58,
+      "healthMultiplier": 2.26,
+      "speedMultiplier": 1.45
+    },
+    {
+      "startTime": 15.6,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.31,
+      "healthMultiplier": 2.26,
+      "speedMultiplier": 1.45
+    },
+    {
+      "startTime": 22.7,
+      "enemy": "seeker",
+      "movement": "zigzag",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.4,
+      "healthMultiplier": 2.26,
+      "speedMultiplier": 1.45
+    },
+    {
+      "startTime": 29.7,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.37,
+      "healthMultiplier": 2.26,
+      "speedMultiplier": 1.45
+    },
+    {
+      "startTime": 36.8,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.39,
+      "healthMultiplier": 2.26,
+      "speedMultiplier": 1.45
+    },
+    {
+      "startTime": 43.8,
+      "enemy": "raider",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.45,
+      "healthMultiplier": 2.26,
+      "speedMultiplier": 1.45
+    }
+  ]
+}

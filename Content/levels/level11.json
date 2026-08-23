@@ -1,0 +1,46 @@
+{
+  "number": 11,
+  "name": "DEEP SCAN",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "wasp",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.36,
+      "healthMultiplier": 1.45,
+      "speedMultiplier": 1.16
+    },
+    {
+      "startTime": 9.4,
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.66,
+      "healthMultiplier": 1.45,
+      "speedMultiplier": 1.16
+    },
+    {
+      "startTime": 17.4,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.64,
+      "healthMultiplier": 1.45,
+      "speedMultiplier": 1.16
+    },
+    {
+      "startTime": 25.3,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 9,
+      "interval": 0.47,
+      "healthMultiplier": 1.45,
+      "speedMultiplier": 1.16
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "number": 5,
+  "name": "SIGNAL LOST",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "fighter",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.35,
+      "healthMultiplier": 1.18,
+      "speedMultiplier": 1.06
+    },
+    {
+      "startTime": 9.8,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 10,
+      "interval": 0.69,
+      "healthMultiplier": 1.18,
+      "speedMultiplier": 1.06
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "scout",
+      "movement": "zigzag",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.53,
+      "healthMultiplier": 1.18,
+      "speedMultiplier": 1.06
+    }
+  ]
+}

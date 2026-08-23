@@ -1,0 +1,76 @@
+{
+  "number": 48,
+  "name": "FINAL APPROACH",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 9,
+      "interval": 0.4,
+      "healthMultiplier": 3.11,
+      "speedMultiplier": 1.75
+    },
+    {
+      "startTime": 7.6,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 1,
+      "interval": 0.18,
+      "healthMultiplier": 3.11,
+      "speedMultiplier": 1.75
+    },
+    {
+      "startTime": 13.7,
+      "enemy": "scout",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 15,
+      "interval": 0.31,
+      "healthMultiplier": 3.11,
+      "speedMultiplier": 1.75
+    },
+    {
+      "startTime": 19.8,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.17,
+      "healthMultiplier": 3.11,
+      "speedMultiplier": 1.75
+    },
+    {
+      "startTime": 25.9,
+      "enemy": "fighter",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 8,
+      "interval": 0.29,
+      "healthMultiplier": 3.11,
+      "speedMultiplier": 1.75
+    },
+    {
+      "startTime": 32.0,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.25,
+      "healthMultiplier": 3.11,
+      "speedMultiplier": 1.75
+    },
+    {
+      "startTime": 38.1,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.35,
+      "healthMultiplier": 3.11,
+      "speedMultiplier": 1.75
+    }
+  ]
+}

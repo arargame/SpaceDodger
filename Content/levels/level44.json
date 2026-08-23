@@ -1,0 +1,76 @@
+{
+  "number": 44,
+  "name": "IRON CROWN",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.33,
+      "healthMultiplier": 2.93,
+      "speedMultiplier": 1.69
+    },
+    {
+      "startTime": 7.8,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.4,
+      "healthMultiplier": 2.93,
+      "speedMultiplier": 1.69
+    },
+    {
+      "startTime": 14.1,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.39,
+      "healthMultiplier": 2.93,
+      "speedMultiplier": 1.69
+    },
+    {
+      "startTime": 20.4,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.25,
+      "healthMultiplier": 2.93,
+      "speedMultiplier": 1.69
+    },
+    {
+      "startTime": 26.7,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 9,
+      "interval": 0.22,
+      "healthMultiplier": 2.93,
+      "speedMultiplier": 1.69
+    },
+    {
+      "startTime": 33.0,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.36,
+      "healthMultiplier": 2.93,
+      "speedMultiplier": 1.69
+    },
+    {
+      "startTime": 39.3,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 1,
+      "interval": 0.32,
+      "healthMultiplier": 2.93,
+      "speedMultiplier": 1.69
+    }
+  ]
+}

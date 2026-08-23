@@ -1,0 +1,76 @@
+{
+  "number": 43,
+  "name": "THE LONG DARK",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.29,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.67
+    },
+    {
+      "startTime": 7.8,
+      "enemy": "scout",
+      "movement": "zigzag",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.22,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.67
+    },
+    {
+      "startTime": 14.2,
+      "enemy": "scout",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 13,
+      "interval": 0.43,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.67
+    },
+    {
+      "startTime": 20.5,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 1,
+      "interval": 0.3,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.67
+    },
+    {
+      "startTime": 26.9,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 11,
+      "interval": 0.33,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.67
+    },
+    {
+      "startTime": 33.2,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.25,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.67
+    },
+    {
+      "startTime": 39.6,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 3,
+      "interval": 0.23,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.67
+    }
+  ]
+}

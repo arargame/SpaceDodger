@@ -1,0 +1,56 @@
+{
+  "number": 15,
+  "name": "STATIC STORM",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 2,
+      "interval": 0.3,
+      "healthMultiplier": 1.63,
+      "speedMultiplier": 1.22
+    },
+    {
+      "startTime": 9.2,
+      "enemy": "scout",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 9,
+      "interval": 0.5,
+      "healthMultiplier": 1.63,
+      "speedMultiplier": 1.22
+    },
+    {
+      "startTime": 17.0,
+      "enemy": "mine",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.33,
+      "healthMultiplier": 1.63,
+      "speedMultiplier": 1.22
+    },
+    {
+      "startTime": 24.8,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.54,
+      "healthMultiplier": 1.63,
+      "speedMultiplier": 1.22
+    },
+    {
+      "startTime": 32.5,
+      "enemy": "seeker",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.32,
+      "healthMultiplier": 1.63,
+      "speedMultiplier": 1.22
+    }
+  ]
+}
