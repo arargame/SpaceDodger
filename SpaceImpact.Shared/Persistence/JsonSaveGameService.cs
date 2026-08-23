@@ -43,6 +43,11 @@ namespace SpaceImpact.Persistence
                     data.MusicEnabled = musicEnabled.GetBoolean();
                 if (root.TryGetProperty("soundEnabled", out var soundEnabled))
                     data.SoundEnabled = soundEnabled.GetBoolean();
+                if (root.TryGetProperty("resumeLevel", out var resumeLevel)) data.ResumeLevel = Math.Max(1, resumeLevel.GetInt32());
+                if (root.TryGetProperty("resumeLives", out var resumeLives)) data.ResumeLives = Math.Max(1, resumeLives.GetInt32());
+                if (root.TryGetProperty("resumeWeaponLevel", out var resumeWeapon)) data.ResumeWeaponLevel = Math.Max(1, resumeWeapon.GetInt32());
+                if (root.TryGetProperty("resumeShieldTime", out var resumeShield)) data.ResumeShieldTime = resumeShield.GetSingle();
+                if (root.TryGetProperty("resumeRapidTime", out var resumeRapid)) data.ResumeRapidTime = resumeRapid.GetSingle();
 
                 if (root.TryGetProperty("highScores", out var scores))
                 {
@@ -79,6 +84,11 @@ namespace SpaceImpact.Persistence
                 writer.WriteNumber("bestRunLevel", Data.BestRunLevel);
                 writer.WriteBoolean("musicEnabled", Data.MusicEnabled);
                 writer.WriteBoolean("soundEnabled", Data.SoundEnabled);
+                writer.WriteNumber("resumeLevel", Data.ResumeLevel);
+                writer.WriteNumber("resumeLives", Data.ResumeLives);
+                writer.WriteNumber("resumeWeaponLevel", Data.ResumeWeaponLevel);
+                writer.WriteNumber("resumeShieldTime", Data.ResumeShieldTime);
+                writer.WriteNumber("resumeRapidTime", Data.ResumeRapidTime);
                 writer.WriteStartArray("highScores");
                 foreach (var e in Data.HighScores)
                 {

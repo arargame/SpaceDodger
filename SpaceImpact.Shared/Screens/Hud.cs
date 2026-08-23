@@ -27,7 +27,7 @@ namespace SpaceImpact.Screens
 
         /// <summary>Large touch target for the visible pause glyph.</summary>
         public Rectangle PauseButtonBounds =>
-            new Rectangle(_bounds.Width - 72, 0, 22, 12);
+            new Rectangle(_bounds.Width - 84, 0, 38, 18);
 
         public bool IsPauseButton(Vector2 point) =>
             PauseButtonBounds.Contains((int)point.X, (int)point.Y);

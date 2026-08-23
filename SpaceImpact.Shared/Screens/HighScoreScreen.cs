@@ -11,20 +11,33 @@ namespace SpaceImpact.Screens
         private static readonly Color Header = new Color(255, 220, 60);
         private static readonly Color Row = new Color(150, 160, 190);
         private MenuList _menu;
+        private Rectangle _worldButton;
+        private Rectangle _backButton;
 
         public HighScoreScreen(GameContext context) : base(context) { }
 
         public override void Load()
         {
-            _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 142f)
-                .Add("VIEW WORLD RANKING", () => Context.Games.ShowLeaderboards())
-                .Add("BACK", () => Context.Screens.Pop());
+            if (Context.Platform.IsMobile)
+            {
+                _worldButton = new Rectangle(20, 142, 132, 20);
+                _backButton = new Rectangle(168, 142, 132, 20);
+            }
+            else
+                _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 142f)
+                    .Add("BACK", () => Context.Screens.Pop());
         }
 
         public override void Update(float dt, in InputState input)
         {
             if (input.BackPressed)
                 Context.Screens.Pop();
+            else if (Context.Platform.IsMobile && input.Tap.HasValue)
+            {
+                var tap = input.Tap.Value;
+                if (_worldButton.Contains((int)tap.X, (int)tap.Y)) Context.Games.ShowLeaderboards();
+                else if (_backButton.Contains((int)tap.X, (int)tap.Y)) Context.Screens.Pop();
+            }
             else
                 _menu.Update(input);
         }
@@ -63,7 +76,18 @@ namespace SpaceImpact.Screens
             Context.Font.DrawCentered(
                 spriteBatch, "SCORE + HIGHEST LEVEL", cx,
                 Context.Screen.Height - 35, new Color(90, 96, 116));
-            _menu.Draw(spriteBatch);
+            if (Context.Platform.IsMobile)
+            {
+                DrawButton(spriteBatch, _worldButton, "WORLD RANKING");
+                DrawButton(spriteBatch, _backButton, "BACK");
+            }
+            else _menu.Draw(spriteBatch);
+        }
+
+        private void DrawButton(SpriteBatch batch, Rectangle rect, string label)
+        {
+            batch.Draw(Context.Textures.Pixel, rect, new Color(42, 48, 68));
+            Context.Font.DrawCentered(batch, label, rect.Center.X, rect.Y + 6, Header);
         }
     }
 }

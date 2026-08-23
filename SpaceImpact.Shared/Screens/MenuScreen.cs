@@ -25,7 +25,7 @@ namespace SpaceImpact.Screens
 
             bool hasProgress = Context.Save.Data.MaxUnlockedLevel > 1;
 
-            _menu = new MenuList(Context.Font, bounds.Width / 2f, 88f)
+            _menu = new MenuList(Context.Font, bounds.Width / 2f, Context.Platform.IsMobile ? 74f : 88f)
                 .Add("NEW GAME", StartNewGame)
                 .Add("SELECT LEVEL", OpenLevelSelect, hasProgress)
                 .Add("HIGH SCORES", OpenHighScores)
@@ -34,8 +34,16 @@ namespace SpaceImpact.Screens
                 .Add("QUIT", Quit);
         }
 
-        private void StartNewGame() =>
+        private void StartNewGame()
+        {
+            Context.Save.Data.ResumeLevel = 1;
+            Context.Save.Data.ResumeLives = GameConfig.PlayerLives;
+            Context.Save.Data.ResumeWeaponLevel = 1;
+            Context.Save.Data.ResumeShieldTime = 0f;
+            Context.Save.Data.ResumeRapidTime = 0f;
+            Context.Save.Save();
             Context.Screens.Replace(new GameplayScreen(Context, _levels, 1));
+        }
 
         private void OpenLevelSelect() =>
             Context.Screens.Push(new LevelSelectScreen(Context, _levels));

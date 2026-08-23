@@ -80,6 +80,9 @@ namespace SpaceImpact.Screens
             _player.Reset(
                 new Vector2(playfield.Left + 40, playfield.Center.Y),
                 GameConfig.PlayerLives);
+            if (_startLevel == Context.Save.Data.ResumeLevel)
+                _player.RestoreProgress(Context.Save.Data.ResumeLives, Context.Save.Data.ResumeWeaponLevel,
+                    Context.Save.Data.ResumeShieldTime, Context.Save.Data.ResumeRapidTime);
 
             _score.Reset();
             StartLevel(_startLevel);
@@ -169,6 +172,7 @@ namespace SpaceImpact.Screens
             {
                 _phase = Phase.Cleared;
                 _phaseTimer = ClearedDuration;
+                SaveResumeState();
                 UnlockNextLevel();
             }
         }
@@ -273,6 +277,17 @@ namespace SpaceImpact.Screens
                 Context.Save.Data.MaxUnlockedLevel = next;
                 Context.Save.Save();
             }
+        }
+
+        private void SaveResumeState()
+        {
+            int next = Math.Min(_levelNumber + 1, _levels.Count);
+            Context.Save.Data.ResumeLevel = next;
+            Context.Save.Data.ResumeLives = _player.Lives;
+            Context.Save.Data.ResumeWeaponLevel = _player.WeaponLevel;
+            Context.Save.Data.ResumeShieldTime = _player.ShieldTimer;
+            Context.Save.Data.ResumeRapidTime = _player.RapidTimer;
+            Context.Save.Save();
         }
 
         private void ShowGameOver() =>

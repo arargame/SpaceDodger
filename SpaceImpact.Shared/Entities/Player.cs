@@ -75,6 +75,14 @@ namespace SpaceImpact.Entities
             _rapidTimer = 0f;
         }
 
+        public void RestoreProgress(int lives, int weaponLevel, float shieldTime, float rapidTime)
+        {
+            Lives = Math.Max(1, lives);
+            WeaponLevel = MathHelper.Clamp(weaponLevel, 1, GameConfig.MaxWeaponLevel);
+            _shieldTimer = Math.Max(0f, shieldTime);
+            _rapidTimer = Math.Max(0f, rapidTime);
+        }
+
         public void Update(float dt, in InputState input)
         {
             Age += dt;

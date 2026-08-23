@@ -21,6 +21,11 @@ namespace SpaceImpact.Persistence
         public int BestRunLevel = 1;
         public bool MusicEnabled = true;
         public bool SoundEnabled = true;
+        public int ResumeLevel = 1;
+        public int ResumeLives = 3;
+        public int ResumeWeaponLevel = 1;
+        public float ResumeShieldTime;
+        public float ResumeRapidTime;
 
         public bool RecordRun(int score, int level)
         {
