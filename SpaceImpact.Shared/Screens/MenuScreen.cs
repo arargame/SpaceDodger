@@ -79,8 +79,8 @@ namespace SpaceImpact.Screens
 
             // Title with a subtle bob.
             float bob = (float)System.Math.Sin(_time * 1.6f) * 2f;
-            Context.Font.DrawCentered(spriteBatch, "SPACE", cx, 28 + bob, new Color(255, 220, 60), 3f);
-            Context.Font.DrawCentered(spriteBatch, "IMPACT", cx, 52 + bob, Color.White, 3f);
+            Context.Font.DrawCentered(spriteBatch, "SPACE", cx, 20 + bob, new Color(255, 220, 60), 3f);
+            Context.Font.DrawCentered(spriteBatch, "IMPACT", cx, 44 + bob, Color.White, 3f);
 
             _menu.Draw(spriteBatch);
 
