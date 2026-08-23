@@ -31,6 +31,8 @@ namespace SpaceImpact.Screens
         private int _pageCount;
         private float _scrollCarry;
 
+        private Rectangle BackButton => new Rectangle(Context.Screen.Width - 62, 4, 56, 18);
+
         public LevelSelectScreen(GameContext context, ILevelRepository levels) : base(context)
         {
             _levels = levels;
@@ -54,6 +56,13 @@ namespace SpaceImpact.Screens
         public override void Update(float dt, in InputState input)
         {
             if (input.BackPressed)
+            {
+                Context.Screens.Pop();
+                return;
+            }
+
+            if (Context.Platform.IsMobile && input.Tap.HasValue &&
+                BackButton.Contains((int)input.Tap.Value.X, (int)input.Tap.Value.Y))
             {
                 Context.Screens.Pop();
                 return;
@@ -131,6 +140,12 @@ namespace SpaceImpact.Screens
         {
             float cx = Context.Screen.Width / 2f;
             Context.Font.DrawCentered(spriteBatch, "SELECT LEVEL", cx, 8, Color.White, 2f);
+
+            if (Context.Platform.IsMobile)
+            {
+                spriteBatch.Draw(Context.Textures.Pixel, BackButton, new Color(42, 48, 68));
+                Context.Font.DrawCentered(spriteBatch, "BACK", BackButton.Center.X, BackButton.Y + 6, Highlight);
+            }
 
             var pixel = Context.Textures.Pixel;
             int first = Page * PerPage;
