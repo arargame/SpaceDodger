@@ -71,7 +71,7 @@ namespace SpaceImpact.Screens
             Context.Events.Subscribe<ScoreChangedEvent>(OnScoreChanged);
             _spawner = new WaveSpawner(_factory, Context.Events, _world);
             _stars = new Starfield(Context.Textures.Pixel, bounds.Width, bounds.Height);
-            _hud = new Hud(Context.Font, Context.Textures.Pixel, bounds);
+            _hud = new Hud(Context.Font, Context.Textures.Pixel, bounds, Context.Platform.IsMobile);
 
             _player = new Player(_animations.Player, playfield);
             _player.Fired += OnPlayerFired;

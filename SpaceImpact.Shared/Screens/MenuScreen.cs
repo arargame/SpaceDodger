@@ -25,7 +25,7 @@ namespace SpaceImpact.Screens
 
             bool hasProgress = Context.Save.Data.MaxUnlockedLevel > 1;
 
-            _menu = new MenuList(Context.Font, bounds.Width / 2f, Context.Platform.IsMobile ? 74f : 88f)
+            _menu = new MenuList(Context.Font, bounds.Width / 2f, Context.Platform.IsMobile ? 70f : 68f)
                 .Add("NEW GAME", StartNewGame)
                 .Add("SELECT LEVEL", OpenLevelSelect, hasProgress)
                 .Add("HIGH SCORES", OpenHighScores)
@@ -79,8 +79,8 @@ namespace SpaceImpact.Screens
 
             // Title with a subtle bob.
             float bob = (float)System.Math.Sin(_time * 1.6f) * 2f;
-            Context.Font.DrawCentered(spriteBatch, "SPACE", cx, 20 + bob, new Color(255, 220, 60), 3f);
-            Context.Font.DrawCentered(spriteBatch, "IMPACT", cx, 44 + bob, Color.White, 3f);
+            Context.Font.DrawCentered(spriteBatch, "SPACE", cx, 14 + bob, new Color(255, 220, 60), 3f);
+            Context.Font.DrawCentered(spriteBatch, "IMPACT", cx, 38 + bob, Color.White, 3f);
 
             _menu.Draw(spriteBatch);
 
@@ -88,7 +88,7 @@ namespace SpaceImpact.Screens
                 ? "TAP TO SELECT"
                 : "ARROWS + ENTER";
             Context.Font.DrawCentered(
-                spriteBatch, hint, cx, Context.Screen.Height - 14, new Color(90, 96, 116));
+                spriteBatch, hint, cx, Context.Screen.Height - 22, new Color(90, 96, 116));
         }
     }
 }

@@ -17,12 +17,14 @@ namespace SpaceImpact.Screens
         private readonly PixelFont _font;
         private readonly Texture2D _pixel;
         private readonly Rectangle _bounds;
+        private readonly bool _showPauseButton;
 
-        public Hud(PixelFont font, Texture2D pixel, Rectangle bounds)
+        public Hud(PixelFont font, Texture2D pixel, Rectangle bounds, bool showPauseButton)
         {
             _font = font;
             _pixel = pixel;
             _bounds = bounds;
+            _showPauseButton = showPauseButton;
         }
 
         /// <summary>Large touch target for the visible pause glyph.</summary>
@@ -48,7 +50,8 @@ namespace SpaceImpact.Screens
 
             _font.Draw(spriteBatch, $"W{player.WeaponLevel}", new Vector2(_bounds.Width - 88, 1), Dim);
 
-            DrawPauseButton(spriteBatch);
+            if (_showPauseButton)
+                DrawPauseButton(spriteBatch);
 
             // Lives as small ship pips on the right.
             for (int i = 0; i < player.Lives && i < 7; i++)
