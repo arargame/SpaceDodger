@@ -10,13 +10,23 @@ namespace SpaceImpact.Screens
     {
         private static readonly Color Header = new Color(255, 220, 60);
         private static readonly Color Row = new Color(150, 160, 190);
+        private MenuList _menu;
 
         public HighScoreScreen(GameContext context) : base(context) { }
 
+        public override void Load()
+        {
+            _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 142f)
+                .Add("VIEW WORLD RANKING", () => Context.Games.ShowLeaderboards())
+                .Add("BACK", () => Context.Screens.Pop());
+        }
+
         public override void Update(float dt, in InputState input)
         {
-            if (input.BackPressed || input.ConfirmPressed || input.Tap.HasValue)
+            if (input.BackPressed)
                 Context.Screens.Pop();
+            else
+                _menu.Update(input);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -51,8 +61,9 @@ namespace SpaceImpact.Screens
             }
 
             Context.Font.DrawCentered(
-                spriteBatch, "PRESS ANY KEY", cx,
-                Context.Screen.Height - 14, new Color(90, 96, 116));
+                spriteBatch, "SCORE + HIGHEST LEVEL", cx,
+                Context.Screen.Height - 35, new Color(90, 96, 116));
+            _menu.Draw(spriteBatch);
         }
     }
 }

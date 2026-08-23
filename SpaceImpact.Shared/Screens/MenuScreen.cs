@@ -29,7 +29,6 @@ namespace SpaceImpact.Screens
                 .Add("NEW GAME", StartNewGame)
                 .Add("SELECT LEVEL", OpenLevelSelect, hasProgress)
                 .Add("HIGH SCORES", OpenHighScores)
-                .Add("LEADERBOARDS", OpenLeaderboards)
                 .Add("OPTIONS", OpenOptions)
                 .Add("SUPPORT & CREDITS", OpenSupport)
                 .Add("QUIT", Quit);
@@ -43,8 +42,6 @@ namespace SpaceImpact.Screens
 
         private void OpenHighScores() =>
             Context.Screens.Push(new HighScoreScreen(Context));
-
-        private void OpenLeaderboards() => Context.Games.ShowLeaderboards();
 
         private void OpenOptions() =>
             Context.Screens.Push(new OptionsScreen(Context));
