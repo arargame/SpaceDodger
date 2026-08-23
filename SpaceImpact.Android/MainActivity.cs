@@ -20,6 +20,7 @@ namespace SpaceImpact.Droid
     public class MainActivity : AndroidGameActivity
     {
         private SpaceImpactGame _game;
+        private AndroidPlatform _platform;
         private View _view;
 
         protected override void OnCreate(Bundle bundle)
@@ -28,7 +29,8 @@ namespace SpaceImpact.Droid
 
             HideSystemUi();
 
-            _game = new SpaceImpactGame(new AndroidPlatform(this));
+            _platform = new AndroidPlatform(this);
+            _game = new SpaceImpactGame(_platform);
             _view = _game.Services.GetService(typeof(View)) as View;
 
             SetContentView(_view);
@@ -40,6 +42,13 @@ namespace SpaceImpact.Droid
             base.OnWindowFocusChanged(hasFocus);
             if (hasFocus)
                 HideSystemUi();
+        }
+
+        public override void OnBackPressed()
+        {
+            // Do not let Android close the activity before the game receives
+            // its universal menu-back input.
+            _platform?.RequestBack();
         }
 
         private void HideSystemUi()

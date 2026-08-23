@@ -16,6 +16,20 @@ namespace SpaceImpact.Persistence
     {
         public List<ScoreEntry> HighScores = new List<ScoreEntry>();
         public int MaxUnlockedLevel = 1; // 1-based; level 1 always available
+        public int BestRunScore;
+        public int BestRunLevel = 1;
+        public bool MusicEnabled = true;
+        public bool SoundEnabled = true;
+
+        public bool RecordRun(int score, int level)
+        {
+            if (score <= BestRunScore)
+                return false;
+
+            BestRunScore = score;
+            BestRunLevel = Math.Max(1, level);
+            return true;
+        }
 
         /// <summary>Insert a score keeping the list sorted/trimmed. Returns rank (0-based) or -1.</summary>
         public int AddScore(string name, int score, int level, int capacity)

@@ -39,6 +39,17 @@ namespace SpaceImpact.Screens
         private int _levelNumber;
         private float _elapsed;
         private float _bombFlash;
+        private string _pickupMessage;
+        private float _pickupMessageTimer;
+
+        private static readonly Color[] BackgroundPalette =
+        {
+            new Color(10, 12, 24),   // deep space
+            new Color(24, 9, 26),    // burgundy nebula
+            new Color(8, 22, 38),    // blue galaxy
+            new Color(20, 28, 20),   // green aurora
+            new Color(30, 17, 8),    // amber dust
+        };
 
         public GameplayScreen(GameContext context, ILevelRepository levels, int startLevel)
             : base(context)
@@ -57,6 +68,7 @@ namespace SpaceImpact.Screens
             _world = new EnemyWorld { Bounds = playfield };
             _factory = new EntityFactory(_animations, Context.Textures, playfield);
             _score = new ScoreTracker(Context.Events);
+            Context.Events.Subscribe<ScoreChangedEvent>(OnScoreChanged);
             _spawner = new WaveSpawner(_factory, Context.Events, _world);
             _stars = new Starfield(Context.Textures.Pixel, bounds.Width, bounds.Height);
             _hud = new Hud(Context.Font, Context.Textures.Pixel, bounds);
@@ -76,6 +88,7 @@ namespace SpaceImpact.Screens
         public override void Unload()
         {
             _score.Detach();
+            Context.Events.Unsubscribe<ScoreChangedEvent>(OnScoreChanged);
             _player.Fired -= OnPlayerFired;
             _player.Damaged -= OnPlayerDamaged;
             _player.Died -= OnPlayerDied;
@@ -103,6 +116,8 @@ namespace SpaceImpact.Screens
 
             if (_bombFlash > 0f)
                 _bombFlash -= dt;
+            if (_pickupMessageTimer > 0f)
+                _pickupMessageTimer -= dt;
 
             bool pauseTapped = input.Tap.HasValue && _hud.IsPauseButton(input.Tap.Value);
             if ((input.PausePressed || pauseTapped) && _phase == Phase.Playing)
@@ -148,7 +163,9 @@ namespace SpaceImpact.Screens
 
             ResolveCollisions();
 
-            if (_spawner.IsCleared)
+            // Any supplies left from the last wave remain collectible.  The
+            // next level waits until the player takes them or they drift away.
+            if (_spawner.IsCleared && _factory.PowerUps.CountActive == 0)
             {
                 _phase = Phase.Cleared;
                 _phaseTimer = ClearedDuration;
@@ -197,22 +214,27 @@ namespace SpaceImpact.Screens
             {
                 case PowerUpType.Health:
                     _player.AddLife();
+                    ShowPickup("EXTRA LIFE +1");
                     break;
 
                 case PowerUpType.Weapon:
                     _player.UpgradeWeapon();
+                    ShowPickup("WEAPON POWER UP");
                     break;
 
                 case PowerUpType.Shield:
                     _player.GrantShield();
+                    ShowPickup("SHIELD: BLOCKS ONE HIT");
                     break;
 
                 case PowerUpType.Rapid:
                     _player.GrantRapidFire();
+                    ShowPickup("RAPID FIRE");
                     break;
 
                 case PowerUpType.Score:
                     _score.AddBonus(GameConfig.ScorePickupValue);
+                    ShowPickup($"BONUS +{GameConfig.ScorePickupValue}");
                     break;
 
                 case PowerUpType.Bomb:
@@ -220,8 +242,15 @@ namespace SpaceImpact.Screens
                     _factory.DetonateBomb(enemy =>
                         _factory.SpawnExplosion(enemy.Position));
                     _bombFlash = 0.35f;
+                    ShowPickup("SMART BOMB: SCREEN CLEAR");
                     break;
             }
+        }
+
+        private void ShowPickup(string message)
+        {
+            _pickupMessage = message;
+            _pickupMessageTimer = 2.2f;
         }
 
         private void AdvanceLevel()
@@ -258,6 +287,14 @@ namespace SpaceImpact.Screens
         private void OnPlayerFired(Player player) =>
             _factory.SpawnPlayerShot(player.MuzzlePosition, player.WeaponLevel);
 
+        private void OnScoreChanged(ScoreChangedEvent score)
+        {
+            // Keep a recoverable personal best while the run is still active.
+            // This prevents Android task/app interruptions from losing progress.
+            if (Context.Save.Data.RecordRun(score.NewScore, _levelNumber))
+                Context.Save.Save();
+        }
+
         private void OnPlayerDamaged(Player player)
         {
             _factory.SpawnExplosion(player.Position);
@@ -276,6 +313,7 @@ namespace SpaceImpact.Screens
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            DrawBackground(spriteBatch);
             _stars.Draw(spriteBatch);
             _factory.DrawAll(spriteBatch);
 
@@ -308,6 +346,23 @@ namespace SpaceImpact.Screens
 
             if (Context.Platform.IsMobile && _elapsed < 4f && _phase != Phase.GameOver)
                 _hud.DrawTouchHint(spriteBatch, MathHelper.Clamp(4f - _elapsed, 0f, 1f));
+
+            if (_pickupMessageTimer > 0f)
+            {
+                float alpha = MathHelper.Clamp(_pickupMessageTimer / 0.35f, 0f, 1f);
+                Context.Font.DrawCentered(
+                    spriteBatch, _pickupMessage, Context.Screen.Width / 2f,
+                    Context.Screen.Height - 20, new Color(255, 220, 60) * alpha);
+            }
+        }
+
+        private void DrawBackground(SpriteBatch spriteBatch)
+        {
+            int index = (_levelNumber - 1) % BackgroundPalette.Length;
+            var from = BackgroundPalette[index];
+            var to = BackgroundPalette[(index + 1) % BackgroundPalette.Length];
+            float blend = (float)(System.Math.Sin(_elapsed * 0.08f) * 0.5 + 0.5);
+            spriteBatch.Draw(Context.Textures.Pixel, Context.Screen.Bounds, Color.Lerp(from, to, blend));
         }
 
         private void DrawShield(SpriteBatch spriteBatch)

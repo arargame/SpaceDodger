@@ -28,10 +28,16 @@ namespace SpaceImpact.Input
         private float _tapTime;
 
         private bool _backWasDown;
+        private bool _backRequested;
+        private int _scrollId = -1;
+        private Vector2 _scrollLast;
 
         public InputState State { get; private set; }
 
         public TouchInputProvider(VirtualScreen screen) => _screen = screen;
+
+        /// <summary>Called by the Android activity for the system back gesture.</summary>
+        public void RequestBack() => _backRequested = true;
 
         public void Update()
         {
@@ -47,6 +53,11 @@ namespace SpaceImpact.Input
 
                 if (touch.State == TouchLocationState.Pressed)
                 {
+                    if (_scrollId == -1)
+                    {
+                        _scrollId = touch.Id;
+                        _scrollLast = pos;
+                    }
                     if (leftSide && _joystickId == -1)
                     {
                         _joystickId = touch.Id;
@@ -55,6 +66,16 @@ namespace SpaceImpact.Input
                     _tapCandidateId = touch.Id;
                     _tapStart = pos;
                     _tapTime = 0f;
+                }
+
+                if (touch.Id == _scrollId && touch.State == TouchLocationState.Moved)
+                {
+                    state.ScrollY += pos.Y - _scrollLast.Y;
+                    _scrollLast = pos;
+                }
+                else if (touch.Id == _scrollId && touch.State == TouchLocationState.Released)
+                {
+                    _scrollId = -1;
                 }
 
                 if (touch.Id == _joystickId &&
@@ -89,10 +110,11 @@ namespace SpaceImpact.Input
 
             // Android hardware back button arrives via GamePad.
             bool backDown = GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed;
-            if (backDown && !_backWasDown)
+            if (_backRequested || (backDown && !_backWasDown))
             {
                 state.BackPressed = true;
                 state.PausePressed = true;
+                _backRequested = false;
             }
             _backWasDown = backDown;
 

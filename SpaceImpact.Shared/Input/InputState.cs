@@ -24,6 +24,9 @@ namespace SpaceImpact.Input
         public bool LeftPressed;
         public bool RightPressed;
 
+        /// <summary>Vertical touch drag or mouse-wheel distance for scrollable screens.</summary>
+        public float ScrollY;
+
         /// <summary>Tap/click position in virtual coordinates, if any this frame.</summary>
         public Vector2? Tap;
     }

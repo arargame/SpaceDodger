@@ -35,6 +35,14 @@ namespace SpaceImpact.Persistence
 
                 if (root.TryGetProperty("maxUnlockedLevel", out var mul))
                     data.MaxUnlockedLevel = Math.Max(1, mul.GetInt32());
+                if (root.TryGetProperty("bestRunScore", out var bestScore))
+                    data.BestRunScore = Math.Max(0, bestScore.GetInt32());
+                if (root.TryGetProperty("bestRunLevel", out var bestLevel))
+                    data.BestRunLevel = Math.Max(1, bestLevel.GetInt32());
+                if (root.TryGetProperty("musicEnabled", out var musicEnabled))
+                    data.MusicEnabled = musicEnabled.GetBoolean();
+                if (root.TryGetProperty("soundEnabled", out var soundEnabled))
+                    data.SoundEnabled = soundEnabled.GetBoolean();
 
                 if (root.TryGetProperty("highScores", out var scores))
                 {
@@ -67,6 +75,10 @@ namespace SpaceImpact.Persistence
 
                 writer.WriteStartObject();
                 writer.WriteNumber("maxUnlockedLevel", Data.MaxUnlockedLevel);
+                writer.WriteNumber("bestRunScore", Data.BestRunScore);
+                writer.WriteNumber("bestRunLevel", Data.BestRunLevel);
+                writer.WriteBoolean("musicEnabled", Data.MusicEnabled);
+                writer.WriteBoolean("soundEnabled", Data.SoundEnabled);
                 writer.WriteStartArray("highScores");
                 foreach (var e in Data.HighScores)
                 {

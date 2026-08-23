@@ -29,6 +29,7 @@ namespace SpaceImpact.Screens
         private int _maxUnlocked;
         private Point _origin;
         private int _pageCount;
+        private float _scrollCarry;
 
         public LevelSelectScreen(GameContext context, ILevelRepository levels) : base(context)
         {
@@ -62,6 +63,18 @@ namespace SpaceImpact.Screens
             if (input.RightPressed) Move(1);
             if (input.UpPressed) Move(-Columns);
             if (input.DownPressed) Move(Columns);
+
+            _scrollCarry += input.ScrollY;
+            while (_scrollCarry >= 18f)
+            {
+                Move(-Columns);
+                _scrollCarry -= 18f;
+            }
+            while (_scrollCarry <= -18f)
+            {
+                Move(Columns);
+                _scrollCarry += 18f;
+            }
 
             if (input.Tap.HasValue)
             {
@@ -160,7 +173,7 @@ namespace SpaceImpact.Screens
 
             Context.Font.DrawCentered(
                 spriteBatch,
-                Context.Platform.IsMobile ? "TAP A LEVEL" : "ARROWS + ENTER, ESC TO GO BACK",
+                Context.Platform.IsMobile ? "SWIPE OR TAP A LEVEL" : "ARROWS / WHEEL, ESC TO GO BACK",
                 cx, Context.Screen.Height - 14, new Color(90, 96, 116));
         }
     }

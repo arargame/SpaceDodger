@@ -29,7 +29,8 @@ namespace SpaceImpact.Screens
                 .Add("NEW GAME", StartNewGame)
                 .Add("SELECT LEVEL", OpenLevelSelect, hasProgress)
                 .Add("HIGH SCORES", OpenHighScores)
-                .Add("QUIT", Quit, !Context.Platform.IsMobile);
+                .Add("OPTIONS", OpenOptions)
+                .Add("QUIT", Quit);
         }
 
         private void StartNewGame() =>
@@ -41,12 +42,20 @@ namespace SpaceImpact.Screens
         private void OpenHighScores() =>
             Context.Screens.Push(new HighScoreScreen(Context));
 
-        private void Quit() => Context.Screens.Pop();
+        private void OpenOptions() =>
+            Context.Screens.Push(new OptionsScreen(Context));
+
+        private void Quit() => Context.Game.Exit();
 
         public override void Update(float dt, in InputState input)
         {
             _time += dt;
             _stars.Update(dt);
+            if (input.BackPressed)
+            {
+                Quit();
+                return;
+            }
             _menu.Update(input);
         }
 

@@ -49,6 +49,7 @@ namespace SpaceImpact.Input
                 DownPressed = Pressed(Keys.Down) || Pressed(Keys.S),
                 LeftPressed = Pressed(Keys.Left) || Pressed(Keys.A),
                 RightPressed = Pressed(Keys.Right) || Pressed(Keys.D),
+                ScrollY = _mouse.ScrollWheelValue - _previousMouse.ScrollWheelValue,
                 Tap = tap,
             };
         }

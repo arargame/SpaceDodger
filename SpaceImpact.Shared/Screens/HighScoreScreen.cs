@@ -26,13 +26,18 @@ namespace SpaceImpact.Screens
 
             var scores = Context.Save.Data.HighScores;
 
+            Context.Font.DrawCentered(
+                spriteBatch,
+                $"BEST RUN {Context.Save.Data.BestRunScore}  LV {Context.Save.Data.BestRunLevel}",
+                cx, 34, Header);
+
             if (scores.Count == 0)
             {
-                Context.Font.DrawCentered(spriteBatch, "NO SCORES YET", cx, 80, Row);
+                Context.Font.DrawCentered(spriteBatch, "FINISH A RUN TO ENTER THE TABLE", cx, 80, Row);
             }
             else
             {
-                float y = 44f;
+                float y = 48f;
                 Context.Font.Draw(spriteBatch, "#  NAME   SCORE   LV", new Vector2(70, y), Header);
                 y += 12f;
 

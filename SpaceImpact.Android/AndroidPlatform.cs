@@ -12,6 +12,7 @@ namespace SpaceImpact.Droid
     public sealed class AndroidPlatform : IPlatformServices
     {
         private readonly Context _context;
+        private TouchInputProvider _input;
 
         public AndroidPlatform(Context context) => _context = context;
 
@@ -20,6 +21,8 @@ namespace SpaceImpact.Droid
         public string SaveDirectory => _context.FilesDir.AbsolutePath;
 
         public IInputProvider CreateInputProvider(VirtualScreen screen) =>
-            new TouchInputProvider(screen);
+            _input = new TouchInputProvider(screen);
+
+        public void RequestBack() => _input?.RequestBack();
     }
 }
