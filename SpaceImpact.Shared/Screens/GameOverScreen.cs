@@ -39,6 +39,7 @@ namespace SpaceImpact.Screens
 
         public override void Load()
         {
+            Context.Save.Data.RemoveLiveScore();
             // Does this run make the table? Insert a placeholder, then let the
             // player edit the initials in place.
             _rank = Context.Save.Data.AddScore(

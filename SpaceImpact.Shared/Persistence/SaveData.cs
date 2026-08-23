@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SpaceImpact.Core;
 
 namespace SpaceImpact.Persistence
 {
@@ -28,8 +29,19 @@ namespace SpaceImpact.Persistence
 
             BestRunScore = score;
             BestRunLevel = Math.Max(1, level);
+            UpdateLiveScore(score, level, GameConfig.HighScoreCapacity);
             return true;
         }
+
+        /// <summary>Keeps the current run visible in the high-score table even
+        /// if Android interrupts the app before the game-over screen appears.</summary>
+        private void UpdateLiveScore(int score, int level, int capacity)
+        {
+            HighScores.RemoveAll(e => e.Name == "RUN");
+            AddScore("RUN", score, level, capacity);
+        }
+
+        public void RemoveLiveScore() => HighScores.RemoveAll(e => e.Name == "RUN");
 
         /// <summary>Insert a score keeping the list sorted/trimmed. Returns rank (0-based) or -1.</summary>
         public int AddScore(string name, int score, int level, int capacity)
