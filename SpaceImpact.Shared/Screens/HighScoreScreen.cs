@@ -14,6 +14,7 @@ namespace SpaceImpact.Screens
         private Rectangle _worldButton;
         private Rectangle _backButton;
         private Rectangle TopBackButton => new Rectangle(Context.Screen.Width - 62, 4, 56, 18);
+        private float _scrollOffset;
 
         public HighScoreScreen(GameContext context) : base(context) { }
 
@@ -31,6 +32,11 @@ namespace SpaceImpact.Screens
 
         public override void Update(float dt, in InputState input)
         {
+            var scores = Context.Save.Data.HighScores;
+            _scrollOffset += input.ScrollY * (Context.Platform.IsMobile ? 1f : 0.12f);
+            float minimum = System.Math.Min(0f, 128f - (60f + System.Math.Max(0, scores.Count - 1) * 11f));
+            _scrollOffset = MathHelper.Clamp(_scrollOffset, minimum, 0f);
+
             if (input.BackPressed)
                 Context.Screens.Pop();
             else if (Context.Platform.IsMobile && input.Tap.HasValue)
@@ -67,7 +73,7 @@ namespace SpaceImpact.Screens
             }
             else
             {
-                float y = 48f;
+                float y = 48f + _scrollOffset;
                 Context.Font.Draw(spriteBatch, "#  NAME   SCORE   LV", new Vector2(70, y), Header);
                 y += 12f;
 
@@ -75,20 +81,23 @@ namespace SpaceImpact.Screens
                 {
                     var e = scores[i];
                     string line = $"{i + 1}  {e.Name,-5}  {e.Score,6}  {e.Level,2}";
-                    Context.Font.Draw(spriteBatch, line, new Vector2(70, y), Row);
+                    if (y >= 46f && y <= 130f)
+                        Context.Font.Draw(spriteBatch, line, new Vector2(70, y), Row);
                     y += 11f;
                 }
             }
 
-            Context.Font.DrawCentered(
-                spriteBatch, "SCORE + HIGHEST LEVEL", cx,
-                Context.Screen.Height - 35, new Color(90, 96, 116));
             if (Context.Platform.IsMobile)
             {
                 DrawButton(spriteBatch, _worldButton, "WORLD RANKING");
                 DrawButton(spriteBatch, _backButton, "BACK");
             }
-            else _menu.Draw(spriteBatch);
+            else
+            {
+                Context.Font.DrawCentered(spriteBatch, "SCROLL TO VIEW SCORES", cx,
+                    Context.Screen.Height - 35, new Color(90, 96, 116));
+                _menu.Draw(spriteBatch);
+            }
         }
 
         private void DrawButton(SpriteBatch batch, Rectangle rect, string label)

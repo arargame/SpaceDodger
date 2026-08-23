@@ -45,12 +45,14 @@ namespace SpaceImpact.Screens
             _rank = Context.Save.Data.AddScore(
                 "AAA", _score, _level, GameConfig.HighScoreCapacity);
 
-            if (_rank >= 0)
+            if (_rank >= 0 && !Context.Platform.IsMobile)
             {
                 _enteringName = true;
             }
             else
             {
+                if (_rank >= 0)
+                    Context.Save.Data.HighScores[_rank].Name = "ACE";
                 Context.Save.Save();
                 BuildMenu();
             }
