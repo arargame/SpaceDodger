@@ -24,6 +24,7 @@ namespace SpaceImpact.Core
         public ISaveGameService Save { get; }
         public EventBus Events { get; }
         public ScreenManager Screens { get; }
+        public IGameServices Games { get; }
 
         public GameContext(
             Game game,
@@ -35,7 +36,8 @@ namespace SpaceImpact.Core
             IInputProvider input,
             ISaveGameService save,
             EventBus events,
-            ScreenManager screens)
+            ScreenManager screens,
+            IGameServices games)
         {
             Game = game;
             GraphicsDevice = graphicsDevice;
@@ -47,6 +49,7 @@ namespace SpaceImpact.Core
             Save = save;
             Events = events;
             Screens = screens;
+            Games = games;
         }
     }
 }

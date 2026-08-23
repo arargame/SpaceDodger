@@ -292,7 +292,11 @@ namespace SpaceImpact.Screens
             // Keep a recoverable personal best while the run is still active.
             // This prevents Android task/app interruptions from losing progress.
             if (Context.Save.Data.RecordRun(score.NewScore, _levelNumber))
+            {
                 Context.Save.Save();
+                Context.Games.SubmitHighScore(score.NewScore);
+                Context.Games.SubmitHighestLevel(_levelNumber);
+            }
         }
 
         private void OnPlayerDamaged(Player player)

@@ -63,7 +63,7 @@ namespace SpaceImpact.Core
 
             _context = new GameContext(
                 this, GraphicsDevice, _platform, _screen, textures, font,
-                _input, save, events, _screens);
+                _input, save, events, _screens, _platform.CreateGameServices());
 
             _screens.Push(new MenuScreen(_context));
         }

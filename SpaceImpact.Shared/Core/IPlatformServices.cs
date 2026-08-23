@@ -16,5 +16,7 @@ namespace SpaceImpact.Core
         string SaveDirectory { get; }
 
         IInputProvider CreateInputProvider(VirtualScreen screen);
+
+        IGameServices CreateGameServices() => NullGameServices.Instance;
     }
 }
