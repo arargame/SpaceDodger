@@ -1,7 +1,32 @@
 # Space Impact
 
-A pixel-art horizontal space shooter in the spirit of the Nokia classic, built with
-MonoGame. One shared codebase, two heads: **Desktop (DesktopGL)** and **Android**.
+**Space Impact** is a fast, mobile-friendly pixel-art shoot-'em-up inspired by
+the classic side-scrolling space shooters. Pilot a lone interceptor through 50
+enemy-filled missions, build your weapon power, collect life-saving supplies,
+and defeat NEMESIS to save the galaxy.
+
+Built with MonoGame, the project shares one gameplay codebase between
+**Desktop (DesktopGL)** and **Android**.
+
+## Highlights
+
+- **50 handcrafted, data-driven levels** with five boss encounters.
+- **13 enemy types** with distinct movement and firing behaviours.
+- **Five weapon tiers** ranging from a single blaster to a plasma storm.
+- **Six pickups:** weapon upgrades, extra lives, shields, smart bombs, rapid
+  fire, and score bonuses.
+- **Mobile-first controls:** drag to move and auto-fire with one thumb, or use
+  a second touch on the right side for independent firing.
+- **Accessible campaign balance:** generous supplies, forgiving hit windows,
+  and a clear end-game sequence after defeating NEMESIS.
+- **Persistent progress and high scores** stored locally on both platforms.
+
+## The Mission
+
+Survive escalating enemy waves and boss battles from Level 1 to Level 50. Each
+mission unlocks the next one, so progress is never lost. Destroying NEMESIS in
+the final mission displays the **GALAXY SAVED** finale, records the score, and
+lets the player begin a fresh run.
 
 ```
 SpaceImpact/
@@ -27,12 +52,18 @@ dotnet build SpaceImpact.Android -t:Run
 Requires the .NET 8 SDK. The Android head additionally needs the
 `android` workload: `dotnet workload install android`.
 
+To create a release Android package:
+
+```bash
+dotnet publish SpaceImpact.Android -c Release
+```
+
 ## Controls
 
 | Action | Desktop | Android |
 |---|---|---|
 | Move | Arrows / WASD | Drag on the left half |
-| Fire | Space / J | Hold on the right half |
+| Fire | Space / J | Drag to auto-fire, or hold on the right half |
 | Confirm | Enter / Space | Tap |
 | Pause / Back | Esc / P | Hardware back button |
 
