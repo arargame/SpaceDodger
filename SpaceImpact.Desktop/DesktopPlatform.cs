@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Diagnostics;
 using SpaceImpact.Core;
 using SpaceImpact.Graphics;
 using SpaceImpact.Input;
@@ -21,5 +22,8 @@ namespace SpaceImpact.Desktop
 
         public IInputProvider CreateInputProvider(VirtualScreen screen) =>
             new KeyboardInputProvider(screen);
+
+        public void OpenUrl(string url) =>
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
     }
 }

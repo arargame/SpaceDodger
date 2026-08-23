@@ -31,6 +31,7 @@ namespace SpaceImpact.Screens
                 .Add("HIGH SCORES", OpenHighScores)
                 .Add("LEADERBOARDS", OpenLeaderboards)
                 .Add("OPTIONS", OpenOptions)
+                .Add("SUPPORT & CREDITS", OpenSupport)
                 .Add("QUIT", Quit);
         }
 
@@ -47,6 +48,9 @@ namespace SpaceImpact.Screens
 
         private void OpenOptions() =>
             Context.Screens.Push(new OptionsScreen(Context));
+
+        private void OpenSupport() =>
+            Context.Screens.Push(new SupportCreditsScreen(Context));
 
         private void Quit() => Context.Game.Exit();
 

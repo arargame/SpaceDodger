@@ -1,4 +1,5 @@
 using Android.Content;
+using Android.Net;
 using SpaceImpact.Core;
 using SpaceImpact.Graphics;
 using SpaceImpact.Input;
@@ -24,5 +25,12 @@ namespace SpaceImpact.Droid
             _input = new TouchInputProvider(screen);
 
         public void RequestBack() => _input?.RequestBack();
+
+        public void OpenUrl(string url)
+        {
+            var intent = new Intent(Intent.ActionView, Uri.Parse(url));
+            intent.AddFlags(ActivityFlags.NewTask);
+            _context.StartActivity(intent);
+        }
     }
 }

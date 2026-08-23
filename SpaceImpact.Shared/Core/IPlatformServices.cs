@@ -18,5 +18,8 @@ namespace SpaceImpact.Core
         IInputProvider CreateInputProvider(VirtualScreen screen);
 
         IGameServices CreateGameServices() => NullGameServices.Instance;
+
+        void OpenUrl(string url) { }
+        void PurchaseConsumable(string productId) { }
     }
 }
