@@ -4,6 +4,7 @@ using SpaceImpact.Graphics;
 using SpaceImpact.Input;
 using SpaceImpact.Persistence;
 using SpaceImpact.Screens;
+using SpaceImpact.Audio;
 
 namespace SpaceImpact.Core
 {
@@ -63,7 +64,7 @@ namespace SpaceImpact.Core
 
             _context = new GameContext(
                 this, GraphicsDevice, _platform, _screen, textures, font,
-                _input, save, events, _screens, _platform.CreateGameServices());
+                _input, save, events, _screens, _platform.CreateGameServices(), new AudioService(save.Data));
 
             _screens.Push(new MenuScreen(_context));
         }
@@ -100,6 +101,7 @@ namespace SpaceImpact.Core
         protected override void UnloadContent()
         {
             _context?.Textures.Dispose();
+            _context?.Audio.Dispose();
             base.UnloadContent();
         }
     }

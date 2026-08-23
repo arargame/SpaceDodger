@@ -4,6 +4,7 @@ using SpaceImpact.Graphics;
 using SpaceImpact.Input;
 using SpaceImpact.Persistence;
 using SpaceImpact.Screens;
+using SpaceImpact.Audio;
 
 namespace SpaceImpact.Core
 {
@@ -25,6 +26,7 @@ namespace SpaceImpact.Core
         public EventBus Events { get; }
         public ScreenManager Screens { get; }
         public IGameServices Games { get; }
+        public AudioService Audio { get; }
 
         public GameContext(
             Game game,
@@ -37,7 +39,8 @@ namespace SpaceImpact.Core
             ISaveGameService save,
             EventBus events,
             ScreenManager screens,
-            IGameServices games)
+            IGameServices games,
+            AudioService audio)
         {
             Game = game;
             GraphicsDevice = graphicsDevice;
@@ -50,6 +53,7 @@ namespace SpaceImpact.Core
             Events = events;
             Screens = screens;
             Games = games;
+            Audio = audio;
         }
     }
 }

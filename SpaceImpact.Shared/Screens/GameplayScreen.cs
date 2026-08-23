@@ -203,6 +203,7 @@ namespace SpaceImpact.Screens
                     continue;
 
                 Apply(powerUp.Type);
+                Context.Audio.Play("pickup", 0.22f);
                 Context.Events.Publish(new PowerUpCollectedEvent(powerUp.Type));
                 powerUp.Deactivate();
             }
@@ -284,8 +285,11 @@ namespace SpaceImpact.Screens
 
         // --- entity event handlers ---------------------------------------
 
-        private void OnPlayerFired(Player player) =>
+        private void OnPlayerFired(Player player)
+        {
             _factory.SpawnPlayerShot(player.MuzzlePosition, player.WeaponLevel);
+            Context.Audio.Play("fire", 0.12f);
+        }
 
         private void OnScoreChanged(ScoreChangedEvent score)
         {
@@ -302,6 +306,7 @@ namespace SpaceImpact.Screens
         private void OnPlayerDamaged(Player player)
         {
             _factory.SpawnExplosion(player.Position);
+            Context.Audio.Play("explosion", 0.24f);
             _score.BreakCombo();
             Context.Events.Publish(new PlayerDamagedEvent(player.Lives, player.Position));
         }
@@ -309,6 +314,7 @@ namespace SpaceImpact.Screens
         private void OnPlayerDied(Player player)
         {
             _factory.SpawnExplosion(player.Position, 2f);
+            Context.Audio.Play("explosion", 0.36f);
             _phase = Phase.GameOver;
             _phaseTimer = GameOverDelay;
         }
