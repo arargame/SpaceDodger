@@ -104,7 +104,8 @@ namespace SpaceImpact.Screens
             if (_bombFlash > 0f)
                 _bombFlash -= dt;
 
-            if (input.PausePressed && _phase == Phase.Playing)
+            bool pauseTapped = input.Tap.HasValue && _hud.IsPauseButton(input.Tap.Value);
+            if ((input.PausePressed || pauseTapped) && _phase == Phase.Playing)
             {
                 Context.Screens.Push(new PauseScreen(Context));
                 return;

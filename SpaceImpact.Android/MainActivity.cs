@@ -26,11 +26,31 @@ namespace SpaceImpact.Droid
         {
             base.OnCreate(bundle);
 
+            HideSystemUi();
+
             _game = new SpaceImpactGame(new AndroidPlatform(this));
             _view = _game.Services.GetService(typeof(View)) as View;
 
             SetContentView(_view);
             _game.Run();
+        }
+
+        public override void OnWindowFocusChanged(bool hasFocus)
+        {
+            base.OnWindowFocusChanged(hasFocus);
+            if (hasFocus)
+                HideSystemUi();
+        }
+
+        private void HideSystemUi()
+        {
+            Window.DecorView.SystemUiFlags =
+                SystemUiFlags.ImmersiveSticky |
+                SystemUiFlags.Fullscreen |
+                SystemUiFlags.HideNavigation |
+                SystemUiFlags.LayoutFullscreen |
+                SystemUiFlags.LayoutHideNavigation |
+                SystemUiFlags.LayoutStable;
         }
     }
 }

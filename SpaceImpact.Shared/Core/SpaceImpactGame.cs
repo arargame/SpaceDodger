@@ -47,7 +47,9 @@ namespace SpaceImpact.Core
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _screen = new VirtualScreen(GraphicsDevice, GameConfig.VirtualWidth, GameConfig.VirtualHeight);
+            _screen = new VirtualScreen(
+                GraphicsDevice, GameConfig.VirtualWidth, GameConfig.VirtualHeight,
+                fillDisplay: _platform.IsMobile);
             var textures = new TextureStore(GraphicsDevice);
             var font = new PixelFont(textures.Get("sprites/font"));
             _input = _platform.CreateInputProvider(_screen);

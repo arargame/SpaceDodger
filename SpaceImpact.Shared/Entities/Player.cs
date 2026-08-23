@@ -150,8 +150,8 @@ namespace SpaceImpact.Entities
             }
 
             Lives--;
-            // Keep the current weapon tier after a hit.  Rebuilding firepower
-            // after every mistake made later missions unnecessarily punishing.
+            // Losing a life costs one weapon tier (softens death spirals).
+            WeaponLevel = Math.Max(1, WeaponLevel - 1);
             _invulnTimer = GameConfig.PlayerInvulnTime;
 
             Damaged?.Invoke(this);

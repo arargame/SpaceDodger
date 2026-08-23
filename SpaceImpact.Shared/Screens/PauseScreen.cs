@@ -21,7 +21,7 @@ namespace SpaceImpact.Screens
         {
             _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 92f)
                 .Add("RESUME", Resume)
-                .Add("QUIT TO MENU", QuitToMenu);
+                .Add("MAIN MENU", QuitToMenu);
         }
 
         private void Resume() => Context.Screens.Pop();

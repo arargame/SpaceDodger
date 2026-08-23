@@ -5,7 +5,7 @@ namespace SpaceImpact.Graphics
 {
     /// <summary>
     /// Fixed low-resolution render target scaled to any physical screen size
-    /// with integer-friendly point sampling and letterboxing.
+    /// with point sampling. Mobile can optionally fill its wider display.
     /// Also converts physical (touch/mouse) coordinates back to virtual space.
     /// </summary>
     public sealed class VirtualScreen
@@ -15,14 +15,16 @@ namespace SpaceImpact.Graphics
 
         private readonly GraphicsDevice _device;
         private readonly RenderTarget2D _target;
+        private readonly bool _fillDisplay;
 
         private Rectangle _destination;
 
-        public VirtualScreen(GraphicsDevice device, int width, int height)
+        public VirtualScreen(GraphicsDevice device, int width, int height, bool fillDisplay = false)
         {
             _device = device;
             Width = width;
             Height = height;
+            _fillDisplay = fillDisplay;
             _target = new RenderTarget2D(device, width, height);
         }
 
@@ -60,6 +62,11 @@ namespace SpaceImpact.Graphics
         {
             int screenW = _device.PresentationParameters.BackBufferWidth;
             int screenH = _device.PresentationParameters.BackBufferHeight;
+
+            // Modern phones are much wider than 16:9.  Fill their display so
+            // the game does not look like it is running in a smaller window.
+            if (_fillDisplay)
+                return new Rectangle(0, 0, screenW, screenH);
 
             float scale = System.Math.Min((float)screenW / Width, (float)screenH / Height);
             int w = (int)(Width * scale);

@@ -25,6 +25,13 @@ namespace SpaceImpact.Screens
             _bounds = bounds;
         }
 
+        /// <summary>Large touch target for the visible pause glyph.</summary>
+        public Rectangle PauseButtonBounds =>
+            new Rectangle(_bounds.Width - 72, 0, 22, 12);
+
+        public bool IsPauseButton(Vector2 point) =>
+            PauseButtonBounds.Contains((int)point.X, (int)point.Y);
+
         public void Draw(
             SpriteBatch spriteBatch, ScoreTracker score, Player player,
             int levelNumber, Enemy boss)
@@ -39,16 +46,26 @@ namespace SpaceImpact.Screens
 
             _font.DrawCentered(spriteBatch, $"LV{levelNumber:00}", _bounds.Width / 2f, 1, Dim);
 
-            _font.Draw(spriteBatch, $"W{player.WeaponLevel}", new Vector2(_bounds.Width - 62, 1), Dim);
+            _font.Draw(spriteBatch, $"W{player.WeaponLevel}", new Vector2(_bounds.Width - 88, 1), Dim);
+
+            DrawPauseButton(spriteBatch);
 
             // Lives as small ship pips on the right.
-            for (int i = 0; i < player.Lives && i < 6; i++)
-                spriteBatch.Draw(_pixel, new Rectangle(_bounds.Width - 44 + i * 7, 3, 5, 4), Accent);
+            for (int i = 0; i < player.Lives && i < 7; i++)
+                spriteBatch.Draw(_pixel, new Rectangle(_bounds.Width - 46 + i * 6, 3, 4, 4), Accent);
 
             DrawBuffs(spriteBatch, player);
 
             if (boss != null && boss.Active)
                 DrawBossHealth(spriteBatch, boss);
+        }
+
+        private void DrawPauseButton(SpriteBatch spriteBatch)
+        {
+            var bounds = PauseButtonBounds;
+            spriteBatch.Draw(_pixel, bounds, new Color(44, 50, 70));
+            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 7, bounds.Y + 3, 2, 6), Color.White);
+            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 13, bounds.Y + 3, 2, 6), Color.White);
         }
 
         /// <summary>Timed buff bars along the bottom-left, only while active.</summary>
