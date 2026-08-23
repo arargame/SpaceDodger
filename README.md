@@ -15,8 +15,7 @@ Built with MonoGame, the project shares one gameplay codebase between
 - **Five weapon tiers** ranging from a single blaster to a plasma storm.
 - **Six pickups:** weapon upgrades, extra lives, shields, smart bombs, rapid
   fire, and score bonuses.
-- **Mobile-first controls:** drag to move and auto-fire with one thumb, or use
-  a second touch on the right side for independent firing.
+- **Mobile-first controls:** drag to move while the ship fires automatically.
 - **Accessible campaign balance:** generous supplies, forgiving hit windows,
   and a clear end-game sequence after defeating NEMESIS.
 - **Persistent progress and high scores** stored locally on both platforms.
@@ -63,7 +62,7 @@ dotnet publish SpaceImpact.Android -c Release
 | Action | Desktop | Android |
 |---|---|---|
 | Move | Arrows / WASD | Drag on the left half |
-| Fire | Space / J | Drag to auto-fire, or hold on the right half |
+| Fire | Space / J | Automatic |
 | Confirm | Enter / Space | Tap |
 | Pause / Back | Esc / P | Hardware back button |
 

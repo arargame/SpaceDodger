@@ -7,8 +7,8 @@ namespace SpaceImpact.Input
 {
     /// <summary>
     /// Touch input for Android:
-    /// - Left ~55% of the screen is a floating virtual joystick (drag to move).
-    /// - Any touch on the right side holds fire.
+    /// - Drag anywhere on the left side to move the ship.
+    /// - The ship fires automatically, so no second fire touch is required.
     /// - Quick touches produce Tap events for menus.
     /// - The hardware back button maps to BackPressed/PausePressed.
     /// </summary>
@@ -36,7 +36,7 @@ namespace SpaceImpact.Input
         public void Update()
         {
             var touches = TouchPanel.GetState();
-            var state = new InputState();
+            var state = new InputState { Fire = true };
 
             bool joystickAlive = false;
 
@@ -65,13 +65,6 @@ namespace SpaceImpact.Input
                     if (delta.LengthSquared() > 1f)
                         delta.Normalize();
                     state.Move = delta;
-                }
-
-                // Right-side touches (held) = fire.
-                if (!leftSide &&
-                    (touch.State == TouchLocationState.Pressed || touch.State == TouchLocationState.Moved))
-                {
-                    state.Fire = true;
                 }
 
                 if (touch.Id == _tapCandidateId)
