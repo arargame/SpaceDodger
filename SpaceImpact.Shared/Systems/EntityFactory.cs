@@ -158,10 +158,10 @@ namespace SpaceImpact.Systems
             // appear often enough to recover after a rough wave.
             double r = _random.NextDouble();
             if (r < 0.30) return PowerUpType.Weapon;
-            if (r < 0.46) return PowerUpType.Rapid;
-            if (r < 0.64) return PowerUpType.Shield;
-            if (r < 0.78) return PowerUpType.Bomb;
-            if (r < 0.92) return PowerUpType.Health;
+            if (r < 0.44) return PowerUpType.Rapid;
+            if (r < 0.66) return PowerUpType.Shield;
+            if (r < 0.80) return PowerUpType.Bomb;
+            if (r < 0.96) return PowerUpType.Health;
             return PowerUpType.Score;
         }
 
