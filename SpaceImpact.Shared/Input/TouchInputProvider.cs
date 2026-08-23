@@ -8,8 +8,7 @@ namespace SpaceImpact.Input
     /// <summary>
     /// Touch input for Android:
     /// - Left ~55% of the screen is a floating virtual joystick (drag to move).
-    /// - A touch on the right side holds fire; moving also auto-fires so the
-    ///   game remains comfortable with one thumb.
+    /// - Any touch on the right side holds fire.
     /// - Quick touches produce Tap events for menus.
     /// - The hardware back button maps to BackPressed/PausePressed.
     /// </summary>
@@ -94,11 +93,6 @@ namespace SpaceImpact.Input
 
             if (!joystickAlive)
                 _joystickId = -1;
-
-            // One-thumb play is essential on smaller phones.  A movement touch
-            // therefore fires continuously, while a second right-side touch is
-            // still available for players who prefer independent fire control.
-            state.Fire |= joystickAlive;
 
             // Android hardware back button arrives via GamePad.
             bool backDown = GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed;

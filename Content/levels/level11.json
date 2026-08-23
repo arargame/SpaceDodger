@@ -4,41 +4,51 @@
   "waves": [
     {
       "startTime": 1.5,
-      "enemy": "wasp",
-      "movement": "chase",
+      "enemy": "mine",
+      "movement": "straight",
       "formation": "Column",
       "count": 4,
-      "interval": 0.36,
+      "interval": 0.32,
       "healthMultiplier": 1.45,
       "speedMultiplier": 1.16
     },
     {
       "startTime": 9.4,
-      "enemy": "bomber",
+      "enemy": "scout",
       "movement": "sine",
       "formation": "Column",
-      "count": 4,
-      "interval": 0.66,
+      "count": 7,
+      "interval": 0.74,
       "healthMultiplier": 1.45,
       "speedMultiplier": 1.16
     },
     {
       "startTime": 17.4,
-      "enemy": "mine",
+      "enemy": "scout",
       "movement": "sine",
-      "formation": "Line",
-      "count": 6,
-      "interval": 0.64,
+      "formation": "Scatter",
+      "count": 9,
+      "interval": 0.37,
       "healthMultiplier": 1.45,
       "speedMultiplier": 1.16
     },
     {
       "startTime": 25.3,
-      "enemy": "drone",
+      "enemy": "fighter",
       "movement": "sine",
-      "formation": "Scatter",
-      "count": 9,
-      "interval": 0.47,
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.53,
+      "healthMultiplier": 1.45,
+      "speedMultiplier": 1.16
+    },
+    {
+      "startTime": 33.3,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.37,
       "healthMultiplier": 1.45,
       "speedMultiplier": 1.16
     }

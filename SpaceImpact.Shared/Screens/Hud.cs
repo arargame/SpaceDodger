@@ -119,8 +119,8 @@ namespace SpaceImpact.Screens
         public void DrawTouchHint(SpriteBatch spriteBatch, float alpha)
         {
             var color = Color.White * alpha;
-            _font.Draw(spriteBatch, "DRAG = MOVE + FIRE", new Vector2(12, _bounds.Height - 22), color);
-            _font.Draw(spriteBatch, "OR HOLD RIGHT", new Vector2(_bounds.Width - 78, _bounds.Height - 13), color);
+            _font.Draw(spriteBatch, "DRAG", new Vector2(20, _bounds.Height - 22), color);
+            _font.Draw(spriteBatch, "HOLD TO FIRE", new Vector2(_bounds.Width - 84, _bounds.Height - 22), color);
         }
     }
 }

@@ -25,6 +25,14 @@
       "formation": "Scatter",
       "count": 8,
       "interval": 0.64
+    },
+    {
+      "startTime": 26.8,
+      "enemy": "drone",
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 8,
+      "interval": 0.43
     }
   ]
 }

@@ -16,31 +16,24 @@ namespace SpaceImpact.Core
         /// <summary>A boss level occurs every N levels (10, 20, 30, 40, 50).</summary>
         public const int BossEvery = 10;
 
-        // The campaign is tuned for touch screens first: a player has fewer
-        // chances to make pixel-perfect dodges than with a keyboard or pad.
-        public const int PlayerLives = 5;
-        public const float PlayerSpeed = 112f;         // px/s in virtual space
-        public const float PlayerFireCooldown = 0.16f; // seconds
-        public const float PlayerInvulnTime = 3.0f;    // seconds after a hit
+        public const int PlayerLives = 3;
+        public const float PlayerSpeed = 95f;          // px/s in virtual space
+        public const float PlayerFireCooldown = 0.22f; // seconds
+        public const float PlayerInvulnTime = 2.0f;    // seconds after a hit
         public const int MaxWeaponLevel = 5;
 
         public const float PlayerBulletSpeed = 200f;
-        public const float EnemyBulletSpeed = 72f;
-        public const float EnemyHeavyBulletSpeed = 56f;
+        public const float EnemyBulletSpeed = 90f;
+        public const float EnemyHeavyBulletSpeed = 68f;
 
-        /// <summary>Campaign-wide forgiveness applied on top of level JSON.</summary>
-        public const float EnemyHealthMultiplier = 0.70f;
-        public const float EnemySpeedMultiplier = 0.78f;
-        public const float EnemyFireIntervalMultiplier = 1.25f;
-
-        public const float PowerUpDropChance = 0.42f;
-        public const float PowerUpSpeed = 24f;
+        public const float PowerUpDropChance = 0.14f;
+        public const float PowerUpSpeed = 30f;
 
         /// <summary>Seconds a collected shield lasts.</summary>
-        public const float ShieldDuration = 10f;
+        public const float ShieldDuration = 8f;
 
         /// <summary>Seconds of boosted fire rate from a rapid-fire pickup.</summary>
-        public const float RapidFireDuration = 12f;
+        public const float RapidFireDuration = 10f;
 
         /// <summary>Fire cooldown multiplier while rapid fire is active.</summary>
         public const float RapidFireMultiplier = 0.45f;

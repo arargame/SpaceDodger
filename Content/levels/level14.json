@@ -4,11 +4,11 @@
   "waves": [
     {
       "startTime": 1.5,
-      "enemy": "mine",
-      "movement": "straight",
-      "formation": "Column",
-      "count": 4,
-      "interval": 0.71,
+      "enemy": "seeker",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.41,
       "healthMultiplier": 1.58,
       "speedMultiplier": 1.21
     },
@@ -17,38 +17,48 @@
       "enemy": "mine",
       "movement": "sine",
       "formation": "Scatter",
-      "count": 5,
-      "interval": 0.55,
+      "count": 4,
+      "interval": 0.34,
       "healthMultiplier": 1.58,
       "speedMultiplier": 1.21
     },
     {
       "startTime": 17.1,
-      "enemy": "lancer",
-      "movement": "chase",
-      "formation": "Diagonal",
+      "enemy": "seeker",
+      "movement": "sine",
+      "formation": "Scatter",
       "count": 6,
-      "interval": 0.63,
+      "interval": 0.5,
       "healthMultiplier": 1.58,
       "speedMultiplier": 1.21
     },
     {
       "startTime": 24.9,
       "enemy": "mine",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 6,
-      "interval": 0.32,
+      "movement": "sine",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.59,
       "healthMultiplier": 1.58,
       "speedMultiplier": 1.21
     },
     {
       "startTime": 32.7,
-      "enemy": "mine",
+      "enemy": "shielder",
       "movement": "straight",
-      "formation": "Diagonal",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.47,
+      "healthMultiplier": 1.58,
+      "speedMultiplier": 1.21
+    },
+    {
+      "startTime": 40.5,
+      "enemy": "fighter",
+      "movement": "chase",
+      "formation": "Line",
       "count": 6,
-      "interval": 0.32,
+      "interval": 0.52,
       "healthMultiplier": 1.58,
       "speedMultiplier": 1.21
     }

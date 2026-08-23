@@ -99,7 +99,9 @@ def build(level):
     hp, spd = scaling(level)
     is_boss = level in BOSSES
 
-    wave_count = min(3 + level // 6, 7)
+    # One extra wave makes each mission feel more substantial without raising
+    # the per-enemy health, speed, or firing pressure.
+    wave_count = min(4 + level // 6, 8)
     gap = max(5.5, 8.5 - level * 0.05)
     interval_scale = max(0.45, 1.0 - level * 0.011)
 

@@ -1,7 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SpaceImpact.Core;
 using SpaceImpact.Graphics;
 using SpaceImpact.Movement;
 
@@ -44,8 +43,7 @@ namespace SpaceImpact.Entities
         /// <summary>Per-wave speed scaling applied on top of the definition speed.</summary>
         public float SpeedMultiplier { get; private set; } = 1f;
 
-        public float EffectiveSpeed =>
-            Definition.Speed * SpeedMultiplier * GameConfig.EnemySpeedMultiplier;
+        public float EffectiveSpeed => Definition.Speed * SpeedMultiplier;
 
         public bool IsBoss => Definition.IsBoss;
 
@@ -79,14 +77,11 @@ namespace SpaceImpact.Entities
             WorldInfo = world;
             _world = world.Bounds;
             SpeedMultiplier = speedMultiplier;
-            MaxHealth = Math.Max(1, (int)Math.Round(
-                definition.MaxHealth * healthMultiplier * GameConfig.EnemyHealthMultiplier));
+            MaxHealth = Math.Max(1, (int)Math.Round(definition.MaxHealth * healthMultiplier));
             Health = MaxHealth;
 
             // Stagger first shots so a wave does not fire in unison.
-            _fireTimer = definition.Shoots
-                ? definition.FireInterval * GameConfig.EnemyFireIntervalMultiplier * 0.5f
-                : 0f;
+            _fireTimer = definition.Shoots ? definition.FireInterval * 0.5f : 0f;
             _hitFlash = 0f;
         }
 
@@ -113,7 +108,7 @@ namespace SpaceImpact.Entities
                 _fireTimer -= dt;
                 if (_fireTimer <= 0f)
                 {
-                    _fireTimer = Definition.FireInterval * GameConfig.EnemyFireIntervalMultiplier;
+                    _fireTimer = Definition.FireInterval;
                     WantsToFire?.Invoke(this);
                 }
             }

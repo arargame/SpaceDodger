@@ -37,9 +37,7 @@ namespace SpaceImpact.Systems
             EnemyBullets = new EntityPool<Bullet>(() => new Bullet(), 96);
             Enemies = new EntityPool<Enemy>(() => new Enemy(), 48);
             Explosions = new EntityPool<Explosion>(() => new Explosion(), 32);
-            // Higher drop frequency needs a little extra headroom when a dense
-            // wave is cleared at once.
-            PowerUps = new EntityPool<PowerUp>(() => new PowerUp(), 32);
+            PowerUps = new EntityPool<PowerUp>(() => new PowerUp(), 12);
         }
 
         /// <summary>Fire the player's current weapon pattern from a muzzle point.</summary>
@@ -154,23 +152,22 @@ namespace SpaceImpact.Systems
 
         private PowerUpType RollCommonDrop()
         {
-            // Weighted for an accessible mobile campaign: defensive pickups
-            // appear often enough to recover after a rough wave.
+            // Weighted: weapon upgrades are the backbone, lives are rare.
             double r = _random.NextDouble();
-            if (r < 0.30) return PowerUpType.Weapon;
-            if (r < 0.46) return PowerUpType.Rapid;
-            if (r < 0.64) return PowerUpType.Shield;
-            if (r < 0.78) return PowerUpType.Bomb;
-            if (r < 0.92) return PowerUpType.Health;
-            return PowerUpType.Score;
+            if (r < 0.34) return PowerUpType.Weapon;
+            if (r < 0.54) return PowerUpType.Score;
+            if (r < 0.72) return PowerUpType.Rapid;
+            if (r < 0.88) return PowerUpType.Shield;
+            if (r < 0.96) return PowerUpType.Bomb;
+            return PowerUpType.Health;
         }
 
         private PowerUpType RollBossDrop()
         {
             double r = _random.NextDouble();
-            if (r < 0.35) return PowerUpType.Weapon;
-            if (r < 0.75) return PowerUpType.Health;
-            if (r < 0.92) return PowerUpType.Shield;
+            if (r < 0.40) return PowerUpType.Weapon;
+            if (r < 0.70) return PowerUpType.Health;
+            if (r < 0.88) return PowerUpType.Shield;
             return PowerUpType.Bomb;
         }
 

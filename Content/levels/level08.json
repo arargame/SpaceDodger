@@ -4,41 +4,51 @@
   "waves": [
     {
       "startTime": 1.5,
-      "enemy": "scout",
-      "movement": "sine",
-      "formation": "Diagonal",
+      "enemy": "wasp",
+      "movement": "chase",
+      "formation": "Scatter",
       "count": 7,
-      "interval": 0.52,
+      "interval": 0.47,
       "healthMultiplier": 1.31,
       "speedMultiplier": 1.11
     },
     {
       "startTime": 9.6,
-      "enemy": "wasp",
-      "movement": "chase",
-      "formation": "Scatter",
-      "count": 3,
-      "interval": 0.55,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 8,
+      "interval": 0.51,
       "healthMultiplier": 1.31,
       "speedMultiplier": 1.11
     },
     {
       "startTime": 17.7,
-      "enemy": "bomber",
+      "enemy": "drone",
       "movement": "sine",
-      "formation": "Column",
-      "count": 4,
-      "interval": 0.4,
+      "formation": "Scatter",
+      "count": 7,
+      "interval": 0.66,
       "healthMultiplier": 1.31,
       "speedMultiplier": 1.11
     },
     {
       "startTime": 25.8,
-      "enemy": "fighter",
-      "movement": "straight",
-      "formation": "Diagonal",
+      "enemy": "wasp",
+      "movement": "chase",
+      "formation": "Scatter",
       "count": 7,
-      "interval": 0.7,
+      "interval": 0.44,
+      "healthMultiplier": 1.31,
+      "speedMultiplier": 1.11
+    },
+    {
+      "startTime": 33.9,
+      "enemy": "fighter",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.35,
       "healthMultiplier": 1.31,
       "speedMultiplier": 1.11
     }
