@@ -1,4 +1,4 @@
-﻿using Android.App;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
@@ -10,6 +10,7 @@ namespace SpaceDodger.Droid
     /// <summary>Android entry point hosting the shared MonoGame game.</summary>
     [Activity(
         Label = "Space Dodger",
+        Icon = "@mipmap/spacedodgerico",
         MainLauncher = true,
         AlwaysRetainTaskState = true,
         LaunchMode = LaunchMode.SingleInstance,
