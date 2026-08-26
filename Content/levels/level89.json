@@ -1,0 +1,106 @@
+{
+  "number": 89,
+  "name": "MILKY WAY",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Line",
+      "count": 9,
+      "interval": 0.23,
+      "healthMultiplier": 4.08,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 7.0,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 2,
+      "interval": 0.2,
+      "healthMultiplier": 4.08,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 12.5,
+      "enemy": "drone",
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 20,
+      "interval": 0.37,
+      "healthMultiplier": 4.08,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 7,
+      "interval": 0.22,
+      "healthMultiplier": 4.08,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 23.5,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 9,
+      "interval": 0.29,
+      "healthMultiplier": 4.08,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 29.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 9,
+      "interval": 0.24,
+      "healthMultiplier": 4.08,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.2,
+      "healthMultiplier": 4.08,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 40.0,
+      "enemy": "raider",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 11,
+      "interval": 0.37,
+      "healthMultiplier": 4.08,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 45.5,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.23,
+      "healthMultiplier": 4.08,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 51.0,
+      "enemy": "seeker",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.37,
+      "healthMultiplier": 4.08,
+      "speedMultiplier": 2.0
+    }
+  ]
+}

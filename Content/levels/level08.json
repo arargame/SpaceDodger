@@ -4,53 +4,53 @@
   "waves": [
     {
       "startTime": 1.5,
-      "enemy": "wasp",
-      "movement": "chase",
-      "formation": "Scatter",
-      "count": 7,
-      "interval": 0.47,
-      "healthMultiplier": 1.31,
-      "speedMultiplier": 1.11
-    },
-    {
-      "startTime": 9.6,
       "enemy": "drone",
       "movement": "straight",
       "formation": "Diagonal",
       "count": 8,
       "interval": 0.51,
-      "healthMultiplier": 1.31,
-      "speedMultiplier": 1.11
+      "healthMultiplier": 1.25,
+      "speedMultiplier": 1.08
     },
     {
-      "startTime": 17.7,
+      "startTime": 9.6,
       "enemy": "drone",
       "movement": "sine",
       "formation": "Scatter",
       "count": 7,
       "interval": 0.66,
-      "healthMultiplier": 1.31,
-      "speedMultiplier": 1.11
+      "healthMultiplier": 1.25,
+      "speedMultiplier": 1.08
     },
     {
-      "startTime": 25.8,
+      "startTime": 17.7,
       "enemy": "wasp",
       "movement": "chase",
       "formation": "Scatter",
       "count": 7,
       "interval": 0.44,
-      "healthMultiplier": 1.31,
-      "speedMultiplier": 1.11
+      "healthMultiplier": 1.25,
+      "speedMultiplier": 1.08
     },
     {
-      "startTime": 33.9,
+      "startTime": 25.8,
       "enemy": "fighter",
-      "movement": "sine",
+      "movement": "chase",
       "formation": "Scatter",
       "count": 3,
       "interval": 0.35,
-      "healthMultiplier": 1.31,
-      "speedMultiplier": 1.11
+      "healthMultiplier": 1.25,
+      "speedMultiplier": 1.08
+    },
+    {
+      "startTime": 33.9,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 9,
+      "interval": 0.34,
+      "healthMultiplier": 1.25,
+      "speedMultiplier": 1.08
     }
   ]
 }

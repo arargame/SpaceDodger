@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>23</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SpaceDodger.Droid</RootNamespace>
+    <ApplicationId>com.koray.spacedodger</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <!-- Reflection-free code paths are used (manual JSON parsing), trimming is safe,
+         but keep it conservative for MonoGame. -->
+    <PublishTrimmed>false</PublishTrimmed>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.Android" Version="3.8.2.1105" />
+  </ItemGroup>
+
+  <Import Project="..\SpaceDodger.Shared\SpaceDodger.Shared.projitems" Label="Shared" />
+
+  <!-- Same raw content as desktop, bundled as Android assets.
+       TitleContainer resolves "Content/..." inside the APK assets. -->
+  <ItemGroup>
+    <AndroidAsset Include="..\Content\**\*.*" Link="Assets\Content\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

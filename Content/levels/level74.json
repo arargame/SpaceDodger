@@ -1,0 +1,106 @@
+{
+  "number": 74,
+  "name": "EVENT HORIZON II",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 10,
+      "interval": 0.27,
+      "healthMultiplier": 3.56,
+      "speedMultiplier": 1.88
+    },
+    {
+      "startTime": 7.0,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 3,
+      "interval": 0.18,
+      "healthMultiplier": 3.56,
+      "speedMultiplier": 1.88
+    },
+    {
+      "startTime": 12.5,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.37,
+      "healthMultiplier": 3.56,
+      "speedMultiplier": 1.88
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.25,
+      "healthMultiplier": 3.56,
+      "speedMultiplier": 1.88
+    },
+    {
+      "startTime": 23.5,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 7,
+      "interval": 0.29,
+      "healthMultiplier": 3.56,
+      "speedMultiplier": 1.88
+    },
+    {
+      "startTime": 29.0,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.35,
+      "healthMultiplier": 3.56,
+      "speedMultiplier": 1.88
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 10,
+      "interval": 0.16,
+      "healthMultiplier": 3.56,
+      "speedMultiplier": 1.88
+    },
+    {
+      "startTime": 40.0,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 7,
+      "interval": 0.29,
+      "healthMultiplier": 3.56,
+      "speedMultiplier": 1.88
+    },
+    {
+      "startTime": 45.5,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.22,
+      "healthMultiplier": 3.56,
+      "speedMultiplier": 1.88
+    },
+    {
+      "startTime": 51.0,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.24,
+      "healthMultiplier": 3.56,
+      "speedMultiplier": 1.88
+    }
+  ]
+}

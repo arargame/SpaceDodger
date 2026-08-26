@@ -1,0 +1,106 @@
+{
+  "number": 79,
+  "name": "QUASAR",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.29,
+      "healthMultiplier": 3.73,
+      "speedMultiplier": 1.94
+    },
+    {
+      "startTime": 7.0,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.2,
+      "healthMultiplier": 3.73,
+      "speedMultiplier": 1.94
+    },
+    {
+      "startTime": 12.5,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 12,
+      "interval": 0.18,
+      "healthMultiplier": 3.73,
+      "speedMultiplier": 1.94
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.36,
+      "healthMultiplier": 3.73,
+      "speedMultiplier": 1.94
+    },
+    {
+      "startTime": 23.5,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 2,
+      "interval": 0.34,
+      "healthMultiplier": 3.73,
+      "speedMultiplier": 1.94
+    },
+    {
+      "startTime": 29.0,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 7,
+      "interval": 0.16,
+      "healthMultiplier": 3.73,
+      "speedMultiplier": 1.94
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 3,
+      "interval": 0.29,
+      "healthMultiplier": 3.73,
+      "speedMultiplier": 1.94
+    },
+    {
+      "startTime": 40.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 8,
+      "interval": 0.2,
+      "healthMultiplier": 3.73,
+      "speedMultiplier": 1.94
+    },
+    {
+      "startTime": 45.5,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 7,
+      "interval": 0.31,
+      "healthMultiplier": 3.73,
+      "speedMultiplier": 1.94
+    },
+    {
+      "startTime": 51.0,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.23,
+      "healthMultiplier": 3.73,
+      "speedMultiplier": 1.94
+    }
+  ]
+}

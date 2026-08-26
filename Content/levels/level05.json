@@ -4,43 +4,53 @@
   "waves": [
     {
       "startTime": 1.5,
-      "enemy": "drone",
-      "movement": "sine",
-      "formation": "Scatter",
+      "enemy": "wasp",
+      "movement": "zigzag",
+      "formation": "Column",
       "count": 7,
-      "interval": 0.68,
-      "healthMultiplier": 1.18,
-      "speedMultiplier": 1.06
+      "interval": 0.64,
+      "healthMultiplier": 1.14,
+      "speedMultiplier": 1.05
     },
     {
       "startTime": 9.8,
-      "enemy": "wasp",
-      "movement": "zigzag",
-      "formation": "Line",
-      "count": 6,
-      "interval": 0.38,
-      "healthMultiplier": 1.18,
-      "speedMultiplier": 1.06
+      "enemy": "scout",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.72,
+      "healthMultiplier": 1.14,
+      "speedMultiplier": 1.05
     },
     {
       "startTime": 18.0,
-      "enemy": "scout",
-      "movement": "zigzag",
-      "formation": "Scatter",
-      "count": 7,
-      "interval": 0.37,
-      "healthMultiplier": 1.18,
-      "speedMultiplier": 1.06
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.7,
+      "healthMultiplier": 1.14,
+      "speedMultiplier": 1.05
     },
     {
       "startTime": 26.2,
       "enemy": "wasp",
       "movement": "sine",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.36,
+      "healthMultiplier": 1.14,
+      "speedMultiplier": 1.05
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "drone",
+      "movement": "straight",
       "formation": "Scatter",
-      "count": 5,
-      "interval": 0.75,
-      "healthMultiplier": 1.18,
-      "speedMultiplier": 1.06
+      "count": 6,
+      "interval": 0.34,
+      "healthMultiplier": 1.14,
+      "speedMultiplier": 1.05
     }
   ]
 }

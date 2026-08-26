@@ -4,53 +4,63 @@
   "waves": [
     {
       "startTime": 1.5,
-      "enemy": "mine",
-      "movement": "straight",
+      "enemy": "wasp",
+      "movement": "zigzag",
       "formation": "Column",
       "count": 4,
-      "interval": 0.32,
-      "healthMultiplier": 1.45,
-      "speedMultiplier": 1.16
+      "interval": 0.36,
+      "healthMultiplier": 1.35,
+      "speedMultiplier": 1.12
     },
     {
       "startTime": 9.4,
-      "enemy": "scout",
+      "enemy": "seeker",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.72,
+      "healthMultiplier": 1.35,
+      "speedMultiplier": 1.12
+    },
+    {
+      "startTime": 17.4,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.48,
+      "healthMultiplier": 1.35,
+      "speedMultiplier": 1.12
+    },
+    {
+      "startTime": 25.3,
+      "enemy": "seeker",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.67,
+      "healthMultiplier": 1.35,
+      "speedMultiplier": 1.12
+    },
+    {
+      "startTime": 33.3,
+      "enemy": "fighter",
       "movement": "sine",
       "formation": "Column",
       "count": 7,
       "interval": 0.74,
-      "healthMultiplier": 1.45,
-      "speedMultiplier": 1.16
+      "healthMultiplier": 1.35,
+      "speedMultiplier": 1.12
     },
     {
-      "startTime": 17.4,
-      "enemy": "scout",
-      "movement": "sine",
-      "formation": "Scatter",
-      "count": 9,
-      "interval": 0.37,
-      "healthMultiplier": 1.45,
-      "speedMultiplier": 1.16
-    },
-    {
-      "startTime": 25.3,
+      "startTime": 41.2,
       "enemy": "fighter",
-      "movement": "sine",
-      "formation": "Diagonal",
-      "count": 7,
-      "interval": 0.53,
-      "healthMultiplier": 1.45,
-      "speedMultiplier": 1.16
-    },
-    {
-      "startTime": 33.3,
-      "enemy": "mine",
-      "movement": "sine",
-      "formation": "Column",
-      "count": 4,
-      "interval": 0.37,
-      "healthMultiplier": 1.45,
-      "speedMultiplier": 1.16
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.57,
+      "healthMultiplier": 1.35,
+      "speedMultiplier": 1.12
     }
   ]
 }

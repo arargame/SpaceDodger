@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-"""Pixel-art sprite generator for SpaceImpact.
+﻿#!/usr/bin/env python3
+"""Pixel-art sprite generator for SpaceDodger.
 
 Approach: author the SILHOUETTE only, then shade it automatically.
 
@@ -440,6 +440,72 @@ BOSSES['boss_nemesis'] = ('void', mirror_down([
     ".XXXXXXXAAAAAAAAAAXXXXXXXXXXXXXX",
 ], has_center=True))
 
+BOSSES['boss_sentinel'] = ('blue', mirror_down([
+    "..........XXXXXXXXXXXXXXXXX.....",
+    "........XXXXXXXXXXXXXXXXXXXXX...",
+    "......XXXXXXXXXXXXXXXXXXXXXXXXX.",
+    "....XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "..XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXXAAAAXXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXAABBAAXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXXAAAAXXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+]))
+
+BOSSES['boss_serpent'] = ('toxic', mirror_down([
+    ".........................XXX....",
+    ".....................XXXXXXX....",
+    ".........XXXXXXXX..XXXXXXXXX....",
+    "......XXXXXXXXXXXX.XXXXXXXXX....",
+    "....XXXXXXXXXXXXXXXXXXXXXXX.....",
+    "..XXXXXXXXXXXXXXXXXXXXXXX.......",
+    ".XXXXXXXXXXXXXXXXXXXXX..........",
+    "XXXXXXXXXXXXXXXXXXXXX...........",
+    "XXAAXXXXXXXXXXXXXXXX............",
+    "XAAXXAXXXXXXXXXXXXXX............",
+]))
+
+BOSSES['boss_leviathan'] = ('brown', mirror_down([
+    ".........XXXXXXXXXXXXXXXXXXX....",
+    ".......XXXXXXXXXXXXXXXXXXXXXXX..",
+    ".....XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "...XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    ".XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXAAAAXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXAABBXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXAAAAXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+]))
+
+BOSSES['boss_phantom'] = ('magenta', mirror_down([
+    "......XXXX........XXXXXX........",
+    "....XXXXXXXX....XXXXXXXXXX......",
+    "..XXXXXXXXXXXX.XXXXXXXXXXXXX....",
+    ".XXXXXXXXXXXXX..XXXXXXXXXXXXX...",
+    "XXXXXXXXXXXXXXX...XXXXXXXXXXXXX.",
+    "XXXXXXXXXXXXXXXX....XXXXXXXXXXXX",
+    "XXXXXAAAAXXXXXX......XXXXXXXXXXX",
+    "XXXXAABBAAXXXXX........XXXXXXXXX",
+    "XXXXXAAAAXXXXXX..........XXXXXXX",
+    "XXXXXXXXXXXXXXXX..........XXXXXX",
+]))
+
+BOSSES['boss_oblivion'] = ('red', mirror_down([
+    "XXXXXXXXX......XXXXXXXXXXX......",
+    "XXXXXXXXXXX..XXXXXXXXXXXXXXX....",
+    "XXXXXXXXXXXX.XXXXXXXXXXXXXXXXX..",
+    ".XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.",
+    "..XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "...XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "...XXXXAAAAAAAAXXXXXAAAAXXXXXXXX",
+    "....XXXAABBBBBBAAXXXAABBAAXXXXXX",
+    "...XXXXAAAAAAAAXXXXXAAAAXXXXXXXX",
+    "..XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+]))
+
 print("bosses:")
 for name, (colour, shape) in BOSSES.items():
     # Frame 2 swaps accent/bright so the core appears to pulse.
@@ -474,6 +540,11 @@ save("bullet_enemy", [
 save("bullet_heavy", [
     bolt([".XXXXX.", "XXXXXXX", "XXXXXXX", ".XXXXX."], 'orange'),
     bolt(["..XXX..", ".XXXXX.", ".XXXXX.", "..XXX.."], 'orange'),
+])
+
+save("bullet_homing", [
+    bolt(["..XXXX..", ".XXXXXX.", "XXXXXXXX", ".XXXXXX.", "..XXXX.."], 'cyan'),
+    bolt(["...XXX..", "..XXXXX.", ".XXXXXXX", "..XXXXX.", "...XXX.."], 'cyan'),
 ])
 
 
@@ -551,6 +622,8 @@ ICON_SHIELD = [".XXXX.", "XX..XX", "XX..XX", "XX..XX", ".XXXX.", "..XX.."]
 ICON_BOMB   = ["...XX.", "..XXX.", ".XXXX.", "XXXXXX", "XXXXXX", ".XXXX."]
 ICON_RAPID  = ["X..X..", "XX.XX.", "XXXXXX", "XXXXXX", "XX.XX.", "X..X.."]
 ICON_SCORE  = [".XXXX.", "XX..XX", "..XXX.", "..XX..", "......", "..XX.."]
+ICON_SCATTER= ["X....X", ".X..X.", "..XX..", "..XX..", ".X..X.", "X....X"]
+ICON_HOMING = ["..XX..", ".X..X.", "X....X", ".XXXX.", "..XX..", "..XX.."]
 
 print("powerups:")
 save("powerups", [
@@ -560,6 +633,8 @@ save("powerups", [
     powerup(ICON_BOMB,   'red'),
     powerup(ICON_RAPID,  'orange'),
     powerup(ICON_SCORE,  'magenta'),
+    powerup(ICON_SCATTER,'slate'),
+    powerup(ICON_HOMING, 'blue'),
 ])
 
 def shield_bubble(i):

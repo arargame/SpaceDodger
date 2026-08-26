@@ -9,8 +9,8 @@
       "formation": "Diagonal",
       "count": 7,
       "interval": 0.35,
-      "healthMultiplier": 1.04,
-      "speedMultiplier": 1.02
+      "healthMultiplier": 1.03,
+      "speedMultiplier": 1.01
     },
     {
       "startTime": 9.9,
@@ -19,8 +19,8 @@
       "formation": "Line",
       "count": 7,
       "interval": 0.48,
-      "healthMultiplier": 1.04,
-      "speedMultiplier": 1.02
+      "healthMultiplier": 1.03,
+      "speedMultiplier": 1.01
     },
     {
       "startTime": 18.3,
@@ -29,8 +29,8 @@
       "formation": "Column",
       "count": 8,
       "interval": 0.78,
-      "healthMultiplier": 1.04,
-      "speedMultiplier": 1.02
+      "healthMultiplier": 1.03,
+      "speedMultiplier": 1.01
     },
     {
       "startTime": 26.7,
@@ -39,8 +39,8 @@
       "formation": "Line",
       "count": 5,
       "interval": 0.72,
-      "healthMultiplier": 1.04,
-      "speedMultiplier": 1.02
+      "healthMultiplier": 1.03,
+      "speedMultiplier": 1.01
     }
   ]
 }

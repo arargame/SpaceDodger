@@ -5,42 +5,42 @@
     {
       "startTime": 1.5,
       "enemy": "fighter",
-      "movement": "chase",
+      "movement": "straight",
       "formation": "Column",
       "count": 5,
-      "interval": 0.59,
-      "healthMultiplier": 1.14,
-      "speedMultiplier": 1.05
+      "interval": 0.55,
+      "healthMultiplier": 1.1,
+      "speedMultiplier": 1.04
     },
     {
       "startTime": 9.8,
       "enemy": "fighter",
-      "movement": "sine",
-      "formation": "Line",
+      "movement": "straight",
+      "formation": "Column",
       "count": 6,
-      "interval": 0.69,
-      "healthMultiplier": 1.14,
-      "speedMultiplier": 1.05
+      "interval": 0.73,
+      "healthMultiplier": 1.1,
+      "speedMultiplier": 1.04
     },
     {
       "startTime": 18.1,
       "enemy": "scout",
-      "movement": "zigzag",
-      "formation": "Diagonal",
-      "count": 4,
-      "interval": 0.66,
-      "healthMultiplier": 1.14,
-      "speedMultiplier": 1.05
+      "movement": "straight",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.56,
+      "healthMultiplier": 1.1,
+      "speedMultiplier": 1.04
     },
     {
       "startTime": 26.4,
-      "enemy": "scout",
-      "movement": "straight",
-      "formation": "Line",
+      "enemy": "drone",
+      "movement": "zigzag",
+      "formation": "Diagonal",
       "count": 9,
-      "interval": 0.66,
-      "healthMultiplier": 1.14,
-      "speedMultiplier": 1.05
+      "interval": 0.38,
+      "healthMultiplier": 1.1,
+      "speedMultiplier": 1.04
     }
   ]
 }

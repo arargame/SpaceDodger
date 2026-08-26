@@ -4,63 +4,63 @@
   "waves": [
     {
       "startTime": 1.5,
-      "enemy": "seeker",
-      "movement": "sine",
-      "formation": "Scatter",
-      "count": 5,
-      "interval": 0.41,
-      "healthMultiplier": 1.58,
-      "speedMultiplier": 1.21
-    },
-    {
-      "startTime": 9.3,
-      "enemy": "mine",
-      "movement": "sine",
-      "formation": "Scatter",
-      "count": 4,
-      "interval": 0.34,
-      "healthMultiplier": 1.58,
-      "speedMultiplier": 1.21
-    },
-    {
-      "startTime": 17.1,
-      "enemy": "seeker",
-      "movement": "sine",
-      "formation": "Scatter",
-      "count": 6,
-      "interval": 0.5,
-      "healthMultiplier": 1.58,
-      "speedMultiplier": 1.21
-    },
-    {
-      "startTime": 24.9,
       "enemy": "mine",
       "movement": "sine",
       "formation": "Line",
       "count": 5,
       "interval": 0.59,
-      "healthMultiplier": 1.58,
-      "speedMultiplier": 1.21
+      "healthMultiplier": 1.46,
+      "speedMultiplier": 1.16
     },
     {
-      "startTime": 32.7,
+      "startTime": 9.3,
       "enemy": "shielder",
       "movement": "straight",
       "formation": "Column",
       "count": 4,
       "interval": 0.47,
-      "healthMultiplier": 1.58,
-      "speedMultiplier": 1.21
+      "healthMultiplier": 1.46,
+      "speedMultiplier": 1.16
+    },
+    {
+      "startTime": 17.1,
+      "enemy": "fighter",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.6,
+      "healthMultiplier": 1.46,
+      "speedMultiplier": 1.16
+    },
+    {
+      "startTime": 24.9,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.39,
+      "healthMultiplier": 1.46,
+      "speedMultiplier": 1.16
+    },
+    {
+      "startTime": 32.7,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 6,
+      "interval": 0.56,
+      "healthMultiplier": 1.46,
+      "speedMultiplier": 1.16
     },
     {
       "startTime": 40.5,
-      "enemy": "fighter",
-      "movement": "chase",
-      "formation": "Line",
-      "count": 6,
-      "interval": 0.52,
-      "healthMultiplier": 1.58,
-      "speedMultiplier": 1.21
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.71,
+      "healthMultiplier": 1.46,
+      "speedMultiplier": 1.16
     }
   ]
 }

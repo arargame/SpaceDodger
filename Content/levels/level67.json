@@ -1,0 +1,106 @@
+{
+  "number": 67,
+  "name": "GRAVITY WELL",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.29,
+      "healthMultiplier": 3.31,
+      "speedMultiplier": 1.79
+    },
+    {
+      "startTime": 7.0,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 8,
+      "interval": 0.36,
+      "healthMultiplier": 3.31,
+      "speedMultiplier": 1.79
+    },
+    {
+      "startTime": 12.5,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.27,
+      "healthMultiplier": 3.31,
+      "speedMultiplier": 1.79
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "fighter",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.23,
+      "healthMultiplier": 3.31,
+      "speedMultiplier": 1.79
+    },
+    {
+      "startTime": 23.5,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.3,
+      "healthMultiplier": 3.31,
+      "speedMultiplier": 1.79
+    },
+    {
+      "startTime": 29.0,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.21,
+      "healthMultiplier": 3.31,
+      "speedMultiplier": 1.79
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.22,
+      "healthMultiplier": 3.31,
+      "speedMultiplier": 1.79
+    },
+    {
+      "startTime": 40.0,
+      "enemy": "raider",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 8,
+      "interval": 0.33,
+      "healthMultiplier": 3.31,
+      "speedMultiplier": 1.79
+    },
+    {
+      "startTime": 45.5,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 6,
+      "interval": 0.33,
+      "healthMultiplier": 3.31,
+      "speedMultiplier": 1.79
+    },
+    {
+      "startTime": 51.0,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 9,
+      "interval": 0.37,
+      "healthMultiplier": 3.31,
+      "speedMultiplier": 1.79
+    }
+  ]
+}

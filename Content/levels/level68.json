@@ -1,0 +1,106 @@
+{
+  "number": 68,
+  "name": "NEUTRON STAR",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 11,
+      "interval": 0.34,
+      "healthMultiplier": 3.35,
+      "speedMultiplier": 1.8
+    },
+    {
+      "startTime": 7.0,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.17,
+      "healthMultiplier": 3.35,
+      "speedMultiplier": 1.8
+    },
+    {
+      "startTime": 12.5,
+      "enemy": "raider",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.26,
+      "healthMultiplier": 3.35,
+      "speedMultiplier": 1.8
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.2,
+      "healthMultiplier": 3.35,
+      "speedMultiplier": 1.8
+    },
+    {
+      "startTime": 23.5,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 8,
+      "interval": 0.31,
+      "healthMultiplier": 3.35,
+      "speedMultiplier": 1.8
+    },
+    {
+      "startTime": 29.0,
+      "enemy": "fighter",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.26,
+      "healthMultiplier": 3.35,
+      "speedMultiplier": 1.8
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.19,
+      "healthMultiplier": 3.35,
+      "speedMultiplier": 1.8
+    },
+    {
+      "startTime": 40.0,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.28,
+      "healthMultiplier": 3.35,
+      "speedMultiplier": 1.8
+    },
+    {
+      "startTime": 45.5,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.18,
+      "healthMultiplier": 3.35,
+      "speedMultiplier": 1.8
+    },
+    {
+      "startTime": 51.0,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 9,
+      "interval": 0.25,
+      "healthMultiplier": 3.35,
+      "speedMultiplier": 1.8
+    }
+  ]
+}

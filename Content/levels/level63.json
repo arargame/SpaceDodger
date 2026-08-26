@@ -1,0 +1,106 @@
+{
+  "number": 63,
+  "name": "LUNAR BASE",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.28,
+      "healthMultiplier": 3.17,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 7.0,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.35,
+      "healthMultiplier": 3.17,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 12.5,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 9,
+      "interval": 0.28,
+      "healthMultiplier": 3.17,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 2,
+      "interval": 0.21,
+      "healthMultiplier": 3.17,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 23.5,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 3,
+      "interval": 0.35,
+      "healthMultiplier": 3.17,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 29.0,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.29,
+      "healthMultiplier": 3.17,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "raider",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 9,
+      "interval": 0.27,
+      "healthMultiplier": 3.17,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 40.0,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Line",
+      "count": 8,
+      "interval": 0.28,
+      "healthMultiplier": 3.17,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 45.5,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.31,
+      "healthMultiplier": 3.17,
+      "speedMultiplier": 1.74
+    },
+    {
+      "startTime": 51.0,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.33,
+      "healthMultiplier": 3.17,
+      "speedMultiplier": 1.74
+    }
+  ]
+}

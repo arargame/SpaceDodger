@@ -1,0 +1,106 @@
+{
+  "number": 78,
+  "name": "WORMHOLE",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 10,
+      "interval": 0.34,
+      "healthMultiplier": 3.7,
+      "speedMultiplier": 1.92
+    },
+    {
+      "startTime": 7.0,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 8,
+      "interval": 0.2,
+      "healthMultiplier": 3.7,
+      "speedMultiplier": 1.92
+    },
+    {
+      "startTime": 12.5,
+      "enemy": "drone",
+      "movement": "zigzag",
+      "formation": "Column",
+      "count": 17,
+      "interval": 0.35,
+      "healthMultiplier": 3.7,
+      "speedMultiplier": 1.92
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 10,
+      "interval": 0.26,
+      "healthMultiplier": 3.7,
+      "speedMultiplier": 1.92
+    },
+    {
+      "startTime": 23.5,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 7,
+      "interval": 0.29,
+      "healthMultiplier": 3.7,
+      "speedMultiplier": 1.92
+    },
+    {
+      "startTime": 29.0,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.17,
+      "healthMultiplier": 3.7,
+      "speedMultiplier": 1.92
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.33,
+      "healthMultiplier": 3.7,
+      "speedMultiplier": 1.92
+    },
+    {
+      "startTime": 40.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.33,
+      "healthMultiplier": 3.7,
+      "speedMultiplier": 1.92
+    },
+    {
+      "startTime": 45.5,
+      "enemy": "scout",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 13,
+      "interval": 0.3,
+      "healthMultiplier": 3.7,
+      "speedMultiplier": 1.92
+    },
+    {
+      "startTime": 51.0,
+      "enemy": "scout",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 15,
+      "interval": 0.27,
+      "healthMultiplier": 3.7,
+      "speedMultiplier": 1.92
+    }
+  ]
+}

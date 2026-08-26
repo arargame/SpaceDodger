@@ -1,0 +1,106 @@
+{
+  "number": 66,
+  "name": "DARK MATTER",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 3,
+      "interval": 0.21,
+      "healthMultiplier": 3.28,
+      "speedMultiplier": 1.78
+    },
+    {
+      "startTime": 7.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 6,
+      "interval": 0.36,
+      "healthMultiplier": 3.28,
+      "speedMultiplier": 1.78
+    },
+    {
+      "startTime": 12.5,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 6,
+      "interval": 0.26,
+      "healthMultiplier": 3.28,
+      "speedMultiplier": 1.78
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "mine",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.33,
+      "healthMultiplier": 3.28,
+      "speedMultiplier": 1.78
+    },
+    {
+      "startTime": 23.5,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 3,
+      "interval": 0.25,
+      "healthMultiplier": 3.28,
+      "speedMultiplier": 1.78
+    },
+    {
+      "startTime": 29.0,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.36,
+      "healthMultiplier": 3.28,
+      "speedMultiplier": 1.78
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "raider",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 6,
+      "interval": 0.19,
+      "healthMultiplier": 3.28,
+      "speedMultiplier": 1.78
+    },
+    {
+      "startTime": 40.0,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 6,
+      "interval": 0.18,
+      "healthMultiplier": 3.28,
+      "speedMultiplier": 1.78
+    },
+    {
+      "startTime": 45.5,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.36,
+      "healthMultiplier": 3.28,
+      "speedMultiplier": 1.78
+    },
+    {
+      "startTime": 51.0,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.29,
+      "healthMultiplier": 3.28,
+      "speedMultiplier": 1.78
+    }
+  ]
+}

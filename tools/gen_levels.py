@@ -28,15 +28,15 @@ UNLOCK = {
 MOVES = {
     "drone":    ["straight", "sine", "zigzag"],
     "scout":    ["straight", "zigzag", "sine"],
-    "fighter":  ["straight", "sine", "chase"],
+    "fighter":  ["straight", "sine", "chase", "chase"],
     "wasp":     ["zigzag", "sine", "chase"],
     "mine":     ["straight", "sine"],
     "bomber":   ["straight", "sine"],
-    "seeker":   ["chase", "sine", "zigzag"],
+    "seeker":   ["chase", "sine", "zigzag", "chase"],
     "lancer":   ["straight", "chase"],
     "shielder": ["straight", "sine"],
     "spinner":  ["sine", "zigzag", "straight"],
-    "raider":   ["chase", "sine", "straight"],
+    "raider":   ["chase", "sine", "straight", "chase"],
     "turret":   ["straight", "sine"],
     "hulk":     ["straight", "chase"],
 }
@@ -55,6 +55,24 @@ BOSSES = {
     30: "boss_titan",
     40: "boss_core",
     50: "boss_nemesis",
+    60: "boss_sentinel",
+    70: "boss_serpent",
+    80: "boss_leviathan",
+    90: "boss_phantom",
+    100: "boss_oblivion",
+}
+
+BOSS_MOVEMENTS = {
+    "boss_warden": "boss",
+    "boss_hydra": "boss",
+    "boss_titan": "boss",
+    "boss_core": "boss",
+    "boss_nemesis": "boss",
+    "boss_sentinel": "drift_boss",
+    "boss_serpent": "sine_boss",
+    "boss_leviathan": "lerp_boss",
+    "boss_phantom": "orbit_boss",
+    "boss_oblivion": "lerp_boss",
 }
 
 NAMES = [
@@ -68,6 +86,16 @@ NAMES = [
     "FRACTURE", "DEAD RECKONING", "BLIND JUMP", "RED SHIFT", "CORE BREACH",
     "TERMINAL DRIFT", "STARFALL", "THE LONG DARK", "IRON CROWN", "LAST LIGHT",
     "OVERLOAD", "ZERO HOUR", "FINAL APPROACH", "THE GATE", "NEMESIS",
+    "SHADOW GATE", "DARK NEBULA", "FROZEN ORBIT", "PLASMA STORM", "VOID WALKER",
+    "WARP RIFT", "STELLAR DUST", "IRON FORTRESS", "PULSE WAVE", "SENTINEL",
+    "DEEP SPACE", "ASTEROID BELT", "LUNAR BASE", "SOLAR WINDS", "COSMIC RAY",
+    "DARK MATTER", "GRAVITY WELL", "NEUTRON STAR", "PULSAR", "SERPENT",
+    "NOVA BURST", "GAMMA RAY", "SINGULARITY", "EVENT HORIZON II", "WARP DRIVE",
+    "HYPERSPACE", "STAR GATE", "WORMHOLE", "QUASAR", "LEVIATHAN",
+    "SUPERNOVA", "BLACK HOLE", "WHITE DWARF", "RED GIANT", "BLUE STRAGGLER",
+    "BROWN DWARF", "ORION ARM", "ANDROMEDA", "MILKY WAY", "PHANTOM",
+    "CYGNUS", "LYRA", "DRACO", "CASSIOPEIA", "PEGASUS",
+    "CENTAURUS", "AQUILA", "URSA MAJOR", "CANIS MAJOR", "OBLIVION"
 ]
 
 
@@ -77,8 +105,8 @@ def available(level):
 
 def scaling(level):
     """Health / speed multipliers, rounded to keep the JSON tidy."""
-    hp = round(1.0 + (level - 1) * 0.045, 2)
-    spd = round(min(1.0 + (level - 1) * 0.016, 1.85), 2)
+    hp = round(1.0 + (level - 1) * 0.035, 2)
+    spd = round(min(1.0 + (level - 1) * 0.012, 2.0), 2)
     return hp, spd
 
 
@@ -101,7 +129,7 @@ def build(level):
 
     # One extra wave makes each mission feel more substantial without raising
     # the per-enemy health, speed, or firing pressure.
-    wave_count = min(4 + level // 6, 8)
+    wave_count = min(4 + level // 5, 10)
     gap = max(5.5, 8.5 - level * 0.05)
     interval_scale = max(0.45, 1.0 - level * 0.011)
 
@@ -128,9 +156,10 @@ def build(level):
 
     if is_boss:
         boss_time = round(t * 0.55, 1)
+        boss_name = BOSSES[level]
         waves.append(wave(
-            boss_time, BOSSES[level], "boss", 1, 1.0, "Column",
-            round(1.0 + (level // 10 - 1) * 0.12, 2), 1.0))
+            boss_time, boss_name, BOSS_MOVEMENTS.get(boss_name, "boss"), 1, 1.0, "Column",
+            round(1.0 + (level // 10 - 1) * 0.10, 2), 1.0))
 
         candidates = [s for s in recent if s != "hulk"] or recent
         escort = random.choice(candidates)
@@ -143,7 +172,7 @@ def build(level):
 
 total_enemies = 0
 print(f"{'lvl':>3}  {'name':<16} {'waves':>5} {'foes':>5}  species")
-for level in range(1, 51):
+for level in range(1, 101):
     data = build(level)
     with open(os.path.join(OUT, f"level{level:02d}.json"), "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
@@ -155,4 +184,4 @@ for level in range(1, 51):
     print(f"{level:3d}  {data['name']:<16} {len(data['waves']):5d} {foes:5d}  "
           f"{', '.join(species)}{mark}")
 
-print(f"\n50 levels written, {total_enemies} enemies total.")
+print(f"\n100 levels written, {total_enemies} enemies total.")

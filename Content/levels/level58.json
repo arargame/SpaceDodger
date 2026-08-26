@@ -1,0 +1,106 @@
+{
+  "number": 58,
+  "name": "IRON FORTRESS",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.18,
+      "healthMultiplier": 3.0,
+      "speedMultiplier": 1.68
+    },
+    {
+      "startTime": 7.1,
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.24,
+      "healthMultiplier": 3.0,
+      "speedMultiplier": 1.68
+    },
+    {
+      "startTime": 12.7,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.2,
+      "healthMultiplier": 3.0,
+      "speedMultiplier": 1.68
+    },
+    {
+      "startTime": 18.3,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.26,
+      "healthMultiplier": 3.0,
+      "speedMultiplier": 1.68
+    },
+    {
+      "startTime": 23.9,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.3,
+      "healthMultiplier": 3.0,
+      "speedMultiplier": 1.68
+    },
+    {
+      "startTime": 29.5,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 16,
+      "interval": 0.26,
+      "healthMultiplier": 3.0,
+      "speedMultiplier": 1.68
+    },
+    {
+      "startTime": 35.1,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 10,
+      "interval": 0.37,
+      "healthMultiplier": 3.0,
+      "speedMultiplier": 1.68
+    },
+    {
+      "startTime": 40.7,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 6,
+      "interval": 0.26,
+      "healthMultiplier": 3.0,
+      "speedMultiplier": 1.68
+    },
+    {
+      "startTime": 46.3,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 1,
+      "interval": 0.34,
+      "healthMultiplier": 3.0,
+      "speedMultiplier": 1.68
+    },
+    {
+      "startTime": 51.9,
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.35,
+      "healthMultiplier": 3.0,
+      "speedMultiplier": 1.68
+    }
+  ]
+}

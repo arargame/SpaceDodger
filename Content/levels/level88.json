@@ -1,0 +1,106 @@
+{
+  "number": 88,
+  "name": "ANDROMEDA",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.27,
+      "healthMultiplier": 4.04,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 7.0,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.24,
+      "healthMultiplier": 4.04,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 12.5,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.34,
+      "healthMultiplier": 4.04,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "raider",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 9,
+      "interval": 0.26,
+      "healthMultiplier": 4.04,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 23.5,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 7,
+      "interval": 0.32,
+      "healthMultiplier": 4.04,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 29.0,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 7,
+      "interval": 0.25,
+      "healthMultiplier": 4.04,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Line",
+      "count": 11,
+      "interval": 0.25,
+      "healthMultiplier": 4.04,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 40.0,
+      "enemy": "raider",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.32,
+      "healthMultiplier": 4.04,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 45.5,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.33,
+      "healthMultiplier": 4.04,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 51.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.26,
+      "healthMultiplier": 4.04,
+      "speedMultiplier": 2.0
+    }
+  ]
+}

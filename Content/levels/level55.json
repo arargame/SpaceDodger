@@ -1,0 +1,106 @@
+{
+  "number": 55,
+  "name": "VOID WALKER",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.19,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.65
+    },
+    {
+      "startTime": 7.2,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 8,
+      "interval": 0.24,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.65
+    },
+    {
+      "startTime": 13.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.38,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.65
+    },
+    {
+      "startTime": 18.8,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.24,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.65
+    },
+    {
+      "startTime": 24.5,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.18,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.65
+    },
+    {
+      "startTime": 30.2,
+      "enemy": "raider",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 7,
+      "interval": 0.18,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.65
+    },
+    {
+      "startTime": 36.0,
+      "enemy": "raider",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 7,
+      "interval": 0.34,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.65
+    },
+    {
+      "startTime": 41.8,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.37,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.65
+    },
+    {
+      "startTime": 47.5,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.35,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.65
+    },
+    {
+      "startTime": 53.2,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 1,
+      "interval": 0.19,
+      "healthMultiplier": 2.89,
+      "speedMultiplier": 1.65
+    }
+  ]
+}

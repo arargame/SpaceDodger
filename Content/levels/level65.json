@@ -1,0 +1,106 @@
+{
+  "number": 65,
+  "name": "COSMIC RAY",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 5,
+      "interval": 0.19,
+      "healthMultiplier": 3.24,
+      "speedMultiplier": 1.77
+    },
+    {
+      "startTime": 7.0,
+      "enemy": "turret",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.23,
+      "healthMultiplier": 3.24,
+      "speedMultiplier": 1.77
+    },
+    {
+      "startTime": 12.5,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 8,
+      "interval": 0.22,
+      "healthMultiplier": 3.24,
+      "speedMultiplier": 1.77
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.16,
+      "healthMultiplier": 3.24,
+      "speedMultiplier": 1.77
+    },
+    {
+      "startTime": 23.5,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.25,
+      "healthMultiplier": 3.24,
+      "speedMultiplier": 1.77
+    },
+    {
+      "startTime": 29.0,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.19,
+      "healthMultiplier": 3.24,
+      "speedMultiplier": 1.77
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.21,
+      "healthMultiplier": 3.24,
+      "speedMultiplier": 1.77
+    },
+    {
+      "startTime": 40.0,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 6,
+      "interval": 0.25,
+      "healthMultiplier": 3.24,
+      "speedMultiplier": 1.77
+    },
+    {
+      "startTime": 45.5,
+      "enemy": "lancer",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 8,
+      "interval": 0.21,
+      "healthMultiplier": 3.24,
+      "speedMultiplier": 1.77
+    },
+    {
+      "startTime": 51.0,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 9,
+      "interval": 0.34,
+      "healthMultiplier": 3.24,
+      "speedMultiplier": 1.77
+    }
+  ]
+}

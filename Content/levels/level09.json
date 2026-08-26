@@ -4,53 +4,53 @@
   "waves": [
     {
       "startTime": 1.5,
-      "enemy": "scout",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 9,
-      "interval": 0.33,
-      "healthMultiplier": 1.36,
-      "speedMultiplier": 1.13
-    },
-    {
-      "startTime": 9.6,
       "enemy": "drone",
       "movement": "zigzag",
       "formation": "Line",
       "count": 8,
       "interval": 0.47,
-      "healthMultiplier": 1.36,
-      "speedMultiplier": 1.13
+      "healthMultiplier": 1.28,
+      "speedMultiplier": 1.1
+    },
+    {
+      "startTime": 9.6,
+      "enemy": "wasp",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.45,
+      "healthMultiplier": 1.28,
+      "speedMultiplier": 1.1
     },
     {
       "startTime": 17.6,
       "enemy": "wasp",
       "movement": "chase",
       "formation": "Column",
-      "count": 8,
-      "interval": 0.45,
-      "healthMultiplier": 1.36,
-      "speedMultiplier": 1.13
+      "count": 4,
+      "interval": 0.52,
+      "healthMultiplier": 1.28,
+      "speedMultiplier": 1.1
     },
     {
       "startTime": 25.7,
-      "enemy": "wasp",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 4,
-      "interval": 0.52,
-      "healthMultiplier": 1.36,
-      "speedMultiplier": 1.13
-    },
-    {
-      "startTime": 33.7,
       "enemy": "mine",
       "movement": "sine",
       "formation": "Column",
       "count": 3,
       "interval": 0.33,
-      "healthMultiplier": 1.36,
-      "speedMultiplier": 1.13
+      "healthMultiplier": 1.28,
+      "speedMultiplier": 1.1
+    },
+    {
+      "startTime": 33.7,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.4,
+      "healthMultiplier": 1.28,
+      "speedMultiplier": 1.1
     }
   ]
 }

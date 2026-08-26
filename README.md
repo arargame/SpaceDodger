@@ -1,6 +1,6 @@
-# Space Impact
+﻿# Space Dodger
 
-**Space Impact** is a fast, mobile-friendly pixel-art shoot-'em-up inspired by
+**Space Dodger** is a fast, mobile-friendly pixel-art shoot-'em-up inspired by
 the classic side-scrolling space shooters. Pilot a lone interceptor through 50
 enemy-filled missions, build your weapon power, collect life-saving supplies,
 and defeat NEMESIS to save the galaxy.
@@ -28,24 +28,24 @@ the final mission displays the **GALAXY SAVED** finale, records the score, and
 lets the player begin a fresh run.
 
 ```
-SpaceImpact/
-├── SpaceImpact.sln
+SpaceDodger/
+├── SpaceDodger.sln
 ├── Content/                     # raw assets, shared by both heads
 │   ├── sprites/*.png            # pixel art sprite sheets + bitmap font
 │   └── levels/level01..50.json  # data-driven level definitions
-├── SpaceImpact.Shared/          # ALL game logic (shared project, .shproj)
-├── SpaceImpact.Desktop/         # Windows/Linux/macOS entry point
-└── SpaceImpact.Android/         # Android entry point
+├── SpaceDodger.Shared/          # ALL game logic (shared project, .shproj)
+├── SpaceDodger.Desktop/         # Windows/Linux/macOS entry point
+└── SpaceDodger.Android/         # Android entry point
 ```
 
 ## Running
 
 ```bash
 # Desktop
-dotnet run --project SpaceImpact.Desktop
+dotnet run --project SpaceDodger.Desktop
 
 # Android (device or emulator attached)
-dotnet build SpaceImpact.Android -t:Run
+dotnet build SpaceDodger.Android -t:Run
 ```
 
 Requires the .NET 8 SDK. The Android head additionally needs the
@@ -54,7 +54,7 @@ Requires the .NET 8 SDK. The Android head additionally needs the
 To create a release Android package:
 
 ```bash
-dotnet publish SpaceImpact.Android -c Release
+dotnet publish SpaceDodger.Android -c Release
 ```
 
 ## Controls
@@ -68,7 +68,7 @@ dotnet publish SpaceImpact.Android -c Release
 
 ## Architecture
 
-Everything below lives in `SpaceImpact.Shared` and is referenced by both heads via
+Everything below lives in `SpaceDodger.Shared` and is referenced by both heads via
 the shared project (`.projitems`), so there is exactly one copy of the game.
 
 ### Platform abstraction (Dependency Inversion)
@@ -84,7 +84,7 @@ public interface IPlatformServices
 }
 ```
 
-`DesktopPlatform` and `AndroidPlatform` implement it. `SpaceImpactGame` is the
+`DesktopPlatform` and `AndroidPlatform` implement it. `SpaceDodgerGame` is the
 composition root — it builds every service once and injects them through
 `GameContext`. No service locator, no statics holding state.
 

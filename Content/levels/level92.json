@@ -1,0 +1,106 @@
+{
+  "number": 92,
+  "name": "LYRA",
+  "waves": [
+    {
+      "startTime": 1.5,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.2,
+      "healthMultiplier": 4.19,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 7.0,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.35,
+      "healthMultiplier": 4.19,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 12.5,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Column",
+      "count": 11,
+      "interval": 0.21,
+      "healthMultiplier": 4.19,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 18.0,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 6,
+      "interval": 0.31,
+      "healthMultiplier": 4.19,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 23.5,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 7,
+      "interval": 0.22,
+      "healthMultiplier": 4.19,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 29.0,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.19,
+      "healthMultiplier": 4.19,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 34.5,
+      "enemy": "fighter",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 9,
+      "interval": 0.27,
+      "healthMultiplier": 4.19,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 40.0,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.29,
+      "healthMultiplier": 4.19,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 45.5,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 9,
+      "interval": 0.2,
+      "healthMultiplier": 4.19,
+      "speedMultiplier": 2.0
+    },
+    {
+      "startTime": 51.0,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.19,
+      "healthMultiplier": 4.19,
+      "speedMultiplier": 2.0
+    }
+  ]
+}
