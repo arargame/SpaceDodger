@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
 using SpaceDodger.Graphics;
@@ -80,7 +80,7 @@ namespace SpaceDodger.Screens
             // Title with a subtle bob.
             float bob = (float)System.Math.Sin(_time * 1.6f) * 2f;
             Context.Font.DrawCentered(spriteBatch, "SPACE", cx, 14 + bob, new Color(255, 220, 60), 3f);
-            Context.Font.DrawCentered(spriteBatch, "IMPACT", cx, 38 + bob, Color.White, 3f);
+            Context.Font.DrawCentered(spriteBatch, "DODGER", cx, 38 + bob, Color.White, 3f);
 
             _menu.Draw(spriteBatch);
 
