@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Graphics;
 using SpaceDodger.Input;
@@ -94,6 +94,11 @@ namespace SpaceDodger.Core
 
             // 2) Scale it up to the real backbuffer with crisp pixels.
             _screen.EndCapture(_spriteBatch);
+
+            // 3) Draw high-res UI overlays directly on the backbuffer.
+            _spriteBatch.Begin(samplerState: SamplerState.LinearClamp);
+            _screens.DrawHighRes(_spriteBatch, _screen);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }

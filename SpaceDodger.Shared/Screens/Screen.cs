@@ -1,5 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
+using SpaceDodger.Graphics;
 using SpaceDodger.Input;
 
 namespace SpaceDodger.Screens
@@ -18,5 +19,8 @@ namespace SpaceDodger.Screens
 
         public abstract void Update(float dt, in InputState input);
         public abstract void Draw(SpriteBatch spriteBatch);
+
+        /// <summary>Override to draw high-res UI on the real backbuffer.</summary>
+        public virtual void DrawHighRes(SpriteBatch spriteBatch, VirtualScreen screen) { }
     }
 }

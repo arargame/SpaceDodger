@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Input;
 
@@ -65,6 +65,20 @@ namespace SpaceDodger.Screens
 
             for (int i = first; i < _stack.Count; i++)
                 _stack[i].Draw(spriteBatch);
+        }
+
+        /// <summary>Second pass: draw high-res overlays directly on the backbuffer.</summary>
+        public void DrawHighRes(SpriteBatch spriteBatch, Graphics.VirtualScreen screen)
+        {
+            if (_stack.Count == 0)
+                return;
+
+            int first = _stack.Count - 1;
+            while (first > 0 && _stack[first].IsOverlay)
+                first--;
+
+            for (int i = first; i < _stack.Count; i++)
+                _stack[i].DrawHighRes(spriteBatch, screen);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics;
+using SpaceDodger.Graphics;
 using SpaceDodger.Input;
 
 namespace SpaceDodger.Screens
@@ -16,5 +17,9 @@ namespace SpaceDodger.Screens
         void Unload();
         void Update(float dt, in InputState input);
         void Draw(SpriteBatch spriteBatch);
+
+        /// <summary>Draw high-resolution UI elements directly to the backbuffer
+        /// (after the virtual render target has been composited).</summary>
+        void DrawHighRes(SpriteBatch spriteBatch, VirtualScreen screen) { }
     }
 }

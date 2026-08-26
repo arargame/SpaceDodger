@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SpaceDodger.Graphics
@@ -56,6 +56,22 @@ namespace SpaceDodger.Graphics
             return new Vector2(
                 (physical.X - dest.X) / scaleX,
                 (physical.Y - dest.Y) / scaleY);
+        }
+
+        /// <summary>The destination rectangle on the physical backbuffer.</summary>
+        public Rectangle Destination => _destination.Width > 0 ? _destination : ComputeDestination();
+
+        /// <summary>Convert a virtual-space rectangle to physical backbuffer coordinates.</summary>
+        public Rectangle ToPhysical(Rectangle virtualRect)
+        {
+            var dest = Destination;
+            float scaleX = (float)dest.Width / Width;
+            float scaleY = (float)dest.Height / Height;
+            return new Rectangle(
+                dest.X + (int)(virtualRect.X * scaleX),
+                dest.Y + (int)(virtualRect.Y * scaleY),
+                (int)(virtualRect.Width * scaleX),
+                (int)(virtualRect.Height * scaleY));
         }
 
         private Rectangle ComputeDestination()

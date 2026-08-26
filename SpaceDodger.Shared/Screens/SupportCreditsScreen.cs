@@ -62,24 +62,21 @@ namespace SpaceDodger.Screens
             Context.Font.DrawCentered(spriteBatch, "ARAR GAMES", cx, 12, new Color(255, 220, 60), 2f);
             Context.Font.DrawCentered(spriteBatch, "APPLICATIONS", cx, 32, Color.White);
             
-            // Switch to LinearClamp for high-res images (game posters & market buttons)
-            spriteBatch.End();
-            spriteBatch.Begin(samplerState: SamplerState.LinearClamp);
-            
-            spriteBatch.Draw(_blocked, _blockedRect, Color.White);
-            spriteBatch.Draw(_paintTrek, _paintRect, Color.White);
-            spriteBatch.Draw(_iconAndroid, _blockedAndroidBtn, Color.White);
-            spriteBatch.Draw(_iconAndroid, _paintAndroidBtn, Color.White);
-            spriteBatch.Draw(_iconMsStore, _paintMsStoreBtn, Color.White);
-            
-            // Switch back to PointClamp for pixel text
-            spriteBatch.End();
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            
             Context.Font.DrawCentered(spriteBatch, "BLOCKED", 74, 95, new Color(150,160,190));
             Context.Font.DrawCentered(spriteBatch, "PAINT TREK", 234, 95, new Color(150,160,190));
             
             _menu.Draw(spriteBatch);
+        }
+
+        /// <summary>Draw high-res game posters and market icons at real screen resolution.</summary>
+        public override void DrawHighRes(SpriteBatch spriteBatch, Graphics.VirtualScreen screen)
+        {
+            // Map virtual rectangles to physical backbuffer coordinates
+            spriteBatch.Draw(_blocked, screen.ToPhysical(_blockedRect), Color.White);
+            spriteBatch.Draw(_paintTrek, screen.ToPhysical(_paintRect), Color.White);
+            spriteBatch.Draw(_iconAndroid, screen.ToPhysical(_blockedAndroidBtn), Color.White);
+            spriteBatch.Draw(_iconAndroid, screen.ToPhysical(_paintAndroidBtn), Color.White);
+            spriteBatch.Draw(_iconMsStore, screen.ToPhysical(_paintMsStoreBtn), Color.White);
         }
     }
 }
