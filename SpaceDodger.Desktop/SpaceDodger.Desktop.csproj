@@ -20,6 +20,8 @@
   <!-- Raw content (PNG sprites + JSON levels) copied next to the executable.
        Loaded at runtime with TitleContainer, no MGCB pipeline needed. -->
   <ItemGroup>
+    <Content Include="Icon.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Icon.bmp" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\Content\**\*.*" Link="Content\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
