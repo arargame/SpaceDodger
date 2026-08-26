@@ -50,14 +50,14 @@ namespace SpaceDodger.Screens
 
             _font.DrawCentered(spriteBatch, $"LV{levelNumber}", _bounds.Width / 2f, 1, Dim);
 
-            _font.Draw(spriteBatch, $"W{player.WeaponLevel}", new Vector2(_bounds.Width - 54, 1), Dim); // Moved weapon slightly right
+            _font.Draw(spriteBatch, $"W{player.WeaponLevel}", new Vector2(_bounds.Width - 38, 1), Dim);
 
             if (_showPauseButton)
                 DrawPauseButton(spriteBatch);
 
             // Lives as small ship pips on the right.
             for (int i = 0; i < player.Lives && i < 7; i++)
-                spriteBatch.Draw(_pixel, new Rectangle(_bounds.Width - 46 + i * 6, 3, 4, 4), Accent);
+                spriteBatch.Draw(_pixel, new Rectangle(_bounds.Width - 24 + i * 4, 3, 3, 4), Accent);
 
             DrawBuffs(spriteBatch, player);
 
