@@ -62,6 +62,10 @@ namespace SpaceDodger.Screens
             Context.Font.DrawCentered(spriteBatch, "ARAR GAMES", cx, 12, new Color(255, 220, 60), 2f);
             Context.Font.DrawCentered(spriteBatch, "APPLICATIONS", cx, 32, Color.White);
             
+            // Draw high-res UI elements with Linear filter so they don't look badly crushed
+            spriteBatch.End();
+            spriteBatch.Begin(samplerState: SamplerState.LinearClamp, blendState: BlendState.NonPremultiplied);
+            
             // Draw game icons
             spriteBatch.Draw(_blocked, _blockedRect, Color.White);
             spriteBatch.Draw(_paintTrek, _paintRect, Color.White);
@@ -72,6 +76,10 @@ namespace SpaceDodger.Screens
             // Draw market icons for Paint Trek
             spriteBatch.Draw(_iconAndroid, _paintAndroidBtn, Color.White);
             spriteBatch.Draw(_iconMsStore, _paintMsStoreBtn, Color.White);
+            
+            // Revert back to Point filter for pixel text and the rest of the UI
+            spriteBatch.End();
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
             
             Context.Font.DrawCentered(spriteBatch, "BLOCKED", 74, 95, new Color(150,160,190));
             Context.Font.DrawCentered(spriteBatch, "PAINT TREK", 234, 95, new Color(150,160,190));
