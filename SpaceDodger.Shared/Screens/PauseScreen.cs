@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
 using SpaceDodger.Input;
@@ -19,12 +19,15 @@ namespace SpaceDodger.Screens
 
         public override void Load()
         {
-            _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 92f)
+            _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 85f)
                 .Add("RESUME", Resume)
+                .Add("OPTIONS", OpenOptions)
                 .Add("MAIN MENU", QuitToMenu);
         }
 
         private void Resume() => Context.Screens.Pop();
+        
+        private void OpenOptions() => Context.Screens.Push(new OptionsScreen(Context));
 
         private void QuitToMenu() => Context.Screens.Reset(new MenuScreen(Context));
 

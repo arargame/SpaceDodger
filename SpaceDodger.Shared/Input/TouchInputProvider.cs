@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using SpaceDodger.Graphics;
@@ -42,14 +42,14 @@ namespace SpaceDodger.Input
         public void Update()
         {
             var touches = TouchPanel.GetState();
-            var state = new InputState { Fire = true };
+            var state = new InputState(); // Fire is false by default
 
             bool joystickAlive = false;
 
             foreach (var touch in touches)
             {
                 var pos = _screen.ToVirtual(touch.Position);
-                bool leftSide = pos.X < _screen.Width * 0.55f;
+                bool notHeader = pos.Y > 10f; // Everything below the top header
 
                 if (touch.State == TouchLocationState.Pressed)
                 {
@@ -58,7 +58,8 @@ namespace SpaceDodger.Input
                         _scrollId = touch.Id;
                         _scrollLast = pos;
                     }
-                    if (leftSide && _joystickId == -1)
+                    // Ship movement applies anywhere on screen except the top 10px header
+                    if (notHeader && _joystickId == -1)
                     {
                         _joystickId = touch.Id;
                         _joystickOrigin = pos;
@@ -82,6 +83,7 @@ namespace SpaceDodger.Input
                     (touch.State == TouchLocationState.Pressed || touch.State == TouchLocationState.Moved))
                 {
                     joystickAlive = true;
+                    state.Fire = true; // Actively moving/holding means we also want to fire
                     var delta = (pos - _joystickOrigin) / JoystickRadius;
                     if (delta.LengthSquared() > 1f)
                         delta.Normalize();

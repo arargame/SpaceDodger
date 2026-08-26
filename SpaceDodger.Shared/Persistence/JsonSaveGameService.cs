@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text.Json;
 
@@ -43,6 +43,8 @@ namespace SpaceDodger.Persistence
                     data.MusicEnabled = musicEnabled.GetBoolean();
                 if (root.TryGetProperty("soundEnabled", out var soundEnabled))
                     data.SoundEnabled = soundEnabled.GetBoolean();
+                if (root.TryGetProperty("autoAttackEnabled", out var autoAttackEnabled))
+                    data.AutoAttackEnabled = autoAttackEnabled.GetBoolean();
                 if (root.TryGetProperty("resumeLevel", out var resumeLevel)) data.ResumeLevel = Math.Max(1, resumeLevel.GetInt32());
                 if (root.TryGetProperty("resumeLives", out var resumeLives)) data.ResumeLives = Math.Max(1, resumeLives.GetInt32());
                 if (root.TryGetProperty("resumeWeaponLevel", out var resumeWeapon)) data.ResumeWeaponLevel = Math.Max(1, resumeWeapon.GetInt32());
@@ -86,6 +88,7 @@ namespace SpaceDodger.Persistence
                 writer.WriteNumber("bestRunLevel", Data.BestRunLevel);
                 writer.WriteBoolean("musicEnabled", Data.MusicEnabled);
                 writer.WriteBoolean("soundEnabled", Data.SoundEnabled);
+                writer.WriteBoolean("autoAttackEnabled", Data.AutoAttackEnabled);
                 writer.WriteNumber("resumeLevel", Data.ResumeLevel);
                 writer.WriteNumber("resumeLives", Data.ResumeLives);
                 writer.WriteNumber("resumeWeaponLevel", Data.ResumeWeaponLevel);

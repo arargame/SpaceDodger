@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Input;
 
@@ -19,6 +19,7 @@ namespace SpaceDodger.Screens
             _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 78f)
                 .Add($"MUSIC: {OnOff(Context.Save.Data.MusicEnabled)}", ToggleMusic)
                 .Add($"SOUND FX: {OnOff(Context.Save.Data.SoundEnabled)}", ToggleSound)
+                .Add($"AUTO-ATTACK: {OnOff(Context.Save.Data.AutoAttackEnabled)}", ToggleAutoAttack)
                 .Add("BACK", Back);
         }
 
@@ -34,6 +35,13 @@ namespace SpaceDodger.Screens
         private void ToggleSound()
         {
             Context.Save.Data.SoundEnabled = !Context.Save.Data.SoundEnabled;
+            Context.Save.Save();
+            BuildMenu();
+        }
+
+        private void ToggleAutoAttack()
+        {
+            Context.Save.Data.AutoAttackEnabled = !Context.Save.Data.AutoAttackEnabled;
             Context.Save.Save();
             BuildMenu();
         }

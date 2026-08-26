@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using SpaceDodger.Core;
 
@@ -21,6 +21,7 @@ namespace SpaceDodger.Persistence
         public int BestRunLevel = 1;
         public bool MusicEnabled = true;
         public bool SoundEnabled = true;
+        public bool AutoAttackEnabled = true;
         public int ResumeLevel = 1;
         public int ResumeLives = 3;
         public int ResumeWeaponLevel = 1;

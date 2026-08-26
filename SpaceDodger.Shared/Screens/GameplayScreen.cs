@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
@@ -137,21 +137,25 @@ namespace SpaceDodger.Screens
 
             _world.PlayerPosition = _player.Position;
 
+            var currentInput = input;
+            if (Context.Save.Data.AutoAttackEnabled)
+                currentInput.Fire = true;
+
             switch (_phase)
             {
                 case Phase.Intro:
-                    _player.Update(dt, input);
+                    _player.Update(dt, currentInput);
                     _phaseTimer -= dt;
                     if (_phaseTimer <= 0f)
                         _phase = Phase.Playing;
                     break;
 
                 case Phase.Playing:
-                    UpdatePlaying(dt, input);
+                    UpdatePlaying(dt, currentInput);
                     break;
 
                 case Phase.Cleared:
-                    _player.Update(dt, input);
+                    _player.Update(dt, currentInput);
                     _phaseTimer -= dt;
                     if (_phaseTimer <= 0f)
                         AdvanceLevel();

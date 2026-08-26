@@ -31,7 +31,7 @@ namespace SpaceDodger.Screens
 
         /// <summary>Large touch target for the visible pause glyph.</summary>
         public Rectangle PauseButtonBounds =>
-            new Rectangle((_bounds.Width / 2) + 40, 0, 48, 20); // Moved to between LV (center) and W (right edge)
+            new Rectangle((_bounds.Width / 2) + 30, 0, 48, 10); // Height=10 to fit in header
 
         public bool IsPauseButton(Vector2 point) =>
             PauseButtonBounds.Contains((int)point.X, (int)point.Y);
@@ -71,8 +71,8 @@ namespace SpaceDodger.Screens
             // Draw a subtle background for the pause button to show the touch area clearly
             spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 6, bounds.Y, bounds.Width - 12, bounds.Height), new Color(44, 50, 70));
             // Draw the two vertical pause lines centered in the area
-            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 20, bounds.Y + 4, 2, 7), Color.White);
-            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 26, bounds.Y + 4, 2, 7), Color.White);
+            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 20, bounds.Y + 2, 2, 6), Color.White);
+            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 26, bounds.Y + 2, 2, 6), Color.White);
         }
 
         /// <summary>Timed buff bars along the bottom-left, only while active.</summary>
