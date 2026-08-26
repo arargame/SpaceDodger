@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
 using SpaceDodger.Input;
@@ -13,7 +13,6 @@ namespace SpaceDodger.Screens
         private MenuList _menu;
         private Rectangle _worldButton;
         private Rectangle _backButton;
-        private Rectangle TopBackButton => new Rectangle(Context.Screen.Width - 62, 4, 56, 18);
         private float _scrollOffset;
 
         public HighScoreScreen(GameContext context) : base(context) { }
@@ -42,11 +41,11 @@ namespace SpaceDodger.Screens
             else if (Context.Platform.IsMobile && input.Tap.HasValue)
             {
                 var tap = input.Tap.Value;
-                if (TopBackButton.Contains((int)tap.X, (int)tap.Y)) Context.Screens.Pop();
-                else if (_worldButton.Contains((int)tap.X, (int)tap.Y)) Context.Games.ShowLeaderboards();
+                if (_worldButton.Contains((int)tap.X, (int)tap.Y)) Context.Games.ShowLeaderboards();
                 else if (_backButton.Contains((int)tap.X, (int)tap.Y)) Context.Screens.Pop();
             }
-            else
+            
+            if (_menu != null)
                 _menu.Update(input);
         }
 
@@ -54,11 +53,6 @@ namespace SpaceDodger.Screens
         {
             float cx = Context.Screen.Width / 2f;
             Context.Font.DrawCentered(spriteBatch, "HIGH SCORES", cx, 16, Color.White, 2f);
-            if (Context.Platform.IsMobile)
-            {
-                spriteBatch.Draw(Context.Textures.Pixel, TopBackButton, new Color(42, 48, 68));
-                Context.Font.DrawCentered(spriteBatch, "BACK", TopBackButton.Center.X, TopBackButton.Y + 6, Header);
-            }
 
             var scores = Context.Save.Data.HighScores;
 

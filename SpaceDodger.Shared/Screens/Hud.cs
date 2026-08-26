@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Entities;
 using SpaceDodger.Graphics;
@@ -31,7 +31,7 @@ namespace SpaceDodger.Screens
 
         /// <summary>Large touch target for the visible pause glyph.</summary>
         public Rectangle PauseButtonBounds =>
-            new Rectangle(_bounds.Width - 84, 0, 38, 18);
+            new Rectangle((_bounds.Width / 2) + 40, 0, 48, 20); // Moved to between LV (center) and W (right edge)
 
         public bool IsPauseButton(Vector2 point) =>
             PauseButtonBounds.Contains((int)point.X, (int)point.Y);
@@ -50,7 +50,7 @@ namespace SpaceDodger.Screens
 
             _font.DrawCentered(spriteBatch, $"LV{levelNumber}", _bounds.Width / 2f, 1, Dim);
 
-            _font.Draw(spriteBatch, $"W{player.WeaponLevel}", new Vector2(_bounds.Width - 88, 1), Dim);
+            _font.Draw(spriteBatch, $"W{player.WeaponLevel}", new Vector2(_bounds.Width - 54, 1), Dim); // Moved weapon slightly right
 
             if (_showPauseButton)
                 DrawPauseButton(spriteBatch);
@@ -68,9 +68,11 @@ namespace SpaceDodger.Screens
         private void DrawPauseButton(SpriteBatch spriteBatch)
         {
             var bounds = PauseButtonBounds;
-            spriteBatch.Draw(_pixel, bounds, new Color(44, 50, 70));
-            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 7, bounds.Y + 3, 2, 6), Color.White);
-            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 13, bounds.Y + 3, 2, 6), Color.White);
+            // Draw a subtle background for the pause button to show the touch area clearly
+            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 6, bounds.Y, bounds.Width - 12, bounds.Height), new Color(44, 50, 70));
+            // Draw the two vertical pause lines centered in the area
+            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 20, bounds.Y + 4, 2, 7), Color.White);
+            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 26, bounds.Y + 4, 2, 7), Color.White);
         }
 
         /// <summary>Timed buff bars along the bottom-left, only while active.</summary>
