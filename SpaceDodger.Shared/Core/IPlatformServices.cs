@@ -1,4 +1,4 @@
-﻿using SpaceDodger.Graphics;
+using SpaceDodger.Graphics;
 using SpaceDodger.Input;
 
 namespace SpaceDodger.Core
@@ -21,5 +21,6 @@ namespace SpaceDodger.Core
 
         void OpenUrl(string url) { }
         void PurchaseConsumable(string productId) { }
+        void ExitGame() { }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Android.Content;
+using Android.Content;
 using Android.Net;
 using SpaceDodger.Core;
 using SpaceDodger.Graphics;
@@ -32,5 +32,7 @@ namespace SpaceDodger.Droid
             intent.AddFlags(ActivityFlags.NewTask);
             _context.StartActivity(intent);
         }
+
+        public void ExitGame() => (_context as MainActivity ?? MainActivity.Instance)?.SafeExit();
     }
 }

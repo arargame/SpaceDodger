@@ -31,6 +31,8 @@ namespace SpaceDodger.Core
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
+            Exiting += (sender, args) => _platform?.ExitGame();
+
             if (platform.IsMobile)
             {
                 _graphics.IsFullScreen = true;
