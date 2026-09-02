@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0-android</TargetFramework>
@@ -10,9 +10,31 @@
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
-    <!-- Reflection-free code paths are used (manual JSON parsing), trimming is safe,
-         but keep it conservative for MonoGame. -->
-    <PublishTrimmed>false</PublishTrimmed>
+  </PropertyGroup>
+
+  <!-- ===================== DEBUG ===================== -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <AndroidFastDeployment>false</AndroidFastDeployment>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidLinkMode>None</AndroidLinkMode>
+  </PropertyGroup>
+
+  <!-- ===================== RELEASE ===================== -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <AndroidFastDeployment>false</AndroidFastDeployment>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+
+    <!-- Linker: Sdk kütüphanelerini kırp, MonoGame assembly'lerini koru -->
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkSkip>MonoGame.Framework</AndroidLinkSkip>
+
+    <!-- AOT: ARM64 cihazlarda yüksek performans sağlar -->
+    <RunAOTCompilation>true</RunAOTCompilation>
+
+    <!-- R8 shrinker aktif, Proguard kapalı -->
+    <AndroidEnableR8>true</AndroidEnableR8>
+    <AndroidEnableProguard>false</AndroidEnableProguard>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
   </PropertyGroup>
 
   <ItemGroup>
