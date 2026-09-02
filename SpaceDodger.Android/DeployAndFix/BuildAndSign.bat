@@ -11,7 +11,7 @@ set ALIAS=spacedodger-key
 for %%I in ("%~dp0..") do set "PROJECT=%%~fI"
 for %%I in ("%~dp0..\..\SpaceDodger.Shared") do set "SHARED=%%~fI"
 set "OUTPUT=%PROJECT%\bin\Release\signed"
-set "SIGNED_FILE=%OUTPUT%\com.koray.spacedodger-SIGNED.aab"
+set "SIGNED_FILE=%OUTPUT%\com.arargames.spacedodger-SIGNED.aab"
 
 echo [INFO] Keystore: %KEYSTORE%
 echo [INFO] Alias: %ALIAS%
@@ -55,7 +55,7 @@ jarsigner -sigalg SHA256withRSA -digestalg SHA-256 ^
     -storepass %PASS% ^
     -keypass %PASS% ^
     -signedjar "%SIGNED_FILE%" ^
-    "%PROJECT%\bin\Release\net8.0-android\com.koray.spacedodger.aab" ^
+    "%PROJECT%\bin\Release\net8.0-android\com.arargames.spacedodger.aab" ^
     %ALIAS%
 
 if %ERRORLEVEL% NEQ 0 (

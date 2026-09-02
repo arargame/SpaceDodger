@@ -34,7 +34,7 @@ keytool -genkeypair -v ^
     -validity 10000 ^
     -storepass %PASS% ^
     -keypass %PASS% ^
-    -dname "CN=Koray, OU=Games, O=ArarGame, C=TR"
+    -dname "CN=ArarGames, OU=Games, O=ArarGames, C=TR"
 
 if %ERRORLEVEL% NEQ 0 (
     echo.
