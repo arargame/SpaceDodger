@@ -28,8 +28,8 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <AndroidLinkSkip>MonoGame.Framework</AndroidLinkSkip>
 
-    <!-- AOT: ARM64 cihazlarda yüksek performans sağlar -->
-    <RunAOTCompilation>true</RunAOTCompilation>
+    <!-- AOT: Kapali (Windows AOT derleme MonoAOTCompiler cakismalarini engeller) -->
+    <RunAOTCompilation>false</RunAOTCompilation>
 
     <!-- R8 shrinker aktif, Proguard kapalı -->
     <AndroidEnableR8>true</AndroidEnableR8>
