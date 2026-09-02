@@ -1,8 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-android</TargetFramework>
+    <!-- Play Console: API 36 (Android 16) zorunlulugu -->
+    <TargetFramework>net9.0-android36.0</TargetFramework>
     <SupportedOSPlatformVersion>23</SupportedOSPlatformVersion>
+    <AndroidMinimumDotNetApiLevel>23</AndroidMinimumDotNetApiLevel>
+    <AndroidTargetSdkVersion>36</AndroidTargetSdkVersion>
     <OutputType>Exe</OutputType>
     <RootNamespace>SpaceDodger.Droid</RootNamespace>
     <ApplicationId>com.arargames.spacedodger</ApplicationId>
@@ -38,7 +41,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.Android" Version="3.8.2.1105" />
+    <PackageReference Include="MonoGame.Framework.Android" Version="3.8.4.1" />
   </ItemGroup>
 
   <Import Project="..\SpaceDodger.Shared\SpaceDodger.Shared.projitems" Label="Shared" />

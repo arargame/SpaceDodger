@@ -38,7 +38,7 @@ for /f "usebackq" %%i in (`powershell -Command "Write-Output (Get-Date).ToString
 echo     VersionCode: %VERSION_CODE%
 echo     VersionName: %VERSION_NAME%
 
-dotnet build "%PROJECT%\SpaceDodger.Android.csproj" -c Release -f net8.0-android /p:AndroidPackageFormat=aab /p:ApplicationVersion=%VERSION_CODE% /p:ApplicationDisplayVersion=%VERSION_NAME%
+dotnet build "%PROJECT%\SpaceDodger.Android.csproj" -c Release -f net9.0-android36.0 /p:AndroidPackageFormat=aab /p:ApplicationVersion=%VERSION_CODE% /p:ApplicationDisplayVersion=%VERSION_NAME%
 if %ERRORLEVEL% NEQ 0 (
     echo.
     echo HATA: Build basarisiz!
@@ -55,7 +55,7 @@ jarsigner -sigalg SHA256withRSA -digestalg SHA-256 ^
     -storepass %PASS% ^
     -keypass %PASS% ^
     -signedjar "%SIGNED_FILE%" ^
-    "%PROJECT%\bin\Release\net8.0-android\com.arargames.spacedodger.aab" ^
+    "%PROJECT%\bin\Release\net9.0-android36.0\com.arargames.spacedodger.aab" ^
     %ALIAS%
 
 if %ERRORLEVEL% NEQ 0 (
