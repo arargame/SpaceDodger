@@ -4,8 +4,9 @@
     <!-- Play Console: API 36 (Android 16) zorunlulugu -->
     <TargetFramework>net9.0-android36.0</TargetFramework>
     <SupportedOSPlatformVersion>23</SupportedOSPlatformVersion>
-    <AndroidMinimumDotNetApiLevel>23</AndroidMinimumDotNetApiLevel>
     <AndroidTargetSdkVersion>36</AndroidTargetSdkVersion>
+    <!-- Play Store & Cihaz Uyumlulugu: Samsung A10 gibi 32-bit (ARM) ve modern 64-bit cihazlari destekle -->
+    <RuntimeIdentifiers>android-arm;android-arm64;android-x64</RuntimeIdentifiers>
     <OutputType>Exe</OutputType>
     <RootNamespace>SpaceDodger.Droid</RootNamespace>
     <ApplicationId>com.arargames.spacedodger</ApplicationId>
