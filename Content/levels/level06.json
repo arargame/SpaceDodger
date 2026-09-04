@@ -3,54 +3,54 @@
   "name": "DEBRIS RUN",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "wasp",
-      "movement": "zigzag",
-      "formation": "Scatter",
-      "count": 7,
-      "interval": 0.45,
-      "healthMultiplier": 1.18,
-      "speedMultiplier": 1.06
+      "startTime": 0.8,
+      "enemy": "mine",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 6,
+      "interval": 0.22,
+      "healthMultiplier": 1.12,
+      "speedMultiplier": 1.05
     },
     {
-      "startTime": 9.7,
-      "enemy": "wasp",
+      "startTime": 5.1,
+      "enemy": "fighter",
       "movement": "chase",
       "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.31,
+      "healthMultiplier": 1.12,
+      "speedMultiplier": 1.05
+    },
+    {
+      "startTime": 9.4,
+      "enemy": "wasp",
+      "movement": "zigzag",
+      "formation": "Column",
+      "count": 9,
+      "interval": 0.26,
+      "healthMultiplier": 1.12,
+      "speedMultiplier": 1.05
+    },
+    {
+      "startTime": 13.6,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Column",
       "count": 7,
-      "interval": 0.57,
-      "healthMultiplier": 1.18,
-      "speedMultiplier": 1.06
+      "interval": 0.19,
+      "healthMultiplier": 1.12,
+      "speedMultiplier": 1.05
     },
     {
       "startTime": 17.9,
-      "enemy": "wasp",
-      "movement": "sine",
-      "formation": "Scatter",
-      "count": 4,
-      "interval": 0.45,
-      "healthMultiplier": 1.18,
-      "speedMultiplier": 1.06
-    },
-    {
-      "startTime": 26.1,
-      "enemy": "scout",
+      "enemy": "mine",
       "movement": "sine",
       "formation": "Diagonal",
-      "count": 7,
-      "interval": 0.53,
-      "healthMultiplier": 1.18,
-      "speedMultiplier": 1.06
-    },
-    {
-      "startTime": 34.3,
-      "enemy": "wasp",
-      "movement": "chase",
-      "formation": "Scatter",
-      "count": 3,
-      "interval": 0.57,
-      "healthMultiplier": 1.18,
-      "speedMultiplier": 1.06
+      "count": 6,
+      "interval": 0.21,
+      "healthMultiplier": 1.12,
+      "speedMultiplier": 1.05
     }
   ]
 }

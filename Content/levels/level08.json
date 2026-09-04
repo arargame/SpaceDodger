@@ -3,54 +3,54 @@
   "name": "IRON RAIN",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "drone",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 8,
-      "interval": 0.51,
-      "healthMultiplier": 1.25,
-      "speedMultiplier": 1.08
-    },
-    {
-      "startTime": 9.6,
-      "enemy": "drone",
-      "movement": "sine",
-      "formation": "Scatter",
-      "count": 7,
-      "interval": 0.66,
-      "healthMultiplier": 1.25,
-      "speedMultiplier": 1.08
-    },
-    {
-      "startTime": 17.7,
+      "startTime": 0.8,
       "enemy": "wasp",
       "movement": "chase",
       "formation": "Scatter",
-      "count": 7,
-      "interval": 0.44,
-      "healthMultiplier": 1.25,
-      "speedMultiplier": 1.08
+      "count": 9,
+      "interval": 0.22,
+      "healthMultiplier": 1.18,
+      "speedMultiplier": 1.07
     },
     {
-      "startTime": 25.8,
+      "startTime": 5.0,
       "enemy": "fighter",
       "movement": "chase",
       "formation": "Scatter",
-      "count": 3,
-      "interval": 0.35,
-      "healthMultiplier": 1.25,
-      "speedMultiplier": 1.08
+      "count": 5,
+      "interval": 0.18,
+      "healthMultiplier": 1.18,
+      "speedMultiplier": 1.07
     },
     {
-      "startTime": 33.9,
+      "startTime": 9.3,
       "enemy": "drone",
       "movement": "straight",
       "formation": "Diagonal",
       "count": 9,
-      "interval": 0.34,
-      "healthMultiplier": 1.25,
-      "speedMultiplier": 1.08
+      "interval": 0.24,
+      "healthMultiplier": 1.18,
+      "speedMultiplier": 1.07
+    },
+    {
+      "startTime": 13.5,
+      "enemy": "drone",
+      "movement": "zigzag",
+      "formation": "Line",
+      "count": 14,
+      "interval": 0.24,
+      "healthMultiplier": 1.18,
+      "speedMultiplier": 1.07
+    },
+    {
+      "startTime": 17.8,
+      "enemy": "fighter",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 9,
+      "interval": 0.36,
+      "healthMultiplier": 1.18,
+      "speedMultiplier": 1.07
     }
   ]
 }

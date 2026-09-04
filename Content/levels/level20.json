@@ -3,103 +3,93 @@
   "name": "HYDRA",
   "waves": [
     {
-      "startTime": 1.5,
+      "startTime": 0.8,
+      "enemy": "mine",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.3,
+      "healthMultiplier": 1.48,
+      "speedMultiplier": 1.19
+    },
+    {
+      "startTime": 4.8,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 12,
+      "interval": 0.22,
+      "healthMultiplier": 1.48,
+      "speedMultiplier": 1.19
+    },
+    {
+      "startTime": 8.8,
       "enemy": "seeker",
       "movement": "sine",
       "formation": "Column",
-      "count": 5,
-      "interval": 0.47,
-      "healthMultiplier": 1.67,
-      "speedMultiplier": 1.23
+      "count": 6,
+      "interval": 0.24,
+      "healthMultiplier": 1.48,
+      "speedMultiplier": 1.19
     },
     {
-      "startTime": 9.0,
+      "startTime": 12.8,
       "enemy": "scout",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 10,
+      "interval": 0.23,
+      "healthMultiplier": 1.48,
+      "speedMultiplier": 1.19
+    },
+    {
+      "startTime": 16.8,
+      "enemy": "mine",
       "movement": "sine",
-      "formation": "Column",
-      "count": 11,
-      "interval": 0.39,
-      "healthMultiplier": 1.67,
-      "speedMultiplier": 1.23
-    },
-    {
-      "startTime": 16.5,
-      "enemy": "spinner",
-      "movement": "straight",
       "formation": "Scatter",
-      "count": 5,
-      "interval": 0.37,
-      "healthMultiplier": 1.67,
-      "speedMultiplier": 1.23
+      "count": 8,
+      "interval": 0.19,
+      "healthMultiplier": 1.48,
+      "speedMultiplier": 1.19
     },
     {
-      "startTime": 24.0,
+      "startTime": 20.8,
       "enemy": "shielder",
       "movement": "straight",
       "formation": "Column",
       "count": 5,
-      "interval": 0.61,
-      "healthMultiplier": 1.67,
-      "speedMultiplier": 1.23
+      "interval": 0.3,
+      "healthMultiplier": 1.48,
+      "speedMultiplier": 1.19
     },
     {
-      "startTime": 31.5,
+      "startTime": 24.8,
       "enemy": "mine",
       "movement": "sine",
       "formation": "Line",
-      "count": 5,
-      "interval": 0.29,
-      "healthMultiplier": 1.67,
-      "speedMultiplier": 1.23
+      "count": 6,
+      "interval": 0.15,
+      "healthMultiplier": 1.48,
+      "speedMultiplier": 1.19
     },
     {
-      "startTime": 39.0,
-      "enemy": "bomber",
-      "movement": "sine",
-      "formation": "Column",
-      "count": 5,
-      "interval": 0.54,
-      "healthMultiplier": 1.67,
-      "speedMultiplier": 1.23
-    },
-    {
-      "startTime": 46.5,
-      "enemy": "shielder",
-      "movement": "sine",
-      "formation": "Diagonal",
-      "count": 2,
-      "interval": 0.42,
-      "healthMultiplier": 1.67,
-      "speedMultiplier": 1.23
-    },
-    {
-      "startTime": 54.0,
-      "enemy": "lancer",
-      "movement": "chase",
-      "formation": "Line",
-      "count": 5,
-      "interval": 0.4,
-      "healthMultiplier": 1.67,
-      "speedMultiplier": 1.23
-    },
-    {
-      "startTime": 33.8,
+      "startTime": 17.3,
       "enemy": "boss_hydra",
       "movement": "boss",
       "formation": "Column",
       "count": 1,
       "interval": 1.0,
-      "healthMultiplier": 1.1
+      "healthMultiplier": 1.08
     },
     {
-      "startTime": 39.8,
-      "enemy": "lancer",
-      "movement": "chase",
+      "startTime": 21.8,
+      "enemy": "spinner",
+      "movement": "straight",
       "formation": "Diagonal",
-      "count": 5,
-      "interval": 1.3,
-      "healthMultiplier": 1.67,
-      "speedMultiplier": 1.23
+      "count": 7,
+      "interval": 0.5,
+      "healthMultiplier": 1.48,
+      "speedMultiplier": 1.19
     }
   ]
 }

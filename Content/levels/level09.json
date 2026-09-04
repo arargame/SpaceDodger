@@ -3,54 +3,54 @@
   "name": "BLACK TIDE",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "drone",
-      "movement": "zigzag",
-      "formation": "Line",
-      "count": 8,
-      "interval": 0.47,
-      "healthMultiplier": 1.28,
-      "speedMultiplier": 1.1
-    },
-    {
-      "startTime": 9.6,
+      "startTime": 0.8,
       "enemy": "wasp",
       "movement": "chase",
       "formation": "Column",
-      "count": 8,
-      "interval": 0.45,
-      "healthMultiplier": 1.28,
-      "speedMultiplier": 1.1
+      "count": 6,
+      "interval": 0.26,
+      "healthMultiplier": 1.2,
+      "speedMultiplier": 1.08
     },
     {
-      "startTime": 17.6,
-      "enemy": "wasp",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 4,
-      "interval": 0.52,
-      "healthMultiplier": 1.28,
-      "speedMultiplier": 1.1
-    },
-    {
-      "startTime": 25.7,
+      "startTime": 5.0,
       "enemy": "mine",
       "movement": "sine",
       "formation": "Column",
-      "count": 3,
-      "interval": 0.33,
-      "healthMultiplier": 1.28,
-      "speedMultiplier": 1.1
+      "count": 4,
+      "interval": 0.17,
+      "healthMultiplier": 1.2,
+      "speedMultiplier": 1.08
     },
     {
-      "startTime": 33.7,
+      "startTime": 9.2,
       "enemy": "bomber",
       "movement": "straight",
       "formation": "Diagonal",
-      "count": 3,
-      "interval": 0.4,
-      "healthMultiplier": 1.28,
-      "speedMultiplier": 1.1
+      "count": 4,
+      "interval": 0.2,
+      "healthMultiplier": 1.2,
+      "speedMultiplier": 1.08
+    },
+    {
+      "startTime": 13.5,
+      "enemy": "fighter",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 7,
+      "interval": 0.28,
+      "healthMultiplier": 1.2,
+      "speedMultiplier": 1.08
+    },
+    {
+      "startTime": 17.7,
+      "enemy": "seeker",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.34,
+      "healthMultiplier": 1.2,
+      "speedMultiplier": 1.08
     }
   ]
 }

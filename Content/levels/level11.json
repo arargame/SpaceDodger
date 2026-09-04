@@ -3,64 +3,54 @@
   "name": "DEEP SCAN",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "wasp",
-      "movement": "zigzag",
-      "formation": "Column",
-      "count": 4,
-      "interval": 0.36,
-      "healthMultiplier": 1.35,
-      "speedMultiplier": 1.12
-    },
-    {
-      "startTime": 9.4,
+      "startTime": 0.8,
       "enemy": "seeker",
       "movement": "chase",
       "formation": "Scatter",
-      "count": 4,
-      "interval": 0.72,
-      "healthMultiplier": 1.35,
-      "speedMultiplier": 1.12
+      "count": 5,
+      "interval": 0.35,
+      "healthMultiplier": 1.25,
+      "speedMultiplier": 1.1
     },
     {
-      "startTime": 17.4,
+      "startTime": 5.0,
       "enemy": "bomber",
       "movement": "straight",
       "formation": "Scatter",
       "count": 4,
-      "interval": 0.48,
-      "healthMultiplier": 1.35,
-      "speedMultiplier": 1.12
+      "interval": 0.24,
+      "healthMultiplier": 1.25,
+      "speedMultiplier": 1.1
     },
     {
-      "startTime": 25.3,
+      "startTime": 9.2,
       "enemy": "seeker",
       "movement": "chase",
       "formation": "Scatter",
-      "count": 4,
-      "interval": 0.67,
-      "healthMultiplier": 1.35,
-      "speedMultiplier": 1.12
+      "count": 5,
+      "interval": 0.32,
+      "healthMultiplier": 1.25,
+      "speedMultiplier": 1.1
     },
     {
-      "startTime": 33.3,
+      "startTime": 13.3,
       "enemy": "fighter",
       "movement": "sine",
       "formation": "Column",
-      "count": 7,
-      "interval": 0.74,
-      "healthMultiplier": 1.35,
-      "speedMultiplier": 1.12
+      "count": 8,
+      "interval": 0.36,
+      "healthMultiplier": 1.25,
+      "speedMultiplier": 1.1
     },
     {
-      "startTime": 41.2,
+      "startTime": 17.5,
       "enemy": "fighter",
       "movement": "chase",
       "formation": "Scatter",
-      "count": 5,
-      "interval": 0.57,
-      "healthMultiplier": 1.35,
-      "speedMultiplier": 1.12
+      "count": 7,
+      "interval": 0.28,
+      "healthMultiplier": 1.25,
+      "speedMultiplier": 1.1
     }
   ]
 }

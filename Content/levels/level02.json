@@ -3,43 +3,43 @@
   "name": "ASTEROID DRIFT",
   "waves": [
     {
-      "startTime": 1.5,
+      "startTime": 0.8,
       "enemy": "drone",
+      "movement": "zigzag",
+      "formation": "Line",
+      "count": 11,
+      "interval": 0.18,
+      "healthMultiplier": 1.02,
+      "speedMultiplier": 1.01
+    },
+    {
+      "startTime": 5.2,
+      "enemy": "scout",
+      "movement": "zigzag",
+      "formation": "Line",
+      "count": 10,
+      "interval": 0.29,
+      "healthMultiplier": 1.02,
+      "speedMultiplier": 1.01
+    },
+    {
+      "startTime": 9.5,
+      "enemy": "drone",
+      "movement": "zigzag",
+      "formation": "Line",
+      "count": 8,
+      "interval": 0.34,
+      "healthMultiplier": 1.02,
+      "speedMultiplier": 1.01
+    },
+    {
+      "startTime": 13.9,
+      "enemy": "scout",
       "movement": "sine",
       "formation": "Diagonal",
-      "count": 7,
-      "interval": 0.35,
-      "healthMultiplier": 1.03,
-      "speedMultiplier": 1.01
-    },
-    {
-      "startTime": 9.9,
-      "enemy": "scout",
-      "movement": "straight",
-      "formation": "Line",
-      "count": 7,
-      "interval": 0.48,
-      "healthMultiplier": 1.03,
-      "speedMultiplier": 1.01
-    },
-    {
-      "startTime": 18.3,
-      "enemy": "scout",
-      "movement": "zigzag",
-      "formation": "Column",
-      "count": 8,
-      "interval": 0.78,
-      "healthMultiplier": 1.03,
-      "speedMultiplier": 1.01
-    },
-    {
-      "startTime": 26.7,
-      "enemy": "drone",
-      "movement": "zigzag",
-      "formation": "Line",
       "count": 5,
-      "interval": 0.72,
-      "healthMultiplier": 1.03,
+      "interval": 0.31,
+      "healthMultiplier": 1.02,
       "speedMultiplier": 1.01
     }
   ]

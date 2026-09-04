@@ -3,54 +3,44 @@
   "name": "SIGNAL LOST",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "wasp",
-      "movement": "zigzag",
-      "formation": "Column",
-      "count": 7,
-      "interval": 0.64,
-      "healthMultiplier": 1.14,
-      "speedMultiplier": 1.05
-    },
-    {
-      "startTime": 9.8,
+      "startTime": 0.8,
       "enemy": "scout",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 4,
-      "interval": 0.72,
-      "healthMultiplier": 1.14,
-      "speedMultiplier": 1.05
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 12,
+      "interval": 0.19,
+      "healthMultiplier": 1.1,
+      "speedMultiplier": 1.04
     },
     {
-      "startTime": 18.0,
-      "enemy": "drone",
-      "movement": "sine",
-      "formation": "Column",
-      "count": 6,
-      "interval": 0.7,
-      "healthMultiplier": 1.14,
-      "speedMultiplier": 1.05
-    },
-    {
-      "startTime": 26.2,
+      "startTime": 5.1,
       "enemy": "wasp",
       "movement": "sine",
-      "formation": "Diagonal",
-      "count": 4,
+      "formation": "Scatter",
+      "count": 7,
       "interval": 0.36,
-      "healthMultiplier": 1.14,
-      "speedMultiplier": 1.05
+      "healthMultiplier": 1.1,
+      "speedMultiplier": 1.04
     },
     {
-      "startTime": 34.5,
-      "enemy": "drone",
-      "movement": "straight",
+      "startTime": 9.4,
+      "enemy": "scout",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 7,
+      "interval": 0.19,
+      "healthMultiplier": 1.1,
+      "speedMultiplier": 1.04
+    },
+    {
+      "startTime": 13.7,
+      "enemy": "fighter",
+      "movement": "chase",
       "formation": "Scatter",
-      "count": 6,
-      "interval": 0.34,
-      "healthMultiplier": 1.14,
-      "speedMultiplier": 1.05
+      "count": 9,
+      "interval": 0.3,
+      "healthMultiplier": 1.1,
+      "speedMultiplier": 1.04
     }
   ]
 }

@@ -3,104 +3,84 @@
   "name": "ASH BELT",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "spinner",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 7,
-      "interval": 0.27,
-      "healthMultiplier": 2.19,
-      "speedMultiplier": 1.41
+      "startTime": 0.8,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 16,
+      "interval": 0.13,
+      "healthMultiplier": 1.85,
+      "speedMultiplier": 1.34
+    },
+    {
+      "startTime": 4.5,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 2,
+      "interval": 0.13,
+      "healthMultiplier": 1.85,
+      "speedMultiplier": 1.34
     },
     {
       "startTime": 8.2,
-      "enemy": "spinner",
+      "enemy": "scout",
       "movement": "straight",
       "formation": "Column",
-      "count": 5,
-      "interval": 0.45,
-      "healthMultiplier": 2.19,
-      "speedMultiplier": 1.41
+      "count": 14,
+      "interval": 0.24,
+      "healthMultiplier": 1.85,
+      "speedMultiplier": 1.34
     },
     {
-      "startTime": 15.0,
-      "enemy": "turret",
-      "movement": "sine",
-      "formation": "Diagonal",
-      "count": 4,
-      "interval": 0.28,
-      "healthMultiplier": 2.19,
-      "speedMultiplier": 1.41
-    },
-    {
-      "startTime": 21.8,
-      "enemy": "shielder",
-      "movement": "straight",
-      "formation": "Line",
-      "count": 6,
-      "interval": 0.45,
-      "healthMultiplier": 2.19,
-      "speedMultiplier": 1.41
-    },
-    {
-      "startTime": 28.5,
-      "enemy": "turret",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 4,
-      "interval": 0.27,
-      "healthMultiplier": 2.19,
-      "speedMultiplier": 1.41
-    },
-    {
-      "startTime": 35.2,
-      "enemy": "spinner",
-      "movement": "zigzag",
-      "formation": "Column",
-      "count": 7,
-      "interval": 0.27,
-      "healthMultiplier": 2.19,
-      "speedMultiplier": 1.41
-    },
-    {
-      "startTime": 42.0,
-      "enemy": "shielder",
-      "movement": "sine",
+      "startTime": 11.9,
+      "enemy": "lancer",
+      "movement": "chase",
       "formation": "Scatter",
+      "count": 8,
+      "interval": 0.25,
+      "healthMultiplier": 1.85,
+      "speedMultiplier": 1.34
+    },
+    {
+      "startTime": 15.6,
+      "enemy": "seeker",
+      "movement": "chase",
+      "formation": "Diagonal",
       "count": 5,
-      "interval": 0.39,
-      "healthMultiplier": 2.19,
-      "speedMultiplier": 1.41
+      "interval": 0.17,
+      "healthMultiplier": 1.85,
+      "speedMultiplier": 1.34
     },
     {
-      "startTime": 48.8,
-      "enemy": "hulk",
-      "movement": "straight",
-      "formation": "Column",
-      "count": 4,
-      "interval": 0.47,
-      "healthMultiplier": 2.19,
-      "speedMultiplier": 1.41
-    },
-    {
-      "startTime": 55.5,
-      "enemy": "shielder",
-      "movement": "straight",
+      "startTime": 19.3,
+      "enemy": "scout",
+      "movement": "zigzag",
       "formation": "Line",
-      "count": 4,
-      "interval": 0.46,
-      "healthMultiplier": 2.19,
-      "speedMultiplier": 1.41
+      "count": 8,
+      "interval": 0.2,
+      "healthMultiplier": 1.85,
+      "speedMultiplier": 1.34
     },
     {
-      "startTime": 62.2,
-      "enemy": "shielder",
-      "movement": "straight",
+      "startTime": 23.0,
+      "enemy": "drone",
+      "movement": "sine",
       "formation": "Column",
-      "count": 4,
-      "interval": 0.3,
-      "healthMultiplier": 2.19,
-      "speedMultiplier": 1.41
+      "count": 15,
+      "interval": 0.21,
+      "healthMultiplier": 1.85,
+      "speedMultiplier": 1.34
+    },
+    {
+      "startTime": 26.7,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.23,
+      "healthMultiplier": 1.85,
+      "speedMultiplier": 1.34
     }
   ]
 }

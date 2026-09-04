@@ -3,104 +3,84 @@
   "name": "RED GIANT",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "shielder",
-      "movement": "straight",
-      "formation": "Scatter",
-      "count": 5,
-      "interval": 0.32,
-      "healthMultiplier": 3.91,
-      "speedMultiplier": 2.0
-    },
-    {
-      "startTime": 7.0,
-      "enemy": "lancer",
-      "movement": "straight",
-      "formation": "Column",
-      "count": 5,
-      "interval": 0.34,
-      "healthMultiplier": 3.91,
-      "speedMultiplier": 2.0
-    },
-    {
-      "startTime": 12.5,
-      "enemy": "bomber",
-      "movement": "sine",
-      "formation": "Diagonal",
-      "count": 7,
-      "interval": 0.27,
-      "healthMultiplier": 3.91,
-      "speedMultiplier": 2.0
-    },
-    {
-      "startTime": 18.0,
-      "enemy": "scout",
-      "movement": "zigzag",
-      "formation": "Column",
-      "count": 18,
-      "interval": 0.18,
-      "healthMultiplier": 3.91,
-      "speedMultiplier": 2.0
-    },
-    {
-      "startTime": 23.5,
-      "enemy": "lancer",
-      "movement": "chase",
-      "formation": "Scatter",
-      "count": 5,
-      "interval": 0.34,
-      "healthMultiplier": 3.91,
-      "speedMultiplier": 2.0
-    },
-    {
-      "startTime": 29.0,
+      "startTime": 0.8,
       "enemy": "turret",
       "movement": "sine",
       "formation": "Column",
-      "count": 5,
-      "interval": 0.26,
-      "healthMultiplier": 3.91,
-      "speedMultiplier": 2.0
+      "count": 3,
+      "interval": 0.15,
+      "healthMultiplier": 3.08,
+      "speedMultiplier": 1.7
     },
     {
-      "startTime": 34.5,
-      "enemy": "lancer",
-      "movement": "straight",
+      "startTime": 3.5,
+      "enemy": "seeker",
+      "movement": "zigzag",
       "formation": "Diagonal",
+      "count": 11,
+      "interval": 0.15,
+      "healthMultiplier": 3.08,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 6.2,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.12,
+      "healthMultiplier": 3.08,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 9.0,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Line",
       "count": 9,
-      "interval": 0.26,
-      "healthMultiplier": 3.91,
-      "speedMultiplier": 2.0
+      "interval": 0.11,
+      "healthMultiplier": 3.08,
+      "speedMultiplier": 1.7
     },
     {
-      "startTime": 40.0,
-      "enemy": "wasp",
-      "movement": "zigzag",
-      "formation": "Scatter",
-      "count": 12,
-      "interval": 0.32,
-      "healthMultiplier": 3.91,
-      "speedMultiplier": 2.0
+      "startTime": 11.7,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.09,
+      "healthMultiplier": 3.08,
+      "speedMultiplier": 1.7
     },
     {
-      "startTime": 45.5,
-      "enemy": "spinner",
-      "movement": "zigzag",
-      "formation": "Column",
-      "count": 11,
-      "interval": 0.21,
-      "healthMultiplier": 3.91,
-      "speedMultiplier": 2.0
-    },
-    {
-      "startTime": 51.0,
-      "enemy": "spinner",
-      "movement": "zigzag",
+      "startTime": 14.4,
+      "enemy": "seeker",
+      "movement": "chase",
       "formation": "Scatter",
       "count": 11,
-      "interval": 0.19,
-      "healthMultiplier": 3.91,
-      "speedMultiplier": 2.0
+      "interval": 0.11,
+      "healthMultiplier": 3.08,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 17.1,
+      "enemy": "raider",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 9,
+      "interval": 0.11,
+      "healthMultiplier": 3.08,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 19.8,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.14,
+      "healthMultiplier": 3.08,
+      "speedMultiplier": 1.7
     }
   ]
 }

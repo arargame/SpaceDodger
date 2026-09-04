@@ -3,36 +3,36 @@
   "name": "FIRST CONTACT",
   "waves": [
     {
-      "startTime": 1.5,
+      "startTime": 0.8,
       "enemy": "drone",
       "movement": "sine",
       "formation": "Column",
-      "count": 8,
-      "interval": 0.55
+      "count": 12,
+      "interval": 0.24
     },
     {
-      "startTime": 9.9,
-      "enemy": "drone",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 8,
-      "interval": 0.66
-    },
-    {
-      "startTime": 18.4,
-      "enemy": "drone",
-      "movement": "straight",
-      "formation": "Scatter",
-      "count": 8,
-      "interval": 0.64
-    },
-    {
-      "startTime": 26.8,
+      "startTime": 5.2,
       "enemy": "drone",
       "movement": "zigzag",
-      "formation": "Scatter",
-      "count": 8,
-      "interval": 0.43
+      "formation": "Diagonal",
+      "count": 9,
+      "interval": 0.34
+    },
+    {
+      "startTime": 9.6,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 14,
+      "interval": 0.24
+    },
+    {
+      "startTime": 13.9,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 10,
+      "interval": 0.2
     }
   ]
 }

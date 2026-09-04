@@ -3,84 +3,74 @@
   "name": "SOLAR FLARE",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "bomber",
-      "movement": "straight",
+      "startTime": 0.8,
+      "enemy": "fighter",
+      "movement": "sine",
       "formation": "Diagonal",
-      "count": 5,
-      "interval": 0.58,
-      "healthMultiplier": 1.74,
-      "speedMultiplier": 1.25
+      "count": 9,
+      "interval": 0.2,
+      "healthMultiplier": 1.52,
+      "speedMultiplier": 1.21
     },
     {
-      "startTime": 8.9,
+      "startTime": 4.8,
       "enemy": "shielder",
       "movement": "straight",
-      "formation": "Line",
-      "count": 4,
-      "interval": 0.41,
-      "healthMultiplier": 1.74,
-      "speedMultiplier": 1.25
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.15,
+      "healthMultiplier": 1.52,
+      "speedMultiplier": 1.21
     },
     {
-      "startTime": 16.3,
-      "enemy": "shielder",
-      "movement": "straight",
+      "startTime": 8.7,
+      "enemy": "mine",
+      "movement": "sine",
       "formation": "Column",
-      "count": 2,
-      "interval": 0.64,
-      "healthMultiplier": 1.74,
-      "speedMultiplier": 1.25
+      "count": 5,
+      "interval": 0.32,
+      "healthMultiplier": 1.52,
+      "speedMultiplier": 1.21
     },
     {
-      "startTime": 23.7,
-      "enemy": "shielder",
-      "movement": "straight",
-      "formation": "Line",
-      "count": 2,
-      "interval": 0.41,
-      "healthMultiplier": 1.74,
-      "speedMultiplier": 1.25
-    },
-    {
-      "startTime": 31.1,
-      "enemy": "shielder",
-      "movement": "sine",
-      "formation": "Line",
-      "count": 3,
-      "interval": 0.51,
-      "healthMultiplier": 1.74,
-      "speedMultiplier": 1.25
-    },
-    {
-      "startTime": 38.5,
-      "enemy": "lancer",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 3,
-      "interval": 0.47,
-      "healthMultiplier": 1.74,
-      "speedMultiplier": 1.25
-    },
-    {
-      "startTime": 45.9,
-      "enemy": "bomber",
-      "movement": "sine",
-      "formation": "Line",
-      "count": 3,
-      "interval": 0.57,
-      "healthMultiplier": 1.74,
-      "speedMultiplier": 1.25
-    },
-    {
-      "startTime": 53.3,
+      "startTime": 12.7,
       "enemy": "spinner",
       "movement": "zigzag",
-      "formation": "Diagonal",
-      "count": 6,
-      "interval": 0.46,
-      "healthMultiplier": 1.74,
-      "speedMultiplier": 1.25
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.19,
+      "healthMultiplier": 1.52,
+      "speedMultiplier": 1.21
+    },
+    {
+      "startTime": 16.6,
+      "enemy": "seeker",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.3,
+      "healthMultiplier": 1.52,
+      "speedMultiplier": 1.21
+    },
+    {
+      "startTime": 20.6,
+      "enemy": "seeker",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.2,
+      "healthMultiplier": 1.52,
+      "speedMultiplier": 1.21
+    },
+    {
+      "startTime": 24.6,
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 4,
+      "interval": 0.15,
+      "healthMultiplier": 1.52,
+      "speedMultiplier": 1.21
     }
   ]
 }

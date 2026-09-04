@@ -3,104 +3,84 @@
   "name": "URSA MAJOR",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "spinner",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 10,
-      "interval": 0.21,
-      "healthMultiplier": 4.4,
-      "speedMultiplier": 2.0
-    },
-    {
-      "startTime": 7.0,
-      "enemy": "turret",
-      "movement": "sine",
-      "formation": "Scatter",
-      "count": 6,
-      "interval": 0.17,
-      "healthMultiplier": 4.4,
-      "speedMultiplier": 2.0
-    },
-    {
-      "startTime": 12.5,
-      "enemy": "raider",
-      "movement": "sine",
-      "formation": "Column",
-      "count": 8,
-      "interval": 0.26,
-      "healthMultiplier": 4.4,
-      "speedMultiplier": 2.0
-    },
-    {
-      "startTime": 18.0,
-      "enemy": "seeker",
+      "startTime": 0.8,
+      "enemy": "hulk",
       "movement": "chase",
-      "formation": "Line",
-      "count": 13,
-      "interval": 0.35,
-      "healthMultiplier": 4.4,
-      "speedMultiplier": 2.0
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.13,
+      "healthMultiplier": 3.43,
+      "speedMultiplier": 1.7
     },
     {
-      "startTime": 23.5,
+      "startTime": 3.4,
       "enemy": "shielder",
       "movement": "sine",
       "formation": "Scatter",
-      "count": 8,
-      "interval": 0.32,
-      "healthMultiplier": 4.4,
-      "speedMultiplier": 2.0
+      "count": 5,
+      "interval": 0.11,
+      "healthMultiplier": 3.43,
+      "speedMultiplier": 1.7
     },
     {
-      "startTime": 29.0,
-      "enemy": "spinner",
-      "movement": "zigzag",
-      "formation": "Line",
-      "count": 6,
-      "interval": 0.23,
-      "healthMultiplier": 4.4,
-      "speedMultiplier": 2.0
+      "startTime": 6.0,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 20,
+      "interval": 0.13,
+      "healthMultiplier": 3.43,
+      "speedMultiplier": 1.7
     },
     {
-      "startTime": 34.5,
+      "startTime": 8.6,
       "enemy": "hulk",
       "movement": "straight",
-      "formation": "Diagonal",
+      "formation": "Scatter",
       "count": 2,
-      "interval": 0.23,
-      "healthMultiplier": 4.4,
-      "speedMultiplier": 2.0
+      "interval": 0.1,
+      "healthMultiplier": 3.43,
+      "speedMultiplier": 1.7
     },
     {
-      "startTime": 40.0,
-      "enemy": "fighter",
+      "startTime": 11.2,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.1,
+      "healthMultiplier": 3.43,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 13.8,
+      "enemy": "wasp",
+      "movement": "zigzag",
+      "formation": "Line",
+      "count": 11,
+      "interval": 0.08,
+      "healthMultiplier": 3.43,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 16.4,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 3,
+      "interval": 0.15,
+      "healthMultiplier": 3.43,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 19.0,
+      "enemy": "spinner",
       "movement": "sine",
       "formation": "Diagonal",
-      "count": 8,
-      "interval": 0.23,
-      "healthMultiplier": 4.4,
-      "speedMultiplier": 2.0
-    },
-    {
-      "startTime": 45.5,
-      "enemy": "fighter",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 15,
-      "interval": 0.32,
-      "healthMultiplier": 4.4,
-      "speedMultiplier": 2.0
-    },
-    {
-      "startTime": 51.0,
-      "enemy": "raider",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 10,
-      "interval": 0.2,
-      "healthMultiplier": 4.4,
-      "speedMultiplier": 2.0
+      "count": 11,
+      "interval": 0.08,
+      "healthMultiplier": 3.43,
+      "speedMultiplier": 1.7
     }
   ]
 }

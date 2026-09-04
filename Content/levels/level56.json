@@ -3,104 +3,84 @@
   "name": "WARP RIFT",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "turret",
-      "movement": "sine",
-      "formation": "Scatter",
-      "count": 6,
-      "interval": 0.29,
-      "healthMultiplier": 2.93,
-      "speedMultiplier": 1.66
-    },
-    {
-      "startTime": 7.2,
-      "enemy": "spinner",
-      "movement": "zigzag",
-      "formation": "Line",
-      "count": 6,
-      "interval": 0.31,
-      "healthMultiplier": 2.93,
-      "speedMultiplier": 1.66
-    },
-    {
-      "startTime": 12.9,
-      "enemy": "turret",
-      "movement": "sine",
-      "formation": "Line",
-      "count": 3,
-      "interval": 0.26,
-      "healthMultiplier": 2.93,
-      "speedMultiplier": 1.66
-    },
-    {
-      "startTime": 18.6,
-      "enemy": "raider",
-      "movement": "chase",
-      "formation": "Line",
-      "count": 4,
-      "interval": 0.25,
-      "healthMultiplier": 2.93,
-      "speedMultiplier": 1.66
-    },
-    {
-      "startTime": 24.3,
-      "enemy": "scout",
-      "movement": "zigzag",
-      "formation": "Diagonal",
-      "count": 11,
-      "interval": 0.16,
-      "healthMultiplier": 2.93,
-      "speedMultiplier": 1.66
-    },
-    {
-      "startTime": 30.0,
-      "enemy": "raider",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 7,
-      "interval": 0.24,
-      "healthMultiplier": 2.93,
-      "speedMultiplier": 1.66
-    },
-    {
-      "startTime": 35.7,
-      "enemy": "hulk",
-      "movement": "chase",
-      "formation": "Scatter",
-      "count": 3,
-      "interval": 0.35,
-      "healthMultiplier": 2.93,
-      "speedMultiplier": 1.66
-    },
-    {
-      "startTime": 41.4,
-      "enemy": "raider",
-      "movement": "sine",
-      "formation": "Scatter",
-      "count": 4,
-      "interval": 0.38,
-      "healthMultiplier": 2.93,
-      "speedMultiplier": 1.66
-    },
-    {
-      "startTime": 47.1,
-      "enemy": "raider",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 7,
-      "interval": 0.17,
-      "healthMultiplier": 2.93,
-      "speedMultiplier": 1.66
-    },
-    {
-      "startTime": 52.8,
+      "startTime": 0.8,
       "enemy": "shielder",
       "movement": "sine",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.18,
+      "healthMultiplier": 2.38,
+      "speedMultiplier": 1.55
+    },
+    {
+      "startTime": 4.1,
+      "enemy": "raider",
+      "movement": "straight",
       "formation": "Line",
-      "count": 3,
-      "interval": 0.36,
-      "healthMultiplier": 2.93,
-      "speedMultiplier": 1.66
+      "count": 8,
+      "interval": 0.12,
+      "healthMultiplier": 2.38,
+      "speedMultiplier": 1.55
+    },
+    {
+      "startTime": 7.4,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 2,
+      "interval": 0.15,
+      "healthMultiplier": 2.38,
+      "speedMultiplier": 1.55
+    },
+    {
+      "startTime": 10.6,
+      "enemy": "raider",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 9,
+      "interval": 0.14,
+      "healthMultiplier": 2.38,
+      "speedMultiplier": 1.55
+    },
+    {
+      "startTime": 13.9,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 8,
+      "interval": 0.09,
+      "healthMultiplier": 2.38,
+      "speedMultiplier": 1.55
+    },
+    {
+      "startTime": 17.2,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.11,
+      "healthMultiplier": 2.38,
+      "speedMultiplier": 1.55
+    },
+    {
+      "startTime": 20.5,
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.16,
+      "healthMultiplier": 2.38,
+      "speedMultiplier": 1.55
+    },
+    {
+      "startTime": 23.8,
+      "enemy": "lancer",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 12,
+      "interval": 0.12,
+      "healthMultiplier": 2.38,
+      "speedMultiplier": 1.55
     }
   ]
 }

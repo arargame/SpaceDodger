@@ -3,44 +3,44 @@
   "name": "MINEFIELD",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "fighter",
-      "movement": "straight",
-      "formation": "Column",
-      "count": 5,
-      "interval": 0.55,
-      "healthMultiplier": 1.1,
-      "speedMultiplier": 1.04
-    },
-    {
-      "startTime": 9.8,
-      "enemy": "fighter",
-      "movement": "straight",
-      "formation": "Column",
-      "count": 6,
-      "interval": 0.73,
-      "healthMultiplier": 1.1,
-      "speedMultiplier": 1.04
-    },
-    {
-      "startTime": 18.1,
-      "enemy": "scout",
-      "movement": "straight",
-      "formation": "Column",
-      "count": 8,
-      "interval": 0.56,
-      "healthMultiplier": 1.1,
-      "speedMultiplier": 1.04
-    },
-    {
-      "startTime": 26.4,
+      "startTime": 0.8,
       "enemy": "drone",
-      "movement": "zigzag",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 7,
+      "interval": 0.38,
+      "healthMultiplier": 1.07,
+      "speedMultiplier": 1.03
+    },
+    {
+      "startTime": 5.1,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 13,
+      "interval": 0.26,
+      "healthMultiplier": 1.07,
+      "speedMultiplier": 1.03
+    },
+    {
+      "startTime": 9.4,
+      "enemy": "drone",
+      "movement": "straight",
       "formation": "Diagonal",
       "count": 9,
-      "interval": 0.38,
-      "healthMultiplier": 1.1,
-      "speedMultiplier": 1.04
+      "interval": 0.26,
+      "healthMultiplier": 1.07,
+      "speedMultiplier": 1.03
+    },
+    {
+      "startTime": 13.8,
+      "enemy": "fighter",
+      "movement": "chase",
+      "formation": "Line",
+      "count": 7,
+      "interval": 0.27,
+      "healthMultiplier": 1.07,
+      "speedMultiplier": 1.03
     }
   ]
 }

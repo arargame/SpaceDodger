@@ -3,74 +3,64 @@
   "name": "CRIMSON PASS",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "seeker",
-      "movement": "chase",
-      "formation": "Diagonal",
-      "count": 3,
-      "interval": 0.41,
-      "healthMultiplier": 1.56,
-      "speedMultiplier": 1.19
+      "startTime": 0.8,
+      "enemy": "scout",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 14,
+      "interval": 0.24,
+      "healthMultiplier": 1.4,
+      "speedMultiplier": 1.16
     },
     {
-      "startTime": 9.2,
-      "enemy": "lancer",
+      "startTime": 4.9,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.33,
+      "healthMultiplier": 1.4,
+      "speedMultiplier": 1.16
+    },
+    {
+      "startTime": 8.9,
+      "enemy": "bomber",
       "movement": "straight",
       "formation": "Diagonal",
-      "count": 3,
-      "interval": 0.47,
-      "healthMultiplier": 1.56,
-      "speedMultiplier": 1.19
+      "count": 5,
+      "interval": 0.19,
+      "healthMultiplier": 1.4,
+      "speedMultiplier": 1.16
     },
     {
-      "startTime": 16.8,
+      "startTime": 13.0,
       "enemy": "lancer",
       "movement": "chase",
       "formation": "Line",
-      "count": 7,
-      "interval": 0.5,
-      "healthMultiplier": 1.56,
-      "speedMultiplier": 1.19
+      "count": 8,
+      "interval": 0.25,
+      "healthMultiplier": 1.4,
+      "speedMultiplier": 1.16
     },
     {
-      "startTime": 24.5,
+      "startTime": 17.0,
       "enemy": "spinner",
       "movement": "sine",
       "formation": "Column",
       "count": 5,
-      "interval": 0.36,
-      "healthMultiplier": 1.56,
-      "speedMultiplier": 1.19
+      "interval": 0.19,
+      "healthMultiplier": 1.4,
+      "speedMultiplier": 1.16
     },
     {
-      "startTime": 32.1,
+      "startTime": 21.1,
       "enemy": "lancer",
       "movement": "straight",
       "formation": "Diagonal",
-      "count": 5,
-      "interval": 0.49,
-      "healthMultiplier": 1.56,
-      "speedMultiplier": 1.19
-    },
-    {
-      "startTime": 39.8,
-      "enemy": "spinner",
-      "movement": "zigzag",
-      "formation": "Column",
-      "count": 4,
-      "interval": 0.62,
-      "healthMultiplier": 1.56,
-      "speedMultiplier": 1.19
-    },
-    {
-      "startTime": 47.4,
-      "enemy": "seeker",
-      "movement": "chase",
-      "formation": "Scatter",
-      "count": 7,
-      "interval": 0.62,
-      "healthMultiplier": 1.56,
-      "speedMultiplier": 1.19
+      "count": 6,
+      "interval": 0.25,
+      "healthMultiplier": 1.4,
+      "speedMultiplier": 1.16
     }
   ]
 }

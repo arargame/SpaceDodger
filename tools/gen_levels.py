@@ -43,10 +43,10 @@ MOVES = {
 
 # how many of a species make a sensible wave (light fodder vs heavies)
 BULK = {
-    "drone": (6, 12), "scout": (5, 11), "fighter": (4, 8), "wasp": (4, 9),
-    "mine": (3, 7), "bomber": (2, 5), "seeker": (3, 7), "lancer": (3, 7),
-    "shielder": (2, 5), "spinner": (3, 6), "raider": (3, 6),
-    "turret": (2, 4), "hulk": (1, 3),
+    "drone": (8, 16), "scout": (6, 14), "fighter": (5, 10), "wasp": (6, 12),
+    "mine": (4, 8), "bomber": (2, 5), "seeker": (4, 8), "lancer": (4, 9),
+    "shielder": (2, 5), "spinner": (3, 7), "raider": (4, 8),
+    "turret": (2, 5), "hulk": (1, 3),
 }
 
 BOSSES = {
@@ -104,9 +104,9 @@ def available(level):
 
 
 def scaling(level):
-    """Health / speed multipliers, rounded to keep the JSON tidy."""
-    hp = round(1.0 + (level - 1) * 0.035, 2)
-    spd = round(min(1.0 + (level - 1) * 0.012, 2.0), 2)
+    """Health / speed multipliers, kept player-friendly for fun arcade blasting."""
+    hp = round(1.0 + (level - 1) * 0.025, 2)
+    spd = round(min(1.0 + (level - 1) * 0.010, 1.7), 2)
     return hp, spd
 
 
@@ -127,45 +127,44 @@ def build(level):
     hp, spd = scaling(level)
     is_boss = level in BOSSES
 
-    # One extra wave makes each mission feel more substantial without raising
-    # the per-enemy health, speed, or firing pressure.
-    wave_count = min(4 + level // 5, 10)
-    gap = max(5.5, 8.5 - level * 0.05)
-    interval_scale = max(0.45, 1.0 - level * 0.011)
+    # Fast-paced wave count and snappy intervals
+    wave_count = min(4 + level // 6, 8)
+    gap = max(2.6, 4.4 - level * 0.02)
+    interval_scale = max(0.40, 1.0 - level * 0.009)
 
     waves = []
-    t = 1.5
+    t = 0.8
 
-    # Favour the most recently unlocked species so new levels feel new.
+    # Favour recent unlocks while keeping fodder for satisfying screen clearing
     recent = sorted(pool, key=lambda s: UNLOCK[s])[-6:]
 
     for _ in range(wave_count):
-        species = random.choice(recent if random.random() < 0.65 else pool)
+        species = random.choice(recent if random.random() < 0.60 else pool)
         lo, hi = BULK[species]
         count = random.randint(lo, hi)
-        count = max(1, int(round(count * (0.75 + level * 0.012))))
+        count = max(2, int(round(count * (0.85 + level * 0.008))))
 
         waves.append(wave(
             t, species,
             random.choice(MOVES[species]),
             count,
-            random.uniform(0.35, 0.85) * interval_scale,
+            random.uniform(0.18, 0.40) * interval_scale,
             random.choice(FORMATIONS),
             hp, spd))
         t += gap
 
     if is_boss:
-        boss_time = round(t * 0.55, 1)
+        boss_time = round(t * 0.60, 1)
         boss_name = BOSSES[level]
         waves.append(wave(
             boss_time, boss_name, BOSS_MOVEMENTS.get(boss_name, "boss"), 1, 1.0, "Column",
-            round(1.0 + (level // 10 - 1) * 0.10, 2), 1.0))
+            round(1.0 + (level // 10 - 1) * 0.08, 2), 1.0))
 
-        candidates = [s for s in recent if s != "hulk"] or recent
+        candidates = [s for s in recent if s not in ("hulk", "turret")] or recent
         escort = random.choice(candidates)
         waves.append(wave(
-            boss_time + 6.0, escort, random.choice(MOVES[escort]),
-            max(3, 4 + level // 12), 1.3, "Diagonal", hp, spd))
+            boss_time + 4.5, escort, random.choice(MOVES[escort]),
+            max(4, 5 + level // 10), 0.5, "Diagonal", hp, spd))
 
     return {"number": level, "name": NAMES[level - 1], "waves": waves}
 

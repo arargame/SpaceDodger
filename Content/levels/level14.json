@@ -3,64 +3,64 @@
   "name": "SIEGE LINE",
   "waves": [
     {
-      "startTime": 1.5,
+      "startTime": 0.8,
       "enemy": "mine",
-      "movement": "sine",
-      "formation": "Line",
-      "count": 5,
-      "interval": 0.59,
-      "healthMultiplier": 1.46,
-      "speedMultiplier": 1.16
-    },
-    {
-      "startTime": 9.3,
-      "enemy": "shielder",
       "movement": "straight",
       "formation": "Column",
-      "count": 4,
-      "interval": 0.47,
-      "healthMultiplier": 1.46,
-      "speedMultiplier": 1.16
+      "count": 6,
+      "interval": 0.23,
+      "healthMultiplier": 1.32,
+      "speedMultiplier": 1.13
     },
     {
-      "startTime": 17.1,
+      "startTime": 4.9,
       "enemy": "fighter",
       "movement": "straight",
       "formation": "Column",
-      "count": 6,
-      "interval": 0.6,
-      "healthMultiplier": 1.46,
-      "speedMultiplier": 1.16
+      "count": 7,
+      "interval": 0.3,
+      "healthMultiplier": 1.32,
+      "speedMultiplier": 1.13
     },
     {
-      "startTime": 24.9,
+      "startTime": 9.0,
       "enemy": "mine",
       "movement": "sine",
       "formation": "Diagonal",
-      "count": 6,
-      "interval": 0.39,
-      "healthMultiplier": 1.46,
-      "speedMultiplier": 1.16
+      "count": 8,
+      "interval": 0.2,
+      "healthMultiplier": 1.32,
+      "speedMultiplier": 1.13
     },
     {
-      "startTime": 32.7,
+      "startTime": 13.2,
       "enemy": "drone",
       "movement": "sine",
       "formation": "Scatter",
-      "count": 6,
-      "interval": 0.56,
-      "healthMultiplier": 1.46,
-      "speedMultiplier": 1.16
+      "count": 10,
+      "interval": 0.28,
+      "healthMultiplier": 1.32,
+      "speedMultiplier": 1.13
     },
     {
-      "startTime": 40.5,
+      "startTime": 17.3,
       "enemy": "bomber",
       "movement": "sine",
       "formation": "Diagonal",
       "count": 4,
-      "interval": 0.71,
-      "healthMultiplier": 1.46,
-      "speedMultiplier": 1.16
+      "interval": 0.34,
+      "healthMultiplier": 1.32,
+      "speedMultiplier": 1.13
+    },
+    {
+      "startTime": 21.4,
+      "enemy": "wasp",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 11,
+      "interval": 0.16,
+      "healthMultiplier": 1.32,
+      "speedMultiplier": 1.13
     }
   ]
 }

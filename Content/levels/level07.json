@@ -3,54 +3,54 @@
   "name": "COLD ORBIT",
   "waves": [
     {
-      "startTime": 1.5,
+      "startTime": 0.8,
       "enemy": "bomber",
-      "movement": "sine",
-      "formation": "Column",
-      "count": 4,
-      "interval": 0.41,
-      "healthMultiplier": 1.21,
-      "speedMultiplier": 1.07
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.37,
+      "healthMultiplier": 1.15,
+      "speedMultiplier": 1.06
     },
     {
-      "startTime": 9.7,
-      "enemy": "fighter",
-      "movement": "sine",
-      "formation": "Diagonal",
-      "count": 7,
-      "interval": 0.71,
-      "healthMultiplier": 1.21,
-      "speedMultiplier": 1.07
+      "startTime": 5.1,
+      "enemy": "mine",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 6,
+      "interval": 0.26,
+      "healthMultiplier": 1.15,
+      "speedMultiplier": 1.06
+    },
+    {
+      "startTime": 9.3,
+      "enemy": "drone",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 14,
+      "interval": 0.34,
+      "healthMultiplier": 1.15,
+      "speedMultiplier": 1.06
+    },
+    {
+      "startTime": 13.6,
+      "enemy": "scout",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 13,
+      "interval": 0.25,
+      "healthMultiplier": 1.15,
+      "speedMultiplier": 1.06
     },
     {
       "startTime": 17.8,
       "enemy": "scout",
       "movement": "straight",
       "formation": "Column",
-      "count": 6,
-      "interval": 0.36,
-      "healthMultiplier": 1.21,
-      "speedMultiplier": 1.07
-    },
-    {
-      "startTime": 26.0,
-      "enemy": "scout",
-      "movement": "straight",
-      "formation": "Line",
-      "count": 7,
-      "interval": 0.5,
-      "healthMultiplier": 1.21,
-      "speedMultiplier": 1.07
-    },
-    {
-      "startTime": 34.1,
-      "enemy": "wasp",
-      "movement": "chase",
-      "formation": "Scatter",
-      "count": 7,
-      "interval": 0.48,
-      "healthMultiplier": 1.21,
-      "speedMultiplier": 1.07
+      "count": 9,
+      "interval": 0.23,
+      "healthMultiplier": 1.15,
+      "speedMultiplier": 1.06
     }
   ]
 }

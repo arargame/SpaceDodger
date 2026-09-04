@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +9,7 @@ namespace SpaceDodger.Entities
     public sealed class HomingBullet : Entity, ICollidable
     {
         public BulletOwner Owner => BulletOwner.Player;
-        public int Damage => 3;
+        public int Damage => 4;
 
         private Animation _animation;
         private AnimationPlayer _player;
@@ -19,7 +19,7 @@ namespace SpaceDodger.Entities
         private float _speed;
 
         public override Rectangle Bounds =>
-            CenteredRect(_animation?.FrameWidth ?? 4, _animation?.FrameHeight ?? 2);
+            CenteredRect(_animation?.FrameWidth ?? 8, _animation?.FrameHeight ?? 6);
 
         public void Configure(
             Animation animation, 
@@ -44,21 +44,29 @@ namespace SpaceDodger.Entities
             Age += dt;
             _player.Update(dt);
 
-            // Find nearest active target
+            // Find nearest active target currently inside the visible playfield
             Enemy nearest = null;
             float minSqDist = float.MaxValue;
-            foreach (var enemy in _targets)
+            if (_targets != null)
             {
-                if (enemy.Active)
+                for (int i = 0; i < _targets.Count; i++)
                 {
-                    float sqDist = Vector2.DistanceSquared(Position, enemy.Position);
-                    if (sqDist < minSqDist)
+                    var enemy = _targets[i];
+                    if (enemy.Active && enemy.Position.X >= _world.Left - 10 && enemy.Position.X <= _world.Right + 20)
                     {
-                        minSqDist = sqDist;
-                        nearest = enemy;
+                        float sqDist = Vector2.DistanceSquared(Position, enemy.Position);
+                        if (sqDist < minSqDist)
+                        {
+                            minSqDist = sqDist;
+                            nearest = enemy;
+                        }
                     }
                 }
             }
+
+            // Agility and acceleration
+            float turnRate = 7.5f; // Fast, snappy response to target maneuvers
+            float currentSpeed = _speed * (1f + Math.Min(Age * 0.5f, 0.4f));
 
             if (nearest != null)
             {
@@ -70,8 +78,6 @@ namespace SpaceDodger.Entities
                 while (diff > MathHelper.Pi) diff -= MathHelper.TwoPi;
                 while (diff < -MathHelper.Pi) diff += MathHelper.TwoPi;
 
-                // Smooth rotation using turn rate
-                float turnRate = 3.5f; // radians per second
                 float turn = turnRate * dt;
                 
                 if (Math.Abs(diff) <= turn)
@@ -85,27 +91,25 @@ namespace SpaceDodger.Entities
             }
             else
             {
-                // No target, steer towards 0 (straight right)
+                // No target in sight, stabilize forward (straight right)
                 float diff = 0 - _heading;
                 while (diff > MathHelper.Pi) diff -= MathHelper.TwoPi;
                 while (diff < -MathHelper.Pi) diff += MathHelper.TwoPi;
                 
-                float turnRate = 3.5f;
-                float turn = turnRate * dt;
-                
+                float turn = (turnRate * 0.5f) * dt;
                 if (Math.Abs(diff) <= turn)
                     _heading = 0;
                 else
                     _heading += Math.Sign(diff) * turn;
             }
 
-            Velocity = new Vector2((float)Math.Cos(_heading), (float)Math.Sin(_heading)) * _speed;
+            Velocity = new Vector2((float)Math.Cos(_heading), (float)Math.Sin(_heading)) * currentSpeed;
 
             // Base update applies velocity
             Position += Velocity * dt;
 
             var margin = _world;
-            margin.Inflate(12, 12);
+            margin.Inflate(24, 24);
             if (!margin.Contains((int)Position.X, (int)Position.Y))
                 Deactivate();
         }

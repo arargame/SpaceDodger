@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Graphics;
@@ -141,6 +141,8 @@ namespace SpaceDodger.Entities
         {
             if (other is Bullet bullet && bullet.Owner == BulletOwner.Player)
                 TakeDamage(bullet.Damage);
+            else if (other is HomingBullet homing)
+                TakeDamage(homing.Damage);
             else if (other is Player)
                 TakeDamage(IsBoss ? 0 : Health); // ramming kills normal enemies only
         }

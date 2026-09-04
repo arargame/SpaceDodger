@@ -3,104 +3,84 @@
   "name": "DARK MATTER",
   "waves": [
     {
-      "startTime": 1.5,
+      "startTime": 0.8,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.15,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.65
+    },
+    {
+      "startTime": 3.9,
       "enemy": "turret",
-      "movement": "sine",
-      "formation": "Column",
+      "movement": "straight",
+      "formation": "Diagonal",
       "count": 3,
-      "interval": 0.21,
-      "healthMultiplier": 3.28,
-      "speedMultiplier": 1.78
+      "interval": 0.11,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.65
     },
     {
       "startTime": 7.0,
-      "enemy": "shielder",
+      "enemy": "drone",
       "movement": "straight",
       "formation": "Scatter",
-      "count": 6,
-      "interval": 0.36,
-      "healthMultiplier": 3.28,
-      "speedMultiplier": 1.78
+      "count": 18,
+      "interval": 0.09,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.65
     },
     {
-      "startTime": 12.5,
-      "enemy": "turret",
-      "movement": "straight",
-      "formation": "Scatter",
-      "count": 6,
-      "interval": 0.26,
-      "healthMultiplier": 3.28,
-      "speedMultiplier": 1.78
-    },
-    {
-      "startTime": 18.0,
-      "enemy": "mine",
-      "movement": "straight",
-      "formation": "Line",
-      "count": 5,
-      "interval": 0.33,
-      "healthMultiplier": 3.28,
-      "speedMultiplier": 1.78
-    },
-    {
-      "startTime": 23.5,
-      "enemy": "hulk",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 3,
-      "interval": 0.25,
-      "healthMultiplier": 3.28,
-      "speedMultiplier": 1.78
-    },
-    {
-      "startTime": 29.0,
-      "enemy": "turret",
-      "movement": "sine",
-      "formation": "Diagonal",
-      "count": 6,
-      "interval": 0.36,
-      "healthMultiplier": 3.28,
-      "speedMultiplier": 1.78
-    },
-    {
-      "startTime": 34.5,
+      "startTime": 10.0,
       "enemy": "raider",
       "movement": "chase",
-      "formation": "Scatter",
-      "count": 6,
-      "interval": 0.19,
-      "healthMultiplier": 3.28,
-      "speedMultiplier": 1.78
+      "formation": "Line",
+      "count": 10,
+      "interval": 0.13,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.65
     },
     {
-      "startTime": 40.0,
-      "enemy": "shielder",
+      "startTime": 13.1,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.08,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.65
+    },
+    {
+      "startTime": 16.2,
+      "enemy": "bomber",
       "movement": "sine",
-      "formation": "Scatter",
-      "count": 6,
-      "interval": 0.18,
-      "healthMultiplier": 3.28,
-      "speedMultiplier": 1.78
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.11,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.65
     },
     {
-      "startTime": 45.5,
-      "enemy": "shielder",
+      "startTime": 19.3,
+      "enemy": "hulk",
       "movement": "straight",
       "formation": "Diagonal",
       "count": 3,
-      "interval": 0.36,
-      "healthMultiplier": 3.28,
-      "speedMultiplier": 1.78
+      "interval": 0.09,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.65
     },
     {
-      "startTime": 51.0,
-      "enemy": "turret",
+      "startTime": 22.4,
+      "enemy": "hulk",
       "movement": "straight",
-      "formation": "Scatter",
+      "formation": "Diagonal",
       "count": 3,
-      "interval": 0.29,
-      "healthMultiplier": 3.28,
-      "speedMultiplier": 1.78
+      "interval": 0.11,
+      "healthMultiplier": 2.62,
+      "speedMultiplier": 1.65
     }
   ]
 }

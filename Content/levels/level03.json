@@ -3,43 +3,43 @@
   "name": "OUTER PATROL",
   "waves": [
     {
-      "startTime": 1.5,
-      "enemy": "scout",
-      "movement": "sine",
-      "formation": "Diagonal",
-      "count": 9,
-      "interval": 0.36,
-      "healthMultiplier": 1.07,
-      "speedMultiplier": 1.02
-    },
-    {
-      "startTime": 9.8,
+      "startTime": 0.8,
       "enemy": "drone",
       "movement": "straight",
       "formation": "Line",
-      "count": 6,
-      "interval": 0.46,
-      "healthMultiplier": 1.07,
+      "count": 7,
+      "interval": 0.26,
+      "healthMultiplier": 1.05,
       "speedMultiplier": 1.02
     },
     {
-      "startTime": 18.2,
+      "startTime": 5.1,
       "enemy": "drone",
       "movement": "sine",
       "formation": "Line",
-      "count": 6,
-      "interval": 0.43,
-      "healthMultiplier": 1.07,
+      "count": 10,
+      "interval": 0.21,
+      "healthMultiplier": 1.05,
       "speedMultiplier": 1.02
     },
     {
-      "startTime": 26.5,
+      "startTime": 9.5,
       "enemy": "scout",
       "movement": "sine",
-      "formation": "Diagonal",
-      "count": 7,
-      "interval": 0.52,
-      "healthMultiplier": 1.07,
+      "formation": "Scatter",
+      "count": 10,
+      "interval": 0.21,
+      "healthMultiplier": 1.05,
+      "speedMultiplier": 1.02
+    },
+    {
+      "startTime": 13.8,
+      "enemy": "drone",
+      "movement": "zigzag",
+      "formation": "Column",
+      "count": 13,
+      "interval": 0.26,
+      "healthMultiplier": 1.05,
       "speedMultiplier": 1.02
     }
   ]
