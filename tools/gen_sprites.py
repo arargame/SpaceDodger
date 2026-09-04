@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Pixel-art sprite generator for SpaceDodger.
 
 Approach: author the SILHOUETTE only, then shade it automatically.
@@ -624,6 +624,7 @@ ICON_RAPID  = ["X..X..", "XX.XX.", "XXXXXX", "XXXXXX", "XX.XX.", "X..X.."]
 ICON_SCORE  = [".XXXX.", "XX..XX", "..XXX.", "..XX..", "......", "..XX.."]
 ICON_SCATTER= ["X....X", ".X..X.", "..XX..", "..XX..", ".X..X.", "X....X"]
 ICON_HOMING = ["..XX..", ".X..X.", "X....X", ".XXXX.", "..XX..", "..XX.."]
+ICON_SPIRAL = ["..XX..", ".X..X.", "X.XX.X", "X.X..X", ".X...X", "..XXX."]
 
 print("powerups:")
 save("powerups", [
@@ -635,6 +636,7 @@ save("powerups", [
     powerup(ICON_SCORE,  'magenta'),
     powerup(ICON_SCATTER,'slate'),
     powerup(ICON_HOMING, 'blue'),
+    powerup(ICON_SPIRAL, 'toxic'),
 ])
 
 def shield_bubble(i):

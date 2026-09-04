@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
@@ -33,10 +33,13 @@ namespace SpaceDodger.Entities
 
         public bool IsRapidFiring => _rapidTimer > 0f;
         public bool IsScatterActive => _scatterTimer > 0f;
+        public bool IsSpiralActive => _spiralTimer > 0f;
 
         public float ShieldTimer => _shieldTimer;
         public float RapidTimer => _rapidTimer;
         public float ScatterTimer => _scatterTimer;
+        public float SpiralTimer => _spiralTimer;
+        public float SpiralAngle => _spiralAngle;
         public int HomingCount => _homingCount;
 
         private readonly Animation _animation;
@@ -48,6 +51,8 @@ namespace SpaceDodger.Entities
         private float _shieldTimer;
         private float _rapidTimer;
         private float _scatterTimer;
+        private float _spiralTimer;
+        private float _spiralAngle;
         private int _homingCount;
 
         public Player(Animation animation, Rectangle world)
@@ -79,16 +84,19 @@ namespace SpaceDodger.Entities
             _shieldTimer = 0f;
             _rapidTimer = 0f;
             _scatterTimer = 0f;
+            _spiralTimer = 0f;
+            _spiralAngle = 0f;
             _homingCount = 0;
         }
 
-        public void RestoreProgress(int lives, int weaponLevel, float shieldTime, float rapidTime, float scatterTime, int homingCount)
+        public void RestoreProgress(int lives, int weaponLevel, float shieldTime, float rapidTime, float scatterTime, float spiralTime, int homingCount)
         {
             Lives = Math.Max(1, lives);
             WeaponLevel = MathHelper.Clamp(weaponLevel, 1, GameConfig.MaxWeaponLevel);
             _shieldTimer = Math.Max(0f, shieldTime);
             _rapidTimer = Math.Max(0f, rapidTime);
             _scatterTimer = Math.Max(0f, scatterTime);
+            _spiralTimer = Math.Max(0f, spiralTime);
             _homingCount = Math.Max(0, homingCount);
         }
 
@@ -101,6 +109,11 @@ namespace SpaceDodger.Entities
             if (_shieldTimer > 0f) _shieldTimer -= dt;
             if (_rapidTimer > 0f) _rapidTimer -= dt;
             if (_scatterTimer > 0f) _scatterTimer -= dt;
+            if (_spiralTimer > 0f)
+            {
+                _spiralTimer -= dt;
+                _spiralAngle += dt * 8.5f; // Continuous vortex rotation
+            }
 
             // Movement, clamped to the playfield.
             Position += input.Move * GameConfig.PlayerSpeed * dt;
@@ -140,6 +153,8 @@ namespace SpaceDodger.Entities
         public void GrantRapidFire() => _rapidTimer = GameConfig.RapidFireDuration;
 
         public void GrantScatter() => _scatterTimer = GameConfig.ScatterDuration;
+
+        public void GrantSpiral() => _spiralTimer = GameConfig.SpiralDuration;
 
         public void GrantHoming(int count) => _homingCount = System.Math.Min(_homingCount + count, 9);
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
@@ -27,6 +27,8 @@ namespace SpaceDodger.Entities
         Scatter = 6,
         /// <summary>Grants homing missiles that seek the nearest enemy.</summary>
         Homing = 7,
+        /// <summary>Temporary dual spiral vortex fire.</summary>
+        Spiral = 8,
     }
 
     /// <summary>Pooled pickup that drifts left with a gentle bob.</summary>

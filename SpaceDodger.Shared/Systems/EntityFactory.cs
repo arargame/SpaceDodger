@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
@@ -54,6 +54,22 @@ namespace SpaceDodger.Systems
                     (float)Math.Sin(angle) * GameConfig.ScatterBulletSpeed);
                 var bullet = PlayerBullets.Obtain();
                 bullet.Configure(animation, BulletOwner.Player, 1, position, velocity, _world);
+            }
+        }
+
+        /// <summary>Fire dual rotating spiral plasma shots from the player.</summary>
+        public void SpawnSpiralShot(Vector2 position, float baseAngle)
+        {
+            var animation = _animations.PlayerPlasma;
+            // 2 opposing spiral arms
+            for (int i = 0; i < 2; i++)
+            {
+                float angle = baseAngle + i * MathHelper.Pi;
+                var velocity = new Vector2(
+                    (float)Math.Cos(angle) * GameConfig.SpiralBulletSpeed,
+                    (float)Math.Sin(angle) * GameConfig.SpiralBulletSpeed);
+                var bullet = PlayerBullets.Obtain();
+                bullet.Configure(animation, BulletOwner.Player, 2, position, velocity, _world);
             }
         }
 
@@ -178,24 +194,26 @@ namespace SpaceDodger.Systems
         private PowerUpType RollCommonDrop()
         {
             double r = _random.NextDouble();
-            if (r < 0.28) return PowerUpType.Weapon;
-            if (r < 0.44) return PowerUpType.Score;
-            if (r < 0.58) return PowerUpType.Rapid;
-            if (r < 0.70) return PowerUpType.Shield;
-            if (r < 0.78) return PowerUpType.Bomb;
-            if (r < 0.86) return PowerUpType.Scatter;
-            if (r < 0.94) return PowerUpType.Homing;
+            if (r < 0.25) return PowerUpType.Weapon;
+            if (r < 0.40) return PowerUpType.Score;
+            if (r < 0.52) return PowerUpType.Rapid;
+            if (r < 0.64) return PowerUpType.Shield;
+            if (r < 0.72) return PowerUpType.Bomb;
+            if (r < 0.80) return PowerUpType.Scatter;
+            if (r < 0.88) return PowerUpType.Spiral;
+            if (r < 0.95) return PowerUpType.Homing;
             return PowerUpType.Health;
         }
 
         private PowerUpType RollBossDrop()
         {
             double r = _random.NextDouble();
-            if (r < 0.30) return PowerUpType.Weapon;
-            if (r < 0.50) return PowerUpType.Health;
-            if (r < 0.65) return PowerUpType.Shield;
-            if (r < 0.78) return PowerUpType.Scatter;
-            if (r < 0.90) return PowerUpType.Homing;
+            if (r < 0.28) return PowerUpType.Weapon;
+            if (r < 0.46) return PowerUpType.Health;
+            if (r < 0.60) return PowerUpType.Shield;
+            if (r < 0.72) return PowerUpType.Scatter;
+            if (r < 0.84) return PowerUpType.Spiral;
+            if (r < 0.93) return PowerUpType.Homing;
             return PowerUpType.Bomb;
         }
 

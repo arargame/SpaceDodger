@@ -28,6 +28,7 @@ namespace SpaceDodger.Persistence
         public float ResumeShieldTime;
         public float ResumeRapidTime;
         public float ResumeScatterTime;
+        public float ResumeSpiralTime;
         public int ResumeHomingCount;
 
         public bool RecordRun(int score, int level)

@@ -14,6 +14,7 @@ namespace SpaceDodger.Screens
         private static readonly Color ShieldColor = new Color(96, 204, 246);
         private static readonly Color RapidColor = new Color(238, 148, 58);
         private static readonly Color ScatterColor = new Color(190, 90, 230);
+        private static readonly Color SpiralColor = new Color(160, 240, 70);
         private static readonly Color HomingColor = new Color(96, 246, 160);
 
         private readonly PixelFont _font;
@@ -98,9 +99,16 @@ namespace SpaceDodger.Screens
                 _font.Draw(spriteBatch, "C", new Vector2(57, y - 9), ScatterColor);
             }
 
+            if (player.IsSpiralActive)
+            {
+                DrawBar(spriteBatch, 84, y, player.SpiralTimer / Core.GameConfig.SpiralDuration, SpiralColor);
+                _font.Draw(spriteBatch, "V", new Vector2(84, y - 9), SpiralColor);
+            }
+
             if (player.HomingCount > 0)
             {
-                _font.Draw(spriteBatch, $"M{player.HomingCount}", new Vector2(84, y - 4), HomingColor);
+                int hx = player.IsSpiralActive ? 111 : 84;
+                _font.Draw(spriteBatch, $"M{player.HomingCount}", new Vector2(hx, y - 4), HomingColor);
             }
         }
 

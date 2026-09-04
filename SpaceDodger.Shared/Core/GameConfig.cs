@@ -1,4 +1,4 @@
-﻿namespace SpaceDodger.Core
+namespace SpaceDodger.Core
 {
     /// <summary>Central tuning constants (single source of truth, DRY).</summary>
     public static class GameConfig
@@ -27,6 +27,7 @@
         public const float EnemyHeavyBulletSpeed = 68f;
         public const float ScatterBulletSpeed = 160f;
         public const float HomingMissileSpeed = 140f;
+        public const float SpiralBulletSpeed = 190f;
 
         public const float PowerUpDropChance = 0.14f;
         public const float PowerUpSpeed = 30f;
@@ -37,6 +38,7 @@
         /// <summary>Seconds of boosted fire rate from a rapid-fire pickup.</summary>
         public const float RapidFireDuration = 10f;
         public const float ScatterDuration = 10f;
+        public const float SpiralDuration = 10f;
         public const int HomingMissileCount = 3;
 
         /// <summary>Fire cooldown multiplier while rapid fire is active.</summary>

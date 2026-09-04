@@ -88,7 +88,7 @@ namespace SpaceDodger.Screens
             if (_startLevel == Context.Save.Data.ResumeLevel)
                 _player.RestoreProgress(Context.Save.Data.ResumeLives, Context.Save.Data.ResumeWeaponLevel,
                     Context.Save.Data.ResumeShieldTime, Context.Save.Data.ResumeRapidTime,
-                    Context.Save.Data.ResumeScatterTime, Context.Save.Data.ResumeHomingCount);
+                    Context.Save.Data.ResumeScatterTime, Context.Save.Data.ResumeSpiralTime, Context.Save.Data.ResumeHomingCount);
 
             _score.Reset();
             StartLevel(_startLevel);
@@ -266,6 +266,11 @@ namespace SpaceDodger.Screens
                     ShowPickup("SCATTER FIRE: RADIAL BURST");
                     break;
 
+                case PowerUpType.Spiral:
+                    _player.GrantSpiral();
+                    ShowPickup("SPIRAL FIRE: VORTEX BLASTER");
+                    break;
+
                 case PowerUpType.Homing:
                     _player.GrantHoming(GameConfig.HomingMissileCount);
                     ShowPickup($"HOMING MISSILES x{GameConfig.HomingMissileCount}");
@@ -337,6 +342,7 @@ namespace SpaceDodger.Screens
             Context.Save.Data.ResumeShieldTime = _player.ShieldTimer;
             Context.Save.Data.ResumeRapidTime = _player.RapidTimer;
             Context.Save.Data.ResumeScatterTime = _player.ScatterTimer;
+            Context.Save.Data.ResumeSpiralTime = _player.SpiralTimer;
             Context.Save.Data.ResumeHomingCount = _player.HomingCount;
             Context.Save.Save();
         }
@@ -357,6 +363,9 @@ namespace SpaceDodger.Screens
 
             if (player.IsScatterActive)
                 _factory.SpawnScatterShot(player.MuzzlePosition);
+
+            if (player.IsSpiralActive)
+                _factory.SpawnSpiralShot(player.MuzzlePosition, player.SpiralAngle);
 
             if (player.HomingCount > 0 && player.ConsumeHoming())
                 _factory.SpawnHomingMissile(player.MuzzlePosition);
