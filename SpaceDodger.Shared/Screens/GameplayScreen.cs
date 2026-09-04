@@ -287,7 +287,35 @@ namespace SpaceDodger.Screens
                 return;
             }
 
-            StartLevel(_levelNumber + 1);
+            int nextLevel = _levelNumber + 1;
+
+            // Her 5 bolumde bir reklam goster (%50 AdMob, %50 Blocked/PaintTrek cross-promo)
+            if (_levelNumber % 5 == 0)
+            {
+                TriggerIntermissionAd(() => StartLevel(nextLevel));
+                return;
+            }
+
+            StartLevel(nextLevel);
+        }
+
+        private void TriggerIntermissionAd(Action onCompleted)
+        {
+            // %50 sansla AdMob Interstitial, %50 sansla Cross-Promo (House Ad)
+            bool tryAdMob = new Random().Next(2) == 0;
+
+            if (tryAdMob && Context.Platform.IsInterstitialAdReady())
+            {
+                Context.Platform.ShowInterstitialAd(onCompleted);
+            }
+            else
+            {
+                Context.Screens.Push(new HouseAdScreen(Context, () =>
+                {
+                    Context.Screens.Pop();
+                    onCompleted?.Invoke();
+                }));
+            }
         }
 
         private void UnlockNextLevel()

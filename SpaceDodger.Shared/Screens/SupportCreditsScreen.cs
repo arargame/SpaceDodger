@@ -13,14 +13,15 @@ namespace SpaceDodger.Screens
         private Texture2D _iconAndroid;
         private Texture2D _iconMsStore;
         
-        private readonly Rectangle _blockedRect = new Rectangle(50, 42, 48, 48);
-        private readonly Rectangle _paintRect = new Rectangle(210, 42, 48, 48);
+        private readonly Rectangle _blockedRect = new Rectangle(36, 42, 48, 48);
+        private readonly Rectangle _paintRect = new Rectangle(186, 42, 48, 48);
 
         // Clickable market areas
-        private readonly Rectangle _blockedAndroidBtn = new Rectangle(110, 56, 44, 20);
+        private readonly Rectangle _blockedAndroidBtn = new Rectangle(90, 44, 44, 20);
+        private readonly Rectangle _blockedMsStoreBtn = new Rectangle(90, 68, 44, 20);
         
-        private readonly Rectangle _paintAndroidBtn = new Rectangle(270, 44, 44, 20);
-        private readonly Rectangle _paintMsStoreBtn = new Rectangle(270, 68, 44, 20);
+        private readonly Rectangle _paintAndroidBtn = new Rectangle(240, 44, 44, 20);
+        private readonly Rectangle _paintMsStoreBtn = new Rectangle(240, 68, 44, 20);
 
         public SupportCreditsScreen(Core.GameContext context) : base(context) { }
 
@@ -50,6 +51,7 @@ namespace SpaceDodger.Screens
                 
                 // Market icon butonları
                 if (_blockedAndroidBtn.Contains((int)p.X, (int)p.Y)) { Context.Platform.OpenUrl(ArarGamesApplications.BlockedGooglePlay); return; }
+                if (_blockedMsStoreBtn.Contains((int)p.X, (int)p.Y)) { Context.Platform.OpenUrl(ArarGamesApplications.BlockedMicrosoftStore); return; }
                 if (_paintAndroidBtn.Contains((int)p.X, (int)p.Y)) { Context.Platform.OpenUrl(ArarGamesApplications.PaintTrekGooglePlay); return; }
                 if (_paintMsStoreBtn.Contains((int)p.X, (int)p.Y)) { Context.Platform.OpenUrl(ArarGamesApplications.PaintTrekMicrosoftStore); return; }
             }
@@ -62,8 +64,8 @@ namespace SpaceDodger.Screens
             Context.Font.DrawCentered(spriteBatch, "ARAR GAMES", cx, 12, new Color(255, 220, 60), 2f);
             Context.Font.DrawCentered(spriteBatch, "APPLICATIONS", cx, 32, Color.White);
             
-            Context.Font.DrawCentered(spriteBatch, "BLOCKED", 74, 95, new Color(150,160,190));
-            Context.Font.DrawCentered(spriteBatch, "PAINT TREK", 234, 95, new Color(150,160,190));
+            Context.Font.DrawCentered(spriteBatch, "BLOCKED", 60, 95, new Color(150,160,190));
+            Context.Font.DrawCentered(spriteBatch, "PAINT TREK", 210, 95, new Color(150,160,190));
             
             _menu.Draw(spriteBatch);
         }
@@ -75,6 +77,7 @@ namespace SpaceDodger.Screens
             spriteBatch.Draw(_blocked, screen.ToPhysical(_blockedRect), Color.White);
             spriteBatch.Draw(_paintTrek, screen.ToPhysical(_paintRect), Color.White);
             spriteBatch.Draw(_iconAndroid, screen.ToPhysical(_blockedAndroidBtn), Color.White);
+            spriteBatch.Draw(_iconMsStore, screen.ToPhysical(_blockedMsStoreBtn), Color.White);
             spriteBatch.Draw(_iconAndroid, screen.ToPhysical(_paintAndroidBtn), Color.White);
             spriteBatch.Draw(_iconMsStore, screen.ToPhysical(_paintMsStoreBtn), Color.White);
         }

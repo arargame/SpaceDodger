@@ -34,5 +34,17 @@ namespace SpaceDodger.Droid
         }
 
         public void ExitGame() => (_context as MainActivity ?? MainActivity.Instance)?.SafeExit();
+
+        public bool IsInterstitialAdReady() =>
+            (_context as MainActivity ?? MainActivity.Instance)?.IsInterstitialReady() ?? false;
+
+        public void ShowInterstitialAd(System.Action onClosed)
+        {
+            var activity = _context as MainActivity ?? MainActivity.Instance;
+            if (activity != null && activity.IsInterstitialReady())
+                activity.ShowInterstitialAd(onClosed);
+            else
+                onClosed?.Invoke();
+        }
     }
 }

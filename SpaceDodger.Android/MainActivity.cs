@@ -101,6 +101,16 @@ namespace SpaceDodger.Droid
             });
         }
 
+        public bool IsInterstitialReady() => false;
+
+        public void ShowInterstitialAd(System.Action onClosed)
+        {
+            RunOnUiThread(() =>
+            {
+                onClosed?.Invoke();
+            });
+        }
+
         protected override void OnDestroy()
         {
             base.OnDestroy();
