@@ -5,6 +5,12 @@ namespace ArarGames.Core.Applications;
 public static class ArarGamesApplications
 {
     public const string CoffeeProductId = "buy_me_a_coffee";
+    public const string RemoveAdsProductId = "remove_ads";
+
+    // Google AdMob Configuration (Official Test IDs - replace with production IDs before launch)
+    public const string AdMobSampleAppId = "ca-app-pub-3940256099942544~3347511713";
+    public const string AdMobInterstitialUnitId = "ca-app-pub-3940256099942544/1033173712";
+
     public const string BlockedGooglePlay = "https://play.google.com/store/apps/details?id=com.arargames.blocked";
     public const string BlockedMicrosoftStore = "https://apps.microsoft.com/detail/9mwczdkcnbzw";
     public const string PaintTrekGooglePlay = "https://play.google.com/store/apps/details?id=com.arargame.PaintTrek.Android";

@@ -111,6 +111,42 @@ namespace SpaceDodger.Droid
             });
         }
 
+        public void PurchaseProduct(string productId, bool isConsumable)
+        {
+            RunOnUiThread(() =>
+            {
+                if (productId == ArarGames.Core.Applications.ArarGamesApplications.RemoveAdsProductId)
+                {
+                    try
+                    {
+                        var context = _game?.Context;
+                        if (context != null)
+                        {
+                            context.Save.Data.AdsRemoved = true;
+                            context.Save.Save();
+                        }
+                    }
+                    catch { }
+                }
+            });
+        }
+
+        public void RestorePurchases()
+        {
+            RunOnUiThread(() =>
+            {
+                try
+                {
+                    var context = _game?.Context;
+                    if (context != null)
+                    {
+                        context.Save.Save();
+                    }
+                }
+                catch { }
+            });
+        }
+
         protected override void OnDestroy()
         {
             base.OnDestroy();

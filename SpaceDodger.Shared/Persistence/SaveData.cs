@@ -22,6 +22,7 @@ namespace SpaceDodger.Persistence
         public bool MusicEnabled = true;
         public bool SoundEnabled = true;
         public bool AutoAttackEnabled = true;
+        public bool AdsRemoved;
         public int ResumeLevel = 1;
         public int ResumeLives = 3;
         public int ResumeWeaponLevel = 1;

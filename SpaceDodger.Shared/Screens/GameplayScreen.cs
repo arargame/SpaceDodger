@@ -306,6 +306,13 @@ namespace SpaceDodger.Screens
 
         private void TriggerIntermissionAd(Action onCompleted)
         {
+            // Eger oyuncu reklam kaldirmayi satin almissa tum ara reklamlari atla
+            if (Context.Save.Data.AdsRemoved)
+            {
+                onCompleted?.Invoke();
+                return;
+            }
+
             // %50 sansla AdMob Interstitial, %50 sansla Cross-Promo (House Ad)
             bool tryAdMob = new Random().Next(2) == 0;
 

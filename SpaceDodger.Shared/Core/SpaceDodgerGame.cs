@@ -24,6 +24,8 @@ namespace SpaceDodger.Core
         private IInputProvider _input;
         private ScreenManager _screens;
 
+        public GameContext Context => _context;
+
         public SpaceDodgerGame(IPlatformServices platform)
         {
             _platform = platform;

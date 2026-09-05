@@ -21,6 +21,8 @@ namespace SpaceDodger.Core
 
         void OpenUrl(string url) { }
         void PurchaseConsumable(string productId) { }
+        void PurchaseNonConsumable(string productId) { }
+        void RestorePurchases() { }
         void ExitGame() { }
         bool IsInterstitialAdReady() => false;
         void ShowInterstitialAd(System.Action onClosed) { onClosed?.Invoke(); }

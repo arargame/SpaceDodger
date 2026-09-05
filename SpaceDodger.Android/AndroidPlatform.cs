@@ -35,6 +35,15 @@ namespace SpaceDodger.Droid
 
         public void ExitGame() => (_context as MainActivity ?? MainActivity.Instance)?.SafeExit();
 
+        public void PurchaseConsumable(string productId) =>
+            (_context as MainActivity ?? MainActivity.Instance)?.PurchaseProduct(productId, isConsumable: true);
+
+        public void PurchaseNonConsumable(string productId) =>
+            (_context as MainActivity ?? MainActivity.Instance)?.PurchaseProduct(productId, isConsumable: false);
+
+        public void RestorePurchases() =>
+            (_context as MainActivity ?? MainActivity.Instance)?.RestorePurchases();
+
         public bool IsInterstitialAdReady() =>
             (_context as MainActivity ?? MainActivity.Instance)?.IsInterstitialReady() ?? false;
 
