@@ -10,6 +10,8 @@ namespace SpaceDodger.Screens
     /// <summary>
     /// Interactive cross-promotion intermission screen displayed every 5 levels.
     /// Features first-party titles (Blocked / Paint Trek) with a 5-second countdown.
+    /// Tapping the promo card opens the Google Play Store page.
+    /// Tapping the PLAY button (after 5s) advances to the next level.
     /// </summary>
     public sealed class HouseAdScreen : Screen
     {
@@ -27,7 +29,7 @@ namespace SpaceDodger.Screens
         private readonly Rectangle _cardRect = new Rectangle(24, 16, 272, 142);
         private readonly Rectangle _posterRect = new Rectangle(36, 32, 56, 56);
         private readonly Rectangle _storeBtnRect = new Rectangle(104, 76, 54, 22);
-        private readonly Rectangle _continueBtnRect = new Rectangle(226, 126, 60, 24);
+        private readonly Rectangle _continueBtnRect = new Rectangle(216, 122, 74, 30);
 
         public HouseAdScreen(GameContext context, Action onFinished)
             : base(context)
@@ -60,14 +62,14 @@ namespace SpaceDodger.Screens
                 int tx = (int)tap.X;
                 int ty = (int)tap.Y;
 
-                // Continue / Skip button
+                // 1) Sadece 5 saniye dolduysa VE doğrudan PLAY butonuna basıldıysa sonraki bölüme geç!
                 if (mayContinue && _continueBtnRect.Contains(tx, ty))
                 {
                     Continue();
                     return;
                 }
 
-                // Promo Card or Store Button clicked
+                // 2) Reklam kartının gövdesine, afişine veya butonuna tıklandıysa Google Play mağaza sayfasını aç!
                 if (_cardRect.Contains(tx, ty))
                 {
                     OpenStoreUrl();
@@ -75,7 +77,8 @@ namespace SpaceDodger.Screens
                 }
             }
 
-            if (mayContinue && (input.ConfirmPressed || input.Fire))
+            // Masaüstü klavye kontrolü (Space / Enter ile geçiş)
+            if (!Context.Platform.IsMobile && mayContinue && input.ConfirmPressed)
             {
                 Continue();
             }
@@ -122,7 +125,7 @@ namespace SpaceDodger.Screens
             // Tap hint at bottom of card
             string tapHint = "TAP CARD TO GET ON GOOGLE PLAY";
             Context.Font.DrawCentered(
-                spriteBatch, tapHint, _cardRect.Center.X, _cardRect.Bottom - 16,
+                spriteBatch, tapHint, _cardRect.Center.X - 20, _cardRect.Bottom - 16,
                 Color.Lerp(new Color(255, 210, 80), Color.White, shimmer * 0.5f));
 
             // Countdown squares or Continue button
@@ -132,9 +135,9 @@ namespace SpaceDodger.Screens
             }
             else
             {
-                // Continue Button
-                spriteBatch.Draw(Context.Textures.Pixel, _continueBtnRect, new Color(40, 160, 60));
-                DrawBorder(spriteBatch, _continueBtnRect, 1, Color.White);
+                // Continue Button (PLAY >)
+                spriteBatch.Draw(Context.Textures.Pixel, _continueBtnRect, new Color(30, 150, 50));
+                DrawBorder(spriteBatch, _continueBtnRect, 1, Color.Lerp(Color.White, Color.LimeGreen, shimmer));
                 Context.Font.DrawCentered(
                     spriteBatch, "PLAY >", _continueBtnRect.Center.X, _continueBtnRect.Center.Y - 4, Color.White);
             }
@@ -145,7 +148,7 @@ namespace SpaceDodger.Screens
             const int size = 6;
             const int gap = 4;
             int totalW = TotalSquares * size + (TotalSquares - 1) * gap;
-            int startX = _continueBtnRect.Right - totalW;
+            int startX = _continueBtnRect.Right - totalW - 4;
             int y = _continueBtnRect.Center.Y - size / 2;
 
             float remaining = Math.Max(0f, AdDuration - _timer);
