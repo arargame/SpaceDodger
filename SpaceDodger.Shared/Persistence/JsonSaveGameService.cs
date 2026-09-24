@@ -48,10 +48,13 @@ namespace SpaceDodger.Persistence
                 if (root.TryGetProperty("resumeLevel", out var resumeLevel)) data.ResumeLevel = Math.Max(1, resumeLevel.GetInt32());
                 if (root.TryGetProperty("resumeLives", out var resumeLives)) data.ResumeLives = Math.Max(1, resumeLives.GetInt32());
                 if (root.TryGetProperty("resumeWeaponLevel", out var resumeWeapon)) data.ResumeWeaponLevel = Math.Max(1, resumeWeapon.GetInt32());
+                if (root.TryGetProperty("resumeWeaponTime", out var resumeWeaponTime)) data.ResumeWeaponTime = Math.Max(0f, resumeWeaponTime.GetSingle());
                 if (root.TryGetProperty("resumeShieldTime", out var resumeShield)) data.ResumeShieldTime = resumeShield.GetSingle();
                 if (root.TryGetProperty("resumeRapidTime", out var resumeRapid)) data.ResumeRapidTime = resumeRapid.GetSingle();
-                if (root.TryGetProperty("resumeScatterTime", out var resumeScatter)) data.ResumeScatterTime = resumeScatter.GetSingle();
-                if (root.TryGetProperty("resumeHomingCount", out var resumeHoming)) data.ResumeHomingCount = resumeHoming.GetInt32();
+                if (root.TryGetProperty("resumeSpecialFire", out var resumeSpecialFire)) data.ResumeSpecialFire = resumeSpecialFire.GetInt32();
+                if (root.TryGetProperty("resumeSpecialCharges", out var resumeSpecialCharges)) data.ResumeSpecialCharges = Math.Max(0, resumeSpecialCharges.GetInt32());
+                if (root.TryGetProperty("resumeOrbitCount", out var resumeOrbitCount)) data.ResumeOrbitCount = Math.Max(0, resumeOrbitCount.GetInt32());
+                if (root.TryGetProperty("resumeOrbitTime", out var resumeOrbitTime)) data.ResumeOrbitTime = Math.Max(0f, resumeOrbitTime.GetSingle());
 
                 if (root.TryGetProperty("highScores", out var scores))
                 {
@@ -92,10 +95,13 @@ namespace SpaceDodger.Persistence
                 writer.WriteNumber("resumeLevel", Data.ResumeLevel);
                 writer.WriteNumber("resumeLives", Data.ResumeLives);
                 writer.WriteNumber("resumeWeaponLevel", Data.ResumeWeaponLevel);
+                writer.WriteNumber("resumeWeaponTime", Data.ResumeWeaponTime);
                 writer.WriteNumber("resumeShieldTime", Data.ResumeShieldTime);
                 writer.WriteNumber("resumeRapidTime", Data.ResumeRapidTime);
-                writer.WriteNumber("resumeScatterTime", Data.ResumeScatterTime);
-                writer.WriteNumber("resumeHomingCount", Data.ResumeHomingCount);
+                writer.WriteNumber("resumeSpecialFire", Data.ResumeSpecialFire);
+                writer.WriteNumber("resumeSpecialCharges", Data.ResumeSpecialCharges);
+                writer.WriteNumber("resumeOrbitCount", Data.ResumeOrbitCount);
+                writer.WriteNumber("resumeOrbitTime", Data.ResumeOrbitTime);
                 writer.WriteStartArray("highScores");
                 foreach (var e in Data.HighScores)
                 {

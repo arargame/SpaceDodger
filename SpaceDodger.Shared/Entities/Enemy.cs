@@ -40,8 +40,14 @@ namespace SpaceDodger.Entities
         /// <summary>Y coordinate this enemy spawned at (used by wave patterns).</summary>
         public float SpawnY { get; private set; }
 
+        /// <summary>X coordinate this enemy spawned at (used by directional procedural patterns).</summary>
+        public float SpawnX { get; private set; }
+
         /// <summary>Per-wave speed scaling applied on top of the definition speed.</summary>
         public float SpeedMultiplier { get; private set; } = 1f;
+
+        /// <summary>Director multiplier for the interval between enemy shots.</summary>
+        public float FireIntervalMultiplier { get; private set; } = 1f;
 
         public float EffectiveSpeed => Definition.Speed * SpeedMultiplier;
 
@@ -66,7 +72,8 @@ namespace SpaceDodger.Entities
 
         public void Configure(
             EnemyDefinition definition, Animation animation, IMovementStrategy movement,
-            Vector2 position, EnemyWorld world, float healthMultiplier = 1f, float speedMultiplier = 1f)
+            Vector2 position, EnemyWorld world, float healthMultiplier = 1f, float speedMultiplier = 1f,
+            float fireIntervalMultiplier = 1f)
         {
             Definition = definition;
             _animation = animation;
@@ -74,14 +81,16 @@ namespace SpaceDodger.Entities
             MovementStrategy = movement;
             Position = position;
             SpawnY = position.Y;
+            SpawnX = position.X;
             WorldInfo = world;
             _world = world.Bounds;
             SpeedMultiplier = speedMultiplier;
+            FireIntervalMultiplier = fireIntervalMultiplier;
             MaxHealth = Math.Max(1, (int)Math.Round(definition.MaxHealth * healthMultiplier));
             Health = MaxHealth;
 
             // Stagger first shots so a wave does not fire in unison.
-            _fireTimer = definition.Shoots ? definition.FireInterval * 0.5f : 0f;
+            _fireTimer = definition.Shoots ? definition.FireInterval * FireIntervalMultiplier * 0.5f : 0f;
             _hitFlash = 0f;
         }
 
@@ -108,13 +117,15 @@ namespace SpaceDodger.Entities
                 _fireTimer -= dt;
                 if (_fireTimer <= 0f)
                 {
-                    _fireTimer = Definition.FireInterval;
+                    _fireTimer = Definition.FireInterval * FireIntervalMultiplier;
                     WantsToFire?.Invoke(this);
                 }
             }
 
-            // Despawn once fully past the left edge (no score, no explosion).
-            if (Position.X < _world.Left - _animation.FrameWidth)
+            // Standard waves leave through the left edge; procedural dive and
+            // flock enemies leave below the playfield. Both paths award no score.
+            if (Position.X < _world.Left - _animation.FrameWidth ||
+                Position.Y > _world.Bottom + _animation.FrameHeight)
                 Deactivate();
         }
 
@@ -141,8 +152,8 @@ namespace SpaceDodger.Entities
         {
             if (other is Bullet bullet && bullet.Owner == BulletOwner.Player)
                 TakeDamage(bullet.Damage);
-            else if (other is HomingBullet homing)
-                TakeDamage(homing.Damage);
+            else if (other is IPlayerProjectile projectile)
+                TakeDamage(projectile.Damage);
             else if (other is Player)
                 TakeDamage(IsBoss ? 0 : Health); // ramming kills normal enemies only
         }

@@ -6,7 +6,7 @@ using SpaceDodger.Graphics;
 
 namespace SpaceDodger.Entities
 {
-    public sealed class HomingBullet : Entity, ICollidable
+    public sealed class HomingBullet : Entity, ICollidable, IPlayerProjectile
     {
         public BulletOwner Owner => BulletOwner.Player;
         public int Damage => 4;

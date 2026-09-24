@@ -26,11 +26,13 @@ namespace SpaceDodger.Persistence
         public int ResumeLevel = 1;
         public int ResumeLives = 3;
         public int ResumeWeaponLevel = 1;
+        public float ResumeWeaponTime;
         public float ResumeShieldTime;
         public float ResumeRapidTime;
-        public float ResumeScatterTime;
-        public float ResumeSpiralTime;
-        public int ResumeHomingCount;
+        public int ResumeSpecialFire;
+        public int ResumeSpecialCharges;
+        public int ResumeOrbitCount;
+        public float ResumeOrbitTime;
 
         public bool RecordRun(int score, int level)
         {

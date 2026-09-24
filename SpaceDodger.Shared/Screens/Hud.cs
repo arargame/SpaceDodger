@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Entities;
+using SpaceDodger.Difficulty;
 using SpaceDodger.Graphics;
 using SpaceDodger.Systems;
 
@@ -13,9 +14,9 @@ namespace SpaceDodger.Screens
         private static readonly Color Accent = new Color(255, 220, 60);
         private static readonly Color ShieldColor = new Color(96, 204, 246);
         private static readonly Color RapidColor = new Color(238, 148, 58);
-        private static readonly Color ScatterColor = new Color(190, 90, 230);
-        private static readonly Color SpiralColor = new Color(160, 240, 70);
-        private static readonly Color HomingColor = new Color(96, 246, 160);
+        private static readonly Color SpecialColor = new Color(190, 90, 230);
+        private static readonly Color OrbitColor = new Color(110, 230, 255);
+        private static readonly Color WeaponUpgradeColor = new Color(255, 220, 60);
 
         private readonly PixelFont _font;
         private readonly Texture2D _pixel;
@@ -39,7 +40,8 @@ namespace SpaceDodger.Screens
 
         public void Draw(
             SpriteBatch spriteBatch, ScoreTracker score, Player player,
-            int levelNumber, Enemy boss)
+            int levelNumber, Enemy boss, IDifficultyDirector difficulty,
+            int activeEnemies, int activeEnemyBullets)
         {
             // Top bar background strip.
             spriteBatch.Draw(_pixel, new Rectangle(0, 0, _bounds.Width, 10), new Color(0, 0, 0, 150));
@@ -64,6 +66,9 @@ namespace SpaceDodger.Screens
 
             if (boss != null && boss.Active)
                 DrawBossHealth(spriteBatch, boss);
+
+            if (Core.GameConfig.ShowDifficultyDebug)
+                DrawDifficultyDebug(spriteBatch, difficulty, activeEnemies, activeEnemyBullets);
         }
 
         private void DrawPauseButton(SpriteBatch spriteBatch)
@@ -83,32 +88,32 @@ namespace SpaceDodger.Screens
 
             if (player.IsShielded)
             {
-                DrawBar(spriteBatch, 3, y, player.ShieldTimer / Core.GameConfig.ShieldDuration, ShieldColor);
+                DrawBar(spriteBatch, 3, y, player.ShieldTimer / Core.GameConfig.TimedEffectMaximumDuration, ShieldColor);
                 _font.Draw(spriteBatch, "S", new Vector2(3, y - 9), ShieldColor);
             }
 
             if (player.IsRapidFiring)
             {
-                DrawBar(spriteBatch, 30, y, player.RapidTimer / Core.GameConfig.RapidFireDuration, RapidColor);
+                DrawBar(spriteBatch, 30, y, player.RapidTimer / Core.GameConfig.TimedEffectMaximumDuration, RapidColor);
                 _font.Draw(spriteBatch, "R", new Vector2(30, y - 9), RapidColor);
             }
 
-            if (player.IsScatterActive)
+            if (player.SpecialCharges > 0)
             {
-                DrawBar(spriteBatch, 57, y, player.ScatterTimer / Core.GameConfig.ScatterDuration, ScatterColor);
-                _font.Draw(spriteBatch, "C", new Vector2(57, y - 9), ScatterColor);
+                DrawBar(spriteBatch, 57, y, player.SpecialCharges / (float)Core.GameConfig.SpecialMaximumCharges, SpecialColor);
+                _font.Draw(spriteBatch, $"{player.SpecialFireLabel[0]}{player.SpecialCharges}", new Vector2(57, y - 9), SpecialColor);
             }
 
-            if (player.IsSpiralActive)
+            if (player.OrbitTimer > 0f)
             {
-                DrawBar(spriteBatch, 84, y, player.SpiralTimer / Core.GameConfig.SpiralDuration, SpiralColor);
-                _font.Draw(spriteBatch, "V", new Vector2(84, y - 9), SpiralColor);
+                DrawBar(spriteBatch, 84, y, player.OrbitTimer / Core.GameConfig.OrbitMaximumDuration, OrbitColor);
+                _font.Draw(spriteBatch, $"O{player.OrbitCount}", new Vector2(84, y - 9), OrbitColor);
             }
 
-            if (player.HomingCount > 0)
+            if (player.WeaponTimer > 0f)
             {
-                int hx = player.IsSpiralActive ? 111 : 84;
-                _font.Draw(spriteBatch, $"M{player.HomingCount}", new Vector2(hx, y - 4), HomingColor);
+                DrawBar(spriteBatch, 111, y, player.WeaponTimer / Core.GameConfig.WeaponTier5MaximumDuration, WeaponUpgradeColor);
+                _font.Draw(spriteBatch, $"W{player.WeaponLevel}", new Vector2(111, y - 9), WeaponUpgradeColor);
             }
         }
 
@@ -139,6 +144,32 @@ namespace SpaceDodger.Screens
                 : boss.HealthFraction > 0.25f ? new Color(240, 150, 50) : new Color(255, 220, 70);
 
             spriteBatch.Draw(_pixel, new Rectangle(x, y, fill, barHeight), color);
+        }
+
+        private void DrawDifficultyDebug(SpriteBatch spriteBatch, IDifficultyDirector difficulty,
+            int activeEnemies, int activeEnemyBullets)
+        {
+            if (difficulty == null)
+                return;
+
+            const int x = 4;
+            const int y = 18;
+            const int width = 132;
+            const int height = 38;
+            var modifiers = difficulty.Current;
+            var stateColor = difficulty.StateLabel == "GODLIKE" ? Color.Magenta
+                : difficulty.StateLabel == "DOMINATING" ? new Color(255, 130, 70)
+                : difficulty.StateLabel == "IN FLOW" ? new Color(120, 245, 150)
+                : difficulty.StateLabel == "STRUGGLING" ? new Color(255, 220, 80)
+                : new Color(110, 190, 255);
+
+            spriteBatch.Draw(_pixel, new Rectangle(x - 2, y - 2, width, height), new Color(0, 0, 0, 185));
+            // Pixel fonts must only use whole-number scaling. Fractional scale
+            // drops atlas pixels with point sampling and makes debug text unreadable.
+            _font.Draw(spriteBatch, $"DDA {difficulty.StateLabel}", new Vector2(x, y), stateColor);
+            _font.Draw(spriteBatch, $"MODE {difficulty.CycleLabel}", new Vector2(x, y + 9), Color.White);
+            _font.Draw(spriteBatch, $"I{difficulty.Intensity:F1} E{activeEnemies} B{activeEnemyBullets}", new Vector2(x, y + 18), Accent);
+            _font.Draw(spriteBatch, $"V{modifiers.EnemySpeed:F1} H{modifiers.EnemyHealth:F1} D{modifiers.PowerUpDrop:F1}", new Vector2(x, y + 27), Dim);
         }
 
         /// <summary>Touch-control hint drawn for the first seconds on mobile.</summary>

@@ -625,6 +625,10 @@ ICON_SCORE  = [".XXXX.", "XX..XX", "..XXX.", "..XX..", "......", "..XX.."]
 ICON_SCATTER= ["X....X", ".X..X.", "..XX..", "..XX..", ".X..X.", "X....X"]
 ICON_HOMING = ["..XX..", ".X..X.", "X....X", ".XXXX.", "..XX..", "..XX.."]
 ICON_SPIRAL = ["..XX..", ".X..X.", "X.XX.X", "X.X..X", ".X...X", "..XXX."]
+ICON_RICO   = ["X....X", ".X..X.", "..XX..", ".X..X.", "X....X", ".X..X."]
+ICON_ORBIT  = [".X..X.", "X.XX.X", ".XXXX.", ".XXXX.", "X.XX.X", ".X..X."]
+ICON_WAVE   = ["..XX..", ".X..X.", "X....X", ".X..X.", "..XX..", "...X.."]
+ICON_LASER  = ["..XX..", "..XX..", "..XX..", "..XX..", "..XX..", "..XX.."]
 
 print("powerups:")
 save("powerups", [
@@ -637,6 +641,10 @@ save("powerups", [
     powerup(ICON_SCATTER,'slate'),
     powerup(ICON_HOMING, 'blue'),
     powerup(ICON_SPIRAL, 'toxic'),
+    powerup(ICON_RICO,   'green'),
+    powerup(ICON_ORBIT,  'purple'),
+    powerup(ICON_WAVE,   'cyan'),
+    powerup(ICON_LASER,  'blue'),
 ])
 
 def shield_bubble(i):

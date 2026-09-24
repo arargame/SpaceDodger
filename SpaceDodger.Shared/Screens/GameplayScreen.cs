@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
+using SpaceDodger.Difficulty;
 using SpaceDodger.Entities;
 using SpaceDodger.Graphics;
 using SpaceDodger.Input;
@@ -33,6 +34,7 @@ namespace SpaceDodger.Screens
         private Starfield _stars;
         private Hud _hud;
         private Player _player;
+        private IDifficultyDirector _difficulty;
 
         private Phase _phase = Phase.Intro;
         private float _phaseTimer;
@@ -41,6 +43,8 @@ namespace SpaceDodger.Screens
         private float _bombFlash;
         private string _pickupMessage;
         private float _pickupMessageTimer;
+        private readonly Random _random = new Random();
+        private bool _hasStartedLevel;
 
         private static readonly Color[] BackgroundPalette =
         {
@@ -74,7 +78,8 @@ namespace SpaceDodger.Screens
             _factory = new EntityFactory(_animations, Context.Textures, playfield);
             _score = new ScoreTracker(Context.Events);
             Context.Events.Subscribe<ScoreChangedEvent>(OnScoreChanged);
-            _spawner = new WaveSpawner(_factory, Context.Events, _world);
+            _difficulty = new AdaptiveThreatDirector();
+            _spawner = new WaveSpawner(_factory, Context.Events, _world, _difficulty);
             _stars = new Starfield(Context.Textures.Pixel, bounds.Width, bounds.Height);
             _hud = new Hud(Context.Font, Context.Textures.Pixel, bounds, Context.Platform.IsMobile);
 
@@ -88,7 +93,9 @@ namespace SpaceDodger.Screens
             if (_startLevel == Context.Save.Data.ResumeLevel)
                 _player.RestoreProgress(Context.Save.Data.ResumeLives, Context.Save.Data.ResumeWeaponLevel,
                     Context.Save.Data.ResumeShieldTime, Context.Save.Data.ResumeRapidTime,
-                    Context.Save.Data.ResumeScatterTime, Context.Save.Data.ResumeSpiralTime, Context.Save.Data.ResumeHomingCount);
+                    Context.Save.Data.ResumeSpecialFire, Context.Save.Data.ResumeSpecialCharges,
+                    Context.Save.Data.ResumeOrbitCount, Context.Save.Data.ResumeOrbitTime,
+                    Context.Save.Data.ResumeWeaponTime);
 
             _score.Reset();
             StartLevel(_startLevel);
@@ -107,7 +114,11 @@ namespace SpaceDodger.Screens
         {
             _levelNumber = number;
             _factory.ReleaseAll();
+            if (_player.OrbitTimer > 0f && _player.OrbitCount > 0)
+                _factory.SetOrbitShots(_player, _player.OrbitCount, _player.OrbitTimer);
             _spawner.Begin(_levels.Load(number));
+            _difficulty.BeginLevel(number, _player.Lives, number % GameConfig.BossEvery == 0, _hasStartedLevel);
+            _hasStartedLevel = true;
             _phase = Phase.Intro;
             _phaseTimer = IntroDuration;
             _elapsed = 0f;
@@ -144,6 +155,8 @@ namespace SpaceDodger.Screens
             switch (_phase)
             {
                 case Phase.Intro:
+                    // Preserve finite special cartridges until enemies are actually present.
+                    currentInput.Fire = false;
                     _player.Update(dt, currentInput);
                     _phaseTimer -= dt;
                     if (_phaseTimer <= 0f)
@@ -155,6 +168,9 @@ namespace SpaceDodger.Screens
                     break;
 
                 case Phase.Cleared:
+                    // The clear banner is not a firing range: auto-fire must not
+                    // silently spend special charges between two levels.
+                    currentInput.Fire = false;
                     _player.Update(dt, currentInput);
                     _phaseTimer -= dt;
                     if (_phaseTimer <= 0f)
@@ -172,6 +188,8 @@ namespace SpaceDodger.Screens
         private void UpdatePlaying(float dt, in InputState input)
         {
             _player.Update(dt, input);
+            _difficulty.Update(dt, _player.Lives, _score.Combo,
+                _factory.Enemies.CountActive, _factory.EnemyBullets.CountActive);
             _spawner.Update(dt);
 
             ResolveCollisions();
@@ -192,6 +210,8 @@ namespace SpaceDodger.Screens
             // Player bullets vs enemies.
             CollisionSystem.Resolve(_factory.PlayerBullets.Items, _factory.Enemies.Items);
             CollisionSystem.Resolve(_factory.HomingBullets.Items, _factory.Enemies.Items);
+            CollisionSystem.Resolve(_factory.RicochetBullets.Items, _factory.Enemies.Items);
+            CollisionSystem.Resolve(_factory.OrbitShots.Items, _factory.Enemies.Items);
 
             if (!_player.Active)
                 return;
@@ -234,18 +254,22 @@ namespace SpaceDodger.Screens
                     break;
 
                 case PowerUpType.Weapon:
-                    _player.UpgradeWeapon();
-                    ShowPickup("WEAPON POWER UP");
+                    int nextWeaponLevel = Math.Min(_player.WeaponLevel + 1, GameConfig.MaxWeaponLevel);
+                    float weaponDuration = RandomWeaponDuration(nextWeaponLevel);
+                    _player.GrantWeaponUpgrade(nextWeaponLevel, weaponDuration);
+                    ShowPickup($"W{nextWeaponLevel} {weaponDuration:F0}S");
                     break;
 
                 case PowerUpType.Shield:
-                    _player.GrantShield();
-                    ShowPickup("SHIELD: BLOCKS ONE HIT");
+                    float shieldDuration = RandomTimedDuration();
+                    _player.GrantShield(shieldDuration);
+                    ShowPickup($"SHIELD {shieldDuration:F0}S");
                     break;
 
                 case PowerUpType.Rapid:
-                    _player.GrantRapidFire();
-                    ShowPickup("RAPID FIRE");
+                    float rapidDuration = RandomTimedDuration();
+                    _player.GrantRapidFire(rapidDuration);
+                    ShowPickup($"RAPID FIRE {rapidDuration:F0}S");
                     break;
 
                 case PowerUpType.Score:
@@ -262,20 +286,74 @@ namespace SpaceDodger.Screens
                     break;
 
                 case PowerUpType.Scatter:
-                    _player.GrantScatter();
-                    ShowPickup("SCATTER FIRE: RADIAL BURST");
+                    EquipSpecial(SpecialFireType.Scatter, RandomSpecialCharges());
                     break;
 
                 case PowerUpType.Spiral:
-                    _player.GrantSpiral();
-                    ShowPickup("SPIRAL FIRE: VORTEX BLASTER");
+                    EquipSpecial(SpecialFireType.Spiral, RandomSpecialCharges());
                     break;
 
                 case PowerUpType.Homing:
-                    _player.GrantHoming(GameConfig.HomingMissileCount);
-                    ShowPickup($"HOMING MISSILES x{GameConfig.HomingMissileCount}");
+                    EquipSpecial(SpecialFireType.Homing, RandomCharges(
+                        GameConfig.HomingMinimumCharges, GameConfig.HomingMaximumCharges));
+                    break;
+
+                case PowerUpType.Ricochet:
+                    EquipSpecial(SpecialFireType.Ricochet, RandomSpecialCharges());
+                    break;
+
+                case PowerUpType.Orbit:
+                    int orbitCount = _random.Next(GameConfig.OrbitMinimumShots, GameConfig.OrbitMaximumShots + 1);
+                    float orbitDuration = GameConfig.OrbitMinimumDuration +
+                        (float)_random.NextDouble() * (GameConfig.OrbitMaximumDuration - GameConfig.OrbitMinimumDuration);
+                    _player.GrantOrbitGuard(orbitCount, orbitDuration);
+                    _factory.SetOrbitShots(_player, orbitCount, orbitDuration);
+                    ShowPickup($"ORBIT GUARD {orbitCount} / {orbitDuration:F0}S");
+                    break;
+
+                case PowerUpType.Wave:
+                    EquipSpecial(SpecialFireType.Wave, RandomCharges(
+                        GameConfig.WaveMinimumCharges, GameConfig.WaveMaximumCharges));
+                    break;
+
+                case PowerUpType.SweepLaser:
+                    EquipSpecial(SpecialFireType.SweepLaser, RandomCharges(
+                        GameConfig.SweepLaserMinimumCharges, GameConfig.SweepLaserMaximumCharges));
                     break;
             }
+        }
+
+        private int RandomSpecialCharges() => RandomCharges(
+            GameConfig.SpecialMinimumCharges, GameConfig.SpecialMaximumCharges);
+
+        private int RandomCharges(int minimum, int maximum) => _random.Next(minimum, maximum + 1);
+
+        private float RandomTimedDuration() => GameConfig.TimedEffectMinimumDuration +
+            (float)_random.NextDouble() * (GameConfig.TimedEffectMaximumDuration - GameConfig.TimedEffectMinimumDuration);
+
+        private float RandomWeaponDuration(int level)
+        {
+            float minimum = level switch
+            {
+                2 => GameConfig.WeaponTier2MinimumDuration,
+                3 => GameConfig.WeaponTier3MinimumDuration,
+                4 => GameConfig.WeaponTier4MinimumDuration,
+                _ => GameConfig.WeaponTier5MinimumDuration
+            };
+            float maximum = level switch
+            {
+                2 => GameConfig.WeaponTier2MaximumDuration,
+                3 => GameConfig.WeaponTier3MaximumDuration,
+                4 => GameConfig.WeaponTier4MaximumDuration,
+                _ => GameConfig.WeaponTier5MaximumDuration
+            };
+            return minimum + (float)_random.NextDouble() * (maximum - minimum);
+        }
+
+        private void EquipSpecial(SpecialFireType type, int charges)
+        {
+            _player.EquipSpecial(type, charges);
+            ShowPickup($"{_player.SpecialFireLabel} x{charges}");
         }
 
         private void ShowPickup(string message)
@@ -346,11 +424,13 @@ namespace SpaceDodger.Screens
             Context.Save.Data.ResumeLevel = next;
             Context.Save.Data.ResumeLives = _player.Lives;
             Context.Save.Data.ResumeWeaponLevel = _player.WeaponLevel;
+            Context.Save.Data.ResumeWeaponTime = _player.WeaponTimer;
             Context.Save.Data.ResumeShieldTime = _player.ShieldTimer;
             Context.Save.Data.ResumeRapidTime = _player.RapidTimer;
-            Context.Save.Data.ResumeScatterTime = _player.ScatterTimer;
-            Context.Save.Data.ResumeSpiralTime = _player.SpiralTimer;
-            Context.Save.Data.ResumeHomingCount = _player.HomingCount;
+            Context.Save.Data.ResumeSpecialFire = (int)_player.SpecialFire;
+            Context.Save.Data.ResumeSpecialCharges = _player.SpecialCharges;
+            Context.Save.Data.ResumeOrbitCount = _player.OrbitCount;
+            Context.Save.Data.ResumeOrbitTime = _player.OrbitTimer;
             Context.Save.Save();
         }
 
@@ -368,14 +448,30 @@ namespace SpaceDodger.Screens
         {
             _factory.SpawnPlayerShot(player.MuzzlePosition, player.WeaponLevel);
 
-            if (player.IsScatterActive)
-                _factory.SpawnScatterShot(player.MuzzlePosition);
-
-            if (player.IsSpiralActive)
-                _factory.SpawnSpiralShot(player.MuzzlePosition, player.SpiralAngle);
-
-            if (player.HomingCount > 0 && player.ConsumeHoming())
-                _factory.SpawnHomingMissile(player.MuzzlePosition);
+            if (player.TryConsumeSpecial(out var special))
+            {
+                switch (special)
+                {
+                    case SpecialFireType.Scatter:
+                        _factory.SpawnScatterShot(player.MuzzlePosition);
+                        break;
+                    case SpecialFireType.Spiral:
+                        _factory.SpawnSpiralShot(player.MuzzlePosition, player.SpiralAngle);
+                        break;
+                    case SpecialFireType.Homing:
+                        _factory.SpawnHomingMissile(player.MuzzlePosition);
+                        break;
+                    case SpecialFireType.Ricochet:
+                        _factory.SpawnRicochetShot(player.MuzzlePosition);
+                        break;
+                    case SpecialFireType.Wave:
+                        _factory.SpawnWavePulse(player.MuzzlePosition);
+                        break;
+                    case SpecialFireType.SweepLaser:
+                        _factory.SpawnSweepLaser();
+                        break;
+                }
+            }
 
             Context.Audio.Play("fire", 0.12f);
         }
@@ -397,6 +493,7 @@ namespace SpaceDodger.Screens
             _factory.SpawnExplosion(player.Position);
             Context.Audio.Play("explosion", 0.24f);
             _score.BreakCombo();
+            _difficulty.NotifyPlayerDamaged();
             Context.Events.Publish(new PlayerDamagedEvent(player.Lives, player.Position));
         }
 
@@ -430,7 +527,8 @@ namespace SpaceDodger.Screens
                     Color.White * (_bombFlash / 0.35f * 0.6f));
             }
 
-            _hud.Draw(spriteBatch, _score, _player, _levelNumber, FindBoss());
+            _hud.Draw(spriteBatch, _score, _player, _levelNumber, FindBoss(), _difficulty,
+                _factory.Enemies.CountActive, _factory.EnemyBullets.CountActive);
 
             switch (_phase)
             {

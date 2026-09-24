@@ -7,7 +7,7 @@ namespace SpaceDodger.Entities
     public enum BulletOwner { Player, Enemy }
 
     /// <summary>Pooled projectile used by both the player and enemies.</summary>
-    public sealed class Bullet : Entity, ICollidable
+    public sealed class Bullet : Entity, ICollidable, IPlayerProjectile
     {
         public BulletOwner Owner { get; private set; }
         public int Damage { get; private set; }

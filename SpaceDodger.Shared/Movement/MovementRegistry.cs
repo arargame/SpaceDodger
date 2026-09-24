@@ -16,6 +16,8 @@ namespace SpaceDodger.Movement
                 ["sine"] = new SineMovement(),
                 ["zigzag"] = new ZigZagMovement(),
                 ["chase"] = new ChaseMovement(),
+                ["top_dive"] = new TopDiveMovement(),
+                ["diagonal_flock"] = new DiagonalFlockMovement(),
                 ["boss"] = new BossMovement(),
                 ["lerp_boss"] = new LerpMovement(),
                 ["orbit_boss"] = new OrbitMovement(),

@@ -29,6 +29,14 @@ namespace SpaceDodger.Entities
         Homing = 7,
         /// <summary>Temporary dual spiral vortex fire.</summary>
         Spiral = 8,
+        /// <summary>Finite bolt that rebounds from playfield edges.</summary>
+        Ricochet = 9,
+        /// <summary>Short-lived orbital guard around the player.</summary>
+        Orbit = 10,
+        /// <summary>Finite growing energy ring travelling forward.</summary>
+        Wave = 11,
+        /// <summary>Finite full-height energy scan travelling left to right.</summary>
+        SweepLaser = 12,
     }
 
     /// <summary>Pooled pickup that drifts left with a gentle bob.</summary>

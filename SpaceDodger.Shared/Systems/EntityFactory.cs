@@ -20,6 +20,7 @@ namespace SpaceDodger.Systems
         private readonly TextureStore _textures;
         private readonly Rectangle _world;
         private readonly Random _random = new Random();
+        private float _powerUpDropCooldown;
 
         public EntityPool<Bullet> PlayerBullets { get; }
         public EntityPool<Bullet> EnemyBullets { get; }
@@ -27,6 +28,10 @@ namespace SpaceDodger.Systems
         public EntityPool<Explosion> Explosions { get; }
         public EntityPool<PowerUp> PowerUps { get; }
         public EntityPool<HomingBullet> HomingBullets { get; }
+        public EntityPool<RicochetBullet> RicochetBullets { get; }
+        public EntityPool<OrbitShot> OrbitShots { get; }
+        public EntityPool<WavePulse> WavePulses { get; }
+        public EntityPool<SweepLaser> SweepLasers { get; }
 
         public EntityFactory(AnimationLibrary animations, TextureStore textures, Rectangle world)
         {
@@ -40,6 +45,10 @@ namespace SpaceDodger.Systems
             Explosions = new EntityPool<Explosion>(() => new Explosion(), 32);
             PowerUps = new EntityPool<PowerUp>(() => new PowerUp(), 12);
             HomingBullets = new EntityPool<HomingBullet>(() => new HomingBullet(), 16);
+            RicochetBullets = new EntityPool<RicochetBullet>(() => new RicochetBullet(), 12);
+            OrbitShots = new EntityPool<OrbitShot>(() => new OrbitShot(), 6);
+            WavePulses = new EntityPool<WavePulse>(() => new WavePulse(), 4);
+            SweepLasers = new EntityPool<SweepLaser>(() => new SweepLaser(), 3);
         }
 
         /// <summary>Fire 8 scatter bullets in a radial pattern around the player.</summary>
@@ -79,6 +88,42 @@ namespace SpaceDodger.Systems
             var animation = _animations.HomingBullet;
             var missile = HomingBullets.Obtain();
             missile.Configure(animation, position, 0f, GameConfig.HomingMissileSpeed, _world, Enemies.Items);
+        }
+
+        /// <summary>Fire a finite green bolt that ricochets around the playfield.</summary>
+        public void SpawnRicochetShot(Vector2 position)
+        {
+            float vertical = ((float)_random.NextDouble() * 2f - 1f) * 92f;
+            var shot = RicochetBullets.Obtain();
+            shot.Configure(_animations.HomingBullet, position,
+                new Vector2(GameConfig.RicochetBulletSpeed, vertical), _world, bounces: 4);
+        }
+
+        /// <summary>Deploy one short-lived orbit guard. A new guard replaces the old one instead of stacking.</summary>
+        public void SetOrbitShots(Player player, int count, float duration)
+        {
+            OrbitShots.ReleaseAll();
+            count = MathHelper.Clamp(count, 1, 4);
+            for (int i = 0; i < count; i++)
+            {
+                var shot = OrbitShots.Obtain();
+                float phase = MathHelper.TwoPi * i / count;
+                shot.Configure(_animations.PlayerPlasma, player, phase, 18f + i * 5f, duration);
+            }
+        }
+
+        /// <summary>Emit one growing green pulse from the ship's muzzle.</summary>
+        public void SpawnWavePulse(Vector2 position)
+        {
+            var pulse = WavePulses.Obtain();
+            pulse.Configure(_textures.Pixel, position, _world, Enemies.Items);
+        }
+
+        /// <summary>Emit one full-height energy scan travelling from left to right.</summary>
+        public void SpawnSweepLaser()
+        {
+            var laser = SweepLasers.Obtain();
+            laser.Configure(_textures.Pixel, _world, Enemies.Items);
         }
 
         /// <summary>Fire the player's current weapon pattern from a muzzle point.</summary>
@@ -155,12 +200,12 @@ namespace SpaceDodger.Systems
         public Enemy SpawnEnemy(
             EnemyDefinition definition, IMovementStrategy movement,
             Vector2 position, EnemyWorld world,
-            float healthMultiplier, float speedMultiplier)
+            float healthMultiplier, float speedMultiplier, float fireIntervalMultiplier = 1f)
         {
             var enemy = Enemies.Obtain();
             enemy.Configure(
                 definition, _animations.ForEnemy(definition), movement,
-                position, world, healthMultiplier, speedMultiplier);
+                position, world, healthMultiplier, speedMultiplier, fireIntervalMultiplier);
             return enemy;
         }
 
@@ -181,39 +226,75 @@ namespace SpaceDodger.Systems
         /// Roll for a pickup drop at a destroyed enemy's position.
         /// Bosses always drop, and drop from the rarer end of the table.
         /// </summary>
-        public void MaybeDropPowerUp(Vector2 position, bool guaranteed = false)
+        public void MaybeDropPowerUp(Vector2 position, bool guaranteed = false, float chanceMultiplier = 1f,
+            float healthSupplyBias = 0f)
         {
-            if (!guaranteed && _random.NextDouble() > GameConfig.PowerUpDropChance)
+            if (!CanSpawnPowerUp())
                 return;
 
-            var type = guaranteed ? RollBossDrop() : RollCommonDrop();
+            if (!guaranteed && _random.NextDouble() > GameConfig.PowerUpDropChance * chanceMultiplier)
+                return;
+
+            var type = guaranteed ? RollBossDrop(healthSupplyBias) : RollCommonDrop(healthSupplyBias);
+            SpawnPowerUp(type, position);
+        }
+
+        /// <summary>Creates a rare supply crate entering from the right side of the playfield.</summary>
+        public bool TrySpawnSupplyDrift(Vector2 position, float healthSupplyBias)
+        {
+            if (!CanSpawnPowerUp())
+                return false;
+
+            SpawnPowerUp(RollCommonDrop(healthSupplyBias), position);
+            return true;
+        }
+
+        private bool CanSpawnPowerUp() =>
+            _powerUpDropCooldown <= 0f && PowerUps.CountActive < GameConfig.MaximumActivePowerUps;
+
+        private void SpawnPowerUp(PowerUpType type, Vector2 position)
+        {
             var powerUp = PowerUps.Obtain();
             powerUp.Configure(_textures.Get("sprites/powerups"), type, position, _world);
+            _powerUpDropCooldown = GameConfig.PowerUpDropCooldown;
         }
 
-        private PowerUpType RollCommonDrop()
+        private PowerUpType RollCommonDrop(float healthSupplyBias)
         {
-            double r = _random.NextDouble();
-            if (r < 0.25) return PowerUpType.Weapon;
-            if (r < 0.40) return PowerUpType.Score;
-            if (r < 0.52) return PowerUpType.Rapid;
-            if (r < 0.64) return PowerUpType.Shield;
-            if (r < 0.72) return PowerUpType.Bomb;
-            if (r < 0.80) return PowerUpType.Scatter;
-            if (r < 0.88) return PowerUpType.Spiral;
-            if (r < 0.95) return PowerUpType.Homing;
-            return PowerUpType.Health;
-        }
+            if (_random.NextDouble() < MathHelper.Clamp(healthSupplyBias, 0f, 1f))
+                return PowerUpType.Health;
 
-        private PowerUpType RollBossDrop()
-        {
             double r = _random.NextDouble();
-            if (r < 0.28) return PowerUpType.Weapon;
-            if (r < 0.46) return PowerUpType.Health;
-            if (r < 0.60) return PowerUpType.Shield;
+            if (r < 0.22) return PowerUpType.Weapon;
+            if (r < 0.35) return PowerUpType.Score;
+            if (r < 0.46) return PowerUpType.Rapid;
+            if (r < 0.57) return PowerUpType.Shield;
+            if (r < 0.65) return PowerUpType.Bomb;
             if (r < 0.72) return PowerUpType.Scatter;
-            if (r < 0.84) return PowerUpType.Spiral;
-            if (r < 0.93) return PowerUpType.Homing;
+            if (r < 0.78) return PowerUpType.Spiral;
+            if (r < 0.83) return PowerUpType.Homing;
+            if (r < 0.88) return PowerUpType.Ricochet;
+            if (r < 0.92) return PowerUpType.Orbit;
+            if (r < 0.96) return PowerUpType.Wave;
+            if (r < 0.99) return PowerUpType.SweepLaser;
+            return PowerUpType.Score;
+        }
+
+        private PowerUpType RollBossDrop(float healthSupplyBias)
+        {
+            if (_random.NextDouble() < MathHelper.Clamp(healthSupplyBias, 0f, 1f))
+                return PowerUpType.Health;
+
+            double r = _random.NextDouble();
+            if (r < 0.22) return PowerUpType.Weapon;
+            if (r < 0.38) return PowerUpType.Shield;
+            if (r < 0.50) return PowerUpType.Scatter;
+            if (r < 0.60) return PowerUpType.Spiral;
+            if (r < 0.70) return PowerUpType.Homing;
+            if (r < 0.78) return PowerUpType.Ricochet;
+            if (r < 0.85) return PowerUpType.Orbit;
+            if (r < 0.92) return PowerUpType.Wave;
+            if (r < 0.97) return PowerUpType.SweepLaser;
             return PowerUpType.Bomb;
         }
 
@@ -244,8 +325,15 @@ namespace SpaceDodger.Systems
 
         public void UpdateAll(float dt)
         {
+            if (_powerUpDropCooldown > 0f)
+                _powerUpDropCooldown -= dt;
+
             PlayerBullets.Update(dt);
             HomingBullets.Update(dt);
+            RicochetBullets.Update(dt);
+            OrbitShots.Update(dt);
+            WavePulses.Update(dt);
+            SweepLasers.Update(dt);
             EnemyBullets.Update(dt);
             Enemies.Update(dt);
             Explosions.Update(dt);
@@ -258,6 +346,10 @@ namespace SpaceDodger.Systems
             Enemies.Draw(spriteBatch);
             PlayerBullets.Draw(spriteBatch);
             HomingBullets.Draw(spriteBatch);
+            RicochetBullets.Draw(spriteBatch);
+            OrbitShots.Draw(spriteBatch);
+            WavePulses.Draw(spriteBatch);
+            SweepLasers.Draw(spriteBatch);
             EnemyBullets.Draw(spriteBatch);
             Explosions.Draw(spriteBatch);
         }
@@ -266,10 +358,15 @@ namespace SpaceDodger.Systems
         {
             PlayerBullets.ReleaseAll();
             HomingBullets.ReleaseAll();
+            RicochetBullets.ReleaseAll();
+            OrbitShots.ReleaseAll();
+            WavePulses.ReleaseAll();
+            SweepLasers.ReleaseAll();
             EnemyBullets.ReleaseAll();
             Enemies.ReleaseAll();
             Explosions.ReleaseAll();
             PowerUps.ReleaseAll();
+            _powerUpDropCooldown = 0f;
         }
     }
 }

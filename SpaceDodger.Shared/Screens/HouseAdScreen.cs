@@ -29,7 +29,9 @@ namespace SpaceDodger.Screens
         private readonly Rectangle _cardRect = new Rectangle(24, 16, 272, 142);
         private readonly Rectangle _posterRect = new Rectangle(36, 32, 56, 56);
         private readonly Rectangle _storeBtnRect = new Rectangle(104, 76, 54, 22);
-        private readonly Rectangle _continueBtnRect = new Rectangle(216, 122, 74, 30);
+        // At virtual resolution this remains a generous mobile hit target while
+        // leaving the store instruction unobstructed on desktop.
+        private readonly Rectangle _continueBtnRect = new Rectangle(238, 134, 48, 18);
 
         public HouseAdScreen(GameContext context, Action onFinished)
             : base(context)
@@ -125,7 +127,7 @@ namespace SpaceDodger.Screens
             // Tap hint at bottom of card
             string tapHint = "TAP CARD TO GET ON GOOGLE PLAY";
             Context.Font.DrawCentered(
-                spriteBatch, tapHint, _cardRect.Center.X - 20, _cardRect.Bottom - 16,
+                spriteBatch, tapHint, 120, _cardRect.Bottom - 16,
                 Color.Lerp(new Color(255, 210, 80), Color.White, shimmer * 0.5f));
 
             // Countdown squares or Continue button
@@ -135,11 +137,12 @@ namespace SpaceDodger.Screens
             }
             else
             {
-                // Continue Button (PLAY >)
-                spriteBatch.Draw(Context.Textures.Pixel, _continueBtnRect, new Color(30, 150, 50));
-                DrawBorder(spriteBatch, _continueBtnRect, 1, Color.Lerp(Color.White, Color.LimeGreen, shimmer));
+                // Minimal, separate continue affordance. The full card remains
+                // the store link, so the two actions never overlap.
+                spriteBatch.Draw(Context.Textures.Pixel, _continueBtnRect, new Color(26, 112, 48));
+                DrawBorder(spriteBatch, _continueBtnRect, 1, Color.Lerp(new Color(130, 230, 150), Color.White, shimmer * .45f));
                 Context.Font.DrawCentered(
-                    spriteBatch, "PLAY >", _continueBtnRect.Center.X, _continueBtnRect.Center.Y - 4, Color.White);
+                    spriteBatch, "PLAY", _continueBtnRect.Center.X, _continueBtnRect.Center.Y - 4, Color.White);
             }
         }
 
