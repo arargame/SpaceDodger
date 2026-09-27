@@ -7,7 +7,7 @@ namespace SpaceDodger.Entities
     /// <summary>A short-lived orbital guard. It follows the ship instead of flooding the screen.</summary>
     public sealed class OrbitShot : Entity, ICollidable, IPlayerProjectile
     {
-        public int Damage => 2;
+        public int Damage { get; private set; }
 
         private Animation _animation;
         private AnimationPlayer _player;
@@ -19,7 +19,7 @@ namespace SpaceDodger.Entities
 
         public override Rectangle Bounds => CenteredRect(_animation?.FrameWidth ?? 6, _animation?.FrameHeight ?? 4);
 
-        public void Configure(Animation animation, Player anchor, float phase, float radius, float duration)
+        public void Configure(Animation animation, Player anchor, float phase, float radius, float duration, int damage)
         {
             _animation = animation;
             _player.Play(animation);
@@ -28,6 +28,7 @@ namespace SpaceDodger.Entities
             _radius = radius;
             _angularVelocity = 4.4f + radius * .05f;
             _remainingTime = duration;
+            Damage = damage;
             Position = anchor.Position;
         }
 

@@ -9,7 +9,7 @@ namespace SpaceDodger.Entities
     public sealed class HomingBullet : Entity, ICollidable, IPlayerProjectile
     {
         public BulletOwner Owner => BulletOwner.Player;
-        public int Damage => 4;
+        public int Damage { get; private set; }
 
         private Animation _animation;
         private AnimationPlayer _player;
@@ -27,7 +27,7 @@ namespace SpaceDodger.Entities
             float initialHeading, 
             float speed, 
             Rectangle world, 
-            IReadOnlyList<Enemy> targets)
+            IReadOnlyList<Enemy> targets, int damage)
         {
             _animation = animation;
             _player.Play(animation);
@@ -37,6 +37,7 @@ namespace SpaceDodger.Entities
             Velocity = new Vector2((float)Math.Cos(_heading), (float)Math.Sin(_heading)) * _speed;
             _world = world;
             _targets = targets;
+            Damage = damage;
         }
 
         public override void Update(float dt)

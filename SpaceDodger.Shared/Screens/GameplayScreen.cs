@@ -25,6 +25,7 @@ namespace SpaceDodger.Screens
 
         private readonly ILevelRepository _levels;
         private readonly int _startLevel;
+        private readonly bool _grantRetryHealthSupply;
 
         private AnimationLibrary _animations;
         private EntityFactory _factory;
@@ -60,11 +61,12 @@ namespace SpaceDodger.Screens
             new Color(28, 24, 8),    // golden dust
         };
 
-        public GameplayScreen(GameContext context, ILevelRepository levels, int startLevel)
+        public GameplayScreen(GameContext context, ILevelRepository levels, int startLevel, bool grantRetryHealthSupply = false)
             : base(context)
         {
             _levels = levels;
             _startLevel = startLevel;
+            _grantRetryHealthSupply = grantRetryHealthSupply;
         }
 
         public override void Load()
@@ -114,8 +116,14 @@ namespace SpaceDodger.Screens
         {
             _levelNumber = number;
             _factory.ReleaseAll();
+            _player.SetDamageBonusForLevel(number);
             if (_player.OrbitTimer > 0f && _player.OrbitCount > 0)
                 _factory.SetOrbitShots(_player, _player.OrbitCount, _player.OrbitTimer);
+            if (!_hasStartedLevel && _grantRetryHealthSupply)
+            {
+                _factory.SpawnGuaranteedHealthSupply(new Vector2(_world.Bounds.Right + 10f, _world.Bounds.Center.Y - 18f));
+                _factory.SpawnGuaranteedRandomWeaponSupply(new Vector2(_world.Bounds.Right + 18f, _world.Bounds.Center.Y + 18f));
+            }
             _spawner.Begin(_levels.Load(number));
             _difficulty.BeginLevel(number, _player.Lives, number % GameConfig.BossEvery == 0, _hasStartedLevel);
             _hasStartedLevel = true;
@@ -320,6 +328,11 @@ namespace SpaceDodger.Screens
                     EquipSpecial(SpecialFireType.SweepLaser, RandomCharges(
                         GameConfig.SweepLaserMinimumCharges, GameConfig.SweepLaserMaximumCharges));
                     break;
+
+                case PowerUpType.ChainLightning:
+                    EquipSpecial(SpecialFireType.ChainLightning, RandomCharges(
+                        GameConfig.ChainLightningMinimumCharges, GameConfig.ChainLightningMaximumCharges));
+                    break;
             }
         }
 
@@ -446,29 +459,32 @@ namespace SpaceDodger.Screens
 
         private void OnPlayerFired(Player player)
         {
-            _factory.SpawnPlayerShot(player.MuzzlePosition, player.WeaponLevel);
+            _factory.SpawnPlayerShot(player.MuzzlePosition, player.WeaponLevel, player.DamageBonus);
 
             if (player.TryConsumeSpecial(out var special))
             {
                 switch (special)
                 {
                     case SpecialFireType.Scatter:
-                        _factory.SpawnScatterShot(player.MuzzlePosition);
+                        _factory.SpawnScatterShot(player.MuzzlePosition, player.DamageBonus);
                         break;
                     case SpecialFireType.Spiral:
-                        _factory.SpawnSpiralShot(player.MuzzlePosition, player.SpiralAngle);
+                        _factory.SpawnSpiralShot(player.MuzzlePosition, player.SpiralAngle, player.DamageBonus);
                         break;
                     case SpecialFireType.Homing:
-                        _factory.SpawnHomingMissile(player.MuzzlePosition);
+                        _factory.SpawnHomingMissile(player.MuzzlePosition, player.DamageBonus);
                         break;
                     case SpecialFireType.Ricochet:
-                        _factory.SpawnRicochetShot(player.MuzzlePosition);
+                        _factory.SpawnRicochetShot(player.MuzzlePosition, player.DamageBonus);
                         break;
                     case SpecialFireType.Wave:
-                        _factory.SpawnWavePulse(player.MuzzlePosition);
+                        _factory.SpawnWavePulse(player.MuzzlePosition, player.DamageBonus);
                         break;
                     case SpecialFireType.SweepLaser:
-                        _factory.SpawnSweepLaser();
+                        _factory.SpawnSweepLaser(player.DamageBonus);
+                        break;
+                    case SpecialFireType.ChainLightning:
+                        _factory.SpawnChainLightning(player, player.DamageBonus);
                         break;
                 }
             }

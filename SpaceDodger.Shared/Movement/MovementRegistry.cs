@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace SpaceDodger.Movement
@@ -23,6 +23,7 @@ namespace SpaceDodger.Movement
                 ["orbit_boss"] = new OrbitMovement(),
                 ["drift_boss"] = new DriftMovement(),
                 ["sine_boss"] = new SineBossMovement(),
+                ["rebound"] = new ReboundMovement(),
             };
 
         public static IMovementStrategy Get(string name) =>

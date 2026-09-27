@@ -10,5 +10,6 @@ namespace SpaceDodger.Entities
         Ricochet,
         Wave,
         SweepLaser,
+        ChainLightning,
     }
 }

@@ -161,7 +161,7 @@ namespace SpaceDodger.Entities
         public override void Draw(SpriteBatch spriteBatch)
         {
             // Tint red briefly when damaged so hits read clearly at this resolution.
-            var color = _hitFlash > 0f ? new Color(255, 120, 120) : Color.White;
+            var color = _hitFlash > 0f ? new Color(255, 120, 120) : (Definition != null ? Definition.Tint : Color.White);
             var origin = new Vector2(_animation.FrameWidth / 2f, _animation.FrameHeight / 2f);
 
             spriteBatch.Draw(

@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace SpaceDodger.Entities
 {
@@ -34,12 +35,14 @@ namespace SpaceDodger.Entities
         public bool AimAtPlayer { get; }
         public bool IsBoss { get; }
         public int ContactDamage { get; }
+        public Color Tint { get; }
 
         public EnemyDefinition(
             string key, string textureName, int frames, float fps,
             int maxHealth, int score, float speed,
             EnemyWeapon weapon = EnemyWeapon.None, float fireInterval = 0f,
-            bool aimAtPlayer = false, bool isBoss = false, int contactDamage = 1)
+            bool aimAtPlayer = false, bool isBoss = false, int contactDamage = 1,
+            Color? tint = null)
         {
             Key = key;
             TextureName = textureName;
@@ -53,6 +56,7 @@ namespace SpaceDodger.Entities
             AimAtPlayer = aimAtPlayer;
             IsBoss = isBoss;
             ContactDamage = contactDamage;
+            Tint = tint ?? Color.White;
         }
 
         public bool Shoots => Weapon != EnemyWeapon.None && FireInterval > 0f;
@@ -102,6 +106,8 @@ namespace SpaceDodger.Entities
                     weapon: EnemyWeapon.Spread, fire: 2.0f),
                 ["hulk"] = Def("hulk", 2, 3f, hp: 18, score: 120, speed: 22f,
                     weapon: EnemyWeapon.Heavy, fire: 2.6f, aim: true),
+                ["fat_drifter"] = new EnemyDefinition("fat_drifter", "sprites/enemy_bomber", 2, 3f,
+                    maxHealth: 3, score: 75, speed: 25f, tint: new Color(238, 218, 175)),
 
                 // --- bosses (one per 10 levels) -----------------------------
                 ["boss_warden"] = Def("boss_warden", 2, 5f, hp: 60, score: 500, speed: 30f,

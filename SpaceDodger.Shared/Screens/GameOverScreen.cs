@@ -66,7 +66,7 @@ namespace SpaceDodger.Screens
         }
 
         private void Retry() =>
-            Context.Screens.Reset(new GameplayScreen(Context, _levels, _victory ? 1 : _level));
+            Context.Screens.Reset(new GameplayScreen(Context, _levels, _victory ? 1 : _level, grantRetryHealthSupply: true));
 
         private void ToMenu() => Context.Screens.Reset(new MenuScreen(Context));
 

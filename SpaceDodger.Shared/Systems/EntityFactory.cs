@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
@@ -16,10 +17,37 @@ namespace SpaceDodger.Systems
     /// </summary>
     public sealed class EntityFactory
     {
+        private static readonly PowerUpType[] RetryWeaponSupplies =
+        {
+            PowerUpType.Weapon, PowerUpType.Scatter, PowerUpType.Spiral,
+            PowerUpType.Homing, PowerUpType.Ricochet, PowerUpType.Wave,
+            PowerUpType.SweepLaser, PowerUpType.ChainLightning
+        };
+
+        private static readonly PowerUpType[] AllPowerUpTypes =
+        {
+            PowerUpType.Health,
+            PowerUpType.Weapon,
+            PowerUpType.Shield,
+            PowerUpType.Bomb,
+            PowerUpType.Rapid,
+            PowerUpType.Score,
+            PowerUpType.Scatter,
+            PowerUpType.Homing,
+            PowerUpType.Spiral,
+            PowerUpType.Ricochet,
+            PowerUpType.Orbit,
+            PowerUpType.Wave,
+            PowerUpType.SweepLaser,
+            PowerUpType.ChainLightning
+        };
+
         private readonly AnimationLibrary _animations;
         private readonly TextureStore _textures;
         private readonly Rectangle _world;
         private readonly Random _random = new Random();
+        private readonly List<PowerUpType> _unpickedCommonSupplies = new List<PowerUpType>();
+        private readonly List<PowerUpType> _unpickedBossSupplies = new List<PowerUpType>();
         private float _powerUpDropCooldown;
 
         public EntityPool<Bullet> PlayerBullets { get; }
@@ -32,6 +60,7 @@ namespace SpaceDodger.Systems
         public EntityPool<OrbitShot> OrbitShots { get; }
         public EntityPool<WavePulse> WavePulses { get; }
         public EntityPool<SweepLaser> SweepLasers { get; }
+        public EntityPool<ChainLightning> ChainLightnings { get; }
 
         public EntityFactory(AnimationLibrary animations, TextureStore textures, Rectangle world)
         {
@@ -49,10 +78,11 @@ namespace SpaceDodger.Systems
             OrbitShots = new EntityPool<OrbitShot>(() => new OrbitShot(), 6);
             WavePulses = new EntityPool<WavePulse>(() => new WavePulse(), 4);
             SweepLasers = new EntityPool<SweepLaser>(() => new SweepLaser(), 3);
+            ChainLightnings = new EntityPool<ChainLightning>(() => new ChainLightning(), 4);
         }
 
         /// <summary>Fire 8 scatter bullets in a radial pattern around the player.</summary>
-        public void SpawnScatterShot(Vector2 position)
+        public void SpawnScatterShot(Vector2 position, int damageBonus)
         {
             var animation = _animations.PlayerBullet;
             for (int i = 0; i < 8; i++)
@@ -62,12 +92,12 @@ namespace SpaceDodger.Systems
                     (float)Math.Cos(angle) * GameConfig.ScatterBulletSpeed,
                     (float)Math.Sin(angle) * GameConfig.ScatterBulletSpeed);
                 var bullet = PlayerBullets.Obtain();
-                bullet.Configure(animation, BulletOwner.Player, 1, position, velocity, _world);
+                bullet.Configure(animation, BulletOwner.Player, 1 + damageBonus, position, velocity, _world);
             }
         }
 
         /// <summary>Fire dual rotating spiral plasma shots from the player.</summary>
-        public void SpawnSpiralShot(Vector2 position, float baseAngle)
+        public void SpawnSpiralShot(Vector2 position, float baseAngle, int damageBonus)
         {
             var animation = _animations.PlayerPlasma;
             // 2 opposing spiral arms
@@ -78,25 +108,25 @@ namespace SpaceDodger.Systems
                     (float)Math.Cos(angle) * GameConfig.SpiralBulletSpeed,
                     (float)Math.Sin(angle) * GameConfig.SpiralBulletSpeed);
                 var bullet = PlayerBullets.Obtain();
-                bullet.Configure(animation, BulletOwner.Player, 2, position, velocity, _world);
+                bullet.Configure(animation, BulletOwner.Player, 2 + damageBonus, position, velocity, _world);
             }
         }
 
         /// <summary>Spawn a homing missile that seeks the nearest enemy.</summary>
-        public void SpawnHomingMissile(Vector2 position)
+        public void SpawnHomingMissile(Vector2 position, int damageBonus)
         {
             var animation = _animations.HomingBullet;
             var missile = HomingBullets.Obtain();
-            missile.Configure(animation, position, 0f, GameConfig.HomingMissileSpeed, _world, Enemies.Items);
+            missile.Configure(animation, position, 0f, GameConfig.HomingMissileSpeed, _world, Enemies.Items, 4 + damageBonus);
         }
 
         /// <summary>Fire a finite green bolt that ricochets around the playfield.</summary>
-        public void SpawnRicochetShot(Vector2 position)
+        public void SpawnRicochetShot(Vector2 position, int damageBonus)
         {
             float vertical = ((float)_random.NextDouble() * 2f - 1f) * 92f;
             var shot = RicochetBullets.Obtain();
             shot.Configure(_animations.HomingBullet, position,
-                new Vector2(GameConfig.RicochetBulletSpeed, vertical), _world, bounces: 4);
+                new Vector2(GameConfig.RicochetBulletSpeed, vertical), _world, bounces: 4, damage: 2 + damageBonus);
         }
 
         /// <summary>Deploy one short-lived orbit guard. A new guard replaces the old one instead of stacking.</summary>
@@ -108,26 +138,33 @@ namespace SpaceDodger.Systems
             {
                 var shot = OrbitShots.Obtain();
                 float phase = MathHelper.TwoPi * i / count;
-                shot.Configure(_animations.PlayerPlasma, player, phase, 18f + i * 5f, duration);
+                shot.Configure(_animations.PlayerPlasma, player, phase, 18f + i * 5f, duration, 2 + player.DamageBonus);
             }
         }
 
         /// <summary>Emit one growing green pulse from the ship's muzzle.</summary>
-        public void SpawnWavePulse(Vector2 position)
+        public void SpawnWavePulse(Vector2 position, int damageBonus)
         {
             var pulse = WavePulses.Obtain();
-            pulse.Configure(_textures.Pixel, position, _world, Enemies.Items);
+            pulse.Configure(_textures.Pixel, position, _world, Enemies.Items, 2 + damageBonus);
         }
 
         /// <summary>Emit one full-height energy scan travelling from left to right.</summary>
-        public void SpawnSweepLaser()
+        public void SpawnSweepLaser(int damageBonus)
         {
             var laser = SweepLasers.Obtain();
-            laser.Configure(_textures.Pixel, _world, Enemies.Items);
+            laser.Configure(_textures.Pixel, _world, Enemies.Items, 3 + damageBonus);
+        }
+
+        /// <summary>Launch one chaining electric bolt leaping between live visible enemies.</summary>
+        public void SpawnChainLightning(Player player, int damageBonus)
+        {
+            var bolt = ChainLightnings.Obtain();
+            bolt.Configure(_textures.Pixel, player, _world, Enemies.Items, 2 + damageBonus, pos => SpawnSpark(pos));
         }
 
         /// <summary>Fire the player's current weapon pattern from a muzzle point.</summary>
-        public void SpawnPlayerShot(Vector2 muzzle, int weaponLevel)
+        public void SpawnPlayerShot(Vector2 muzzle, int weaponLevel, int damageBonus)
         {
             var pattern = WeaponRegistry.ForLevel(weaponLevel);
             var animation = pattern.Plasma ? _animations.PlayerPlasma : _animations.PlayerBullet;
@@ -138,7 +175,7 @@ namespace SpaceDodger.Systems
                 bullet.Configure(
                     animation,
                     BulletOwner.Player,
-                    pattern.Damage,
+                    pattern.Damage + damageBonus,
                     muzzle + pattern.OffsetFor(i),
                     pattern.VelocityFor(i, GameConfig.PlayerBulletSpeed, 1f),
                     _world);
@@ -239,6 +276,18 @@ namespace SpaceDodger.Systems
             SpawnPowerUp(type, position);
         }
 
+        /// <summary>Mandatory one-life crate for boss clears and retry starts. It intentionally bypasses normal loot throttling.</summary>
+        public void SpawnGuaranteedHealthSupply(Vector2 position)
+        {
+            SpawnPowerUp(PowerUpType.Health, position);
+        }
+
+        /// <summary>Mandatory retry companion crate, selected only from offensive supply types.</summary>
+        public void SpawnGuaranteedRandomWeaponSupply(Vector2 position)
+        {
+            SpawnPowerUp(RetryWeaponSupplies[_random.Next(RetryWeaponSupplies.Length)], position);
+        }
+
         /// <summary>Creates a rare supply crate entering from the right side of the playfield.</summary>
         public bool TrySpawnSupplyDrift(Vector2 position, float healthSupplyBias)
         {
@@ -259,43 +308,57 @@ namespace SpaceDodger.Systems
             _powerUpDropCooldown = GameConfig.PowerUpDropCooldown;
         }
 
+        private PowerUpType RollFromBag(List<PowerUpType> bag)
+        {
+            if (bag.Count == 0)
+                bag.AddRange(AllPowerUpTypes);
+
+            // 17.5% for Weapon Upgrade; remaining 82.5% shared equally by other 13 types (~6.346% each).
+            double totalWeight = 0;
+            for (int i = 0; i < bag.Count; i++)
+            {
+                totalWeight += bag[i] == PowerUpType.Weapon ? 0.175 : (0.825 / 13.0);
+            }
+
+            double roll = _random.NextDouble() * totalWeight;
+            double cumulative = 0;
+            int selectedIndex = 0;
+
+            for (int i = 0; i < bag.Count; i++)
+            {
+                cumulative += bag[i] == PowerUpType.Weapon ? 0.175 : (0.825 / 13.0);
+                if (roll <= cumulative)
+                {
+                    selectedIndex = i;
+                    break;
+                }
+            }
+
+            var chosen = bag[selectedIndex];
+            bag.RemoveAt(selectedIndex);
+            return chosen;
+        }
+
         private PowerUpType RollCommonDrop(float healthSupplyBias)
         {
             if (_random.NextDouble() < MathHelper.Clamp(healthSupplyBias, 0f, 1f))
+            {
+                _unpickedCommonSupplies.Remove(PowerUpType.Health);
                 return PowerUpType.Health;
+            }
 
-            double r = _random.NextDouble();
-            if (r < 0.22) return PowerUpType.Weapon;
-            if (r < 0.35) return PowerUpType.Score;
-            if (r < 0.46) return PowerUpType.Rapid;
-            if (r < 0.57) return PowerUpType.Shield;
-            if (r < 0.65) return PowerUpType.Bomb;
-            if (r < 0.72) return PowerUpType.Scatter;
-            if (r < 0.78) return PowerUpType.Spiral;
-            if (r < 0.83) return PowerUpType.Homing;
-            if (r < 0.88) return PowerUpType.Ricochet;
-            if (r < 0.92) return PowerUpType.Orbit;
-            if (r < 0.96) return PowerUpType.Wave;
-            if (r < 0.99) return PowerUpType.SweepLaser;
-            return PowerUpType.Score;
+            return RollFromBag(_unpickedCommonSupplies);
         }
 
         private PowerUpType RollBossDrop(float healthSupplyBias)
         {
             if (_random.NextDouble() < MathHelper.Clamp(healthSupplyBias, 0f, 1f))
+            {
+                _unpickedBossSupplies.Remove(PowerUpType.Health);
                 return PowerUpType.Health;
+            }
 
-            double r = _random.NextDouble();
-            if (r < 0.22) return PowerUpType.Weapon;
-            if (r < 0.38) return PowerUpType.Shield;
-            if (r < 0.50) return PowerUpType.Scatter;
-            if (r < 0.60) return PowerUpType.Spiral;
-            if (r < 0.70) return PowerUpType.Homing;
-            if (r < 0.78) return PowerUpType.Ricochet;
-            if (r < 0.85) return PowerUpType.Orbit;
-            if (r < 0.92) return PowerUpType.Wave;
-            if (r < 0.97) return PowerUpType.SweepLaser;
-            return PowerUpType.Bomb;
+            return RollFromBag(_unpickedBossSupplies);
         }
 
         /// <summary>Smart bomb: kill every active enemy, awarding score for each.</summary>
@@ -334,6 +397,7 @@ namespace SpaceDodger.Systems
             OrbitShots.Update(dt);
             WavePulses.Update(dt);
             SweepLasers.Update(dt);
+            ChainLightnings.Update(dt);
             EnemyBullets.Update(dt);
             Enemies.Update(dt);
             Explosions.Update(dt);
@@ -350,6 +414,7 @@ namespace SpaceDodger.Systems
             OrbitShots.Draw(spriteBatch);
             WavePulses.Draw(spriteBatch);
             SweepLasers.Draw(spriteBatch);
+            ChainLightnings.Draw(spriteBatch);
             EnemyBullets.Draw(spriteBatch);
             Explosions.Draw(spriteBatch);
         }
@@ -362,6 +427,7 @@ namespace SpaceDodger.Systems
             OrbitShots.ReleaseAll();
             WavePulses.ReleaseAll();
             SweepLasers.ReleaseAll();
+            ChainLightnings.ReleaseAll();
             EnemyBullets.ReleaseAll();
             Enemies.ReleaseAll();
             Explosions.ReleaseAll();

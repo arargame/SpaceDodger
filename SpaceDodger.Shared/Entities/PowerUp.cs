@@ -37,6 +37,8 @@ namespace SpaceDodger.Entities
         Wave = 11,
         /// <summary>Finite full-height energy scan travelling left to right.</summary>
         SweepLaser = 12,
+        /// <summary>Finite chain lightning that arcs and rebounds between visible enemies.</summary>
+        ChainLightning = 13,
     }
 
     /// <summary>Pooled pickup that drifts left with a gentle bob.</summary>

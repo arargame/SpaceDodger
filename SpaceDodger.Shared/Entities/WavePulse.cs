@@ -12,10 +12,11 @@ namespace SpaceDodger.Entities
         private Rectangle _world;
         private IReadOnlyList<Enemy> _targets;
         private float _radius;
+        private int _damage;
 
         public override Rectangle Bounds => CenteredRect((int)(_radius * 2f), (int)(_radius * 2f));
 
-        public void Configure(Texture2D pixel, Vector2 position, Rectangle world, IReadOnlyList<Enemy> targets)
+        public void Configure(Texture2D pixel, Vector2 position, Rectangle world, IReadOnlyList<Enemy> targets, int damage)
         {
             _pixel = pixel;
             Position = position;
@@ -23,6 +24,7 @@ namespace SpaceDodger.Entities
             _targets = targets;
             _radius = 4f;
             _hitEnemies.Clear();
+            _damage = damage;
         }
 
         public override void Update(float dt)
@@ -38,7 +40,7 @@ namespace SpaceDodger.Entities
                 if (enemy.Active && !_hitEnemies.Contains(enemy) && bounds.Intersects(enemy.Bounds))
                 {
                     _hitEnemies.Add(enemy);
-                    enemy.TakeDamage(2);
+                    enemy.TakeDamage(_damage);
                 }
             }
 

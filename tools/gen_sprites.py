@@ -629,6 +629,7 @@ ICON_RICO   = ["X....X", ".X..X.", "..XX..", ".X..X.", "X....X", ".X..X."]
 ICON_ORBIT  = [".X..X.", "X.XX.X", ".XXXX.", ".XXXX.", "X.XX.X", ".X..X."]
 ICON_WAVE   = ["..XX..", ".X..X.", "X....X", ".X..X.", "..XX..", "...X.."]
 ICON_LASER  = ["..XX..", "..XX..", "..XX..", "..XX..", "..XX..", "..XX.."]
+ICON_LIGHTNING = ["...XX.", "..XX..", ".XXXX.", "..XX..", ".XX...", "XX...."]
 
 print("powerups:")
 save("powerups", [
@@ -645,6 +646,7 @@ save("powerups", [
     powerup(ICON_ORBIT,  'purple'),
     powerup(ICON_WAVE,   'cyan'),
     powerup(ICON_LASER,  'blue'),
+    powerup(ICON_LIGHTNING, 'yellow'),
 ])
 
 def shield_bubble(i):

@@ -47,8 +47,9 @@ hard jumps.
 
 Health supplies are not a universal reward: their selection bias is 48% in
 `RECOVERING`, 24% in `STRUGGLING`, 2% in `IN FLOW`, and 0% when dominating or
-godlike. The global supply cap/cooldown remains active, so assistance does not
-become a loot flood.
+godlike. Normal-enemy supply rolls remain a fixed 10%; the bias selects the
+resulting supply's type rather than multiplying that chance. The global supply
+cap/cooldown remains active, so assistance does not become a loot flood.
 
 ## Reward / punishment cycle
 

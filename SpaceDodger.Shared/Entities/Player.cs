@@ -25,6 +25,7 @@ namespace SpaceDodger.Entities
         public int Lives { get; private set; }
         public int WeaponLevel { get; private set; } = 1;
         public float WeaponTimer { get; private set; }
+        public int DamageBonus { get; private set; }
 
         /// <summary>Post-hit mercy invulnerability.</summary>
         public bool IsInvulnerable => _invulnTimer > 0f;
@@ -49,6 +50,7 @@ namespace SpaceDodger.Entities
             SpecialFireType.Ricochet => "RICO",
             SpecialFireType.Wave => "WAVE",
             SpecialFireType.SweepLaser => "LASER",
+            SpecialFireType.ChainLightning => "TESLA",
             _ => ""
         };
 
@@ -88,6 +90,7 @@ namespace SpaceDodger.Entities
             Lives = lives;
             WeaponLevel = 1;
             WeaponTimer = 0f;
+            DamageBonus = 0;
             _fireCooldown = 0f;
             _invulnTimer = 0f;
             _shieldTimer = 0f;
@@ -183,6 +186,10 @@ namespace SpaceDodger.Entities
             WeaponTimer = WeaponLevel == 1 ? 0f : Math.Max(0f, duration);
         }
 
+        /// <summary>Sets the persistent campaign damage bonus earned every ten completed level thresholds.</summary>
+        public void SetDamageBonusForLevel(int levelNumber) =>
+            DamageBonus = Math.Max(0, levelNumber / GameConfig.DamageBonusEveryLevels);
+
         public void AddLife() => Lives++;
 
         public void GrantShield(float duration) =>
@@ -206,6 +213,16 @@ namespace SpaceDodger.Entities
             OrbitTimer = MathHelper.Clamp(duration, GameConfig.OrbitMinimumDuration, GameConfig.OrbitMaximumDuration);
         }
 
+        public void DecrementSpecialCharge()
+        {
+            if (SpecialCharges > 0)
+            {
+                SpecialCharges--;
+                if (SpecialCharges == 0)
+                    SpecialFire = SpecialFireType.None;
+            }
+        }
+
         /// <summary>Consumes at most one special effect per controlled cadence window.</summary>
         public bool TryConsumeSpecial(out SpecialFireType type)
         {
@@ -213,13 +230,20 @@ namespace SpaceDodger.Entities
             if (type == SpecialFireType.None || SpecialCharges <= 0 || _specialCooldown > 0f)
                 return false;
 
-            SpecialCharges--;
-            _specialCooldown = type == SpecialFireType.SweepLaser ? .85f
-                : type == SpecialFireType.Wave ? .48f
-                : .30f;
+            if (type != SpecialFireType.ChainLightning)
+            {
+                SpecialCharges--;
+                _specialCooldown = type == SpecialFireType.SweepLaser ? .85f
+                    : type == SpecialFireType.Wave ? .48f
+                    : .30f;
 
-            if (SpecialCharges == 0)
-                SpecialFire = SpecialFireType.None;
+                if (SpecialCharges == 0)
+                    SpecialFire = SpecialFireType.None;
+            }
+            else
+            {
+                _specialCooldown = 0.40f;
+            }
 
             return true;
         }

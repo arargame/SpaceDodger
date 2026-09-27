@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SpaceDodger.Core;
@@ -26,6 +26,7 @@ namespace SpaceDodger.Systems
             public WaveData Data;
             public EnemyDefinition Definition;
             public IMovementStrategy Movement;
+            public int TargetCount;
             public int Spawned;
             public float NextSpawnTime;
         }
@@ -40,6 +41,7 @@ namespace SpaceDodger.Systems
         private float _time;
         private float _reinforcementTimer;
         private float _supplyDriftTimer;
+        private float _fatDrifterTimer;
 
         public LevelData Level { get; private set; }
 
@@ -64,17 +66,27 @@ namespace SpaceDodger.Systems
             SpawnedCount = 0;
             AllWavesSpawned = false;
             _reinforcementTimer = 4.5f;
+            _fatDrifterTimer = 12f + (float)_random.NextDouble() * 8f;
             _supplyDriftTimer = GameConfig.SupplyDriftMinimumInterval +
                 (float)_random.NextDouble() * (GameConfig.SupplyDriftMaximumInterval - GameConfig.SupplyDriftMinimumInterval);
             _waves.Clear();
 
             foreach (var wave in level.Waves)
             {
+                var def = EnemyCatalog.Get(wave.Enemy);
+                int targetCount = wave.Count;
+                // Shorten tight shooting formations by 1 enemy from the end of the flock so the player has dodging lanes
+                if (def.Shoots && targetCount >= 3 && (wave.Formation == WaveFormation.Line || wave.Formation == WaveFormation.Diagonal || wave.Formation == WaveFormation.Column))
+                {
+                    targetCount = Math.Max(2, targetCount - 1);
+                }
+
                 _waves.Add(new WaveRuntime
                 {
                     Data = wave,
-                    Definition = EnemyCatalog.Get(wave.Enemy),
+                    Definition = def,
                     Movement = MovementRegistry.Get(wave.Movement),
+                    TargetCount = targetCount,
                     Spawned = 0,
                     NextSpawnTime = wave.StartTime,
                 });
@@ -89,12 +101,12 @@ namespace SpaceDodger.Systems
 
             foreach (var wave in _waves)
             {
-                if (wave.Spawned >= wave.Data.Count)
+                if (wave.Spawned >= wave.TargetCount)
                     continue;
 
                 anyPending = true;
 
-                while (wave.Spawned < wave.Data.Count && _time >= wave.NextSpawnTime)
+                while (wave.Spawned < wave.TargetCount && _time >= wave.NextSpawnTime)
                 {
                     SpawnAuthoredEnemy(wave);
                     wave.Spawned++;
@@ -104,6 +116,7 @@ namespace SpaceDodger.Systems
 
             AllWavesSpawned = !anyPending;
             UpdateAdaptiveReinforcements(dt);
+            UpdateFatDrifter(dt);
             UpdateSupplyDrift(dt);
         }
 
@@ -153,14 +166,56 @@ namespace SpaceDodger.Systems
             }
 
             // A compact flock crosses from one upper corner to the opposite lower corner.
+            // Shortened by 1 enemy so the flock offers a dodging lane.
             bool fromRight = _random.Next(2) == 0;
             float x = fromRight ? _world.Bounds.Right - 12f : _world.Bounds.Left + 12f;
-            for (int i = 0; i < 3 && _factory.Enemies.CountActive < _director.Current.ProceduralCap; i++)
+            for (int i = 0; i < 2 && _factory.Enemies.CountActive < _director.Current.ProceduralCap; i++)
             {
                 SpawnEnemy(ChooseReinforcementDefinition(), MovementRegistry.Get("diagonal_flock"),
                     new Vector2(x + (fromRight ? i * 5f : -i * 5f), _world.Bounds.Top - 12f - i * 8f),
                     .78f, 1.16f);
             }
+        }
+
+        private void UpdateFatDrifter(float dt)
+        {
+            if (AllWavesSpawned || Level.Number % GameConfig.BossEvery == 0)
+                return;
+
+            _fatDrifterTimer -= dt;
+            if (_fatDrifterTimer > 0f)
+                return;
+
+            _fatDrifterTimer = 20f + (float)_random.NextDouble() * 12f;
+            SpawnProceduralFatDrifter();
+        }
+
+        private void SpawnProceduralFatDrifter()
+        {
+            var def = EnemyCatalog.Get("fat_drifter");
+            int minHp = FindMinimumEnemyHealthInLevel(Level);
+            int targetHp = minHp * 3;
+            float hpMultiplier = (float)targetHp / def.MaxHealth;
+
+            var movement = MovementRegistry.Get("rebound");
+            var pos = new Vector2(_world.Bounds.Right + 16f, RandomLane());
+            SpawnEnemy(def, movement, pos, hpMultiplier, 1f);
+        }
+
+        private int FindMinimumEnemyHealthInLevel(LevelData level)
+        {
+            int minHp = int.MaxValue;
+            if (level?.Waves != null)
+            {
+                foreach (var w in level.Waves)
+                {
+                    var def = EnemyCatalog.Get(w.Enemy);
+                    int hp = Math.Max(1, (int)Math.Round(def.MaxHealth * w.HealthMultiplier));
+                    if (hp < minHp)
+                        minHp = hp;
+                }
+            }
+            return minHp == int.MaxValue ? 1 : minHp;
         }
 
         private void UpdateSupplyDrift(float dt)
@@ -260,9 +315,19 @@ namespace SpaceDodger.Systems
         private void OnEnemyDestroyed(Enemy enemy)
         {
             _factory.SpawnExplosion(enemy.Position, enemy.IsBoss ? 2.5f : 1f);
-            _factory.MaybeDropPowerUp(enemy.Position, guaranteed: enemy.IsBoss,
-                chanceMultiplier: _director.Current.PowerUpDrop,
-                healthSupplyBias: _director.HealthSupplyBias);
+            if (enemy.IsBoss || enemy.Definition.Key == "fat_drifter")
+            {
+                _factory.SpawnGuaranteedHealthSupply(enemy.Position);
+            }
+            else
+            {
+                // Standard enemies have a fixed, inspectable 10% supply chance.
+                // DDA changes the composition toward health when help is needed,
+                // not the stated base chance itself.
+                _factory.MaybeDropPowerUp(enemy.Position,
+                    chanceMultiplier: 1f,
+                    healthSupplyBias: _director.HealthSupplyBias);
+            }
             _director.NotifyEnemyDestroyed();
 
             _events.Publish(new EnemyDestroyedEvent(

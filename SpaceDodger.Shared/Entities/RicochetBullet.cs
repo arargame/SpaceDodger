@@ -7,7 +7,7 @@ namespace SpaceDodger.Entities
     /// <summary>A finite player bolt that rebounds from playfield edges before expiring.</summary>
     public sealed class RicochetBullet : Entity, ICollidable, IPlayerProjectile
     {
-        public int Damage => 2;
+        public int Damage { get; private set; }
 
         private Animation _animation;
         private AnimationPlayer _player;
@@ -16,7 +16,7 @@ namespace SpaceDodger.Entities
 
         public override Rectangle Bounds => CenteredRect(_animation?.FrameWidth ?? 8, _animation?.FrameHeight ?? 6);
 
-        public void Configure(Animation animation, Vector2 position, Vector2 velocity, Rectangle world, int bounces)
+        public void Configure(Animation animation, Vector2 position, Vector2 velocity, Rectangle world, int bounces, int damage)
         {
             _animation = animation;
             _player.Play(animation);
@@ -24,6 +24,7 @@ namespace SpaceDodger.Entities
             Velocity = velocity;
             _world = world;
             _bouncesRemaining = bounces;
+            Damage = damage;
         }
 
         public override void Update(float dt)

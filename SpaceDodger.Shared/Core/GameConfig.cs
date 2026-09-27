@@ -15,6 +15,7 @@ namespace SpaceDodger.Core
 
         /// <summary>A boss level occurs every N levels (10, 20, 30, 40, 50).</summary>
         public const int BossEvery = 10;
+        public const int DamageBonusEveryLevels = 10;
 
         public const int PlayerLives = 3;
         public const float PlayerSpeed = 95f;          // px/s in virtual space
@@ -39,7 +40,7 @@ namespace SpaceDodger.Core
         public const float RicochetBulletSpeed = 172f;
 
         /// <summary>Base per-enemy supply chance before the DDA reward multiplier.</summary>
-        public const float PowerUpDropChance = 0.07f;
+        public const float PowerUpDropChance = 0.10f;
         public const float PowerUpSpeed = 30f;
         public const int MaximumActivePowerUps = 2;
         public const float PowerUpDropCooldown = 3.5f;
@@ -59,6 +60,8 @@ namespace SpaceDodger.Core
         public const int WaveMaximumCharges = 20;
         public const int SweepLaserMinimumCharges = 3;
         public const int SweepLaserMaximumCharges = 10;
+        public const int ChainLightningMinimumCharges = 10;
+        public const int ChainLightningMaximumCharges = 20;
         public const int OrbitMinimumShots = 2;
         public const int OrbitMaximumShots = 3;
         public const float TimedEffectMinimumDuration = 5f;
