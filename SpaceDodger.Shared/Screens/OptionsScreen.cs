@@ -29,6 +29,7 @@ namespace SpaceDodger.Screens
         {
             Context.Save.Data.MusicEnabled = !Context.Save.Data.MusicEnabled;
             Context.Save.Save();
+            Context.Audio.OnMusicSettingChanged(Context.Save.Data.MusicEnabled);
             BuildMenu();
         }
 

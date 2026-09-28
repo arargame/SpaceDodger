@@ -5,16 +5,18 @@
 SpaceDodger uses a lightweight, low-overhead audio architecture that streams raw audio assets without requiring MGCB content pipeline compilation:
 
 - **Sound Effects (WAV):** Short, uncompressed sound effects loaded via `TitleContainer.OpenStream` into pooled/cached `SoundEffect` instances.
-- **Background Music (MP3):** Multi-track playlist streamed via MonoGame's `MediaPlayer` and `Song.FromUri`.
+- **Background Music (OGG Vorbis):** Multi-track playlist streamed via MonoGame's `MediaPlayer` and `Song.FromUri`.
 
 ## Music Tracks
 
 Located in `Content/musics/`:
-1. `Arcade Pulse.mp3`
-2. `Coin Dash Circuit.mp3`
-3. `Coin Drop Sprint.mp3`
-4. `Coin-Op Mirage.mp3`
-5. `Pixel Saloon.mp3`
+1. `Arcade Pulse.ogg`
+2. `Coin Dash Circuit.ogg`
+3. `Coin Drop Sprint.ogg`
+4. `Coin-Op Mirage.ogg`
+5. `Pixel Saloon.ogg`
+
+> **Format Selection (OGG Vorbis):** MonoGame DesktopGL uses `NVorbis` / `OggStream` internally for `Song.FromUri` and does not support raw MP3 streaming without external platform decoders. OGG Vorbis provides cross-platform parity across DesktopGL and Android (which supports Vorbis natively in hardware), while reducing total music assets size from ~14.7 MB to ~9.4 MB.
 
 ## Non-Repeating Shuffle Bag System
 
@@ -37,6 +39,6 @@ To provide dynamic arcade variety without player fatigue:
 
 ## Options & Persistence Integration
 
-- Respects `SaveData.MusicEnabled` and `SaveData.SoundEnabled`.
-- Toggling music OFF immediately pauses playback. Toggling music ON immediately resumes or starts the next track.
-- Master music volume is balanced to `0.60f` to leave acoustic headroom for combat sound effects.
+- **Immediate Responsiveness:** `OptionsScreen.ToggleMusic()` invokes `AudioService.OnMusicSettingChanged(...)`, pausing or resuming playback without frame lag.
+- **Disk Persistence:** Player audio preferences (`musicEnabled`, `soundEnabled`) are serialized via `JsonSaveGameService` directly to `savegame.json` (`%APPDATA%\SpaceDodger\savegame.json` on Desktop, `filesDir` on Android).
+- **Master Volume:** Master music volume is balanced to `0.60f` to leave acoustic headroom for combat sound effects.

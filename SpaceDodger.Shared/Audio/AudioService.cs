@@ -27,11 +27,11 @@ namespace SpaceDodger.Audio
     {
         private static readonly TrackInfo[] AllTracks =
         {
-            new TrackInfo("Arcade Pulse", "Arcade Pulse.mp3"),
-            new TrackInfo("Coin Dash Circuit", "Coin Dash Circuit.mp3"),
-            new TrackInfo("Coin Drop Sprint", "Coin Drop Sprint.mp3"),
-            new TrackInfo("Coin-Op Mirage", "Coin-Op Mirage.mp3"),
-            new TrackInfo("Pixel Saloon", "Pixel Saloon.mp3"),
+            new TrackInfo("Arcade Pulse", "Arcade Pulse.ogg"),
+            new TrackInfo("Coin Dash Circuit", "Coin Dash Circuit.ogg"),
+            new TrackInfo("Coin Drop Sprint", "Coin Drop Sprint.ogg"),
+            new TrackInfo("Coin-Op Mirage", "Coin-Op Mirage.ogg"),
+            new TrackInfo("Pixel Saloon", "Pixel Saloon.ogg"),
         };
 
         private readonly Dictionary<string, SoundEffect> _effects = new Dictionary<string, SoundEffect>();
@@ -73,6 +73,39 @@ namespace SpaceDodger.Audio
             catch (Exception) { }
         }
 
+        public void OnMusicSettingChanged(bool enabled)
+        {
+            if (!enabled)
+            {
+                try
+                {
+                    if (MediaPlayer.State == MediaState.Playing)
+                        MediaPlayer.Pause();
+                }
+                catch { }
+            }
+            else
+            {
+                try
+                {
+                    if (MediaPlayer.State == MediaState.Paused)
+                    {
+                        MediaPlayer.Resume();
+                        if (MediaPlayer.State != MediaState.Playing)
+                            PlayNextTrack();
+                    }
+                    else if (MediaPlayer.State == MediaState.Stopped)
+                    {
+                        PlayNextTrack();
+                    }
+                }
+                catch
+                {
+                    PlayNextTrack();
+                }
+            }
+        }
+
         public void Update(float dt)
         {
             if (!_settings.MusicEnabled)
@@ -86,7 +119,16 @@ namespace SpaceDodger.Audio
 
             if (MediaPlayer.State == MediaState.Paused)
             {
-                try { MediaPlayer.Resume(); } catch { }
+                try
+                {
+                    MediaPlayer.Resume();
+                    if (MediaPlayer.State != MediaState.Playing)
+                        PlayNextTrack();
+                }
+                catch
+                {
+                    PlayNextTrack();
+                }
                 return;
             }
 
