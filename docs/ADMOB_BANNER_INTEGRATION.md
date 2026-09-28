@@ -3,7 +3,11 @@
 ## 1. Overview & AdMob Console Status
 
 - **App Status:** `com.arargames.spacedodger` is registered in Google AdMob and currently shows **"Requires review"**. This is the standard behavior for apps that are either in development, closed test, or internal testing. Once the app is published publicly on Google Play, linking it via *AdMob Console -> App settings -> App store details* will complete the review.
-- **Test Mode Policy:** During development and internal testing, using production ad units or self-clicking accounts triggers Google invalid traffic violations. Space Dodger is configured with Google's official **Test Banner Ad Unit ID** (`ca-app-pub-3940256099942544/6300978111`) and sample Application ID (`ca-app-pub-3940256099942544~3347511713`).
+- **Application ID:** `ca-app-pub-3062759184051966~6191370725` (set in `AndroidManifest.xml`).
+- **Ad Unit IDs (Debug vs Release):**
+  - **Debug (Test Mode):** Uses Google's official **Test Banner Ad Unit ID** (`ca-app-pub-3940256099942544/6300978111`) to prevent invalid traffic penalties during development and testing.
+  - **Release (Production):** Uses Space Dodger's production **Banner Ad Unit ID** (`ca-app-pub-3062759184051966/8797177752`).
+  - Switched automatically at compile time via `#if DEBUG` in `MainActivity.cs`.
 
 ## 2. Architecture & Platform Abstraction (SOLID)
 

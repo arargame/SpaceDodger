@@ -24,7 +24,11 @@ namespace SpaceDodger.Droid
     {
         public static MainActivity Instance { get; private set; }
 
-        private const string TestBannerAdUnitId = "ca-app-pub-3940256099942544/6300978111"; // Official Google Test Banner ID
+#if DEBUG
+        private const string BannerAdUnitId = "ca-app-pub-3940256099942544/6300978111"; // Google Official Test Banner ID
+#else
+        private const string BannerAdUnitId = "ca-app-pub-3062759184051966/8797177752"; // Space Dodger Production Banner ID
+#endif
 
         private SpaceDodgerGame _game;
         private AndroidPlatform _platform;
@@ -153,7 +157,7 @@ namespace SpaceDodger.Droid
 
                         _adView = new AdView(this)
                         {
-                            AdUnitId = TestBannerAdUnitId,
+                            AdUnitId = BannerAdUnitId,
                             AdSize = AdSize.Banner
                         };
 
