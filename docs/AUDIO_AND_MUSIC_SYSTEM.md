@@ -39,6 +39,7 @@ To provide dynamic arcade variety without player fatigue:
 
 ## Options & Persistence Integration
 
-- **Immediate Responsiveness:** `OptionsScreen.ToggleMusic()` invokes `AudioService.OnMusicSettingChanged(...)`, pausing or resuming playback without frame lag.
+- **Gameplay-Only Playback Scope:** Music plays exclusively during active, non-paused combat (`GameplayScreen`). It automatically pauses when the game is paused (`PauseScreen` or pause-options), seamlessly resumes upon unpausing, and stops entirely when returning to Main Menu (`MenuScreen`) or entering Game Over (`GameOverScreen`).
+- **Immediate Responsiveness:** `OptionsScreen.ToggleMusic()` invokes `AudioService.OnMusicSettingChanged(...)`, updating audio state immediately without frame lag.
 - **Disk Persistence:** Player audio preferences (`musicEnabled`, `soundEnabled`) are serialized via `JsonSaveGameService` directly to `savegame.json` (`%APPDATA%\SpaceDodger\savegame.json` on Desktop, `filesDir` on Android).
 - **Master Volume:** Master music volume is balanced to `0.60f` to leave acoustic headroom for combat sound effects.

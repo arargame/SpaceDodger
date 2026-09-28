@@ -315,9 +315,16 @@ namespace SpaceDodger.Systems
         private void OnEnemyDestroyed(Enemy enemy)
         {
             _factory.SpawnExplosion(enemy.Position, enemy.IsBoss ? 2.5f : 1f);
-            if (enemy.IsBoss || enemy.Definition.Key == "fat_drifter")
+            if (enemy.IsBoss)
             {
                 _factory.SpawnGuaranteedHealthSupply(enemy.Position);
+            }
+            else if (enemy.Definition.Key == "fat_drifter")
+            {
+                if (_random.NextDouble() < 0.5)
+                {
+                    _factory.SpawnGuaranteedHealthSupply(enemy.Position);
+                }
             }
             else
             {

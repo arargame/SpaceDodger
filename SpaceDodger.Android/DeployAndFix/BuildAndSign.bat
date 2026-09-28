@@ -50,12 +50,15 @@ echo.
 echo [3/4] Imzaliyor...
 if not exist "%OUTPUT%" mkdir "%OUTPUT%"
 
+set "AAB_INPUT=%PROJECT%\bin\Release\net9.0-android36.0\com.arargames.spacedodger.aab"
+if not exist "%AAB_INPUT%" set "AAB_INPUT=%PROJECT%\bin\Release\net9.0-android\com.arargames.spacedodger.aab"
+
 jarsigner -sigalg SHA256withRSA -digestalg SHA-256 ^
     -keystore "%KEYSTORE%" ^
     -storepass %PASS% ^
     -keypass %PASS% ^
     -signedjar "%SIGNED_FILE%" ^
-    "%PROJECT%\bin\Release\net9.0-android36.0\com.arargames.spacedodger.aab" ^
+    "%AAB_INPUT%" ^
     %ALIAS%
 
 if %ERRORLEVEL% NEQ 0 (

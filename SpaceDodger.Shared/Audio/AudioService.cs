@@ -79,36 +79,25 @@ namespace SpaceDodger.Audio
             {
                 try
                 {
-                    if (MediaPlayer.State == MediaState.Playing)
-                        MediaPlayer.Pause();
+                    if (MediaPlayer.State != MediaState.Stopped)
+                        MediaPlayer.Stop();
                 }
                 catch { }
             }
-            else
-            {
-                try
-                {
-                    if (MediaPlayer.State == MediaState.Paused)
-                    {
-                        MediaPlayer.Resume();
-                        if (MediaPlayer.State != MediaState.Playing)
-                            PlayNextTrack();
-                    }
-                    else if (MediaPlayer.State == MediaState.Stopped)
-                    {
-                        PlayNextTrack();
-                    }
-                }
-                catch
-                {
-                    PlayNextTrack();
-                }
-            }
         }
 
-        public void Update(float dt)
+        public void Update(float dt, bool isGameplayActive = false, bool hasGameplayUnderneath = false)
         {
-            if (!_settings.MusicEnabled)
+            if (!_settings.MusicEnabled || !hasGameplayUnderneath)
+            {
+                if (MediaPlayer.State != MediaState.Stopped)
+                {
+                    try { MediaPlayer.Stop(); } catch { }
+                }
+                return;
+            }
+
+            if (!isGameplayActive)
             {
                 if (MediaPlayer.State == MediaState.Playing)
                 {

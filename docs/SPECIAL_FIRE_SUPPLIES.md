@@ -80,7 +80,7 @@ the next playfield is created.
 Boss kills and retry starts are explicit recovery exceptions: each boss always
 spawns exactly one Health crate, and a retry begins with one Health crate
 plus one random offensive-supply crate entering from the right. These mandatory crates bypass the normal shared
-cooldown/cap so they cannot be accidentally suppressed by an existing crate.
+cooldown/cap so they cannot be accidentally suppressed by an existing crate. Additionally, procedural Fat Drifter enemies roll a 50% chance upon destruction to drop a Health supply crate.
 
 ## Pooling and collision ownership
 

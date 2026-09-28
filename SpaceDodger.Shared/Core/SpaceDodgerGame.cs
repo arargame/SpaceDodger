@@ -78,8 +78,8 @@ namespace SpaceDodger.Core
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             _input.Update();
-            _context.Audio.Update(dt);
             _screens.Update(dt, _input.State);
+            _context.Audio.Update(dt, _screens.Top is GameplayScreen, _screens.HasScreen<GameplayScreen>());
 
             if (_screens.IsEmpty)
                 Exit();

@@ -57,6 +57,11 @@ To create a release Android package:
 dotnet publish SpaceDodger.Android -c Release
 ```
 
+For a signed Play Console AAB, use
+`SpaceDodger.Android/DeployAndFix/BuildAndSign.bat`. Its deployment guidance,
+including the automatic versioning and signing flow, is in
+[`docs/ANDROID_RELEASE_DEPLOYMENT.md`](docs/ANDROID_RELEASE_DEPLOYMENT.md).
+
 ## Controls
 
 | Action | Desktop | Android |

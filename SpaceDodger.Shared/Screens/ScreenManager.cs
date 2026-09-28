@@ -14,6 +14,17 @@ namespace SpaceDodger.Screens
         private readonly List<IScreen> _stack = new List<IScreen>();
 
         public bool IsEmpty => _stack.Count == 0;
+        public IScreen Top => _stack.Count > 0 ? _stack[_stack.Count - 1] : null;
+
+        public bool HasScreen<T>() where T : IScreen
+        {
+            for (int i = 0; i < _stack.Count; i++)
+            {
+                if (_stack[i] is T)
+                    return true;
+            }
+            return false;
+        }
 
         public void Push(IScreen screen)
         {
