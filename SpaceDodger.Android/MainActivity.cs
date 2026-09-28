@@ -42,6 +42,9 @@ namespace SpaceDodger.Droid
         private bool _isBannerVisible;
         private RewardedAd _rewardedAd;
         private bool _isLoadingRewarded;
+        private AndroidIAPService _iapService;
+
+        public GameContext GameContext => _game?.Context;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -52,6 +55,7 @@ namespace SpaceDodger.Droid
             Window?.AddFlags(WindowManagerFlags.KeepScreenOn);
             EnableImmersiveMode();
 
+            _iapService = new AndroidIAPService(this);
             _platform = new AndroidPlatform(this);
             _game = new SpaceDodgerGame(_platform);
             _view = _game.Services.GetService(typeof(View)) as View;
@@ -349,39 +353,12 @@ namespace SpaceDodger.Droid
 
         public void PurchaseProduct(string productId, bool isConsumable)
         {
-            RunOnUiThread(() =>
-            {
-                if (productId == ArarGames.Core.Applications.ArarGamesApplications.RemoveAdsProductId)
-                {
-                    try
-                    {
-                        var context = _game?.Context;
-                        if (context != null)
-                        {
-                            context.Save.Data.AdsRemoved = true;
-                            context.Save.Save();
-                            HideBannerAd();
-                        }
-                    }
-                    catch { }
-                }
-            });
+            _ = _iapService?.BuyProductAsync(productId);
         }
 
         public void RestorePurchases()
         {
-            RunOnUiThread(() =>
-            {
-                try
-                {
-                    var context = _game?.Context;
-                    if (context != null)
-                    {
-                        context.Save.Save();
-                    }
-                }
-                catch { }
-            });
+            _ = _iapService?.RestorePurchasesAsync();
         }
 
         protected override void OnPause()
