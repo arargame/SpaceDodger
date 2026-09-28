@@ -33,7 +33,7 @@ namespace SpaceDodger.Screens
 
         /// <summary>Large touch target for the visible pause glyph.</summary>
         public Rectangle PauseButtonBounds =>
-            new Rectangle((_bounds.Width / 2) + 30, 0, 48, 10); // Height=10 to fit in header
+            new Rectangle((_bounds.Width / 2) + 30, 0, 48, 12);
 
         public bool IsPauseButton(Vector2 point) =>
             PauseButtonBounds.Contains((int)point.X, (int)point.Y);
@@ -43,24 +43,28 @@ namespace SpaceDodger.Screens
             int levelNumber, Enemy boss, IDifficultyDirector difficulty,
             int activeEnemies, int activeEnemyBullets)
         {
-            // Top bar background strip.
-            spriteBatch.Draw(_pixel, new Rectangle(0, 0, _bounds.Width, 10), new Color(0, 0, 0, 150));
+            // Top bar background strip (height 12 to cleanly fit HUD elements and banner).
+            spriteBatch.Draw(_pixel, new Rectangle(0, 0, _bounds.Width, 12), new Color(0, 0, 0, 150));
 
-            _font.Draw(spriteBatch, $"{score.Score:D7}", new Vector2(3, 1), Color.White);
+            _font.Draw(spriteBatch, $"{score.Score:D7}", new Vector2(3, 2), Color.White);
 
             if (score.Combo > 1)
-                _font.Draw(spriteBatch, $"x{score.Combo}", new Vector2(48, 1), Accent);
+            {
+                // On mobile, draw combo right below score so it does not get covered by the banner ad.
+                Vector2 comboPos = _showPauseButton ? new Vector2(3, 14) : new Vector2(48, 2);
+                _font.Draw(spriteBatch, $"x{score.Combo}", comboPos, Accent);
+            }
 
-            _font.DrawCentered(spriteBatch, $"LV{levelNumber}", _bounds.Width / 2f, 1, Dim);
+            _font.DrawCentered(spriteBatch, $"LV{levelNumber}", _bounds.Width / 2f, 2, Dim);
 
-            _font.Draw(spriteBatch, $"W{player.WeaponLevel}", new Vector2(_bounds.Width - 56, 1), Dim);
+            _font.Draw(spriteBatch, $"W{player.WeaponLevel}", new Vector2(_bounds.Width - 56, 2), Dim);
 
             if (_showPauseButton)
                 DrawPauseButton(spriteBatch);
 
             // Lives as small ship pips on the right.
             for (int i = 0; i < player.Lives && i < 7; i++)
-                spriteBatch.Draw(_pixel, new Rectangle(_bounds.Width - 40 + i * 5, 3, 4, 4), Accent);
+                spriteBatch.Draw(_pixel, new Rectangle(_bounds.Width - 40 + i * 5, 4, 4, 4), Accent);
 
             DrawBuffs(spriteBatch, player);
 
@@ -77,8 +81,8 @@ namespace SpaceDodger.Screens
             // Draw a subtle background for the pause button to show the touch area clearly
             spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 6, bounds.Y, bounds.Width - 12, bounds.Height), new Color(44, 50, 70));
             // Draw the two vertical pause lines centered in the area
-            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 20, bounds.Y + 2, 2, 6), Color.White);
-            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 26, bounds.Y + 2, 2, 6), Color.White);
+            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 20, bounds.Y + 3, 2, 6), Color.White);
+            spriteBatch.Draw(_pixel, new Rectangle(bounds.X + 26, bounds.Y + 3, 2, 6), Color.White);
         }
 
         /// <summary>Timed buff bars along the bottom-left, only while active.</summary>

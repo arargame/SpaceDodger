@@ -18,22 +18,27 @@ Following the Dependency Inversion Principle (DIP):
 
 ## 3. Positioning & Virtual-to-Physical Coordinate Mapping
 
-The banner is placed in the in-game HUD top bar between the **Score/Combo** readout on the left and the **Level Number (`LVN`)** centered at the screen middle:
+The banner is placed in the in-game HUD top bar filling the gap between the **Score** readout on the left and the **Level Number (`LVN`)** centered at the screen middle:
 
 | Space | Virtual Coordinates (320x180) | Physical Conversion |
 | --- | --- | --- |
-| **Score + Combo** | X: 3 .. 66, Y: 1 | Left bound |
-| **Banner Ad Area** | **X: 74, Y: 1, Width: 68, Height: 10** | `Context.Screen.ToPhysical(virtualRect)` |
-| **Level Indicator** | X: 148 .. 172 (Center: 160), Y: 1 | Right bound |
+| **Score Readout** | X: 3 .. 45, Y: 2 | Left bound (7 digits, 42px width) |
+| **Banner Ad Area** | **X: 48, Y: 0, Width: 100, Height: 12** | `Context.Screen.ToPhysical(virtualRect)` |
+| **Level Indicator** | X: 148 .. 172 (Center: 160), Y: 2 | Right bound |
+| **Combo Streak** | Mobile: X: 3, Y: 14 / Desktop: X: 48, Y: 2 | Below score on mobile to avoid overlap |
 
-This layout leaves a comfortable padding margin of ~8 virtual pixels after the combo text and ~6 virtual pixels before the level indicator.
+This layout spans 100 virtual pixels, matching the header bar height (12 virtual pixels), and providing a clean, legible banner without dead space or clipping.
 
-## 4. Android Layout & Auto-Scaling
+## 4. Android Layout & Exact Scaling
 
 - `MainActivity` wraps the game `SurfaceView` inside a `FrameLayout` (`_rootLayout`).
 - `_bannerContainer` is positioned at the exact physical coordinates determined by `VirtualScreen.ToPhysical`.
-- `BannerAdListener` monitors `OnAdLoaded` and scales down the `AdView` (`ScaleX` / `ScaleY`) if physical dimensions are smaller than standard banner pixels, preventing any clipping, overlap, or touch interception.
-- Banner is loaded asynchronously via background thread `MobileAds.Initialize` to prevent ANR.
+- `_bannerContainer.SetClipChildren(false)` and `SetClipToPadding(false)` are set to prevent Android view clipping.
+- `AdView` is initialized with standard `AdSize.Banner` (320x50 dp) and assigned its native measured layout parameters (`wPixels x hPixels`).
+- Exact scaling is applied using top-left pivot (`PivotX = 0f`, `PivotY = 0f`):
+  - `ScaleX = (float)targetWidth / wPixels`
+  - `ScaleY = (float)targetHeight / hPixels`
+- This ensures the banner fits the designated slot exactly from start to end without vertical drift, centering squashing, or lateral dead zones, while Android automatically maps touch dispatch correctly.
 
 ## 5. Screen Lifecycle Integration
 

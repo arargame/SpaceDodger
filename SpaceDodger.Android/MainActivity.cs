@@ -39,6 +39,7 @@ namespace SpaceDodger.Droid
         private FrameLayout _rootLayout;
         private FrameLayout _bannerContainer;
         private AdView _adView;
+        private BannerAdListener _bannerListener;
         private bool _isBannerVisible;
         private RewardedAd _rewardedAd;
         private bool _isLoadingRewarded;
@@ -278,6 +279,8 @@ namespace SpaceDodger.Droid
                             Focusable = false
                         };
                         _bannerContainer.SetBackgroundColor(global::Android.Graphics.Color.Transparent);
+                        _bannerContainer.SetClipChildren(false);
+                        _bannerContainer.SetClipToPadding(false);
 
                         _adView = new AdView(this)
                         {
@@ -285,10 +288,22 @@ namespace SpaceDodger.Droid
                             AdSize = AdSize.Banner
                         };
 
-                        var adLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent)
+                        int wPixels = _adView.AdSize.GetWidthInPixels(this);
+                        int hPixels = _adView.AdSize.GetHeightInPixels(this);
+                        if (wPixels <= 0) wPixels = (int)(320 * Resources.DisplayMetrics.Density + 0.5f);
+                        if (hPixels <= 0) hPixels = (int)(50 * Resources.DisplayMetrics.Density + 0.5f);
+
+                        var adLp = new FrameLayout.LayoutParams(wPixels, hPixels)
                         {
-                            Gravity = GravityFlags.Center
+                            Gravity = GravityFlags.Top | GravityFlags.Left
                         };
+
+                        // Align pivot to top-left and scale exactly to target bounds
+                        _adView.PivotX = 0f;
+                        _adView.PivotY = 0f;
+                        _adView.ScaleX = (float)width / wPixels;
+                        _adView.ScaleY = (float)height / hPixels;
+
                         _bannerContainer.AddView(_adView, adLp);
 
                         var lp = new FrameLayout.LayoutParams(width, height)
@@ -300,7 +315,8 @@ namespace SpaceDodger.Droid
 
                         _rootLayout?.AddView(_bannerContainer, lp);
 
-                        _adView.AdListener = new BannerAdListener(_adView, width, height);
+                        _bannerListener = new BannerAdListener(_adView, width, height);
+                        _adView.AdListener = _bannerListener;
 
                         var adRequest = new AdRequest.Builder().Build();
                         _adView.LoadAd(adRequest);
@@ -315,6 +331,21 @@ namespace SpaceDodger.Droid
                             Gravity = GravityFlags.Top | GravityFlags.Left
                         };
                         _bannerContainer.LayoutParameters = lp;
+
+                        _bannerListener?.UpdateTargetSize(width, height);
+
+                        int wPixels = _adView?.AdSize?.GetWidthInPixels(this) ?? 0;
+                        int hPixels = _adView?.AdSize?.GetHeightInPixels(this) ?? 0;
+                        if (wPixels <= 0) wPixels = (int)(320 * Resources.DisplayMetrics.Density + 0.5f);
+                        if (hPixels <= 0) hPixels = (int)(50 * Resources.DisplayMetrics.Density + 0.5f);
+
+                        if (_adView != null)
+                        {
+                            _adView.PivotX = 0f;
+                            _adView.PivotY = 0f;
+                            _adView.ScaleX = (float)width / wPixels;
+                            _adView.ScaleY = (float)height / hPixels;
+                        }
 
                         if (!_isBannerVisible)
                         {
@@ -444,12 +475,18 @@ namespace SpaceDodger.Droid
     internal sealed class BannerAdListener : AdListener
     {
         private readonly AdView _adView;
-        private readonly int _targetWidth;
-        private readonly int _targetHeight;
+        private int _targetWidth;
+        private int _targetHeight;
 
         public BannerAdListener(AdView adView, int targetWidth, int targetHeight)
         {
             _adView = adView;
+            _targetWidth = targetWidth;
+            _targetHeight = targetHeight;
+        }
+
+        public void UpdateTargetSize(int targetWidth, int targetHeight)
+        {
             _targetWidth = targetWidth;
             _targetHeight = targetHeight;
         }
@@ -464,19 +501,13 @@ namespace SpaceDodger.Droid
                 {
                     int wPixels = _adView.AdSize.GetWidthInPixels(context);
                     int hPixels = _adView.AdSize.GetHeightInPixels(context);
-                    if (wPixels > 0 && hPixels > 0)
-                    {
-                        float scaleX = (float)_targetWidth / wPixels;
-                        float scaleY = (float)_targetHeight / hPixels;
-                        float scale = System.Math.Min(scaleX, scaleY);
-                        if (scale < 1.0f)
-                        {
-                            _adView.ScaleX = scale;
-                            _adView.ScaleY = scale;
-                            _adView.PivotX = wPixels / 2f;
-                            _adView.PivotY = hPixels / 2f;
-                        }
-                    }
+                    if (wPixels <= 0) wPixels = (int)(320 * context.Resources.DisplayMetrics.Density + 0.5f);
+                    if (hPixels <= 0) hPixels = (int)(50 * context.Resources.DisplayMetrics.Density + 0.5f);
+
+                    _adView.PivotX = 0f;
+                    _adView.PivotY = 0f;
+                    _adView.ScaleX = (float)_targetWidth / wPixels;
+                    _adView.ScaleY = (float)_targetHeight / hPixels;
                 }
             }
             catch { }
