@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Content.PM;
 using Android.Gms.Ads;
+using Android.Gms.Ads.Rewarded;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -26,8 +27,10 @@ namespace SpaceDodger.Droid
 
 #if DEBUG
         private const string BannerAdUnitId = "ca-app-pub-3940256099942544/6300978111"; // Google Official Test Banner ID
+        private const string RewardedAdUnitId = "ca-app-pub-3940256099942544/5224354917"; // Google Official Test Rewarded ID
 #else
         private const string BannerAdUnitId = "ca-app-pub-3062759184051966/8797177752"; // Space Dodger Production Banner ID
+        private const string RewardedAdUnitId = "ca-app-pub-3062759184051966/5568379185"; // Space Dodger Production Rewarded ID
 #endif
 
         private SpaceDodgerGame _game;
@@ -37,6 +40,8 @@ namespace SpaceDodger.Droid
         private FrameLayout _bannerContainer;
         private AdView _adView;
         private bool _isBannerVisible;
+        private RewardedAd _rewardedAd;
+        private bool _isLoadingRewarded;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -66,6 +71,7 @@ namespace SpaceDodger.Droid
                 try
                 {
                     MobileAds.Initialize(this);
+                    LoadRewardedAd();
                 }
                 catch (System.Exception ex)
                 {
@@ -134,6 +140,120 @@ namespace SpaceDodger.Droid
             RunOnUiThread(() =>
             {
                 onClosed?.Invoke();
+            });
+        }
+
+        public bool IsRewardedAdReady() => _rewardedAd != null;
+
+        public void LoadRewardedAd()
+        {
+            if (_rewardedAd != null || _isLoadingRewarded) return;
+            _isLoadingRewarded = true;
+
+            RunOnUiThread(() =>
+            {
+                try
+                {
+                    var adRequest = new AdRequest.Builder().Build();
+                    var callback = new MyRewardedAdLoadCallback(
+                        onLoaded: (ad) =>
+                        {
+                            _rewardedAd = ad;
+                            _isLoadingRewarded = false;
+                            System.Diagnostics.Debug.WriteLine("[AdMob] Rewarded ad preloaded successfully.");
+                        },
+                        onFailed: (error) =>
+                        {
+                            _rewardedAd = null;
+                            _isLoadingRewarded = false;
+                            System.Diagnostics.Debug.WriteLine($"[AdMob] Rewarded ad failed to preload: {error?.Message}");
+                        });
+
+                    RewardedAd.Load(this, RewardedAdUnitId, adRequest, callback);
+                }
+                catch (System.Exception ex)
+                {
+                    _isLoadingRewarded = false;
+                    System.Diagnostics.Debug.WriteLine($"[AdMob] LoadRewardedAd exception: {ex.Message}");
+                }
+            });
+        }
+
+        public void ShowRewardedAd(System.Action onRewardEarned, System.Action onClosed = null)
+        {
+            RunOnUiThread(() =>
+            {
+                object lockObj = new object();
+                bool earnedCalled = false;
+                bool closedCalled = false;
+
+                System.Action safeOnRewardEarned = () =>
+                {
+                    lock (lockObj)
+                    {
+                        if (earnedCalled) return;
+                        earnedCalled = true;
+                    }
+                    onRewardEarned?.Invoke();
+                };
+
+                System.Action safeOnClosed = () =>
+                {
+                    lock (lockObj)
+                    {
+                        if (closedCalled) return;
+                        closedCalled = true;
+                    }
+                    LoadRewardedAd();
+                    onClosed?.Invoke();
+                };
+
+                try
+                {
+                    if (_rewardedAd != null)
+                    {
+                        var adToShow = _rewardedAd;
+                        _rewardedAd = null;
+
+                        adToShow.FullScreenContentCallback = new MyRewardedFullScreenCallback(safeOnClosed);
+                        var rewardListener = new MyOnUserEarnedRewardListener(safeOnRewardEarned);
+                        adToShow.Show(this, rewardListener);
+                    }
+                    else
+                    {
+                        var adRequest = new AdRequest.Builder().Build();
+                        var callback = new MyRewardedAdLoadCallback(
+                            onLoaded: (ad) =>
+                            {
+                                RunOnUiThread(() =>
+                                {
+                                    try
+                                    {
+                                        ad.FullScreenContentCallback = new MyRewardedFullScreenCallback(safeOnClosed);
+                                        var rewardListener = new MyOnUserEarnedRewardListener(safeOnRewardEarned);
+                                        ad.Show(this, rewardListener);
+                                    }
+                                    catch (System.Exception ex)
+                                    {
+                                        System.Diagnostics.Debug.WriteLine($"[AdMob] Show on loaded ad failed: {ex.Message}");
+                                        safeOnClosed();
+                                    }
+                                });
+                            },
+                            onFailed: (error) =>
+                            {
+                                System.Diagnostics.Debug.WriteLine($"[AdMob] On-demand rewarded ad failed to load: {error?.Message}");
+                                safeOnClosed();
+                            });
+
+                        RewardedAd.Load(this, RewardedAdUnitId, adRequest, callback);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[AdMob] ShowRewardedAd outer exception: {ex.Message}");
+                    safeOnClosed();
+                }
             });
         }
 
@@ -391,4 +511,132 @@ namespace SpaceDodger.Droid
             System.Diagnostics.Debug.WriteLine($"[AdMob] Banner failed to load: {error?.Message}");
         }
     }
+
+#pragma warning disable CS0618
+    [global::Android.Runtime.Preserve(AllMembers = true)]
+    [global::Android.Runtime.Register("com/google/android/gms/ads/rewarded/RewardedAdLoadCallback", DoNotGenerateAcw = true)]
+    public abstract class RewardedCallback : RewardedAdLoadCallback
+    {
+        protected RewardedCallback(System.IntPtr handle, global::Android.Runtime.JniHandleOwnership transfer)
+            : base(handle, transfer)
+        {
+        }
+
+        protected RewardedCallback()
+        {
+        }
+
+        [global::Android.Runtime.Register("onAdLoaded", "(Lcom/google/android/gms/ads/rewarded/RewardedAd;)V", "GetOnAdLoadedHandler")]
+        public virtual void OnAdLoaded(RewardedAd rewardedAd) 
+        { 
+        }
+
+        private static System.Delegate cb_onAdLoaded;
+        private static System.Delegate GetOnAdLoadedHandler()
+        {
+            if (cb_onAdLoaded == null)
+                cb_onAdLoaded = global::Android.Runtime.JNINativeWrapper.CreateDelegate((System.Action<System.IntPtr, System.IntPtr, System.IntPtr>)n_onAdLoaded);
+            return cb_onAdLoaded;
+        }
+
+        private static void n_onAdLoaded(System.IntPtr jnienv, System.IntPtr native__this, System.IntPtr native_p0)
+        {
+            var thisobject = global::Java.Lang.Object.GetObject<RewardedCallback>(jnienv, native__this, global::Android.Runtime.JniHandleOwnership.DoNotTransfer);
+            var resultobject = global::Java.Lang.Object.GetObject<RewardedAd>(native_p0, global::Android.Runtime.JniHandleOwnership.DoNotTransfer);
+            if (thisobject != null)
+            {
+                thisobject.OnAdLoaded(resultobject);
+            }
+        }
+    }
+
+    [global::Android.Runtime.Preserve(AllMembers = true)]
+    public class MyRewardedAdLoadCallback : RewardedCallback
+    {
+        private readonly System.Action<RewardedAd> _onLoaded;
+        private readonly System.Action<LoadAdError> _onFailed;
+
+        public MyRewardedAdLoadCallback(System.IntPtr handle, global::Android.Runtime.JniHandleOwnership transfer)
+            : base(handle, transfer)
+        {
+        }
+
+        public MyRewardedAdLoadCallback(System.Action<RewardedAd> onLoaded, System.Action<LoadAdError> onFailed)
+        {
+            _onLoaded = onLoaded;
+            _onFailed = onFailed;
+        }
+
+        public override void OnAdLoaded(RewardedAd rewardedAd)
+        {
+            base.OnAdLoaded(rewardedAd);
+            _onLoaded?.Invoke(rewardedAd);
+        }
+
+        public override void OnAdFailedToLoad(LoadAdError error)
+        {
+            base.OnAdFailedToLoad(error);
+            _onFailed?.Invoke(error);
+        }
+    }
+
+    [global::Android.Runtime.Preserve(AllMembers = true)]
+    public class MyOnUserEarnedRewardListener : Java.Lang.Object, IOnUserEarnedRewardListener
+    {
+        private readonly System.Action _onEarned;
+
+        public MyOnUserEarnedRewardListener(System.IntPtr handle, global::Android.Runtime.JniHandleOwnership transfer)
+            : base(handle, transfer)
+        {
+        }
+
+        public MyOnUserEarnedRewardListener(System.Action onEarned)
+        {
+            _onEarned = onEarned;
+        }
+
+        public void OnUserEarnedReward(IRewardItem rewardItem)
+        {
+            _onEarned?.Invoke();
+        }
+    }
+
+    [global::Android.Runtime.Preserve(AllMembers = true)]
+    public class MyRewardedFullScreenCallback : FullScreenContentCallback
+    {
+        private readonly System.Action _onDismissed;
+        private bool _called;
+
+        public MyRewardedFullScreenCallback(System.IntPtr handle, global::Android.Runtime.JniHandleOwnership transfer)
+            : base(handle, transfer)
+        {
+        }
+
+        public MyRewardedFullScreenCallback(System.Action onDismissed)
+        {
+            _onDismissed = onDismissed;
+        }
+
+        public override void OnAdDismissedFullScreenContent()
+        {
+            base.OnAdDismissedFullScreenContent();
+            Cleanup();
+        }
+
+        public override void OnAdFailedToShowFullScreenContent(AdError error)
+        {
+            base.OnAdFailedToShowFullScreenContent(error);
+            Cleanup();
+        }
+
+        private void Cleanup()
+        {
+            if (!_called)
+            {
+                _called = true;
+                _onDismissed?.Invoke();
+            }
+        }
+    }
+#pragma warning restore CS0618
 }

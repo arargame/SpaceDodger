@@ -46,6 +46,7 @@ namespace SpaceDodger.Screens
         private float _pickupMessageTimer;
         private readonly Random _random = new Random();
         private bool _hasStartedLevel;
+        private bool _hasUsedRevive;
 
         private static readonly Color[] BackgroundPalette =
         {
@@ -213,7 +214,27 @@ namespace SpaceDodger.Screens
                 case Phase.GameOver:
                     _phaseTimer -= dt;
                     if (_phaseTimer <= 0f)
-                        ShowGameOver();
+                    {
+                        if (Context.Platform.IsMobile && !_hasUsedRevive)
+                        {
+                            _phaseTimer = float.MaxValue;
+                            Context.Screens.Push(new SecondChanceScreen(Context,
+                                onRevive: () =>
+                                {
+                                    Context.Screens.Pop();
+                                    RevivePlayer();
+                                },
+                                onGiveUp: () =>
+                                {
+                                    Context.Screens.Pop();
+                                    ShowGameOver();
+                                }));
+                        }
+                        else
+                        {
+                            ShowGameOver();
+                        }
+                    }
                     break;
             }
         }
@@ -470,6 +491,17 @@ namespace SpaceDodger.Screens
             Context.Save.Data.ResumeOrbitCount = _player.OrbitCount;
             Context.Save.Data.ResumeOrbitTime = _player.OrbitTimer;
             Context.Save.Save();
+        }
+
+        private void RevivePlayer()
+        {
+            _hasUsedRevive = true;
+            _player.Revive(2, invulnerabilityDuration: 3.5f);
+            _factory.EnemyBullets.ReleaseAll();
+            _phase = Phase.Playing;
+            _bombFlash = 0.4f;
+            ShowPickup("REVIVED! +2 LIVES");
+            Context.Audio.Play("pickup", 0.35f);
         }
 
         private void ShowGameOver() =>

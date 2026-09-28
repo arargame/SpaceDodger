@@ -103,6 +103,23 @@ namespace SpaceDodger.Entities
             OrbitTimer = 0f;
         }
 
+        /// <summary>
+        /// Restores player life after a rewarded ad revive, granting a generous
+        /// invulnerability window and ensuring the ship is within playfield bounds.
+        /// </summary>
+        public void Revive(int lives, float invulnerabilityDuration = 3.5f)
+        {
+            OnObtain();
+            Lives = Math.Max(1, lives);
+            _invulnTimer = invulnerabilityDuration;
+            _fireCooldown = 0.2f;
+
+            float halfW = _animation.FrameWidth / 2f;
+            float halfH = _animation.FrameHeight / 2f;
+            Position.X = MathHelper.Clamp(Position.X, _world.Left + halfW, _world.Right - halfW);
+            Position.Y = MathHelper.Clamp(Position.Y, _world.Top + halfH, _world.Bottom - halfH);
+        }
+
         public void RestoreProgress(int lives, int weaponLevel, float shieldTime, float rapidTime,
             int specialFire, int specialCharges, int orbitCount, float orbitTime, float weaponTime)
         {

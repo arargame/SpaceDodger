@@ -61,5 +61,20 @@ namespace SpaceDodger.Droid
 
         public void HideBannerAd() =>
             (_context as MainActivity ?? MainActivity.Instance)?.HideBannerAd();
+
+        public bool IsRewardedAdReady() =>
+            (_context as MainActivity ?? MainActivity.Instance)?.IsRewardedAdReady() ?? false;
+
+        public void LoadRewardedAd() =>
+            (_context as MainActivity ?? MainActivity.Instance)?.LoadRewardedAd();
+
+        public void ShowRewardedAd(System.Action onRewardEarned, System.Action onClosed = null)
+        {
+            var activity = _context as MainActivity ?? MainActivity.Instance;
+            if (activity != null)
+                activity.ShowRewardedAd(onRewardEarned, onClosed);
+            else
+                onClosed?.Invoke();
+        }
     }
 }
