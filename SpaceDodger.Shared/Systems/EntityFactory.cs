@@ -197,9 +197,18 @@ namespace SpaceDodger.Systems
 
             if (definition.Weapon == EnemyWeapon.Spread)
             {
-                // Three shots fanned around the aim direction.
-                for (int i = -1; i <= 1; i++)
-                    FireOne(animation, damage, muzzle, Rotate(forward, i * 0.28f) * speed);
+                // When firing, 50% chance to shoot 3 fanned bullets, 50% chance to shoot a single bullet.
+                bool fireTriple = _random.NextDouble() < 0.5;
+                if (fireTriple)
+                {
+                    // Three shots fanned around the aim direction.
+                    for (int i = -1; i <= 1; i++)
+                        FireOne(animation, damage, muzzle, Rotate(forward, i * 0.28f) * speed);
+                }
+                else
+                {
+                    FireOne(animation, damage, muzzle, forward * speed);
+                }
             }
             else
             {

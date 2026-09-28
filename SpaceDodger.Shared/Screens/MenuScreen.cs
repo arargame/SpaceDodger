@@ -25,13 +25,22 @@ namespace SpaceDodger.Screens
 
             bool hasProgress = Context.Save.Data.MaxUnlockedLevel > 1;
 
-            _menu = new MenuList(Context.Font, bounds.Width / 2f, Context.Platform.IsMobile ? 70f : 68f)
-                .Add("NEW GAME", StartNewGame)
-                .Add("SELECT LEVEL", OpenLevelSelect, hasProgress)
-                .Add("HIGH SCORES", OpenHighScores)
+            var menu = new MenuList(Context.Font, bounds.Width / 2f, Context.Platform.IsMobile ? 70f : 68f);
+            if (hasProgress)
+            {
+                menu.Add("SELECT LEVEL", OpenLevelSelect);
+            }
+            else
+            {
+                menu.Add("NEW GAME", StartNewGame);
+            }
+
+            menu.Add("HIGH SCORES", OpenHighScores)
                 .Add("OPTIONS", OpenOptions)
                 .Add("SUPPORT & CREDITS", OpenSupport)
                 .Add("QUIT", Quit);
+
+            _menu = menu;
         }
 
         private void StartNewGame()

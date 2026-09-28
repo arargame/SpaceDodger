@@ -188,6 +188,8 @@ namespace SpaceDodger.Droid
         {
             RunOnUiThread(() =>
             {
+                HideBannerAd();
+
                 object lockObj = new object();
                 bool earnedCalled = false;
                 bool closedCalled = false;

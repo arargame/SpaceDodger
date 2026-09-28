@@ -140,7 +140,7 @@ namespace SpaceDodger.Screens
             _stars.SpeedMultiplier = 1f + (number - 1) * 0.12f;
         }
 
-        private bool _bannerRequested;
+        private bool _bannerVisible;
 
         private void TriggerBannerAd()
         {
@@ -149,19 +149,23 @@ namespace SpaceDodger.Screens
 
             // In virtual coordinates (320x180):
             // Score occupies X: 3..45 (7 digits, width 42).
-            // Level text LV{n} is centered at X: 160 (spans roughly X: 148..172).
-            // Banner ad occupies the gap between score and level: X: 48, Width: 100, Y: 0, Height: 12.
-            var virtualRect = new Rectangle(48, 0, 100, 12);
+            // Level text LV{n} is centered at X: 160 (spans roughly X: 151..169).
+            // Gap between score and level is X: 45..151 (106px gap, midpoint 98).
+            // Width reduced by 20% (100 -> 80) and centered at X: 58 (spans 58..138, 13px margin on each side).
+            var virtualRect = new Rectangle(58, 0, 80, 12);
             var physical = Context.Screen.ToPhysical(virtualRect);
             Context.Platform.ShowBannerAd(physical.X, physical.Y, physical.Width, physical.Height);
         }
 
         public override void Update(float dt, in InputState input)
         {
-            if (!_bannerRequested && Context.Platform.IsMobile && !Context.Save.Data.AdsRemoved)
+            if (Context.Platform.IsMobile && !Context.Save.Data.AdsRemoved)
             {
-                _bannerRequested = true;
-                TriggerBannerAd();
+                if (!_bannerVisible && _phase != Phase.GameOver)
+                {
+                    _bannerVisible = true;
+                    TriggerBannerAd();
+                }
             }
 
             _elapsed += dt;
@@ -177,6 +181,11 @@ namespace SpaceDodger.Screens
             bool pauseTapped = input.Tap.HasValue && _hud.IsPauseButton(input.Tap.Value);
             if ((input.PausePressed || pauseTapped) && _phase == Phase.Playing)
             {
+                if (_bannerVisible)
+                {
+                    _bannerVisible = false;
+                    Context.Platform.HideBannerAd();
+                }
                 Context.Screens.Push(new PauseScreen(Context));
                 return;
             }
@@ -573,6 +582,11 @@ namespace SpaceDodger.Screens
 
         private void OnPlayerDied(Player player)
         {
+            if (_bannerVisible)
+            {
+                _bannerVisible = false;
+                Context.Platform.HideBannerAd();
+            }
             _factory.SpawnExplosion(player.Position, 2f);
             Context.Audio.Play("explosion", 0.36f);
             _phase = Phase.GameOver;

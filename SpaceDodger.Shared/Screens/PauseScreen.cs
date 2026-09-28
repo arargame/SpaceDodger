@@ -19,6 +19,9 @@ namespace SpaceDodger.Screens
 
         public override void Load()
         {
+            if (Context.Platform.IsMobile)
+                Context.Platform.HideBannerAd();
+
             _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 85f)
                 .Add("RESUME", Resume)
                 .Add("OPTIONS", OpenOptions)
