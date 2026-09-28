@@ -1,7 +1,9 @@
 using Android.App;
 using Android.Content.PM;
+using Android.Gms.Ads;
 using Android.OS;
 using Android.Views;
+using Android.Widget;
 using Microsoft.Xna.Framework;
 using SpaceDodger.Core;
 
@@ -22,9 +24,15 @@ namespace SpaceDodger.Droid
     {
         public static MainActivity Instance { get; private set; }
 
+        private const string TestBannerAdUnitId = "ca-app-pub-3940256099942544/6300978111"; // Official Google Test Banner ID
+
         private SpaceDodgerGame _game;
         private AndroidPlatform _platform;
         private View _view;
+        private FrameLayout _rootLayout;
+        private FrameLayout _bannerContainer;
+        private AdView _adView;
+        private bool _isBannerVisible;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -41,11 +49,25 @@ namespace SpaceDodger.Droid
 
             if (_view != null)
             {
-                SetContentView(_view);
+                _rootLayout = new FrameLayout(this);
+                _rootLayout.AddView(_view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
+                SetContentView(_rootLayout);
                 _view.Focusable = true;
                 _view.FocusableInTouchMode = true;
                 _view.RequestFocus();
             }
+
+            System.Threading.ThreadPool.QueueUserWorkItem(_ =>
+            {
+                try
+                {
+                    MobileAds.Initialize(this);
+                }
+                catch (System.Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[AdMob] MobileAds.Initialize error: {ex.Message}");
+                }
+            });
 
             _game.Run();
         }
@@ -111,6 +133,96 @@ namespace SpaceDodger.Droid
             });
         }
 
+        public void ShowBannerAd(int x, int y, int width, int height)
+        {
+            RunOnUiThread(() =>
+            {
+                try
+                {
+                    if (_game?.Context?.Save?.Data?.AdsRemoved == true)
+                        return;
+
+                    if (_bannerContainer == null)
+                    {
+                        _bannerContainer = new FrameLayout(this)
+                        {
+                            Clickable = false,
+                            Focusable = false
+                        };
+                        _bannerContainer.SetBackgroundColor(global::Android.Graphics.Color.Transparent);
+
+                        _adView = new AdView(this)
+                        {
+                            AdUnitId = TestBannerAdUnitId,
+                            AdSize = AdSize.Banner
+                        };
+
+                        var adLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent)
+                        {
+                            Gravity = GravityFlags.Center
+                        };
+                        _bannerContainer.AddView(_adView, adLp);
+
+                        var lp = new FrameLayout.LayoutParams(width, height)
+                        {
+                            LeftMargin = x,
+                            TopMargin = y,
+                            Gravity = GravityFlags.Top | GravityFlags.Left
+                        };
+
+                        _rootLayout?.AddView(_bannerContainer, lp);
+
+                        _adView.AdListener = new BannerAdListener(_adView, width, height);
+
+                        var adRequest = new AdRequest.Builder().Build();
+                        _adView.LoadAd(adRequest);
+                        _isBannerVisible = true;
+                    }
+                    else
+                    {
+                        var lp = new FrameLayout.LayoutParams(width, height)
+                        {
+                            LeftMargin = x,
+                            TopMargin = y,
+                            Gravity = GravityFlags.Top | GravityFlags.Left
+                        };
+                        _bannerContainer.LayoutParameters = lp;
+
+                        if (!_isBannerVisible)
+                        {
+                            _bannerContainer.Visibility = ViewStates.Visible;
+                            try { _adView?.Resume(); } catch { }
+                            _isBannerVisible = true;
+                        }
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[AdMob] ShowBannerAd error: {ex.Message}");
+                }
+            });
+        }
+
+        public void HideBannerAd()
+        {
+            RunOnUiThread(() =>
+            {
+                try
+                {
+                    if (_bannerContainer != null && _isBannerVisible)
+                    {
+                        _bannerContainer.Visibility = ViewStates.Gone;
+                        try { _adView?.Pause(); } catch { }
+                        _isBannerVisible = false;
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[AdMob] HideBannerAd error: {ex.Message}");
+                }
+            });
+        }
+
         public void PurchaseProduct(string productId, bool isConsumable)
         {
             RunOnUiThread(() =>
@@ -124,6 +236,7 @@ namespace SpaceDodger.Droid
                         {
                             context.Save.Data.AdsRemoved = true;
                             context.Save.Save();
+                            HideBannerAd();
                         }
                     }
                     catch { }
@@ -147,9 +260,27 @@ namespace SpaceDodger.Droid
             });
         }
 
+        protected override void OnPause()
+        {
+            base.OnPause();
+            try { _adView?.Pause(); } catch { }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            try { _adView?.Resume(); } catch { }
+        }
+
         protected override void OnDestroy()
         {
             base.OnDestroy();
+
+            try
+            {
+                _adView?.Destroy();
+            }
+            catch { }
 
             try
             {
@@ -206,6 +337,54 @@ namespace SpaceDodger.Droid
 #pragma warning restore CA1416
             }
             catch { }
+        }
+    }
+
+    internal sealed class BannerAdListener : AdListener
+    {
+        private readonly AdView _adView;
+        private readonly int _targetWidth;
+        private readonly int _targetHeight;
+
+        public BannerAdListener(AdView adView, int targetWidth, int targetHeight)
+        {
+            _adView = adView;
+            _targetWidth = targetWidth;
+            _targetHeight = targetHeight;
+        }
+
+        public override void OnAdLoaded()
+        {
+            base.OnAdLoaded();
+            try
+            {
+                var context = _adView.Context;
+                if (context != null)
+                {
+                    int wPixels = _adView.AdSize.GetWidthInPixels(context);
+                    int hPixels = _adView.AdSize.GetHeightInPixels(context);
+                    if (wPixels > 0 && hPixels > 0)
+                    {
+                        float scaleX = (float)_targetWidth / wPixels;
+                        float scaleY = (float)_targetHeight / hPixels;
+                        float scale = System.Math.Min(scaleX, scaleY);
+                        if (scale < 1.0f)
+                        {
+                            _adView.ScaleX = scale;
+                            _adView.ScaleY = scale;
+                            _adView.PivotX = wPixels / 2f;
+                            _adView.PivotY = hPixels / 2f;
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        public override void OnAdFailedToLoad(LoadAdError error)
+        {
+            base.OnAdFailedToLoad(error);
+            System.Diagnostics.Debug.WriteLine($"[AdMob] Banner failed to load: {error?.Message}");
         }
     }
 }

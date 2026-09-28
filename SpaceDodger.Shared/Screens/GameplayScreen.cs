@@ -105,6 +105,10 @@ namespace SpaceDodger.Screens
 
         public override void Unload()
         {
+            if (Context.Platform.IsMobile)
+            {
+                Context.Platform.HideBannerAd();
+            }
             _score.Detach();
             Context.Events.Unsubscribe<ScoreChangedEvent>(OnScoreChanged);
             _player.Fired -= OnPlayerFired;
@@ -135,8 +139,29 @@ namespace SpaceDodger.Screens
             _stars.SpeedMultiplier = 1f + (number - 1) * 0.12f;
         }
 
+        private bool _bannerRequested;
+
+        private void TriggerBannerAd()
+        {
+            if (!Context.Platform.IsMobile || Context.Save.Data.AdsRemoved)
+                return;
+
+            // In virtual coordinates (320x180):
+            // Score + combo occupies roughly X: 3..66. Level text is centered at X: 160 (148..172).
+            // With padding on left and right: X = 74, Width = 68, Y = 1, Height = 10.
+            var virtualRect = new Rectangle(74, 1, 68, 10);
+            var physical = Context.Screen.ToPhysical(virtualRect);
+            Context.Platform.ShowBannerAd(physical.X, physical.Y, physical.Width, physical.Height);
+        }
+
         public override void Update(float dt, in InputState input)
         {
+            if (!_bannerRequested && Context.Platform.IsMobile && !Context.Save.Data.AdsRemoved)
+            {
+                _bannerRequested = true;
+                TriggerBannerAd();
+            }
+
             _elapsed += dt;
             _stars.Update(dt);
             _factory.UpdateAll(dt);

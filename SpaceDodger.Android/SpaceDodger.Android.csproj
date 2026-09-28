@@ -30,7 +30,7 @@
 
     <!-- Linker: Sdk kütüphanelerini kırp, MonoGame assembly'lerini koru -->
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <AndroidLinkSkip>MonoGame.Framework</AndroidLinkSkip>
+    <AndroidLinkSkip>MonoGame.Framework;Xamarin.GooglePlayServices.Ads.Lite;Xamarin.GooglePlayServices.Basement</AndroidLinkSkip>
 
     <!-- AOT: Kapali (Windows AOT derleme MonoAOTCompiler cakismalarini engeller) -->
     <RunAOTCompilation>false</RunAOTCompilation>
@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.Android" Version="3.8.4.1" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Ads.Lite" Version="124.0.0.5" />
   </ItemGroup>
 
   <Import Project="..\SpaceDodger.Shared\SpaceDodger.Shared.projitems" Label="Shared" />

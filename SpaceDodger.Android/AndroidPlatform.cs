@@ -55,5 +55,11 @@ namespace SpaceDodger.Droid
             else
                 onClosed?.Invoke();
         }
+
+        public void ShowBannerAd(int x, int y, int width, int height) =>
+            (_context as MainActivity ?? MainActivity.Instance)?.ShowBannerAd(x, y, width, height);
+
+        public void HideBannerAd() =>
+            (_context as MainActivity ?? MainActivity.Instance)?.HideBannerAd();
     }
 }

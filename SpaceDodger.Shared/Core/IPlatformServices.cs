@@ -26,5 +26,7 @@ namespace SpaceDodger.Core
         void ExitGame() { }
         bool IsInterstitialAdReady() => false;
         void ShowInterstitialAd(System.Action onClosed) { onClosed?.Invoke(); }
+        void ShowBannerAd(int x, int y, int width, int height) { }
+        void HideBannerAd() { }
     }
 }
