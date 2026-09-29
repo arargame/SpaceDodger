@@ -1,27 +1,27 @@
 using System;
-using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Gms.Games;
 using Android.Gms.Tasks;
+using Android.Widget;
 using SpaceDodger.Core;
 
 namespace SpaceDodger.Droid
 {
     /// <summary>
     /// Google Play Games Services V2 implementation for Android.
-    /// Handles frictionless sign-in, submitting scores to leaderboards,
-    /// interactive sign-in fallback upon error 4 (SIGN_IN_REQUIRED),
-    /// and showing global leaderboard UI intents.
+    /// Handles frictionless sign-in once at launch, non-blocking background score submission,
+    /// and showing global leaderboard UI on UI thread when requested by the user.
     /// </summary>
     public class AndroidPlayGamesService : IGameServices
     {
         private readonly Activity _activity;
         private static bool _isInitialized = false;
+        private static bool _hasPromptedSignInAtLaunch = false;
 
         /// <summary>
         /// Default Leaderboard ID for Space Dodger high scores.
-        /// Can be set or updated dynamically from Play Console.
+        /// Configured from Google Play Console (Published).
         /// </summary>
         public static string LeaderboardId { get; set; } = "CgkI3Mf-_rQCEAIQAQ";
 
@@ -47,8 +47,11 @@ namespace SpaceDodger.Droid
                 _isInitialized = true;
                 global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Play Games Services V2 SDK initialized successfully.");
 
-                // Attempt background authentication check / sign-in on start
-                CheckAndSignInSilently();
+                // Check sign-in on launch, prompting the user at most once on startup.
+                _activity.RunOnUiThread(() =>
+                {
+                    CheckAndPromptSignInAtLaunch();
+                });
             }
             catch (Exception ex)
             {
@@ -56,8 +59,15 @@ namespace SpaceDodger.Droid
             }
         }
 
-        private void CheckAndSignInSilently()
+        /// <summary>
+        /// Attempts silent check on startup, or prompts interactive sign-in only ONCE.
+        /// Never prompts automatically again during the rest of the game session.
+        /// </summary>
+        private void CheckAndPromptSignInAtLaunch()
         {
+            if (_hasPromptedSignInAtLaunch) return;
+            _hasPromptedSignInAtLaunch = true;
+
             try
             {
                 var signInClient = PlayGames.GetGamesSignInClient(_activity);
@@ -65,17 +75,28 @@ namespace SpaceDodger.Droid
                 {
                     if (task.IsSuccessful && task.Result is AuthenticationResult authResult && authResult.IsAuthenticated)
                     {
-                        global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] User is already authenticated to Play Games.");
+                        global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] User is already authenticated to Play Games on launch.");
                     }
                     else
                     {
-                        global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] User not authenticated yet. Ready for interactive sign-in on request.");
+                        global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] User not authenticated on launch. Requesting sign-in once...");
+                        signInClient.SignIn().AddOnCompleteListener(new OnCompleteListener(signInTask =>
+                        {
+                            if (signInTask.IsSuccessful && signInTask.Result is AuthenticationResult res && res.IsAuthenticated)
+                            {
+                                global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Startup sign-in succeeded.");
+                            }
+                            else
+                            {
+                                global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] Startup sign-in was dismissed or skipped by user.");
+                            }
+                        }));
                     }
                 }));
             }
             catch (Exception ex)
             {
-                global::Android.Util.Log.Warn("GPGS", $"[GPGS - WARNING] CheckAndSignInSilently warning: {ex.Message}");
+                global::Android.Util.Log.Warn("GPGS", $"[GPGS - WARNING] CheckAndPromptSignInAtLaunch error: {ex.Message}");
             }
         }
 
@@ -96,64 +117,41 @@ namespace SpaceDodger.Droid
             SubmitScoreInternal(LevelLeaderboardId, level);
         }
 
+        /// <summary>
+        /// Non-blocking, completely silent score submission.
+        /// NEVER pops up a login dialog or pauses the game.
+        /// The Play Games SDK caches the score locally and syncs automatically when online.
+        /// </summary>
         private void SubmitScoreInternal(string leaderboardId, long score)
         {
             if (!_isInitialized || _activity == null)
-            {
-                global::Android.Util.Log.Warn("GPGS", "[GPGS - WARNING] SubmitScore failed: Service not initialized or Activity is null");
                 return;
-            }
 
             try
             {
-                global::Android.Util.Log.Info("GPGS", $"[GPGS - INFO] Submitting score {score} to leaderboard {leaderboardId}...");
-
-                PlayGames.GetLeaderboardsClient(_activity)
-                    .SubmitScoreImmediate(leaderboardId, score)
-                    .AddOnSuccessListener(new SuccessListener((obj) =>
+                _activity.RunOnUiThread(() =>
+                {
+                    try
                     {
-                        global::Android.Util.Log.Info("GPGS", $"[GPGS - SUCCESS] Score {score} successfully submitted to {leaderboardId}");
-                    }))
-                    .AddOnFailureListener(new FailureListener((ex) =>
+                        PlayGames.GetLeaderboardsClient(_activity).SubmitScore(leaderboardId, score);
+                        global::Android.Util.Log.Info("GPGS", $"[GPGS - INFO] Score {score} submitted to {leaderboardId} in background.");
+                    }
+                    catch (Exception ex)
                     {
-                        global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] Immediate submission failed ({ex.Message}). Caching offline with PlayGames...");
-                        CacheScoreOffline(leaderboardId, score);
-
-                        // If unauthenticated (code 4), trigger sign in
-                        if (IsSignInRequiredError(ex))
-                        {
-                            global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] SubmitScore failed with SIGN_IN_REQUIRED. Triggering sign in...");
-                            RequestSignIn(success =>
-                            {
-                                if (success)
-                                {
-                                    // Retry submission once signed in
-                                    CacheScoreOffline(leaderboardId, score);
-                                }
-                            });
-                        }
-                    }));
+                        global::Android.Util.Log.Warn("GPGS", $"[GPGS - WARNING] SubmitScore background warning: {ex.Message}");
+                    }
+                });
             }
             catch (Exception ex)
             {
-                global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] SubmitScore exception: {ex.Message}");
-                CacheScoreOffline(leaderboardId, score);
+                global::Android.Util.Log.Warn("GPGS", $"[GPGS - WARNING] SubmitScore exception: {ex.Message}");
             }
         }
 
-        private void CacheScoreOffline(string leaderboardId, long score)
-        {
-            try
-            {
-                PlayGames.GetLeaderboardsClient(_activity).SubmitScore(leaderboardId, score);
-                global::Android.Util.Log.Info("GPGS", $"[GPGS - INFO] Score {score} cached offline in Play Games SDK.");
-            }
-            catch (Exception ex)
-            {
-                global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] Failed to cache score offline: {ex.Message}");
-            }
-        }
-
+        /// <summary>
+        /// Called when the player clicks the "World Ranking" button.
+        /// Dispatches to the UI thread to ensure Android Task listeners are triggered reliably.
+        /// </summary>
         public void ShowLeaderboards()
         {
             global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] ShowLeaderboards requested.");
@@ -163,6 +161,14 @@ namespace SpaceDodger.Droid
                 return;
             }
 
+            _activity.RunOnUiThread(() =>
+            {
+                ShowLeaderboardsOnUiThread();
+            });
+        }
+
+        private void ShowLeaderboardsOnUiThread()
+        {
             try
             {
                 var signInClient = PlayGames.GetGamesSignInClient(_activity);
@@ -174,58 +180,41 @@ namespace SpaceDodger.Droid
 
                     if (isAuthenticated)
                     {
-                        global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] User is authenticated. Launching leaderboard intent...");
-                        OpenLeaderboardIntentInternal(isRetryAfterSignIn: false);
+                        global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] User authenticated. Opening leaderboards intent...");
+                        LaunchLeaderboardIntent();
                     }
                     else
                     {
-                        global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] User not authenticated yet. Initiating interactive sign-in...");
-                        _activity.RunOnUiThread(() =>
+                        global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] User not authenticated. Requesting interactive sign-in before showing leaderboard...");
+                        signInClient.SignIn().AddOnCompleteListener(new OnCompleteListener(signInTask =>
                         {
-                            try
+                            if (signInTask.IsSuccessful && signInTask.Result is AuthenticationResult res && res.IsAuthenticated)
                             {
-                                Android.Widget.Toast.MakeText(_activity, "Signing in to Google Play Games...", Android.Widget.ToastLength.Short)?.Show();
-                            }
-                            catch { }
-                        });
-
-                        RequestSignIn(success =>
-                        {
-                            if (success)
-                            {
-                                global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Interactive sign-in succeeded. Retrying ShowLeaderboards...");
-                                OpenLeaderboardIntentInternal(isRetryAfterSignIn: true);
+                                global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Interactive sign-in succeeded! Opening leaderboard...");
+                                LaunchLeaderboardIntent();
                             }
                             else
                             {
-                                global::Android.Util.Log.Warn("GPGS", "[GPGS - WARNING] Sign-in cancelled or failed. (Ensure account is added to Play Console Testers and SHA-1 matches)");
-                                _activity.RunOnUiThread(() =>
-                                {
-                                    try
-                                    {
-                                        Android.Widget.Toast.MakeText(_activity, "Google Play Games login failed. Please check tester account in Play Console.", Android.Widget.ToastLength.Long)?.Show();
-                                    }
-                                    catch { }
-                                });
+                                global::Android.Util.Log.Warn("GPGS", "[GPGS - WARNING] Sign-in cancelled or failed.");
+                                Toast.MakeText(_activity, "Google Play Oyunlar girişi yapılamadı.", ToastLength.Short)?.Show();
                             }
-                        });
+                        }));
                     }
                 }));
             }
             catch (Exception ex)
             {
-                global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] ShowLeaderboards exception: {ex.Message}");
-                OpenLeaderboardIntentInternal(isRetryAfterSignIn: false);
+                global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] ShowLeaderboardsOnUiThread exception: {ex.Message}");
+                LaunchLeaderboardIntent();
             }
         }
 
-        private void OpenLeaderboardIntentInternal(bool isRetryAfterSignIn)
+        private void LaunchLeaderboardIntent()
         {
             try
             {
                 var leaderboardsClient = PlayGames.GetLeaderboardsClient(_activity);
                 
-                // If a specific LeaderboardId is provided, try that first; else get all leaderboards
                 var intentTask = !string.IsNullOrEmpty(LeaderboardId)
                     ? leaderboardsClient.GetLeaderboardIntent(LeaderboardId)
                     : leaderboardsClient.GetAllLeaderboardsIntent();
@@ -234,96 +223,47 @@ namespace SpaceDodger.Droid
                 {
                     if (intentObj is Intent intent)
                     {
-                        global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Leaderboard intent received, launching UI...");
+                        global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Leaderboard intent received! Opening UI...");
                         _activity.StartActivityForResult(intent, 9002);
+                    }
+                    else
+                    {
+                        global::Android.Util.Log.Warn("GPGS", "[GPGS - WARNING] Leaderboard intent object is not an Intent.");
                     }
                 }))
                 .AddOnFailureListener(new FailureListener((ex) =>
                 {
-                    global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] ShowLeaderboards failed to open intent: {ex.Message}");
+                    global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] Failed to get leaderboard intent: {ex.Message}");
 
-                    // Error Code 4: SIGN_IN_REQUIRED
-                    if (IsSignInRequiredError(ex))
+                    // Fallback to all leaderboards if specific ID failed
+                    if (!string.IsNullOrEmpty(LeaderboardId))
                     {
-                        if (!isRetryAfterSignIn)
-                        {
-                            global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] Error 4 (SIGN_IN_REQUIRED) detected. Requesting interactive sign in...");
-                            RequestSignIn(success =>
-                            {
-                                if (success)
-                                {
-                                    global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Sign-in succeeded! Retrying ShowLeaderboards...");
-                                    OpenLeaderboardIntentInternal(isRetryAfterSignIn: true);
-                                }
-                            });
-                        }
-                    }
-                    else if (!string.IsNullOrEmpty(LeaderboardId))
-                    {
-                        // Fallback: If specific leaderboard failed (e.g. invalid ID or draft), try GetAllLeaderboardsIntent
-                        global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] Specific leaderboard intent failed. Retrying with GetAllLeaderboardsIntent...");
+                        global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] Retrying with GetAllLeaderboardsIntent fallback...");
                         leaderboardsClient.GetAllLeaderboardsIntent()
                             .AddOnSuccessListener(new SuccessListener((allIntentObj) =>
                             {
                                 if (allIntentObj is Intent allIntent)
                                 {
-                                    global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] All leaderboards intent received, launching UI...");
+                                    global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] All-leaderboards intent received! Opening UI...");
                                     _activity.StartActivityForResult(allIntent, 9002);
                                 }
                             }))
                             .AddOnFailureListener(new FailureListener((allEx) =>
                             {
                                 global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] GetAllLeaderboardsIntent also failed: {allEx.Message}");
+                                Toast.MakeText(_activity, "Liderlik tablosu açılamadı: " + allEx.Message, ToastLength.Long)?.Show();
                             }));
-                    }
-                }));
-            }
-            catch (Exception ex)
-            {
-                global::Android.Util.Log.Error("GPGS", $"[GPGS - CRITICAL] ShowLeaderboards exception: {ex.Message}");
-            }
-        }
-
-        public void RequestSignIn(Action<bool> onComplete)
-        {
-            if (!_isInitialized || _activity == null)
-            {
-                onComplete?.Invoke(false);
-                return;
-            }
-
-            try
-            {
-                var signInClient = PlayGames.GetGamesSignInClient(_activity);
-                signInClient.SignIn().AddOnCompleteListener(new OnCompleteListener(task =>
-                {
-                    if (task.IsSuccessful && task.Result is AuthenticationResult result && result.IsAuthenticated)
-                    {
-                        global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Interactive SignIn completed. Authenticated = true");
-                        onComplete?.Invoke(true);
                     }
                     else
                     {
-                        global::Android.Util.Log.Warn("GPGS", $"[GPGS - WARNING] Interactive SignIn completed with failure or cancelled: IsSuccessful={task.IsSuccessful}");
-                        onComplete?.Invoke(false);
+                        Toast.MakeText(_activity, "Liderlik tablosu açılamadı.", ToastLength.Short)?.Show();
                     }
                 }));
             }
             catch (Exception ex)
             {
-                global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] RequestSignIn exception: {ex.Message}");
-                onComplete?.Invoke(false);
+                global::Android.Util.Log.Error("GPGS", $"[GPGS - CRITICAL] LaunchLeaderboardIntent exception: {ex.Message}");
             }
-        }
-
-        private static bool IsSignInRequiredError(Exception ex)
-        {
-            if (ex == null) return false;
-            if (ex is global::Android.Gms.Common.Apis.ApiException apiEx && apiEx.StatusCode == 4)
-                return true;
-            if (ex.Message != null && (ex.Message.Contains("4:") || ex.Message.Contains("SIGN_IN_REQUIRED")))
-                return true;
-            return false;
         }
 
         private sealed class SuccessListener : Java.Lang.Object, IOnSuccessListener
