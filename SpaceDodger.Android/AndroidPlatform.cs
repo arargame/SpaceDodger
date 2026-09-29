@@ -24,6 +24,19 @@ namespace SpaceDodger.Droid
         public IInputProvider CreateInputProvider(VirtualScreen screen) =>
             _input = new TouchInputProvider(screen);
 
+        private AndroidPlayGamesService _gameServices;
+
+        public IGameServices CreateGameServices()
+        {
+            if (_gameServices == null)
+            {
+                var activity = _context as Android.App.Activity ?? MainActivity.Instance;
+                if (activity != null)
+                    _gameServices = new AndroidPlayGamesService(activity);
+            }
+            return _gameServices ?? (IGameServices)NullGameServices.Instance;
+        }
+
         public void RequestBack() => _input?.RequestBack();
 
         public void OpenUrl(string url)

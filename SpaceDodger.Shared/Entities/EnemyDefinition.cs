@@ -15,6 +15,8 @@ namespace SpaceDodger.Entities
         Heavy,
         /// <summary>Three orbs in a fan.</summary>
         Spread,
+        /// <summary>Four orbs in a fan.</summary>
+        Quad,
     }
 
     /// <summary>
@@ -103,7 +105,7 @@ namespace SpaceDodger.Entities
                 ["turret"] = Def("turret", 2, 5f, hp: 10, score: 80, speed: 20f,
                     weapon: EnemyWeapon.Spread, fire: 2.4f, aim: true),
                 ["spinner"] = Def("spinner", 2, 8f, hp: 5, score: 60, speed: 40f,
-                    weapon: EnemyWeapon.Spread, fire: 2.0f),
+                    weapon: EnemyWeapon.Quad, fire: 2.0f),
                 ["hulk"] = Def("hulk", 2, 3f, hp: 18, score: 120, speed: 22f,
                     weapon: EnemyWeapon.Heavy, fire: 2.6f, aim: true),
                 ["fat_drifter"] = new EnemyDefinition("fat_drifter", "sprites/enemy_bomber", 2, 3f,

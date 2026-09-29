@@ -210,6 +210,22 @@ namespace SpaceDodger.Systems
                     FireOne(animation, damage, muzzle, forward * speed);
                 }
             }
+            else if (definition.Weapon == EnemyWeapon.Quad)
+            {
+                // When firing, 50% chance to shoot 4 fanned bullets, 50% chance to shoot a single bullet.
+                bool fireQuad = _random.NextDouble() < 0.5;
+                if (fireQuad)
+                {
+                    // Four shots fanned around the aim direction.
+                    float[] angles = { -0.42f, -0.14f, 0.14f, 0.42f };
+                    for (int i = 0; i < angles.Length; i++)
+                        FireOne(animation, damage, muzzle, Rotate(forward, angles[i]) * speed);
+                }
+                else
+                {
+                    FireOne(animation, damage, muzzle, forward * speed);
+                }
+            }
             else
             {
                 FireOne(animation, damage, muzzle, forward * speed);
@@ -275,7 +291,7 @@ namespace SpaceDodger.Systems
         public void MaybeDropPowerUp(Vector2 position, bool guaranteed = false, float chanceMultiplier = 1f,
             float healthSupplyBias = 0f)
         {
-            if (!CanSpawnPowerUp())
+            if (PowerUps.CountActive >= GameConfig.MaximumActivePowerUps)
                 return;
 
             if (!guaranteed && _random.NextDouble() > GameConfig.PowerUpDropChance * chanceMultiplier)

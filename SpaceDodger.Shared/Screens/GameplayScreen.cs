@@ -152,7 +152,8 @@ namespace SpaceDodger.Screens
             // Level text LV{n} is centered at X: 160 (spans roughly X: 151..169).
             // Gap between score and level is X: 45..151 (106px gap, midpoint 98).
             // Width reduced by 20% (100 -> 80) and centered at X: 58 (spans 58..138, 13px margin on each side).
-            var virtualRect = new Rectangle(58, 0, 80, 12);
+            // Vertically centered inside the 14px header bar at Y: 2, H: 10 (2px top/bottom padding).
+            var virtualRect = new Rectangle(58, 2, 80, 10);
             var physical = Context.Screen.ToPhysical(virtualRect);
             Context.Platform.ShowBannerAd(physical.X, physical.Y, physical.Width, physical.Height);
         }
@@ -514,13 +515,21 @@ namespace SpaceDodger.Screens
             Context.Audio.Play("pickup", 0.35f);
         }
 
-        private void ShowGameOver() =>
+        private void ShowGameOver()
+        {
+            Context.Games.SubmitHighScore(_score.Score);
+            Context.Games.SubmitHighestLevel(_levelNumber);
             Context.Screens.Replace(new GameOverScreen(
                 Context, _levels, _score.Score, _levelNumber, victory: false));
+        }
 
-        private void ShowVictory() =>
+        private void ShowVictory()
+        {
+            Context.Games.SubmitHighScore(_score.Score);
+            Context.Games.SubmitHighestLevel(_levelNumber);
             Context.Screens.Replace(new GameOverScreen(
                 Context, _levels, _score.Score, _levelNumber, victory: true));
+        }
 
         // --- entity event handlers ---------------------------------------
 
@@ -616,7 +625,7 @@ namespace SpaceDodger.Screens
             }
 
             _hud.Draw(spriteBatch, _score, _player, _levelNumber, FindBoss(), _difficulty,
-                _factory.Enemies.CountActive, _factory.EnemyBullets.CountActive);
+                _factory.Enemies.CountActive, _factory.EnemyBullets.CountActive, CurrentCosmicColor);
 
             switch (_phase)
             {
@@ -641,13 +650,21 @@ namespace SpaceDodger.Screens
             }
         }
 
+        public Color CurrentCosmicColor
+        {
+            get
+            {
+                int index = (_levelNumber - 1) % BackgroundPalette.Length;
+                var from = BackgroundPalette[index];
+                var to = BackgroundPalette[(index + 1) % BackgroundPalette.Length];
+                float blend = (float)(System.Math.Sin(_elapsed * 0.08f) * 0.5 + 0.5);
+                return Color.Lerp(from, to, blend);
+            }
+        }
+
         private void DrawBackground(SpriteBatch spriteBatch)
         {
-            int index = (_levelNumber - 1) % BackgroundPalette.Length;
-            var from = BackgroundPalette[index];
-            var to = BackgroundPalette[(index + 1) % BackgroundPalette.Length];
-            float blend = (float)(System.Math.Sin(_elapsed * 0.08f) * 0.5 + 0.5);
-            spriteBatch.Draw(Context.Textures.Pixel, Context.Screen.Bounds, Color.Lerp(from, to, blend));
+            spriteBatch.Draw(Context.Textures.Pixel, Context.Screen.Bounds, CurrentCosmicColor);
         }
 
         private void DrawShield(SpriteBatch spriteBatch)

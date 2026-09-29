@@ -12,6 +12,7 @@ namespace SpaceDodger.Entities
     public sealed class ChainLightning : Entity, IPlayerProjectile
     {
         private const float JumpInterval = 0.065f;
+        private const int MaxJumps = 6;
 
         private readonly List<Vector2> _boltPoints = new List<Vector2>(16);
         private readonly List<Enemy> _recentTargets = new List<Enemy>(8);
@@ -26,6 +27,7 @@ namespace SpaceDodger.Entities
         private Vector2 _sourcePos;
         private float _jumpTimer;
         private float _boltLife;
+        private int _jumpsRemaining;
 
         public int Damage { get; private set; }
 
@@ -50,6 +52,7 @@ namespace SpaceDodger.Entities
             _sourcePos = player.MuzzlePosition;
             _jumpTimer = 0f;
             _boltLife = 0f;
+            _jumpsRemaining = MaxJumps;
 
             // Immediately target the nearest visible enemy
             _currentTarget = FindBestNextTarget(_sourcePos, null);
@@ -69,7 +72,7 @@ namespace SpaceDodger.Entities
             _boltLife += dt;
             _jumpTimer += dt;
 
-            if (_currentTarget == null || !_player.Active || _player.SpecialCharges <= 0)
+            if (_currentTarget == null || !_player.Active)
             {
                 Deactivate();
                 return;
@@ -77,6 +80,12 @@ namespace SpaceDodger.Entities
 
             if (_jumpTimer >= JumpInterval)
             {
+                if (_jumpsRemaining <= 0)
+                {
+                    Deactivate();
+                    return;
+                }
+
                 _jumpTimer = 0f;
 
                 // Move source to current target before picking next
@@ -102,18 +111,13 @@ namespace SpaceDodger.Entities
 
             _currentTarget.TakeDamage(Damage);
             _onSpark?.Invoke(_currentTarget.Position);
-            _player.DecrementSpecialCharge();
+            _jumpsRemaining--;
 
             _recentTargets.Add(_currentTarget);
             if (_recentTargets.Count > 4)
                 _recentTargets.RemoveAt(0);
 
             GenerateBoltPath(_sourcePos, _currentTarget.Position);
-
-            if (_player.SpecialCharges <= 0)
-            {
-                Deactivate();
-            }
         }
 
         private Enemy FindBestNextTarget(Vector2 fromPosition, Enemy exclude)
@@ -225,6 +229,7 @@ namespace SpaceDodger.Entities
             _allEnemies = null;
             _player = null;
             _onSpark = null;
+            _jumpsRemaining = 0;
         }
     }
 }

@@ -247,20 +247,14 @@ namespace SpaceDodger.Entities
             if (type == SpecialFireType.None || SpecialCharges <= 0 || _specialCooldown > 0f)
                 return false;
 
-            if (type != SpecialFireType.ChainLightning)
-            {
-                SpecialCharges--;
-                _specialCooldown = type == SpecialFireType.SweepLaser ? .85f
-                    : type == SpecialFireType.Wave ? .48f
-                    : .30f;
+            SpecialCharges--;
+            _specialCooldown = type == SpecialFireType.SweepLaser ? .85f
+                : type == SpecialFireType.Wave ? .48f
+                : type == SpecialFireType.ChainLightning ? .35f
+                : .30f;
 
-                if (SpecialCharges == 0)
-                    SpecialFire = SpecialFireType.None;
-            }
-            else
-            {
-                _specialCooldown = 0.40f;
-            }
+            if (SpecialCharges == 0)
+                SpecialFire = SpecialFireType.None;
 
             return true;
         }

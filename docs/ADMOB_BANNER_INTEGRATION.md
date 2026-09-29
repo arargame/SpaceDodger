@@ -22,12 +22,15 @@ The banner is placed in the in-game HUD top bar centered in the gap between the 
 
 | Space | Virtual Coordinates (320x180) | Physical Conversion |
 | --- | --- | --- |
-| **Score Readout** | X: 3 .. 45, Y: 2 | Left bound (7 digits, 42px width) |
-| **Banner Ad Area** | **X: 58, Y: 0, Width: 80, Height: 12** | `Context.Screen.ToPhysical(virtualRect)` |
-| **Level Indicator** | X: 148 .. 172 (Center: 160), Y: 2 | Right bound |
-| **Combo Streak** | Mobile: X: 3, Y: 14 / Desktop: X: 48, Y: 2 | Below score on mobile to avoid overlap |
+| **Score Readout** | X: 3 .. 45, Y: 3 | Left bound (7 digits, 42px width, vertically centered) |
+| **Banner Ad Area** | **X: 58, Y: 2, Width: 80, Height: 10** | `Context.Screen.ToPhysical(virtualRect)` (Vertically centered inside 14px header) |
+| **Level Indicator** | X: 148 .. 172 (Center: 160), Y: 3 | Right bound (vertically centered) |
+| **Combo Streak** | Mobile: X: 3, Y: 16 / Desktop: X: 48, Y: 3 | Below score on mobile to avoid overlap |
 
-This layout features an 80 virtual pixel width (reduced 20% from 100 for optimal breathing room), perfectly centered between Score and Level with 13 virtual pixels of symmetric padding on each side, matching the header bar height (12 virtual pixels).
+This layout features:
+- **14 Virtual Pixels Header Strip:** Tinted dynamically to match the current level's ambient cosmic nebula color (`Color.Lerp(CurrentCosmicColor, Color.Black, 0.40f)`), with a subtle 1px dividing border at Y: 13.
+- **Vertical Centering:** Banner is positioned at `Y: 2` with `Height: 10`, leaving 2 pixels of symmetric padding above and below inside the 14px header bar, eliminating top-edge crowding.
+- **Horizontal Centering:** An 80 virtual pixel width centered at `X: 58` (spans 58..138), perfectly flanked by 13 virtual pixels of symmetric padding between the Score and Level indicators.
 
 ## 4. Android Layout & Exact Scaling
 

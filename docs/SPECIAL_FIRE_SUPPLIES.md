@@ -13,21 +13,21 @@ a finite upgrade that returns to W1 on expiry.
 | Weapon / supply | Model | Duration or charges | Expiry result |
 |---|---|---:|---|
 | W1 Single Shot | Baseline | Unlimited | Never expires |
-| W2 Double Shot | Timed main upgrade | random 12–20 seconds | Returns to W1 |
-| W3 Spread Shot | Timed main upgrade | random 10–18 seconds | Returns to W1 |
-| W4 Heavy Spread | Timed main upgrade | random 8–15 seconds | Returns to W1 |
-| W5 Storm / diffuse fire | Timed main upgrade | random 7–20 seconds | Returns to W1 |
+| W2 Double Shot | Timed main upgrade | random 15–24 seconds (+20-25%) | Returns to W1 |
+| W3 Spread Shot | Timed main upgrade | random 12–22 seconds (+20-22%) | Returns to W1 |
+| W4 Heavy Spread | Timed main upgrade | random 10–18 seconds (+20-25%) | Returns to W1 |
+| W5 Storm / diffuse fire | Timed main upgrade | random 9–24 seconds (+20-28%) | Returns to W1 |
 | Campaign damage bonus | Persistent campaign modifier | +1 damage at levels 10, 20, 30… | Applies to every player attack |
-| Rapid Fire | Timed modifier | random 5–15 seconds | Normal fire cadence |
-| Shield | Timed defence | random 5–15 seconds | Shield removed |
-| Orbit Guard | Timed defence | random 5–15 seconds | Orbit shots removed |
-| Scatter | Finite cartridge | random 10–20 shots | Normal weapon only |
-| Spiral | Finite cartridge | random 10–20 shots | Normal weapon only |
-| Ricochet | Finite cartridge | random 10–20 shots | Normal weapon only |
-| Homing | Finite cartridge | random 8–20 missiles | Normal weapon only |
-| Wave | Finite cartridge | random 8–20 pulses | Normal weapon only |
-| Sweep Laser | Finite cartridge | random 3–10 scans | Normal weapon only |
-| Tesla Lightning | Finite cartridge | random 10–20 bounces | Normal weapon only |
+| Rapid Fire | Timed modifier | 12 seconds (+20%) | Normal fire cadence |
+| Shield | Timed defence | 10 seconds (+25%) | Shield removed |
+| Orbit Guard | Timed defence | random 6–18 seconds (+20%), 3–4 guards | Orbit shots removed |
+| Scatter | Finite cartridge | random 12–24 shots (+20%) | Normal weapon only |
+| Spiral | Finite cartridge | random 12–24 shots (+20%) | Normal weapon only |
+| Ricochet | Finite cartridge | random 12–24 shots (+20%) | Normal weapon only |
+| Homing | Finite cartridge | random 10–24 missiles (+25%) | Normal weapon only |
+| Wave | Finite cartridge | random 10–24 pulses (+25%) | Normal weapon only |
+| Sweep Laser | Finite cartridge | random 4–12 scans (+20-33%) | Normal weapon only |
+| Tesla Lightning | Finite cartridge | random 15–25 charges (+25-50%) | Normal weapon only |
 
 Main weapon pickups promote one tier and replace the previous tier timer rather
 than stacking time. All active timers and finite cartridge counts carry across
@@ -45,33 +45,28 @@ weapon stacking while preserving instant pickup feedback.
 
 | Supply | Charges | Behaviour |
 |---|---:|---|
-| Scatter | random 10–20 | One radial eight-bolt burst per controlled shot |
-| Spiral | random 10–20 | One rotating dual-plasma burst |
-| Homing | random 8–20 | One missile that seeks the nearest live enemy |
-| Ricochet | random 10–20 | One green bolt with four screen/enemy rebounds |
-| Wave | random 8–20 | Growing forward-moving ring; each enemy can be hit once |
-| Sweep Laser | random 3–10 | Full-height beam scans left-to-right; each enemy can be hit once |
-| Tesla Lightning | random 10–20 | Jagged pixelated electric bolt leaps between live visible enemies |
+| Scatter | random 12–24 | One radial eight-bolt burst per controlled shot |
+| Spiral | random 12–24 | One rotating dual-plasma burst |
+| Homing | random 10–24 | One missile that seeks the nearest live enemy |
+| Ricochet | random 12–24 | One green bolt with four screen/enemy rebounds |
+| Wave | random 10–24 | Growing forward-moving ring; each enemy can be hit once |
+| Sweep Laser | random 4–12 | Full-height beam scans left-to-right; each enemy can be hit once |
+| Tesla Lightning | random 15–25 | Jagged pixelated electric bolt leaps up to 6 times between live visible enemies; consumes 1 charge per shot |
 
-The orbital pickup is intentionally different: it deploys 2–3 orbiting plasma
-guards for a random 5–15 seconds. It is visible defence around the ship rather
+The orbital pickup is intentionally different: it deploys 3–4 orbiting plasma
+guards for a random 6–18 seconds. It is visible defence around the ship rather
 than persistent automatic fire. A later orbit pickup refreshes/replaces the
 current guard; it never adds another permanent ring. The HUD shows `O` plus
 the active orbit count and a remaining-time bar.
 
 ## Supply pacing and level carry-over
 
-There can be at most two active supply crates anywhere on screen and every
-crate creation shares a 3.5-second cooldown. Supply sources are deliberately
-limited to:
+There can be up to 8 active supply crates anywhere on screen (`MaximumActivePowerUps = 8`). Supply sources are:
 
-- normal-enemy drops (fixed 10% chance, driven by a non-repeating draw-bag cycle where Weapon Upgrade has a baseline 17.5% weight and the remaining 13 supplies share the remaining 82.5% equally (~6.35% each); no powerup can drop again until every item in the pool has dropped, preventing repetitive streaks like consecutive Orbit guards);
-- a sparse right-to-left supply drift every 11–17 seconds, adjusted by the
-  director's drop modifier.
+- **Enemy drops:** Every destroyed non-boss enemy rolls a flat, unthrottled **10% chance** (`PowerUpDropChance = 0.10f`) to drop a supply/power-up crate, driven by a non-repeating draw-bag cycle (Weapon Upgrade 17.5% weight, remaining 13 supplies sharing 82.5% equally). Enemy death rolls are unthrottled by cooldown timers so multiple enemies dying in close succession each roll their independent 10% drop chance.
+- **Supply drift:** A sparse right-to-left ambient supply drift every 11–17 seconds (throttled by the 3.5-second `_powerUpDropCooldown`), adjusted by the director's drop modifier.
 
-The two sources use the same cap and cooldown, so a cluster of enemy kills
-cannot create a wall of five pickups. Collected weapon tiers, special cartridge
-charges, timed buffs, and the remaining orbit guard are carried into the next
+Collected weapon tiers, special cartridge charges, timed buffs, and the remaining orbit guard are carried into the next
 level and persisted in the resume save. Intro and level-clear screens disable
 auto-fire so finite cartridges cannot be spent while no enemies are present.
 Uncollected crates remain level-local visual entities and are cleaned up when
@@ -80,7 +75,7 @@ the next playfield is created.
 Boss kills and retry starts are explicit recovery exceptions: each boss always
 spawns exactly one Health crate, and a retry begins with one Health crate
 plus one random offensive-supply crate entering from the right. These mandatory crates bypass the normal shared
-cooldown/cap so they cannot be accidentally suppressed by an existing crate. Additionally, procedural Fat Drifter enemies roll a 50% chance upon destruction to drop a Health supply crate.
+cooldown/cap so they cannot be accidentally suppressed by an existing crate. Additionally, procedural Fat Drifter enemies roll a 50% chance upon destruction to drop a Health supply crate (or fall back to the standard 10% supply roll).
 
 ## Pooling and collision ownership
 

@@ -22,14 +22,14 @@ namespace SpaceDodger.Core
         public const float PlayerFireCooldown = 0.22f; // seconds
         public const float PlayerInvulnTime = 2.0f;    // seconds after a hit
         public const int MaxWeaponLevel = 5;
-        public const float WeaponTier2MinimumDuration = 12f;
-        public const float WeaponTier2MaximumDuration = 20f;
-        public const float WeaponTier3MinimumDuration = 10f;
-        public const float WeaponTier3MaximumDuration = 18f;
-        public const float WeaponTier4MinimumDuration = 8f;
-        public const float WeaponTier4MaximumDuration = 15f;
-        public const float WeaponTier5MinimumDuration = 7f;
-        public const float WeaponTier5MaximumDuration = 20f;
+        public const float WeaponTier2MinimumDuration = 15f; // was 12f (+25%)
+        public const float WeaponTier2MaximumDuration = 24f; // was 20f (+20%)
+        public const float WeaponTier3MinimumDuration = 12f; // was 10f (+20%)
+        public const float WeaponTier3MaximumDuration = 22f; // was 18f (+22%)
+        public const float WeaponTier4MinimumDuration = 10f; // was 8f  (+25%)
+        public const float WeaponTier4MaximumDuration = 18f; // was 15f (+20%)
+        public const float WeaponTier5MinimumDuration = 9f;  // was 7f  (+28%)
+        public const float WeaponTier5MaximumDuration = 24f; // was 20f (+20%)
 
         public const float PlayerBulletSpeed = 200f;
         public const float EnemyBulletSpeed = 90f;
@@ -42,30 +42,30 @@ namespace SpaceDodger.Core
         /// <summary>Base per-enemy supply chance before the DDA reward multiplier.</summary>
         public const float PowerUpDropChance = 0.10f;
         public const float PowerUpSpeed = 30f;
-        public const int MaximumActivePowerUps = 2;
+        public const int MaximumActivePowerUps = 8;
         public const float PowerUpDropCooldown = 3.5f;
         public const float SupplyDriftMinimumInterval = 11f;
         public const float SupplyDriftMaximumInterval = 17f;
 
         /// <summary>Seconds a collected shield lasts.</summary>
-        public const float ShieldDuration = 8f;
+        public const float ShieldDuration = 10f; // was 8f (+25%)
 
         /// <summary>Seconds of boosted fire rate from a rapid-fire pickup.</summary>
-        public const float RapidFireDuration = 10f;
-        public const int SpecialMinimumCharges = 10;
-        public const int SpecialMaximumCharges = 20;
-        public const int HomingMinimumCharges = 8;
-        public const int HomingMaximumCharges = 20;
-        public const int WaveMinimumCharges = 8;
-        public const int WaveMaximumCharges = 20;
-        public const int SweepLaserMinimumCharges = 3;
-        public const int SweepLaserMaximumCharges = 10;
-        public const int ChainLightningMinimumCharges = 10;
-        public const int ChainLightningMaximumCharges = 20;
-        public const int OrbitMinimumShots = 2;
-        public const int OrbitMaximumShots = 3;
-        public const float TimedEffectMinimumDuration = 5f;
-        public const float TimedEffectMaximumDuration = 15f;
+        public const float RapidFireDuration = 12f; // was 10f (+20%)
+        public const int SpecialMinimumCharges = 12; // was 10 (+20%)
+        public const int SpecialMaximumCharges = 24; // was 20 (+20%)
+        public const int HomingMinimumCharges = 10;  // was 8  (+25%)
+        public const int HomingMaximumCharges = 24;  // was 20 (+20%)
+        public const int WaveMinimumCharges = 10;    // was 8  (+25%)
+        public const int WaveMaximumCharges = 24;    // was 20 (+20%)
+        public const int SweepLaserMinimumCharges = 4; // was 3 (+33%)
+        public const int SweepLaserMaximumCharges = 12; // was 10 (+20%)
+        public const int ChainLightningMinimumCharges = 15; // was 10 (+50%)
+        public const int ChainLightningMaximumCharges = 25; // was 20 (+25%)
+        public const int OrbitMinimumShots = 3;      // was 2  (+50%)
+        public const int OrbitMaximumShots = 4;      // was 3  (+33%)
+        public const float TimedEffectMinimumDuration = 6f;  // was 5f  (+20%)
+        public const float TimedEffectMaximumDuration = 18f; // was 15f (+20%)
         public const float OrbitMinimumDuration = TimedEffectMinimumDuration;
         public const float OrbitMaximumDuration = TimedEffectMaximumDuration;
 

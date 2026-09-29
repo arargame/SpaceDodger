@@ -32,13 +32,22 @@ namespace SpaceDodger.Screens
             _iconAndroid = Context.Textures.Get("ui/market_icons_android");
             _iconMsStore = Context.Textures.Get("ui/market_icons_microsoftstore");
             
-            string removeAdsLabel = Context.Save.Data.AdsRemoved ? "ADS REMOVED (ACTIVE)" : "REMOVE ADS";
+            if (Context.Platform.IsMobile)
+            {
+                string removeAdsLabel = Context.Save.Data.AdsRemoved ? "ADS REMOVED (ACTIVE)" : "REMOVE ADS";
 
-            _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 116f)
-                .Add("BUY ME A COFFEE", BuyCoffee)
-                .Add(removeAdsLabel, BuyRemoveAds)
-                .Add("RESTORE PURCHASES", RestorePurchases)
-                .Add("BACK", () => Context.Screens.Pop());
+                _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 116f)
+                    .Add("BUY ME A COFFEE", BuyCoffee)
+                    .Add(removeAdsLabel, BuyRemoveAds)
+                    .Add("RESTORE PURCHASES", RestorePurchases)
+                    .Add("BACK", () => Context.Screens.Pop());
+            }
+            else
+            {
+                // Desktop: no mobile In-App Purchases or Ad removal needed.
+                _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 136f)
+                    .Add("BACK", () => Context.Screens.Pop());
+            }
         }
 
         private void BuyCoffee() => Context.Platform.PurchaseConsumable(ArarGamesApplications.CoffeeProductId);

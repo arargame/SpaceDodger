@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Space Dodger</string>
+    <!-- Google Play Games Services Project ID -->
+    <string name="app_id">82944435164</string>
+</resources>

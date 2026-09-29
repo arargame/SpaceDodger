@@ -325,10 +325,16 @@ namespace SpaceDodger.Systems
                 {
                     _factory.SpawnGuaranteedHealthSupply(enemy.Position);
                 }
+                else
+                {
+                    _factory.MaybeDropPowerUp(enemy.Position,
+                        chanceMultiplier: 1f,
+                        healthSupplyBias: _director.HealthSupplyBias);
+                }
             }
             else
             {
-                // Standard enemies have a fixed, inspectable 10% supply chance.
+                // Standard enemies have a flat 10% supply chance.
                 // DDA changes the composition toward health when help is needed,
                 // not the stated base chance itself.
                 _factory.MaybeDropPowerUp(enemy.Position,
