@@ -63,7 +63,7 @@ the active orbit count and a remaining-time bar.
 
 There can be up to 8 active supply crates anywhere on screen (`MaximumActivePowerUps = 8`). Supply sources are:
 
-- **Enemy drops:** Every destroyed non-boss enemy rolls a flat, unthrottled **10% chance** (`PowerUpDropChance = 0.10f`) to drop a supply/power-up crate, driven by a non-repeating draw-bag cycle (Weapon Upgrade 17.5% weight, remaining 13 supplies sharing 82.5% equally). Enemy death rolls are unthrottled by cooldown timers so multiple enemies dying in close succession each roll their independent 10% drop chance.
+- **Enemy drops:** Every destroyed non-boss enemy rolls a flat, unthrottled **2% chance** (`PowerUpDropChance = 0.02f`) to drop a supply/power-up crate, driven by a non-repeating draw-bag cycle (Weapon Upgrade 17.5% weight, remaining 13 supplies sharing 82.5% equally). Enemy death rolls are unthrottled by cooldown timers so multiple enemies dying in close succession each roll their independent 2% drop chance.
 - **Supply drift:** A sparse right-to-left ambient supply drift every 11–17 seconds (throttled by the 3.5-second `_powerUpDropCooldown`), adjusted by the director's drop modifier.
 
 Collected weapon tiers, special cartridge charges, timed buffs, and the remaining orbit guard are carried into the next

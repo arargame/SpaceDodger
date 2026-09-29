@@ -39,8 +39,8 @@ namespace SpaceDodger.Core
         public const float SpiralBulletSpeed = 190f;
         public const float RicochetBulletSpeed = 172f;
 
-        /// <summary>Base per-enemy supply chance before the DDA reward multiplier.</summary>
-        public const float PowerUpDropChance = 0.10f;
+        /// <summary>Base per-enemy supply chance before the DDA reward multiplier (2%).</summary>
+        public const float PowerUpDropChance = 0.02f;
         public const float PowerUpSpeed = 30f;
         public const int MaximumActivePowerUps = 8;
         public const float PowerUpDropCooldown = 3.5f;

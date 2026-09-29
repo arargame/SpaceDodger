@@ -334,7 +334,7 @@ namespace SpaceDodger.Systems
             }
             else
             {
-                // Standard enemies have a flat 10% supply chance.
+                // Standard enemies have a flat 2% supply chance.
                 // DDA changes the composition toward health when help is needed,
                 // not the stated base chance itself.
                 _factory.MaybeDropPowerUp(enemy.Position,
