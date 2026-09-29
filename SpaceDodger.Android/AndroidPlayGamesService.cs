@@ -163,7 +163,60 @@ namespace SpaceDodger.Droid
                 return;
             }
 
-            OpenLeaderboardIntentInternal(isRetryAfterSignIn: false);
+            try
+            {
+                var signInClient = PlayGames.GetGamesSignInClient(_activity);
+                signInClient.IsAuthenticated().AddOnCompleteListener(new OnCompleteListener(task =>
+                {
+                    bool isAuthenticated = task.IsSuccessful &&
+                                           task.Result is AuthenticationResult authResult &&
+                                           authResult.IsAuthenticated;
+
+                    if (isAuthenticated)
+                    {
+                        global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] User is authenticated. Launching leaderboard intent...");
+                        OpenLeaderboardIntentInternal(isRetryAfterSignIn: false);
+                    }
+                    else
+                    {
+                        global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] User not authenticated yet. Initiating interactive sign-in...");
+                        _activity.RunOnUiThread(() =>
+                        {
+                            try
+                            {
+                                Android.Widget.Toast.MakeText(_activity, "Signing in to Google Play Games...", Android.Widget.ToastLength.Short)?.Show();
+                            }
+                            catch { }
+                        });
+
+                        RequestSignIn(success =>
+                        {
+                            if (success)
+                            {
+                                global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Interactive sign-in succeeded. Retrying ShowLeaderboards...");
+                                OpenLeaderboardIntentInternal(isRetryAfterSignIn: true);
+                            }
+                            else
+                            {
+                                global::Android.Util.Log.Warn("GPGS", "[GPGS - WARNING] Sign-in cancelled or failed. (Ensure account is added to Play Console Testers and SHA-1 matches)");
+                                _activity.RunOnUiThread(() =>
+                                {
+                                    try
+                                    {
+                                        Android.Widget.Toast.MakeText(_activity, "Google Play Games login failed. Please check tester account in Play Console.", Android.Widget.ToastLength.Long)?.Show();
+                                    }
+                                    catch { }
+                                });
+                            }
+                        });
+                    }
+                }));
+            }
+            catch (Exception ex)
+            {
+                global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] ShowLeaderboards exception: {ex.Message}");
+                OpenLeaderboardIntentInternal(isRetryAfterSignIn: false);
+            }
         }
 
         private void OpenLeaderboardIntentInternal(bool isRetryAfterSignIn)
@@ -195,25 +248,12 @@ namespace SpaceDodger.Droid
                         if (!isRetryAfterSignIn)
                         {
                             global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] Error 4 (SIGN_IN_REQUIRED) detected. Requesting interactive sign in...");
-                            _activity.RunOnUiThread(() =>
-                            {
-                                try
-                                {
-                                    Android.Widget.Toast.MakeText(_activity, "Signing in to Google Play Games...", Android.Widget.ToastLength.Short)?.Show();
-                                }
-                                catch { }
-                            });
-
                             RequestSignIn(success =>
                             {
                                 if (success)
                                 {
                                     global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Sign-in succeeded! Retrying ShowLeaderboards...");
                                     OpenLeaderboardIntentInternal(isRetryAfterSignIn: true);
-                                }
-                                else
-                                {
-                                    global::Android.Util.Log.Warn("GPGS", "[GPGS - WARNING] Sign-in cancelled or failed. Cannot open Leaderboard.");
                                 }
                             });
                         }
