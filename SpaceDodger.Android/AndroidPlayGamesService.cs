@@ -47,11 +47,12 @@ namespace SpaceDodger.Droid
                 _isInitialized = true;
                 global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Play Games Services V2 SDK initialized successfully.");
 
-                // Check sign-in on launch, prompting the user at most once on startup.
-                _activity.RunOnUiThread(() =>
+                // Delay startup sign-in check by 1000ms using MainLooper so the activity and MonoGame surface
+                // have settled layout and window focus, preventing dialog suspension behind the fullscreen view.
+                new Android.OS.Handler(Android.OS.Looper.MainLooper).PostDelayed(() =>
                 {
                     CheckAndPromptSignInAtLaunch();
-                });
+                }, 1000);
             }
             catch (Exception ex)
             {
@@ -65,7 +66,7 @@ namespace SpaceDodger.Droid
         /// </summary>
         private void CheckAndPromptSignInAtLaunch()
         {
-            if (_hasPromptedSignInAtLaunch) return;
+            if (_hasPromptedSignInAtLaunch || _activity == null || _activity.IsFinishing || _activity.IsDestroyed) return;
             _hasPromptedSignInAtLaunch = true;
 
             try
@@ -191,12 +192,15 @@ namespace SpaceDodger.Droid
                             if (signInTask.IsSuccessful && signInTask.Result is AuthenticationResult res && res.IsAuthenticated)
                             {
                                 global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Interactive sign-in succeeded! Opening leaderboard...");
-                                LaunchLeaderboardIntent();
+                                _activity.RunOnUiThread(() => LaunchLeaderboardIntent());
                             }
                             else
                             {
                                 global::Android.Util.Log.Warn("GPGS", "[GPGS - WARNING] Sign-in cancelled or failed.");
-                                Toast.MakeText(_activity, "Google Play Oyunlar girişi yapılamadı.", ToastLength.Short)?.Show();
+                                _activity.RunOnUiThread(() =>
+                                {
+                                    Toast.MakeText(_activity, "Google Play Oyunlar girişi yapılamadı.", ToastLength.Short)?.Show();
+                                });
                             }
                         }));
                     }
@@ -219,65 +223,67 @@ namespace SpaceDodger.Droid
                     ? leaderboardsClient.GetLeaderboardIntent(LeaderboardId)
                     : leaderboardsClient.GetAllLeaderboardsIntent();
 
-                intentTask.AddOnSuccessListener(new SuccessListener((intentObj) =>
+                intentTask.AddOnCompleteListener(new OnCompleteListener(task =>
                 {
-                    if (intentObj is Intent intent)
+                    _activity.RunOnUiThread(() =>
                     {
-                        global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Leaderboard intent received! Opening UI...");
-                        _activity.StartActivityForResult(intent, 9002);
-                    }
-                    else
-                    {
-                        global::Android.Util.Log.Warn("GPGS", "[GPGS - WARNING] Leaderboard intent object is not an Intent.");
-                    }
-                }))
-                .AddOnFailureListener(new FailureListener((ex) =>
-                {
-                    global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] Failed to get leaderboard intent: {ex.Message}");
+                        if (task.IsSuccessful && task.Result is Intent intent)
+                        {
+                            global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Leaderboard intent received! Opening UI...");
+                            try
+                            {
+                                _activity.StartActivityForResult(intent, 9002);
+                            }
+                            catch (Exception ex)
+                            {
+                                global::Android.Util.Log.Warn("GPGS", $"[GPGS - WARNING] StartActivityForResult fallback to StartActivity: {ex.Message}");
+                                _activity.StartActivity(intent);
+                            }
+                        }
+                        else
+                        {
+                            var errMsg = task.Exception?.Message ?? "Unknown";
+                            global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] Failed to get leaderboard intent ({errMsg}). Retrying with GetAllLeaderboardsIntent fallback...");
 
-                    // Fallback to all leaderboards if specific ID failed
-                    if (!string.IsNullOrEmpty(LeaderboardId))
-                    {
-                        global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] Retrying with GetAllLeaderboardsIntent fallback...");
-                        leaderboardsClient.GetAllLeaderboardsIntent()
-                            .AddOnSuccessListener(new SuccessListener((allIntentObj) =>
+                            if (!string.IsNullOrEmpty(LeaderboardId))
                             {
-                                if (allIntentObj is Intent allIntent)
+                                leaderboardsClient.GetAllLeaderboardsIntent().AddOnCompleteListener(new OnCompleteListener(allTask =>
                                 {
-                                    global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] All-leaderboards intent received! Opening UI...");
-                                    _activity.StartActivityForResult(allIntent, 9002);
-                                }
-                            }))
-                            .AddOnFailureListener(new FailureListener((allEx) =>
+                                    _activity.RunOnUiThread(() =>
+                                    {
+                                        if (allTask.IsSuccessful && allTask.Result is Intent allIntent)
+                                        {
+                                            global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] All-leaderboards intent received! Opening UI...");
+                                            try
+                                            {
+                                                _activity.StartActivityForResult(allIntent, 9002);
+                                            }
+                                            catch
+                                            {
+                                                _activity.StartActivity(allIntent);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            var allErr = allTask.Exception?.Message ?? "Unknown";
+                                            global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] GetAllLeaderboardsIntent also failed: {allErr}");
+                                            Toast.MakeText(_activity, "Liderlik tablosu açılamadı: " + allErr, ToastLength.Long)?.Show();
+                                        }
+                                    });
+                                }));
+                            }
+                            else
                             {
-                                global::Android.Util.Log.Error("GPGS", $"[GPGS - ERROR] GetAllLeaderboardsIntent also failed: {allEx.Message}");
-                                Toast.MakeText(_activity, "Liderlik tablosu açılamadı: " + allEx.Message, ToastLength.Long)?.Show();
-                            }));
-                    }
-                    else
-                    {
-                        Toast.MakeText(_activity, "Liderlik tablosu açılamadı.", ToastLength.Short)?.Show();
-                    }
+                                Toast.MakeText(_activity, "Liderlik tablosu açılamadı.", ToastLength.Short)?.Show();
+                            }
+                        }
+                    });
                 }));
             }
             catch (Exception ex)
             {
                 global::Android.Util.Log.Error("GPGS", $"[GPGS - CRITICAL] LaunchLeaderboardIntent exception: {ex.Message}");
             }
-        }
-
-        private sealed class SuccessListener : Java.Lang.Object, IOnSuccessListener
-        {
-            private readonly Action<Java.Lang.Object> _callback;
-            public SuccessListener(Action<Java.Lang.Object> callback) => _callback = callback;
-            public void OnSuccess(Java.Lang.Object result) => _callback?.Invoke(result);
-        }
-
-        private sealed class FailureListener : Java.Lang.Object, IOnFailureListener
-        {
-            private readonly Action<Java.Lang.Exception> _callback;
-            public FailureListener(Action<Java.Lang.Exception> callback) => _callback = callback;
-            public void OnFailure(Java.Lang.Exception exception) => _callback?.Invoke(exception);
         }
 
         private sealed class OnCompleteListener : Java.Lang.Object, IOnCompleteListener
