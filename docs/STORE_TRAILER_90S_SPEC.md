@@ -39,10 +39,10 @@ The video strictly adheres to **Google Play Store Video Flow** best practices:
 ## 3. Timeline & Edit Decision List (EDL)
 
 ```
-00:00   00:02      00:11     00:16    00:22        00:33    00:41     00:49        00:61       00:72        00:85     00:90
+00:00   00:02      00:11     00:17    00:24        00:36    00:44     00:51        00:64       00:76        00:85     00:90
   |--0--|----1-----|---2A----|---2B---|-----3------|---4----|---5-----|-----6------|-----7-----|-----8------|----9----|
   Intro  Action     Spread    Tesla    Bosses 1     Wave     Laser     Bosses 2     Combos      Apex Climax  Outro
-  (2.0s) (9.0s)     (5.0s)   (6.0s)    (11.0s)     (8.0s)   (8.0s)    (12.0s)      (11.0s)     (13.0s)      (5.0s)
+  (2.0s) (9.0s)     (6.0s)   (7.0s)    (12.0s)     (8.0s)   (7.0s)    (13.0s)      (12.0s)     (9.0s)       (5.0s)
 ```
 
 ### Segment Breakdown
@@ -51,14 +51,14 @@ The video strictly adheres to **Google Play Store Video Flow** best practices:
 |---|---|---|---|---|---|
 | **0** | `seg0_intro` | Artwork Asset | 2.0s | **SPACE DODGER**<br>*100 Thrilling Levels • 10 Colossal Bosses* | Full-screen visual hook displaying official key art with blurred lateral extensions. |
 | **1** | `seg1_action` | `00:36 - 00:45` | 9.0s | **NON-STOP 60 FPS ACTION**<br>*Dodge Bullet Swarms & Blast Alien Fleets* | Pure reflex gameplay showcasing responsive touch controls and fluid ship movement. |
-| **2A**| `seg2a_spread`| `01:45 - 01:50` | 5.0s | **UPGRADE WEAPON TIERS**<br>*Multi-Stream Spread Shots & Plasma Firepower* | Multi-stream cannon upgrades (W1 to W5) clearing clustered enemy swarms. |
-| **2B**| `seg2b_tesla` | `13:38 - 13:44` | 6.0s | **TESLA CHAIN LIGHTNING**<br>*Electric Arcs Chain & Rebound Between Enemies* | Electric gun in action: high-voltage blue lightning arcs jumping between multiple targets. |
-| **3** | `seg3_boss1`  | `04:22 - 04:33` | 11.0s| **10 COLOSSAL BOSS BATTLES**<br>*Target Weak Points & Dodge Lethal Bullet Hell* | Concentric bullet hell rings, weak-point focus, and boss HP gauge depletion. |
+| **2A**| `seg2a_spread`| `01:45 - 01:51` | 6.0s | **UPGRADE WEAPON TIERS**<br>*Multi-Stream Spread Shots & Plasma Firepower* | Multi-stream cannon upgrades (W1 to W5) clearing clustered enemy swarms. |
+| **2B**| `seg2b_tesla` | `13:34 - 13:41` | 7.0s | **TESLA CHAIN LIGHTNING**<br>*Electric Arcs Chain & Rebound Between Enemies* | Electric gun in action: high-voltage blue lightning arcs jumping between multiple targets. |
+| **3** | `seg3_boss1`  | `04:22 - 04:34` | 12.0s| **10 COLOSSAL BOSS BATTLES**<br>*Target Weak Points & Dodge Lethal Bullet Hell* | Concentric bullet hell rings, weak-point focus, and boss HP gauge depletion. |
 | **4** | `seg4_wave`   | `05:45 - 05:53` | 8.0s | **WAVE PULSE & SHIELDS**<br>*Expanding Shockwaves & Invulnerability Buffs* | Expanding geometric energy shockwave rings paired with defensive shield bubbles. |
-| **5** | `seg5_laser`  | `08:01 - 08:09` | 8.0s | **FULL-SCREEN SWEEP LASER**<br>*Annihilate Everything in Left-to-Right Beam Path* | Full-screen vertical energy beam sweeping horizontally and vaporizing all obstacles. |
-| **6** | `seg6_boss2`  | `10:10 - 10:22` | 12.0s| **MULTI-PHASE BARRAGES**<br>*Survive Relentless Spiral Bullet Traps* | Multi-stream spiral bullet patterns and evasive counter-attacks against massive bosses. |
-| **7** | `seg7_combos` | `12:40 - 12:51` | 11.0s| **ORIGINAL RETRO SYNTH BEATS**<br>*Pump Up Multipliers & Screen-Clearing Bombs* | Explosive arcade synergy: soaring combo multipliers (`x3`, `x8`, `x12`), smart bomb detonations, and energetic chiptune music. |
-| **8** | `seg8_boss3`  | `16:47 - 17:00` | 13.0s| **EXTREME BULLET HELL**<br>*Test Pure Reflexes Against Screen-Filling Bosses* | Climax showdown featuring screen-filling bullet storms, maximum intensity, and boss destruction. |
+| **5** | `seg5_laser`  | `08:00 - 08:07` | 7.0s | **FULL-SCREEN SWEEP LASER**<br>*Annihilate Everything in Left-to-Right Beam Path* | Full-screen vertical energy beam sweeping horizontally and vaporizing all obstacles. |
+| **6** | `seg6_boss2`  | `10:10 - 10:23` | 13.0s| **MULTI-PHASE BARRAGES**<br>*Survive Relentless Spiral Bullet Traps* | Multi-stream spiral bullet patterns and evasive counter-attacks against massive bosses. |
+| **7** | `seg7_combos` | `12:40 - 12:52` | 12.0s| **ORIGINAL RETRO SYNTH BEATS**<br>*Pump Up Multipliers & Screen-Clearing Bombs* | Explosive arcade synergy: soaring combo multipliers (`x3`, `x8`, `x12`), smart bomb detonations, and energetic chiptune music. |
+| **8** | `seg8_boss3`  | `16:47 - 16:56` | 9.0s | **EXTREME BULLET HELL**<br>*Test Pure Reflexes Against Screen-Filling Bosses* | Climax showdown featuring screen-filling bullet storms. **Strictly capped at 16:56.5 to eliminate player defeat frames and 'Second Chance' UI entirely.** |
 | **9** | `seg9_outro`  | `10:23 - 10:28` | 5.0s | **CLIMB THE WORLD RANKINGS**<br>*Compete for #1 Rank - Play Free on Google Play!* | Final call-to-action connecting to global leaderboards, resolving with a smooth fade-to-black. |
 
 ---
