@@ -703,9 +703,9 @@ namespace SpaceDodger.Screens
             // Fade out over the final second so its expiry is readable.
             float alpha = MathHelper.Clamp(_player.ShieldTimer, 0f, 1f);
 
-            // In boosted mode (Lives > 1), offset shield forward (+11f) so it surrounds the cockpit/hull instead of the thruster nozzle.
+            // In boosted mode (Lives > 1), offset shield forward (+8.5f) so it surrounds the cockpit/hull instead of the thruster nozzle.
             Vector2 shieldPos = _player.Lives > 1
-                ? new Vector2(_player.Position.X + 11f, _player.Position.Y)
+                ? new Vector2(_player.Position.X + 8.5f, _player.Position.Y)
                 : _player.Position;
 
             spriteBatch.Draw(

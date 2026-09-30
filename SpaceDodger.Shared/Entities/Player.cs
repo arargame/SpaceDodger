@@ -88,9 +88,9 @@ namespace SpaceDodger.Entities
             {
                 if (IsBoosted)
                 {
-                    // The boosted ship (44x21) cockpit/fuselage sits at [Position.X + 2, Position.X + 21].
-                    // Provide a generous 16x10 hurtbox that fully excludes the trailing flame plume.
-                    return new Rectangle((int)(Position.X + 3), (int)(Position.Y - 5), 16, 10);
+                    // The scaled boosted ship (35x17) fuselage sits at [Position.X, Position.X + 17].
+                    // Provide a generous 13x8 hurtbox that fully excludes the trailing flame plume.
+                    return new Rectangle((int)(Position.X + 2), (int)(Position.Y - 4), 13, 8);
                 }
 
                 // Generous inset: the classic games forgive wing clipping.

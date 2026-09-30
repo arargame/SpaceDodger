@@ -10,9 +10,9 @@ In Space Dodger, the player spaceship visual state dynamically reflects the ship
 | Characteristic | Normal / Critical Ship | Boosted Ship |
 | :--- | :--- | :--- |
 | **Texture Path** | `sprites/player.png` | `sprites/player_boosted.png` |
-| **Sheet Dimensions** | 40 x 14 px (Horizontal strip) | 176 x 42 px (Grid layout) |
+| **Sheet Dimensions** | 40 x 14 px (Horizontal strip) | 140 x 34 px (Grid layout) |
 | **Grid Layout** | 2 columns x 1 row | 4 columns x 2 rows |
-| **Frame Size** | 20 x 14 px | 44 x 21 px |
+| **Frame Size** | 20 x 14 px | 35 x 17 px (20% scaled down) |
 | **Frame Count** | 2 frames | 8 frames |
 | **Frame Rate** | 10 FPS | 18 FPS |
 | **Trigger Condition** | `Lives <= 1` | `Lives > 1` |
@@ -23,11 +23,11 @@ In Space Dodger, the player spaceship visual state dynamically reflects the ship
 
 In shoot 'em ups, aesthetic thruster trails extending behind the ship must never register incoming projectile hits (hurtbox clipping).
 
-### Boosted Mode (44 x 21 px)
-- **Local Origin:** `(22, 10.5)` centered on `Player.Position`.
-- **Exhaust Plume:** Extends backwards from `Position.X - 19` to `Position.X + 1` relative to center. **Hurtbox is excluded here.**
-- **Fuselage & Wings:** Spans `Position.X + 2` to `Position.X + 21`.
-- **Active Hurtbox:** `Rectangle((int)(Position.X + 3), (int)(Position.Y - 5), 16, 10)`
+### Boosted Mode (35 x 17 px)
+- **Local Origin:** `(17.5, 8.5)` centered on `Player.Position`.
+- **Exhaust Plume:** Extends backwards from `Position.X - 17.5` to `Position.X` relative to center. **Hurtbox is excluded here.**
+- **Fuselage & Wings:** Spans `Position.X` to `Position.X + 17`.
+- **Active Hurtbox:** `Rectangle((int)(Position.X + 2), (int)(Position.Y - 4), 13, 8)`
   - Protects the player from false-positive deaths when dodging bullets through narrow gaps while trailing booster flames.
 
 ### Classic Mode (20 x 14 px)
@@ -41,11 +41,11 @@ In shoot 'em ups, aesthetic thruster trails extending behind the ship must never
 The projectile spawn position dynamically adjusts to the active frame's leading edge:
 $$\text{MuzzlePosition} = \left( \text{Position.X} + \frac{\text{CurrentAnimation.FrameWidth}}{2}, \text{Position.Y} \right)$$
 - **Normal Ship:** Bullets spawn at $\text{Position.X} + 10$.
-- **Boosted Ship:** Bullets spawn at $\text{Position.X} + 22$ directly at the forward laser cannons.
+- **Boosted Ship:** Bullets spawn at $\text{Position.X} + 17.5$ directly at the forward laser cannons.
 
 ### Shield Bubble Centering
 The energy shield orb (26 x 26 px) centers over the cockpit:
-- When `Lives > 1`, shield offset is shifted forward by $+11\text{ px}$ on the X axis to cover the main cabin rather than the rear exhaust nozzle.
+- When `Lives > 1`, shield offset is shifted forward by $+8.5\text{ px}$ on the X axis to cover the main cabin rather than the rear exhaust nozzle.
 
 ---
 
