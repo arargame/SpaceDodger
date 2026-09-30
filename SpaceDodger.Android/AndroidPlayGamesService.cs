@@ -89,7 +89,9 @@ namespace SpaceDodger.Droid
                             }
                             else
                             {
-                                global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] Startup sign-in was dismissed or skipped by user.");
+                                var ex = signInTask.Exception;
+                                string err = ex != null ? $"{ex.GetType().Name}: {ex.Message}" : (signInTask.Result != null ? "IsAuthenticated=false" : "Result=null");
+                                global::Android.Util.Log.Warn("GPGS", $"[GPGS - WARNING] Startup sign-in did not authenticate: {err}");
                             }
                         }));
                     }
@@ -189,17 +191,24 @@ namespace SpaceDodger.Droid
                         global::Android.Util.Log.Info("GPGS", "[GPGS - INFO] User not authenticated. Requesting interactive sign-in before showing leaderboard...");
                         signInClient.SignIn().AddOnCompleteListener(new OnCompleteListener(signInTask =>
                         {
-                            if (signInTask.IsSuccessful && signInTask.Result is AuthenticationResult res && res.IsAuthenticated)
+                            bool isAuth = signInTask.IsSuccessful &&
+                                          signInTask.Result is AuthenticationResult res &&
+                                          res.IsAuthenticated;
+
+                            if (isAuth)
                             {
                                 global::Android.Util.Log.Info("GPGS", "[GPGS - SUCCESS] Interactive sign-in succeeded! Opening leaderboard...");
                                 _activity.RunOnUiThread(() => LaunchLeaderboardIntent());
                             }
                             else
                             {
-                                global::Android.Util.Log.Warn("GPGS", "[GPGS - WARNING] Sign-in cancelled or failed.");
+                                var ex = signInTask.Exception;
+                                string errDetail = ex != null ? $"{ex.GetType().Name}: {ex.Message}" : "IsAuthenticated=false";
+                                global::Android.Util.Log.Warn("GPGS", $"[GPGS - WARNING] Sign-in result: {errDetail}. Attempting LaunchLeaderboardIntent fallback...");
+
                                 _activity.RunOnUiThread(() =>
                                 {
-                                    Toast.MakeText(_activity, "Google Play Oyunlar girişi yapılamadı.", ToastLength.Short)?.Show();
+                                    LaunchLeaderboardIntent();
                                 });
                             }
                         }));
