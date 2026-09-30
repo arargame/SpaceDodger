@@ -47,13 +47,25 @@ In Google Play Console under **Play Games Services > Configuration**, developers
 - **Leaderboard ID (`SpaceDodger.Droid.AndroidPlayGamesService`):**
   - Production configured: `CgkI3Mf-_rQCEAIQAQ` (Global High Score).
 
-### User Flow
-1. **In-Game Scoring (`GameplayScreen.cs`):**
+### OAuth 2.0 Credentials & Keystore Setup
+- **Release Credential (Google Play App Signing):**
+  - SHA-1: `7F:C6:E0:65:D7:09:56:FD:79:14:3B:3F:82:47:0F:E1:B3:1A:4D:76`
+- **Debug Credential (Local Development & Testing):**
+  - SHA-1: `1F:38:79:83:A6:90:67:97:DD:9D:65:32:38:7B:F2:28:DB:65:BE:11`
+  - OAuth Client ID: `82944435164-agdvecvdqbgkk9umn6nhuuc90q6hr38p.apps.googleusercontent.com`
+  - Allows seamless GPGS authentication in Debug builds on physical and virtual devices.
+
+### User Flow & Lifecycle Enhancements
+1. **Startup Authentication:**
+   - Sign-in check scheduled on Android `MainLooper` with a 1000ms delay (`PostDelayed`) to allow MonoGame's window and fullscreen immersive mode to initialize cleanly.
+   - Interactive sign-in prompted at most once on startup if not already authenticated.
+2. **Silent In-Game Scoring (`GameplayScreen.cs`):**
    - Points tracked in the top-left HUD (`_score.Score`).
-   - Submitted to Google Play Games whenever a local best run is updated AND definitively upon `GameOver` / `Victory`.
-2. **Leaderboard Viewing (`HighScoreScreen.cs`):**
+   - Submitted to Google Play Games silently in the background (`SubmitScore`) without popping intrusive sign-in dialogs during gameplay.
+   - Submitted whenever a local best run is updated and definitively upon `GameOver` / `Victory`.
+3. **Leaderboard Viewing (`HighScoreScreen.cs`):**
    - On the High Scores screen, tapping **"WORLD RANKING"** calls `Context.Games.ShowLeaderboards()`.
-   - Opens Google Play Games native overlay displaying the global player rankings.
+   - Dispatches `GetLeaderboardIntent` directly on the Android UI thread with automatic fallback if unauthenticated, opening the official Google Play Games Leaderboards overlay.
 
 ---
 
@@ -67,3 +79,4 @@ In Google Play Console under **Play Games Services > Configuration**, developers
     - **50% Chance:** Fires 4 fanned projectiles at angles `[-0.42 rad, -0.14 rad, +0.14 rad, +0.42 rad]`.
     - **50% Chance:** Fires 1 straight aimed projectile.
 - Maintains balanced difficulty alongside the 50% 3-spread raiders and turrets.
+
