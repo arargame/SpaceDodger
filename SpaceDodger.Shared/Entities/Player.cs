@@ -203,6 +203,15 @@ namespace SpaceDodger.Entities
             WeaponTimer = WeaponLevel == 1 ? 0f : Math.Max(0f, duration);
         }
 
+        /// <summary>Extends active weapon duration, capped by maximum allowable duration.</summary>
+        public void ExtendWeaponDuration(float extraDuration)
+        {
+            if (WeaponLevel > 1)
+            {
+                WeaponTimer = Math.Min(WeaponTimer + extraDuration, GameConfig.WeaponTier5MaximumDuration);
+            }
+        }
+
         /// <summary>Sets the persistent campaign damage bonus earned every ten completed level thresholds.</summary>
         public void SetDamageBonusForLevel(int levelNumber) =>
             DamageBonus = Math.Max(0, levelNumber / GameConfig.DamageBonusEveryLevels);

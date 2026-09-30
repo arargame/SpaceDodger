@@ -19,7 +19,8 @@ namespace SpaceDodger.Systems
     {
         private static readonly PowerUpType[] RetryWeaponSupplies =
         {
-            PowerUpType.Weapon, PowerUpType.Scatter, PowerUpType.Spiral,
+            PowerUpType.Weapon, PowerUpType.Weapon3, PowerUpType.Weapon4, PowerUpType.Weapon5,
+            PowerUpType.Scatter, PowerUpType.Spiral,
             PowerUpType.Homing, PowerUpType.Ricochet, PowerUpType.Wave,
             PowerUpType.SweepLaser, PowerUpType.ChainLightning
         };
@@ -28,6 +29,9 @@ namespace SpaceDodger.Systems
         {
             PowerUpType.Health,
             PowerUpType.Weapon,
+            PowerUpType.Weapon3,
+            PowerUpType.Weapon4,
+            PowerUpType.Weapon5,
             PowerUpType.Shield,
             PowerUpType.Bomb,
             PowerUpType.Rapid,
@@ -333,16 +337,27 @@ namespace SpaceDodger.Systems
             _powerUpDropCooldown = GameConfig.PowerUpDropCooldown;
         }
 
+        private static double GetPowerUpWeight(PowerUpType type)
+        {
+            return type switch
+            {
+                PowerUpType.Weapon => 0.08,   // W2 Double Shot (~8%)
+                PowerUpType.Weapon3 => 0.06,  // W3 Spread Shot (~6%)
+                PowerUpType.Weapon4 => 0.04,  // W4 Heavy Plasma (~4%)
+                PowerUpType.Weapon5 => 0.02,  // W5 Storm Plasma (~2%)
+                _ => 0.80 / 13.0              // Remaining 13 utility/special types (~6.15% each)
+            };
+        }
+
         private PowerUpType RollFromBag(List<PowerUpType> bag)
         {
             if (bag.Count == 0)
                 bag.AddRange(AllPowerUpTypes);
 
-            // 17.5% for Weapon Upgrade; remaining 82.5% shared equally by other 13 types (~6.346% each).
             double totalWeight = 0;
             for (int i = 0; i < bag.Count; i++)
             {
-                totalWeight += bag[i] == PowerUpType.Weapon ? 0.175 : (0.825 / 13.0);
+                totalWeight += GetPowerUpWeight(bag[i]);
             }
 
             double roll = _random.NextDouble() * totalWeight;
@@ -351,7 +366,7 @@ namespace SpaceDodger.Systems
 
             for (int i = 0; i < bag.Count; i++)
             {
-                cumulative += bag[i] == PowerUpType.Weapon ? 0.175 : (0.825 / 13.0);
+                cumulative += GetPowerUpWeight(bag[i]);
                 if (roll <= cumulative)
                 {
                     selectedIndex = i;

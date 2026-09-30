@@ -13,7 +13,7 @@ namespace SpaceDodger.Entities
     {
         /// <summary>+1 life.</summary>
         Health = 0,
-        /// <summary>+1 weapon tier.</summary>
+        /// <summary>Tier 2 weapon: Double shot.</summary>
         Weapon = 1,
         /// <summary>Temporary invulnerability bubble.</summary>
         Shield = 2,
@@ -39,6 +39,12 @@ namespace SpaceDodger.Entities
         SweepLaser = 12,
         /// <summary>Finite chain lightning that arcs and rebounds between visible enemies.</summary>
         ChainLightning = 13,
+        /// <summary>Tier 3 weapon: 3-way spread shot.</summary>
+        Weapon3 = 14,
+        /// <summary>Tier 4 weapon: Heavy plasma spread.</summary>
+        Weapon4 = 15,
+        /// <summary>Tier 5 weapon: 5-way plasma storm.</summary>
+        Weapon5 = 16,
     }
 
     /// <summary>Pooled pickup that drifts left with a gentle bob.</summary>

@@ -617,7 +617,7 @@ def powerup(icon_rows, colour):
     return img
 
 ICON_HEALTH = ["..XX..", "..XX..", "XXXXXX", "XXXXXX", "..XX..", "..XX.."]
-ICON_WEAPON = ["...XX.", "..XX..", ".XXXX.", "XXXX..", "..XX..", ".XX..."]
+ICON_W2     = [".XXXX.", "....X.", ".XXXX.", ".X....", ".XXXX.", "......"]
 ICON_SHIELD = [".XXXX.", "XX..XX", "XX..XX", "XX..XX", ".XXXX.", "..XX.."]
 ICON_BOMB   = ["...XX.", "..XXX.", ".XXXX.", "XXXXXX", "XXXXXX", ".XXXX."]
 ICON_RAPID  = ["X..X..", "XX.XX.", "XXXXXX", "XXXXXX", "XX.XX.", "X..X.."]
@@ -630,23 +630,29 @@ ICON_ORBIT  = [".X..X.", "X.XX.X", ".XXXX.", ".XXXX.", "X.XX.X", ".X..X."]
 ICON_WAVE   = ["..XX..", ".X..X.", "X....X", ".X..X.", "..XX..", "...X.."]
 ICON_LASER  = ["..XX..", "..XX..", "..XX..", "..XX..", "..XX..", "..XX.."]
 ICON_LIGHTNING = ["...XX.", "..XX..", ".XXXX.", "..XX..", ".XX...", "XX...."]
+ICON_W3     = [".XXXX.", "....X.", "..XXX.", "....X.", ".XXXX.", "......"]
+ICON_W4     = [".X..X.", ".X..X.", ".XXXX.", "....X.", "....X.", "......"]
+ICON_W5     = [".XXXX.", ".X....", ".XXXX.", "....X.", ".XXXX.", "......"]
 
 print("powerups:")
 save("powerups", [
-    powerup(ICON_HEALTH, 'green'),
-    powerup(ICON_WEAPON, 'yellow'),
-    powerup(ICON_SHIELD, 'cyan'),
-    powerup(ICON_BOMB,   'red'),
-    powerup(ICON_RAPID,  'orange'),
-    powerup(ICON_SCORE,  'magenta'),
-    powerup(ICON_SCATTER,'slate'),
-    powerup(ICON_HOMING, 'blue'),
-    powerup(ICON_SPIRAL, 'toxic'),
-    powerup(ICON_RICO,   'green'),
-    powerup(ICON_ORBIT,  'purple'),
-    powerup(ICON_WAVE,   'cyan'),
-    powerup(ICON_LASER,  'blue'),
-    powerup(ICON_LIGHTNING, 'yellow'),
+    powerup(ICON_HEALTH, 'green'),     # 0: Health
+    powerup(ICON_W2,     'yellow'),    # 1: Weapon (W2 Double Shot)
+    powerup(ICON_SHIELD, 'cyan'),      # 2: Shield
+    powerup(ICON_BOMB,   'red'),       # 3: Bomb
+    powerup(ICON_RAPID,  'orange'),    # 4: Rapid
+    powerup(ICON_SCORE,  'magenta'),   # 5: Score
+    powerup(ICON_SCATTER,'slate'),     # 6: Scatter
+    powerup(ICON_HOMING, 'blue'),      # 7: Homing
+    powerup(ICON_SPIRAL, 'toxic'),     # 8: Spiral
+    powerup(ICON_RICO,   'green'),     # 9: Ricochet
+    powerup(ICON_ORBIT,  'purple'),    # 10: Orbit
+    powerup(ICON_WAVE,   'cyan'),      # 11: Wave
+    powerup(ICON_LASER,  'blue'),      # 12: Laser
+    powerup(ICON_LIGHTNING, 'yellow'), # 13: Lightning
+    powerup(ICON_W3,     'cyan'),      # 14: Weapon3 (W3 Spread Shot)
+    powerup(ICON_W4,     'magenta'),   # 15: Weapon4 (W4 Heavy Plasma)
+    powerup(ICON_W5,     'orange'),    # 16: Weapon5 (W5 Storm Plasma)
 ])
 
 def shield_bubble(i):

@@ -319,10 +319,19 @@ namespace SpaceDodger.Screens
                     break;
 
                 case PowerUpType.Weapon:
-                    int nextWeaponLevel = Math.Min(_player.WeaponLevel + 1, GameConfig.MaxWeaponLevel);
-                    float weaponDuration = RandomWeaponDuration(nextWeaponLevel);
-                    _player.GrantWeaponUpgrade(nextWeaponLevel, weaponDuration);
-                    ShowPickup($"W{nextWeaponLevel} {weaponDuration:F0}S");
+                    ApplyWeaponTier(2, "DOUBLE");
+                    break;
+
+                case PowerUpType.Weapon3:
+                    ApplyWeaponTier(3, "SPREAD");
+                    break;
+
+                case PowerUpType.Weapon4:
+                    ApplyWeaponTier(4, "PLASMA");
+                    break;
+
+                case PowerUpType.Weapon5:
+                    ApplyWeaponTier(5, "STORM");
                     break;
 
                 case PowerUpType.Shield:
@@ -418,6 +427,24 @@ namespace SpaceDodger.Screens
                 _ => GameConfig.WeaponTier5MaximumDuration
             };
             return minimum + (float)_random.NextDouble() * (maximum - minimum);
+        }
+
+        private void ApplyWeaponTier(int targetLevel, string label)
+        {
+            float duration = RandomWeaponDuration(targetLevel);
+            if (targetLevel >= _player.WeaponLevel)
+            {
+                _player.GrantWeaponUpgrade(targetLevel, duration);
+                ShowPickup($"W{targetLevel} {label} {duration:F0}S");
+            }
+            else
+            {
+                // Picking up a lower tier extends current weapon's timer and awards bonus score!
+                float extension = duration * 0.5f;
+                _player.ExtendWeaponDuration(extension);
+                _score.AddBonus(250);
+                ShowPickup($"W{_player.WeaponLevel} +{extension:F0}S (+250 PTS)");
+            }
         }
 
         private void EquipSpecial(SpecialFireType type, int charges)

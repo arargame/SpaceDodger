@@ -105,3 +105,22 @@ The resumable run state now saves `resumeSpecialFire` and
 `resumeSpecialCharges`. Older timer-based Scatter/Spiral save fields are simply
 ignored when loading; existing level, life, weapon, shield, and rapid-fire
 progress remain valid.
+
+---
+
+## Distinct Main Weapon Tier Supplies (W2, W3, W4, W5)
+
+### Problem & Design Resolution
+Previously, reaching W3+ in campaign play was mathematically improbable because main weapon upgrades promoted strictly `+1` level and expired after 15–24 seconds before another weapon drop could occur.
+
+The armament system now introduces **distinct supply drops for each weapon tier**:
+- **W2 Double Shot (`PowerUpType.Weapon`):** Yellow capsule with digit `2`. Grants W2 for 15–24s.
+- **W3 Spread Shot (`PowerUpType.Weapon3`):** Cyan capsule with digit `3`. Grants W3 3-way spread for 12–22s.
+- **W4 Heavy Plasma (`PowerUpType.Weapon4`):** Magenta capsule with digit `4`. Grants W4 quad plasma for 10–18s.
+- **W5 Storm Plasma (`PowerUpType.Weapon5`):** Orange capsule with digit `5`. Grants W5 5-way plasma storm for 9–24s.
+
+### Non-Downgrading Mechanic
+- **Higher or Equal Tier:** Picking up `targetLevel >= currentLevel` equips that tier immediately and refreshes the full duration.
+- **Lower Tier Protection:** Picking up a lower tier weapon while at a higher tier (e.g. collecting W2 while holding W4) **does not downgrade**. Instead, it extends the current high-tier weapon's timer by 50% of the pickup duration and grants `+250` bonus score.
+- **Sprite Strip Expansion:** `powerups.png` expanded to 17 frames (170x10) to host dedicated 10x10 pixel art icons for W3, W4, and W5.
+
