@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 
 namespace SpaceDodger.Entities
 {
@@ -11,5 +11,6 @@ namespace SpaceDodger.Entities
     {
         public Vector2 PlayerPosition;
         public Rectangle Bounds;
+        public bool PlayerActive;
     }
 }

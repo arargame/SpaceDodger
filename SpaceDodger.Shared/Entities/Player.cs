@@ -54,7 +54,7 @@ namespace SpaceDodger.Entities
             _ => ""
         };
 
-        public bool IsBoosted => Lives > 1 && _boostedAnimation != null;
+        public bool IsBoosted => Lives > 2 && _boostedAnimation != null;
         public Animation CurrentAnimation => IsBoosted ? _boostedAnimation : _normalAnimation;
 
         private readonly Animation _normalAnimation;

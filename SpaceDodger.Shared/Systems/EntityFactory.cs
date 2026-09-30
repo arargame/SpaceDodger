@@ -49,6 +49,7 @@ namespace SpaceDodger.Systems
         private readonly AnimationLibrary _animations;
         private readonly TextureStore _textures;
         private readonly Rectangle _world;
+        private readonly EnemyWorld _worldInfo;
         private readonly Random _random = new Random();
         private readonly List<PowerUpType> _unpickedCommonSupplies = new List<PowerUpType>();
         private readonly List<PowerUpType> _unpickedBossSupplies = new List<PowerUpType>();
@@ -66,11 +67,12 @@ namespace SpaceDodger.Systems
         public EntityPool<SweepLaser> SweepLasers { get; }
         public EntityPool<ChainLightning> ChainLightnings { get; }
 
-        public EntityFactory(AnimationLibrary animations, TextureStore textures, Rectangle world)
+        public EntityFactory(AnimationLibrary animations, TextureStore textures, Rectangle world, EnemyWorld worldInfo = null)
         {
             _animations = animations;
             _textures = textures;
             _world = world;
+            _worldInfo = worldInfo;
 
             PlayerBullets = new EntityPool<Bullet>(() => new Bullet(), 64);
             EnemyBullets = new EntityPool<Bullet>(() => new Bullet(), 96);
@@ -333,7 +335,7 @@ namespace SpaceDodger.Systems
         private void SpawnPowerUp(PowerUpType type, Vector2 position)
         {
             var powerUp = PowerUps.Obtain();
-            powerUp.Configure(_textures.Get("sprites/powerups"), type, position, _world);
+            powerUp.Configure(_textures.Get("sprites/powerups"), type, position, _world, _worldInfo);
             _powerUpDropCooldown = GameConfig.PowerUpDropCooldown;
         }
 

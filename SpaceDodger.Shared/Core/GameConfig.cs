@@ -47,6 +47,12 @@ namespace SpaceDodger.Core
         public const float SupplyDriftMinimumInterval = 11f;
         public const float SupplyDriftMaximumInterval = 17f;
 
+        /// <summary>Supply magnet capture tuning (derived from Blocked project, adapted to 320x180 playfield).</summary>
+        public const float SupplyMagnetRadius = 60f;     // px capture radius around the ship
+        public const float SupplyMagnetAccel = 240f;      // px/s^2 attraction pull force
+        public const float SupplyMagnetMaxSpeed = 120f;   // px/s maximum pickup approach speed
+        public const float SupplyMagnetDamping = 3.5f;    // rate to relax back to natural drift
+
         /// <summary>Seconds a collected shield lasts.</summary>
         public const float ShieldDuration = 10f; // was 8f (+25%)
 

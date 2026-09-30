@@ -77,8 +77,8 @@ namespace SpaceDodger.Screens
             var playfield = new Rectangle(0, 12, bounds.Width, bounds.Height - 12);
 
             _animations = new AnimationLibrary(Context.Textures);
-            _world = new EnemyWorld { Bounds = playfield };
-            _factory = new EntityFactory(_animations, Context.Textures, playfield);
+            _world = new EnemyWorld { Bounds = playfield, PlayerActive = true };
+            _factory = new EntityFactory(_animations, Context.Textures, playfield, _world);
             _score = new ScoreTracker(Context.Events);
             Context.Events.Subscribe<ScoreChangedEvent>(OnScoreChanged);
             _difficulty = new AdaptiveThreatDirector();
@@ -192,6 +192,7 @@ namespace SpaceDodger.Screens
             }
 
             _world.PlayerPosition = _player.Position;
+            _world.PlayerActive = _player.Active;
 
             var currentInput = input;
             if (Context.Save.Data.AutoAttackEnabled)
@@ -703,8 +704,8 @@ namespace SpaceDodger.Screens
             // Fade out over the final second so its expiry is readable.
             float alpha = MathHelper.Clamp(_player.ShieldTimer, 0f, 1f);
 
-            // In boosted mode (Lives > 1), offset shield forward (+8.5f) so it surrounds the cockpit/hull instead of the thruster nozzle.
-            Vector2 shieldPos = _player.Lives > 1
+            // In boosted mode (Lives > 2), offset shield forward (+8.5f) so it surrounds the cockpit/hull instead of the thruster nozzle.
+            Vector2 shieldPos = _player.Lives > 2
                 ? new Vector2(_player.Position.X + 8.5f, _player.Position.Y)
                 : _player.Position;
 
