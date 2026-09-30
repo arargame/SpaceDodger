@@ -54,7 +54,11 @@ namespace SpaceDodger.Entities
             _ => ""
         };
 
-        private readonly Animation _animation;
+        public bool IsBoosted => Lives > 1 && _boostedAnimation != null;
+        public Animation CurrentAnimation => IsBoosted ? _boostedAnimation : _normalAnimation;
+
+        private readonly Animation _normalAnimation;
+        private readonly Animation _boostedAnimation;
         private AnimationPlayer _player;
         private Rectangle _world;
 
@@ -65,21 +69,43 @@ namespace SpaceDodger.Entities
         private float _spiralAngle;
         private float _specialCooldown;
 
-        public Player(Animation animation, Rectangle world)
+        public Player(Animation normalAnimation, Rectangle world)
+            : this(normalAnimation, null, world)
         {
-            _animation = animation;
+        }
+
+        public Player(Animation normalAnimation, Animation boostedAnimation, Rectangle world)
+        {
+            _normalAnimation = normalAnimation ?? throw new ArgumentNullException(nameof(normalAnimation));
+            _boostedAnimation = boostedAnimation;
             _world = world;
-            _player.Play(animation);
+            SyncAnimation();
         }
 
         public override Rectangle Bounds
         {
             get
             {
+                if (IsBoosted)
+                {
+                    // The boosted ship (44x21) cockpit/fuselage sits at [Position.X + 2, Position.X + 21].
+                    // Provide a generous 16x10 hurtbox that fully excludes the trailing flame plume.
+                    return new Rectangle((int)(Position.X + 3), (int)(Position.Y - 5), 16, 10);
+                }
+
                 // Generous inset: the classic games forgive wing clipping.
-                var r = CenteredRect(_animation.FrameWidth, _animation.FrameHeight);
+                var r = CenteredRect(_normalAnimation.FrameWidth, _normalAnimation.FrameHeight);
                 r.Inflate(-5, -4);
                 return r;
+            }
+        }
+
+        private void SyncAnimation()
+        {
+            var target = CurrentAnimation;
+            if (_player.Animation != target)
+            {
+                _player.Play(target);
             }
         }
 
@@ -88,6 +114,7 @@ namespace SpaceDodger.Entities
             OnObtain();
             Position = position;
             Lives = lives;
+            SyncAnimation();
             WeaponLevel = 1;
             WeaponTimer = 0f;
             DamageBonus = 0;
@@ -111,11 +138,12 @@ namespace SpaceDodger.Entities
         {
             OnObtain();
             Lives = Math.Max(1, lives);
+            SyncAnimation();
             _invulnTimer = invulnerabilityDuration;
             _fireCooldown = 0.2f;
 
-            float halfW = _animation.FrameWidth / 2f;
-            float halfH = _animation.FrameHeight / 2f;
+            float halfW = CurrentAnimation.FrameWidth / 2f;
+            float halfH = CurrentAnimation.FrameHeight / 2f;
             Position.X = MathHelper.Clamp(Position.X, _world.Left + halfW, _world.Right - halfW);
             Position.Y = MathHelper.Clamp(Position.Y, _world.Top + halfH, _world.Bottom - halfH);
         }
@@ -124,6 +152,7 @@ namespace SpaceDodger.Entities
             int specialFire, int specialCharges, int orbitCount, float orbitTime, float weaponTime)
         {
             Lives = Math.Max(1, lives);
+            SyncAnimation();
             WeaponLevel = MathHelper.Clamp(weaponLevel, 1, GameConfig.MaxWeaponLevel);
             WeaponTimer = WeaponLevel == 1 ? 0f : Math.Max(0f, weaponTime);
             if (WeaponTimer <= 0f)
@@ -145,6 +174,7 @@ namespace SpaceDodger.Entities
         public void Update(float dt, in InputState input)
         {
             Age += dt;
+            SyncAnimation();
             _player.Update(dt);
 
             if (_invulnTimer > 0f) _invulnTimer -= dt;
@@ -170,8 +200,8 @@ namespace SpaceDodger.Entities
 
             // Movement, clamped to the playfield.
             Position += input.Move * GameConfig.PlayerSpeed * dt;
-            float halfW = _animation.FrameWidth / 2f;
-            float halfH = _animation.FrameHeight / 2f;
+            float halfW = CurrentAnimation.FrameWidth / 2f;
+            float halfH = CurrentAnimation.FrameHeight / 2f;
             Position.X = MathHelper.Clamp(Position.X, _world.Left + halfW, _world.Right - halfW);
             Position.Y = MathHelper.Clamp(Position.Y, _world.Top + halfH, _world.Bottom - halfH);
 
@@ -216,7 +246,11 @@ namespace SpaceDodger.Entities
         public void SetDamageBonusForLevel(int levelNumber) =>
             DamageBonus = Math.Max(0, levelNumber / GameConfig.DamageBonusEveryLevels);
 
-        public void AddLife() => Lives++;
+        public void AddLife()
+        {
+            Lives++;
+            SyncAnimation();
+        }
 
         public void GrantShield(float duration) =>
             _shieldTimer = MathHelper.Clamp(duration, GameConfig.TimedEffectMinimumDuration, GameConfig.TimedEffectMaximumDuration);
@@ -297,6 +331,7 @@ namespace SpaceDodger.Entities
             }
 
             Lives--;
+            SyncAnimation();
             // Losing a life costs one weapon tier (softens death spirals).
             WeaponLevel = Math.Max(1, WeaponLevel - 1);
             if (WeaponLevel == 1)
@@ -320,14 +355,15 @@ namespace SpaceDodger.Entities
             if (IsInvulnerable && !IsShielded && (int)(_invulnTimer * 10f) % 2 == 0)
                 return;
 
-            var origin = new Vector2(_animation.FrameWidth / 2f, _animation.FrameHeight / 2f);
+            var anim = CurrentAnimation;
+            var origin = new Vector2(anim.FrameWidth / 2f, anim.FrameHeight / 2f);
             spriteBatch.Draw(
-                _animation.Texture, Position, _animation.FrameRect(_player.FrameIndex),
+                anim.Texture, Position, anim.FrameRect(_player.FrameIndex),
                 Color.White, 0f, origin, 1f, SpriteEffects.None, 0f);
         }
 
         /// <summary>Front (right) edge of the ship, where bullets appear.</summary>
         public Vector2 MuzzlePosition =>
-            new Vector2(Position.X + _animation.FrameWidth / 2f, Position.Y);
+            new Vector2(Position.X + CurrentAnimation.FrameWidth / 2f, Position.Y);
     }
 }

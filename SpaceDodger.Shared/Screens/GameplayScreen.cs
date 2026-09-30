@@ -86,7 +86,7 @@ namespace SpaceDodger.Screens
             _stars = new Starfield(Context.Textures.Pixel, bounds.Width, bounds.Height);
             _hud = new Hud(Context.Font, Context.Textures.Pixel, bounds, Context.Platform.IsMobile);
 
-            _player = new Player(_animations.Player, playfield);
+            _player = new Player(_animations.Player, _animations.PlayerBoosted, playfield);
             _player.Fired += OnPlayerFired;
             _player.Damaged += OnPlayerDamaged;
             _player.Died += OnPlayerDied;
@@ -703,8 +703,13 @@ namespace SpaceDodger.Screens
             // Fade out over the final second so its expiry is readable.
             float alpha = MathHelper.Clamp(_player.ShieldTimer, 0f, 1f);
 
+            // In boosted mode (Lives > 1), offset shield forward (+11f) so it surrounds the cockpit/hull instead of the thruster nozzle.
+            Vector2 shieldPos = _player.Lives > 1
+                ? new Vector2(_player.Position.X + 11f, _player.Position.Y)
+                : _player.Position;
+
             spriteBatch.Draw(
-                shield.Texture, _player.Position, shield.FrameRect(frame),
+                shield.Texture, shieldPos, shield.FrameRect(frame),
                 Color.White * (0.5f + 0.5f * alpha), 0f, origin, 1f, SpriteEffects.None, 0f);
         }
 

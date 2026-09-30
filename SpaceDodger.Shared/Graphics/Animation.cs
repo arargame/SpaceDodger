@@ -1,30 +1,43 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SpaceDodger.Graphics
 {
-    /// <summary>Immutable description of a horizontal-strip sprite animation.</summary>
+    /// <summary>Immutable description of a horizontal-strip or multi-row grid sprite animation.</summary>
     public sealed class Animation
     {
         public Texture2D Texture { get; }
         public int FrameWidth { get; }
         public int FrameHeight { get; }
         public int FrameCount { get; }
+        public int Columns { get; }
+        public int Rows { get; }
         public float FramesPerSecond { get; }
         public bool Loop { get; }
 
         public Animation(Texture2D texture, int frameCount, float fps, bool loop = true)
+            : this(texture, frameCount, frameCount, 1, fps, loop)
+        {
+        }
+
+        public Animation(Texture2D texture, int frameCount, int columns, int rows, float fps, bool loop = true)
         {
             Texture = texture;
             FrameCount = frameCount;
-            FrameWidth = texture.Width / frameCount;
-            FrameHeight = texture.Height;
+            Columns = columns > 0 ? columns : frameCount;
+            Rows = rows > 0 ? rows : 1;
+            FrameWidth = texture.Width / Columns;
+            FrameHeight = texture.Height / Rows;
             FramesPerSecond = fps;
             Loop = loop;
         }
 
-        public Rectangle FrameRect(int index) =>
-            new Rectangle(index * FrameWidth, 0, FrameWidth, FrameHeight);
+        public Rectangle FrameRect(int index)
+        {
+            int col = index % Columns;
+            int row = (index / Columns) % Rows;
+            return new Rectangle(col * FrameWidth, row * FrameHeight, FrameWidth, FrameHeight);
+        }
     }
 
     /// <summary>Mutable playback state for an <see cref="Animation"/> (flyweight:

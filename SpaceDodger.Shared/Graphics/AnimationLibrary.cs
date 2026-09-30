@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using SpaceDodger.Entities;
 
@@ -19,6 +19,7 @@ namespace SpaceDodger.Graphics
             _textures = textures;
 
             Player = Add("player", "sprites/player", 2, 10f);
+            PlayerBoosted = AddGrid("player_boosted", "sprites/player_boosted", 8, columns: 4, rows: 2, fps: 18f);
             PlayerBullet = Add("bullet_player", "sprites/bullet_player", 1, 1f);
             PlayerPlasma = Add("bullet_plasma", "sprites/bullet_plasma", 1, 1f);
             EnemyBullet = Add("bullet_enemy", "sprites/bullet_enemy", 2, 10f);
@@ -30,6 +31,7 @@ namespace SpaceDodger.Graphics
         }
 
         public Animation Player { get; }
+        public Animation PlayerBoosted { get; }
         public Animation PlayerBullet { get; }
         public Animation PlayerPlasma { get; }
         public Animation EnemyBullet { get; }
@@ -58,6 +60,13 @@ namespace SpaceDodger.Graphics
         private Animation Add(string key, string texture, int frames, float fps, bool loop = true)
         {
             var animation = new Animation(_textures.Get(texture), frames, fps, loop);
+            _cache[key] = animation;
+            return animation;
+        }
+
+        private Animation AddGrid(string key, string texture, int frames, int columns, int rows, float fps, bool loop = true)
+        {
+            var animation = new Animation(_textures.Get(texture), frames, columns, rows, fps, loop);
             _cache[key] = animation;
             return animation;
         }
