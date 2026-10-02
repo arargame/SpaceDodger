@@ -21,14 +21,17 @@ if not exist "%ADB%" (
 echo  Disabling Firebase DebugView mode on target device...
 "%ADB%" shell setprop debug.firebase.analytics.app .none.
 
-if %ERRORLEVEL% equ 0 (
-    echo.
-    echo  [SUCCESS] Firebase DebugView Realtime Mode DISABLED!
-    echo  App returned to standard batched / battery-friendly telemetry mode.
-) else (
-    echo.
-    echo  [ERROR] Failed to reset property. Make sure device is connected.
-)
+if %ERRORLEVEL% neq 0 goto :failed
 
+echo.
+echo  [SUCCESS] Firebase DebugView Realtime Mode DISABLED!
+echo  Telemetry events will now be batched and uploaded periodically.
+goto :done
+
+:failed
+echo.
+echo  [ERROR] Failed to reset debug property. Make sure device is connected via USB.
+
+:done
 echo.
 pause
