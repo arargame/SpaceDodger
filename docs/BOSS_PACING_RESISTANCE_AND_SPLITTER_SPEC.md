@@ -1,13 +1,13 @@
 # Boss Encounter Pacing, Boss Weapon Resistance, and Dividing Splitter Spec
 
-## 1. Supply & Power-Up Drop Rate Tuning (7%)
+## 1. Supply & Power-Up Drop Rate Tuning (5%)
 
 ### Background & Balance Problem
-In later levels (approaching Level 30+), enemy density, bullet hell patterns, and player pressure ramp up significantly. A flat 2% base supply drop rate starved players of critical supplies, while 15% proved too generous. A balanced 7% drop chance creates optimal tension and steady tactical rewards.
+In later levels (approaching Level 30+), enemy density, bullet hell patterns, and player pressure ramp up significantly. A flat 2% base supply drop rate starved players of critical supplies, while 15% proved too generous. A tuned 5% drop chance creates optimal arcade tension, ensuring drops feel genuinely rewarding and valuable without cluttering the playfield.
 
 ### Implementation
-- Updated `GameConfig.PowerUpDropChance` to `0.07f` (7%).
-- Enemies destroyed in combat now have a 7% baseline chance to spawn power-up capsules (distinct W2–W5 weapon upgrades, shields, rapid fire, bombs, cartridges, and emergency health).
+- Updated `GameConfig.PowerUpDropChance` to `0.05f` (5%).
+- Enemies destroyed in combat now have a 5% baseline chance to spawn power-up capsules (distinct W2–W5 weapon upgrades, shields, rapid fire, bombs, cartridges, and emergency health).
 - DDA (Dynamic Difficulty Adjustment) continues to modulate the health bias within dropped supplies when the player is low on lives.
 
 ---
