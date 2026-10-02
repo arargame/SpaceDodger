@@ -81,6 +81,7 @@ namespace SpaceDodger.Screens
             _factory = new EntityFactory(_animations, Context.Textures, playfield, _world);
             _score = new ScoreTracker(Context.Events);
             Context.Events.Subscribe<ScoreChangedEvent>(OnScoreChanged);
+            Context.Events.Subscribe<EnemyDestroyedEvent>(OnEnemyDestroyed);
             _difficulty = new AdaptiveThreatDirector();
             _spawner = new WaveSpawner(_factory, Context.Events, _world, _difficulty);
             _stars = new Starfield(Context.Textures.Pixel, bounds.Width, bounds.Height);
@@ -112,6 +113,7 @@ namespace SpaceDodger.Screens
             }
             _score.Detach();
             Context.Events.Unsubscribe<ScoreChangedEvent>(OnScoreChanged);
+            Context.Events.Unsubscribe<EnemyDestroyedEvent>(OnEnemyDestroyed);
             _player.Fired -= OnPlayerFired;
             _player.Damaged -= OnPlayerDamaged;
             _player.Died -= OnPlayerDied;
@@ -135,6 +137,8 @@ namespace SpaceDodger.Screens
             _phase = Phase.Intro;
             _phaseTimer = IntroDuration;
             _elapsed = 0f;
+
+            Analytics.AnalyticsManager.LogLevelStarted(number, _player.Lives, _player.WeaponLevel);
 
             // Difficulty flavour: later levels scroll faster.
             _stars.SpeedMultiplier = 1f + (number - 1) * 0.12f;
@@ -268,6 +272,7 @@ namespace SpaceDodger.Screens
                 _phaseTimer = ClearedDuration;
                 SaveResumeState();
                 UnlockNextLevel();
+                Analytics.AnalyticsManager.LogLevelCompleted(_levelNumber, _score.Score, _elapsed, _player.Lives, _score.Combo);
             }
         }
 
@@ -306,9 +311,17 @@ namespace SpaceDodger.Screens
                 Apply(powerUp.Type);
                 Context.Audio.Play("pickup", 0.22f);
                 Context.Events.Publish(new PowerUpCollectedEvent(powerUp.Type));
+                Analytics.AnalyticsManager.LogSupplyCollected(powerUp.Type, _levelNumber, _player.Lives, _score.Score, _player.IsBoosted);
+                if (IsWeaponSupply(powerUp.Type))
+                    Analytics.AnalyticsManager.LogWeaponCollected(powerUp.Type.ToString(), _levelNumber);
                 powerUp.Deactivate();
             }
         }
+
+        private static bool IsWeaponSupply(PowerUpType type) =>
+            type == PowerUpType.Weapon || type == PowerUpType.Weapon3 || type == PowerUpType.Weapon4 || type == PowerUpType.Weapon5 ||
+            type == PowerUpType.Scatter || type == PowerUpType.Spiral || type == PowerUpType.Homing || type == PowerUpType.Ricochet ||
+            type == PowerUpType.Wave || type == PowerUpType.SweepLaser || type == PowerUpType.ChainLightning;
 
         private void Apply(PowerUpType type)
         {
@@ -626,8 +639,26 @@ namespace SpaceDodger.Screens
             }
             _factory.SpawnExplosion(player.Position, 2f);
             Context.Audio.Play("explosion", 0.36f);
+
+            Analytics.AnalyticsManager.LogLevelFailed(
+                _levelNumber, _score.Score, _elapsed, player.LastHitCause, player.WeaponLevel);
+            if (_levelNumber % GameConfig.BossEvery == 0)
+            {
+                Analytics.AnalyticsManager.LogBossFightResult(
+                    _levelNumber, $"Boss_LV{_levelNumber}", isVictory: false, _elapsed, 0);
+            }
+
             _phase = Phase.GameOver;
             _phaseTimer = GameOverDelay;
+        }
+
+        private void OnEnemyDestroyed(EnemyDestroyedEvent e)
+        {
+            if (e.IsBoss)
+            {
+                Analytics.AnalyticsManager.LogBossFightResult(
+                    _levelNumber, $"Boss_LV{_levelNumber}", isVictory: true, _elapsed, 0);
+            }
         }
 
         // --- drawing ------------------------------------------------------

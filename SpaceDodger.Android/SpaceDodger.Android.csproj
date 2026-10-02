@@ -30,7 +30,7 @@
 
     <!-- Linker: Sdk kütüphanelerini kırp, MonoGame assembly'lerini koru -->
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <AndroidLinkSkip>MonoGame.Framework;Xamarin.GooglePlayServices.Ads.Lite;Xamarin.GooglePlayServices.Basement;Xamarin.Android.Google.BillingClient;Xamarin.GooglePlayServices.Games.V2</AndroidLinkSkip>
+    <AndroidLinkSkip>MonoGame.Framework;Xamarin.GooglePlayServices.Ads.Lite;Xamarin.GooglePlayServices.Basement;Xamarin.Android.Google.BillingClient;Xamarin.GooglePlayServices.Games.V2;Xamarin.Firebase.Analytics</AndroidLinkSkip>
 
     <!-- AOT: Kapali (Windows AOT derleme MonoAOTCompiler cakismalarini engeller) -->
     <RunAOTCompilation>false</RunAOTCompilation>
@@ -46,6 +46,13 @@
     <PackageReference Include="Xamarin.GooglePlayServices.Ads.Lite" Version="124.0.0.5" />
     <PackageReference Include="Xamarin.Android.Google.BillingClient" Version="8.1.0" />
     <PackageReference Include="Xamarin.GooglePlayServices.Games.V2" Version="119.0.0" />
+    <PackageReference Include="Xamarin.Firebase.Analytics" Version="123.0.0.3" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Basement" Version="118.10.0.1" />
+  </ItemGroup>
+
+  <!-- Firebase configuration: google-services.json is processed when provided in project root -->
+  <ItemGroup Condition="Exists('google-services.json')">
+    <GoogleServicesJson Include="google-services.json" />
   </ItemGroup>
 
   <Import Project="..\SpaceDodger.Shared\SpaceDodger.Shared.projitems" Label="Shared" />

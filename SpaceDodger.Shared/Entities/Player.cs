@@ -302,6 +302,9 @@ namespace SpaceDodger.Entities
             return true;
         }
 
+        /// <summary>Records the most recent lethal or damaging contact source for death analytics.</summary>
+        public string LastHitCause { get; private set; } = SpaceDodger.Analytics.AnalyticsValues.KilledByUnknown;
+
         // --- damage -------------------------------------------------------
 
         public void OnCollision(ICollidable other)
@@ -309,9 +312,13 @@ namespace SpaceDodger.Entities
             switch (other)
             {
                 case Bullet bullet when bullet.Owner == BulletOwner.Enemy:
+                    LastHitCause = SpaceDodger.Analytics.AnalyticsValues.KilledByEnemyBullet;
                     TakeHit();
                     break;
-                case Enemy _:
+                case Enemy enemy:
+                    LastHitCause = enemy.IsBoss
+                        ? SpaceDodger.Analytics.AnalyticsValues.KilledByBossCollision
+                        : SpaceDodger.Analytics.AnalyticsValues.KilledByEnemyCollision;
                     TakeHit();
                     break;
             }

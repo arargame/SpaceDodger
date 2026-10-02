@@ -58,6 +58,10 @@ namespace SpaceDodger.Droid
 
             _iapService = new AndroidIAPService(this);
             _platform = new AndroidPlatform(this);
+
+            // Initialize Firebase Analytics on background thread (0 ms cold-start impact)
+            Services.FirebaseAnalyticsService.Attach(ApplicationContext);
+
             _game = new SpaceDodgerGame(_platform);
             _view = _game.Services.GetService(typeof(View)) as View;
 

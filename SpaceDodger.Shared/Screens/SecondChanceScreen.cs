@@ -35,6 +35,8 @@ namespace SpaceDodger.Screens
             // Ensure rewarded ad is preloaded or loading
             Context.Platform.LoadRewardedAd();
 
+            Analytics.AnalyticsManager.LogSecondChanceOffered(Context.Save.Data.ResumeLevel, 0);
+
             _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 96f, spacing: 18)
                 .Add("WATCH AD (+2 LIVES)", WatchAd)
                 .Add("GIVE UP", GiveUp);
@@ -60,6 +62,7 @@ namespace SpaceDodger.Screens
 
         private void GiveUp()
         {
+            Analytics.AnalyticsManager.LogSecondChanceUsed(Context.Save.Data.ResumeLevel, false);
             _onGiveUp?.Invoke();
         }
 
@@ -72,6 +75,7 @@ namespace SpaceDodger.Screens
 
                 if (_rewardEarned)
                 {
+                    Analytics.AnalyticsManager.LogSecondChanceUsed(Context.Save.Data.ResumeLevel, true);
                     _onRevive?.Invoke();
                     return;
                 }

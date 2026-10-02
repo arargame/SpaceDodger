@@ -30,6 +30,7 @@ namespace SpaceDodger.Screens
         {
             _stack.Add(screen);
             screen.Load();
+            Analytics.AnalyticsManager.LogScreenView(screen.GetType().Name);
         }
 
         public void Pop()
