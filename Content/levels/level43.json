@@ -4,46 +4,36 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "hulk",
-      "movement": "straight",
-      "formation": "Scatter",
-      "count": 4,
-      "interval": 0.18,
-      "healthMultiplier": 2.05,
-      "speedMultiplier": 1.42
-    },
-    {
-      "startTime": 4.3,
-      "enemy": "hulk",
-      "movement": "chase",
+      "enemy": "turret",
+      "movement": "sine",
       "formation": "Line",
-      "count": 2,
+      "count": 4,
       "interval": 0.17,
       "healthMultiplier": 2.05,
       "speedMultiplier": 1.42
     },
     {
-      "startTime": 7.9,
-      "enemy": "raider",
-      "movement": "straight",
+      "startTime": 4.3,
+      "enemy": "spinner",
+      "movement": "zigzag",
       "formation": "Line",
-      "count": 10,
+      "count": 8,
       "interval": 0.19,
       "healthMultiplier": 2.05,
       "speedMultiplier": 1.42
     },
     {
-      "startTime": 11.4,
-      "enemy": "lancer",
+      "startTime": 7.9,
+      "enemy": "shielder",
       "movement": "straight",
       "formation": "Diagonal",
-      "count": 6,
+      "count": 4,
       "interval": 0.16,
       "healthMultiplier": 2.05,
       "speedMultiplier": 1.42
     },
     {
-      "startTime": 15.0,
+      "startTime": 11.4,
       "enemy": "spinner",
       "movement": "zigzag",
       "formation": "Column",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.42
     },
     {
-      "startTime": 18.5,
+      "startTime": 15.0,
       "enemy": "hulk",
       "movement": "chase",
       "formation": "Line",
@@ -63,7 +53,7 @@
       "speedMultiplier": 1.42
     },
     {
-      "startTime": 22.0,
+      "startTime": 18.5,
       "enemy": "raider",
       "movement": "chase",
       "formation": "Line",
@@ -73,12 +63,22 @@
       "speedMultiplier": 1.42
     },
     {
-      "startTime": 25.6,
+      "startTime": 22.0,
       "enemy": "spinner",
       "movement": "zigzag",
       "formation": "Column",
       "count": 8,
       "interval": 0.18,
+      "healthMultiplier": 2.05,
+      "speedMultiplier": 1.42
+    },
+    {
+      "startTime": 25.6,
+      "enemy": "raider",
+      "movement": "chase",
+      "formation": "Diagonal",
+      "count": 10,
+      "interval": 0.15,
       "healthMultiplier": 2.05,
       "speedMultiplier": 1.42
     }

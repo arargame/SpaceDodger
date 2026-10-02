@@ -4,17 +4,7 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "hulk",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 2,
-      "interval": 0.19,
-      "healthMultiplier": 1.95,
-      "speedMultiplier": 1.38
-    },
-    {
-      "startTime": 4.4,
-      "enemy": "shielder",
+      "enemy": "splitter",
       "movement": "straight",
       "formation": "Scatter",
       "count": 2,
@@ -23,7 +13,7 @@
       "speedMultiplier": 1.38
     },
     {
-      "startTime": 8.0,
+      "startTime": 4.4,
       "enemy": "wasp",
       "movement": "sine",
       "formation": "Scatter",
@@ -33,52 +23,62 @@
       "speedMultiplier": 1.38
     },
     {
-      "startTime": 11.7,
-      "enemy": "hulk",
+      "startTime": 8.0,
+      "enemy": "turret",
       "movement": "straight",
       "formation": "Line",
       "count": 3,
-      "interval": 0.15,
+      "interval": 0.12,
+      "healthMultiplier": 1.95,
+      "speedMultiplier": 1.38
+    },
+    {
+      "startTime": 11.7,
+      "enemy": "splitter",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.2,
       "healthMultiplier": 1.95,
       "speedMultiplier": 1.38
     },
     {
       "startTime": 15.3,
-      "enemy": "shielder",
+      "enemy": "spinner",
       "movement": "straight",
       "formation": "Scatter",
-      "count": 6,
-      "interval": 0.19,
+      "count": 3,
+      "interval": 0.12,
       "healthMultiplier": 1.95,
       "speedMultiplier": 1.38
     },
     {
       "startTime": 18.9,
-      "enemy": "hulk",
-      "movement": "straight",
+      "enemy": "shielder",
+      "movement": "sine",
       "formation": "Diagonal",
-      "count": 3,
-      "interval": 0.16,
+      "count": 5,
+      "interval": 0.13,
       "healthMultiplier": 1.95,
       "speedMultiplier": 1.38
     },
     {
       "startTime": 22.5,
-      "enemy": "bomber",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 6,
+      "enemy": "scout",
+      "movement": "zigzag",
+      "formation": "Line",
+      "count": 16,
       "interval": 0.23,
       "healthMultiplier": 1.95,
       "speedMultiplier": 1.38
     },
     {
       "startTime": 26.1,
-      "enemy": "scout",
-      "movement": "zigzag",
+      "enemy": "turret",
+      "movement": "sine",
       "formation": "Line",
-      "count": 16,
-      "interval": 0.23,
+      "count": 5,
+      "interval": 0.13,
       "healthMultiplier": 1.95,
       "speedMultiplier": 1.38
     }

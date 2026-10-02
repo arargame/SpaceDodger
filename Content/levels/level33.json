@@ -4,16 +4,6 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "scout",
-      "movement": "zigzag",
-      "formation": "Scatter",
-      "count": 14,
-      "interval": 0.17,
-      "healthMultiplier": 1.8,
-      "speedMultiplier": 1.32
-    },
-    {
-      "startTime": 4.5,
       "enemy": "spinner",
       "movement": "straight",
       "formation": "Diagonal",
@@ -23,17 +13,17 @@
       "speedMultiplier": 1.32
     },
     {
-      "startTime": 8.3,
-      "enemy": "hulk",
-      "movement": "chase",
+      "startTime": 4.5,
+      "enemy": "turret",
+      "movement": "sine",
       "formation": "Column",
-      "count": 2,
+      "count": 3,
       "interval": 0.15,
       "healthMultiplier": 1.8,
       "speedMultiplier": 1.32
     },
     {
-      "startTime": 12.0,
+      "startTime": 8.3,
       "enemy": "fighter",
       "movement": "sine",
       "formation": "Diagonal",
@@ -43,7 +33,7 @@
       "speedMultiplier": 1.32
     },
     {
-      "startTime": 15.8,
+      "startTime": 12.0,
       "enemy": "bomber",
       "movement": "straight",
       "formation": "Scatter",
@@ -53,17 +43,17 @@
       "speedMultiplier": 1.32
     },
     {
-      "startTime": 19.5,
-      "enemy": "turret",
-      "movement": "straight",
+      "startTime": 15.8,
+      "enemy": "raider",
+      "movement": "sine",
       "formation": "Diagonal",
-      "count": 4,
+      "count": 7,
       "interval": 0.14,
       "healthMultiplier": 1.8,
       "speedMultiplier": 1.32
     },
     {
-      "startTime": 23.2,
+      "startTime": 19.5,
       "enemy": "turret",
       "movement": "sine",
       "formation": "Line",
@@ -73,12 +63,22 @@
       "speedMultiplier": 1.32
     },
     {
-      "startTime": 27.0,
+      "startTime": 23.2,
       "enemy": "hulk",
       "movement": "chase",
       "formation": "Scatter",
       "count": 3,
       "interval": 0.16,
+      "healthMultiplier": 1.8,
+      "speedMultiplier": 1.32
+    },
+    {
+      "startTime": 27.0,
+      "enemy": "splitter",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 2,
+      "interval": 0.27,
       "healthMultiplier": 1.8,
       "speedMultiplier": 1.32
     }

@@ -54,10 +54,10 @@
     },
     {
       "startTime": 15.2,
-      "enemy": "turret",
-      "movement": "sine",
+      "enemy": "raider",
+      "movement": "chase",
       "formation": "Diagonal",
-      "count": 6,
+      "count": 9,
       "interval": 0.09,
       "healthMultiplier": 2.88,
       "speedMultiplier": 1.7

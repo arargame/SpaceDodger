@@ -4,16 +4,6 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "wasp",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 19,
-      "interval": 0.16,
-      "healthMultiplier": 3.2,
-      "speedMultiplier": 1.7
-    },
-    {
-      "startTime": 3.4,
       "enemy": "spinner",
       "movement": "straight",
       "formation": "Column",
@@ -23,17 +13,17 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 6.0,
-      "enemy": "lancer",
-      "movement": "chase",
+      "startTime": 3.4,
+      "enemy": "shielder",
+      "movement": "sine",
       "formation": "Scatter",
-      "count": 6,
+      "count": 3,
       "interval": 0.13,
       "healthMultiplier": 3.2,
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 8.7,
+      "startTime": 6.0,
       "enemy": "turret",
       "movement": "straight",
       "formation": "Diagonal",
@@ -43,17 +33,17 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 11.3,
-      "enemy": "spinner",
-      "movement": "zigzag",
+      "startTime": 8.7,
+      "enemy": "splitter",
+      "movement": "sine",
       "formation": "Diagonal",
-      "count": 9,
+      "count": 3,
       "interval": 0.16,
       "healthMultiplier": 3.2,
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 13.9,
+      "startTime": 11.3,
       "enemy": "wasp",
       "movement": "sine",
       "formation": "Scatter",
@@ -63,22 +53,32 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 16.5,
-      "enemy": "lancer",
+      "startTime": 13.9,
+      "enemy": "shielder",
       "movement": "straight",
       "formation": "Scatter",
-      "count": 9,
+      "count": 6,
       "interval": 0.11,
+      "healthMultiplier": 3.2,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 16.5,
+      "enemy": "bomber",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 8,
+      "interval": 0.08,
       "healthMultiplier": 3.2,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 19.1,
       "enemy": "bomber",
-      "movement": "straight",
+      "movement": "sine",
       "formation": "Scatter",
-      "count": 8,
-      "interval": 0.08,
+      "count": 5,
+      "interval": 0.11,
       "healthMultiplier": 3.2,
       "speedMultiplier": 1.7
     }

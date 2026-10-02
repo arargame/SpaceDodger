@@ -4,16 +4,6 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "drone",
-      "movement": "sine",
-      "formation": "Column",
-      "count": 14,
-      "interval": 0.15,
-      "healthMultiplier": 3.33,
-      "speedMultiplier": 1.7
-    },
-    {
-      "startTime": 3.4,
       "enemy": "raider",
       "movement": "sine",
       "formation": "Scatter",
@@ -23,31 +13,41 @@
       "speedMultiplier": 1.7
     },
     {
+      "startTime": 3.4,
+      "enemy": "splitter",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.15,
+      "healthMultiplier": 3.33,
+      "speedMultiplier": 1.7
+    },
+    {
       "startTime": 6.0,
-      "enemy": "shielder",
-      "movement": "straight",
-      "formation": "Line",
+      "enemy": "spinner",
+      "movement": "sine",
+      "formation": "Scatter",
       "count": 6,
-      "interval": 0.13,
+      "interval": 0.09,
       "healthMultiplier": 3.33,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 8.6,
       "enemy": "shielder",
-      "movement": "straight",
-      "formation": "Line",
-      "count": 5,
-      "interval": 0.1,
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.11,
       "healthMultiplier": 3.33,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 11.2,
-      "enemy": "shielder",
-      "movement": "sine",
+      "enemy": "hulk",
+      "movement": "chase",
       "formation": "Line",
-      "count": 8,
+      "count": 3,
       "interval": 0.09,
       "healthMultiplier": 3.33,
       "speedMultiplier": 1.7
@@ -64,20 +64,20 @@
     },
     {
       "startTime": 16.4,
-      "enemy": "lancer",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 14,
-      "interval": 0.13,
+      "enemy": "shielder",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 8,
+      "interval": 0.11,
       "healthMultiplier": 3.33,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 19.0,
-      "enemy": "turret",
+      "enemy": "hulk",
       "movement": "straight",
       "formation": "Line",
-      "count": 3,
+      "count": 2,
       "interval": 0.15,
       "healthMultiplier": 3.33,
       "speedMultiplier": 1.7

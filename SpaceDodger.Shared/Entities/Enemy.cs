@@ -20,10 +20,17 @@ namespace SpaceDodger.Entities
         /// <summary>Raised when the fire timer elapses; the spawner creates the bullet.</summary>
         public event Action<Enemy> WantsToFire;
 
+        /// <summary>Raised when a dividing enemy is ready to undergo mitosis/split.</summary>
+        public event Action<Enemy> WantsToSplit;
+
         /// <summary>Raised when damaged but still alive, for impact feedback.</summary>
         public event Action<Enemy> Hit;
 
         public EnemyDefinition Definition { get; private set; }
+
+        public int SplitGeneration { get; set; }
+
+        public float Scale { get; set; } = 1f;
 
         // Named MovementStrategy (not Movement) so it never shadows the
         // SpaceDodger.Movement namespace inside this file.
@@ -58,13 +65,14 @@ namespace SpaceDodger.Entities
         private Rectangle _world;
         private float _fireTimer;
         private float _hitFlash;
+        private float _splitTimer;
 
         public override Rectangle Bounds
         {
             get
             {
                 // Slightly forgiving hitbox (2px inset) — feels better to play.
-                var r = CenteredRect(_animation.FrameWidth, _animation.FrameHeight);
+                var r = CenteredRect((int)(_animation.FrameWidth * Scale), (int)(_animation.FrameHeight * Scale));
                 r.Inflate(-2, -2);
                 return r;
             }
@@ -88,6 +96,9 @@ namespace SpaceDodger.Entities
             FireIntervalMultiplier = fireIntervalMultiplier;
             MaxHealth = Math.Max(1, (int)Math.Round(definition.MaxHealth * healthMultiplier));
             Health = MaxHealth;
+            Scale = 1f;
+            SplitGeneration = 0;
+            _splitTimer = 0f;
 
             // Stagger first shots so a wave does not fire in unison.
             _fireTimer = definition.Shoots ? definition.FireInterval * FireIntervalMultiplier * 0.5f : 0f;
@@ -100,6 +111,7 @@ namespace SpaceDodger.Entities
             // Pooled objects must not keep listeners alive between lives.
             Destroyed = null;
             WantsToFire = null;
+            WantsToSplit = null;
             Hit = null;
         }
 
@@ -122,6 +134,16 @@ namespace SpaceDodger.Entities
                 }
             }
 
+            if (Definition.Key == "splitter" && Position.X < _world.Right - 8f && Position.X > _world.Left + 16f)
+            {
+                _splitTimer += dt;
+                if (_splitTimer >= 2.0f)
+                {
+                    _splitTimer = 0f;
+                    WantsToSplit?.Invoke(this);
+                }
+            }
+
             // Standard waves leave through the left edge; procedural dive and
             // flock enemies leave below the playfield. Both paths award no score.
             if (Position.X < _world.Left - _animation.FrameWidth ||
@@ -133,6 +155,13 @@ namespace SpaceDodger.Entities
         {
             if (!Active)
                 return;
+
+            // Boss resistance: bosses resist heavy weapon chunking;
+            // all player weapons deal normal bullet damage (1 per hit) against bosses.
+            if (IsBoss && amount > 1)
+            {
+                amount = 1;
+            }
 
             Health -= amount;
             _hitFlash = 0.08f;
@@ -166,7 +195,7 @@ namespace SpaceDodger.Entities
 
             spriteBatch.Draw(
                 _animation.Texture, Position, _animation.FrameRect(_player.FrameIndex),
-                color, 0f, origin, 1f, SpriteEffects.None, 0f);
+                color, 0f, origin, Scale, SpriteEffects.None, 0f);
         }
 
         /// <summary>Muzzle point in world space (front/left edge of the sprite).</summary>

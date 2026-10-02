@@ -21,7 +21,7 @@ FORMATIONS = ["Line", "Diagonal", "Scatter", "Column"]
 UNLOCK = {
     "drone": 1, "scout": 2, "fighter": 3, "wasp": 5, "mine": 6,
     "bomber": 7, "seeker": 9, "lancer": 12, "shielder": 14,
-    "spinner": 17, "raider": 21, "turret": 25, "hulk": 31,
+    "splitter": 15, "spinner": 17, "raider": 21, "turret": 25, "hulk": 31,
 }
 
 # species -> movement patterns that suit it
@@ -35,6 +35,7 @@ MOVES = {
     "seeker":   ["chase", "sine", "zigzag", "chase"],
     "lancer":   ["straight", "chase"],
     "shielder": ["straight", "sine"],
+    "splitter": ["straight", "sine"],
     "spinner":  ["sine", "zigzag", "straight"],
     "raider":   ["chase", "sine", "straight", "chase"],
     "turret":   ["straight", "sine"],
@@ -45,7 +46,7 @@ MOVES = {
 BULK = {
     "drone": (8, 16), "scout": (6, 14), "fighter": (5, 10), "wasp": (6, 12),
     "mine": (4, 8), "bomber": (2, 5), "seeker": (4, 8), "lancer": (4, 9),
-    "shielder": (2, 5), "spinner": (3, 7), "raider": (4, 8),
+    "shielder": (2, 5), "splitter": (1, 3), "spinner": (3, 7), "raider": (4, 8),
     "turret": (2, 5), "hulk": (1, 3),
 }
 

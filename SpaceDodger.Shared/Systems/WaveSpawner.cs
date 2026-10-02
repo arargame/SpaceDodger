@@ -42,6 +42,8 @@ namespace SpaceDodger.Systems
         private float _reinforcementTimer;
         private float _supplyDriftTimer;
         private float _fatDrifterTimer;
+        private float _splitterDrifterTimer;
+        private float _bossAddTimer;
 
         public LevelData Level { get; private set; }
 
@@ -67,6 +69,8 @@ namespace SpaceDodger.Systems
             AllWavesSpawned = false;
             _reinforcementTimer = 4.5f;
             _fatDrifterTimer = 12f + (float)_random.NextDouble() * 8f;
+            _splitterDrifterTimer = 18f + (float)_random.NextDouble() * 12f;
+            _bossAddTimer = 10f;
             _supplyDriftTimer = GameConfig.SupplyDriftMinimumInterval +
                 (float)_random.NextDouble() * (GameConfig.SupplyDriftMaximumInterval - GameConfig.SupplyDriftMinimumInterval);
             _waves.Clear();
@@ -97,27 +101,98 @@ namespace SpaceDodger.Systems
         {
             _time += dt;
 
+            bool bossActive = IsBossActive();
             bool anyPending = false;
 
-            foreach (var wave in _waves)
+            if (bossActive)
             {
-                if (wave.Spawned >= wave.TargetCount)
-                    continue;
-
+                // Boss encounter is active: block parallel swarm dumps.
+                // Minion swarms arrive strictly sequentially every 10 seconds until the boss is destroyed.
                 anyPending = true;
-
-                while (wave.Spawned < wave.TargetCount && _time >= wave.NextSpawnTime)
+                _bossAddTimer -= dt;
+                if (_bossAddTimer <= 0f)
                 {
-                    SpawnAuthoredEnemy(wave);
-                    wave.Spawned++;
-                    wave.NextSpawnTime += wave.Data.Interval * _director.Current.WaveInterval;
+                    _bossAddTimer = 10.0f;
+                    SpawnNextBossAddWave();
+                }
+            }
+            else
+            {
+                foreach (var wave in _waves)
+                {
+                    if (wave.Spawned >= wave.TargetCount)
+                        continue;
+
+                    anyPending = true;
+
+                    while (wave.Spawned < wave.TargetCount && _time >= wave.NextSpawnTime)
+                    {
+                        SpawnAuthoredEnemy(wave);
+                        wave.Spawned++;
+                        wave.NextSpawnTime += wave.Data.Interval * _director.Current.WaveInterval;
+
+                        // When a boss enters the playfield, immediately engage 10-second sequential add cadence
+                        if (wave.Definition.IsBoss)
+                        {
+                            _bossAddTimer = 10.0f;
+                            break;
+                        }
+                    }
+
+                    if (IsBossActive())
+                        break;
                 }
             }
 
             AllWavesSpawned = !anyPending;
             UpdateAdaptiveReinforcements(dt);
             UpdateFatDrifter(dt);
+            UpdateSplitterDrifter(dt);
             UpdateSupplyDrift(dt);
+        }
+
+        private bool IsBossActive()
+        {
+            var items = _factory.Enemies.Items;
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].Active && items[i].IsBoss)
+                    return true;
+            }
+            return false;
+        }
+
+        private void SpawnNextBossAddWave()
+        {
+            WaveRuntime nextWave = null;
+            foreach (var wave in _waves)
+            {
+                if (!wave.Definition.IsBoss && wave.Spawned < wave.TargetCount)
+                {
+                    nextWave = wave;
+                    break;
+                }
+            }
+
+            if (nextWave != null)
+            {
+                while (nextWave.Spawned < nextWave.TargetCount)
+                {
+                    SpawnAuthoredEnemy(nextWave);
+                    nextWave.Spawned++;
+                }
+            }
+            else
+            {
+                // Authored waves exhausted while boss is still alive: spawn a light 3-ship escort swarm
+                var escortDef = EnemyCatalog.Get(Level.Number < 30 ? "fighter" : "wasp");
+                var movement = MovementRegistry.Get("sine");
+                for (int i = 0; i < 3; i++)
+                {
+                    var pos = new Vector2(_world.Bounds.Right + 16f + i * 20f, RandomLane());
+                    SpawnEnemy(escortDef, movement, pos, 1f, 1f);
+                }
+            }
         }
 
         private void SpawnAuthoredEnemy(WaveRuntime wave)
@@ -202,6 +277,27 @@ namespace SpaceDodger.Systems
             SpawnEnemy(def, movement, pos, hpMultiplier, 1f);
         }
 
+        private void UpdateSplitterDrifter(float dt)
+        {
+            if (AllWavesSpawned || Level.Number % GameConfig.BossEvery == 0)
+                return;
+
+            _splitterDrifterTimer -= dt;
+            if (_splitterDrifterTimer > 0f)
+                return;
+
+            _splitterDrifterTimer = 22f + (float)_random.NextDouble() * 12f;
+            SpawnProceduralSplitter();
+        }
+
+        private void SpawnProceduralSplitter()
+        {
+            var def = EnemyCatalog.Get("splitter");
+            var movement = MovementRegistry.Get("straight");
+            var pos = new Vector2(_world.Bounds.Right + 16f, RandomLane());
+            SpawnEnemy(def, movement, pos, 1f, 1f);
+        }
+
         private int FindMinimumEnemyHealthInLevel(LevelData level)
         {
             int minHp = int.MaxValue;
@@ -265,8 +361,56 @@ namespace SpaceDodger.Systems
 
             enemy.Destroyed += OnEnemyDestroyed;
             enemy.WantsToFire += OnEnemyWantsToFire;
+            enemy.WantsToSplit += OnEnemyWantsToSplit;
             enemy.Hit += OnEnemyHit;
 
+            SpawnedCount++;
+        }
+
+        private void OnEnemyWantsToSplit(Enemy parent)
+        {
+            if (!parent.Active || parent.SplitGeneration >= 3)
+                return;
+
+            int nextGen = parent.SplitGeneration + 1;
+            // Strict lane separation ensures dividing enemies occupy separate vertical tracks without overlapping
+            float separation = (parent.SplitGeneration == 0) ? 36f : (parent.SplitGeneration == 1 ? 24f : 16f);
+            float halfSep = separation / 2f;
+            float topLimit = _world.Bounds.Top + 14f;
+            float bottomLimit = _world.Bounds.Bottom - 14f;
+            float centerY = MathHelper.Clamp(parent.Position.Y, topLimit + halfSep, bottomLimit - halfSep);
+            float upperY = centerY - halfSep;
+            float lowerY = centerY + halfSep;
+
+            _factory.SpawnSpark(parent.Position);
+
+            var def = parent.Definition;
+            var movement = MovementRegistry.Get("straight");
+            int childHealth = Math.Max(1, parent.Health / 2);
+            float childScale = (nextGen == 1) ? 0.78f : ((nextGen == 2) ? 0.60f : 0.48f);
+            float x = parent.Position.X;
+            float hpMult = childHealth / (float)def.MaxHealth;
+
+            parent.Deactivate();
+
+            // Spawn upper child in distinct upper lane
+            var child1 = _factory.SpawnEnemy(def, movement, new Vector2(x, upperY), _world, hpMult, 1f, 1f);
+            child1.Scale = childScale;
+            child1.SplitGeneration = nextGen;
+            child1.Destroyed += OnEnemyDestroyed;
+            child1.WantsToFire += OnEnemyWantsToFire;
+            child1.WantsToSplit += OnEnemyWantsToSplit;
+            child1.Hit += OnEnemyHit;
+            SpawnedCount++;
+
+            // Spawn lower child in distinct lower lane
+            var child2 = _factory.SpawnEnemy(def, movement, new Vector2(x, lowerY), _world, hpMult, 1f, 1f);
+            child2.Scale = childScale;
+            child2.SplitGeneration = nextGen;
+            child2.Destroyed += OnEnemyDestroyed;
+            child2.WantsToFire += OnEnemyWantsToFire;
+            child2.WantsToSplit += OnEnemyWantsToSplit;
+            child2.Hit += OnEnemyHit;
             SpawnedCount++;
         }
 

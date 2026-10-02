@@ -4,16 +4,6 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "shielder",
-      "movement": "sine",
-      "formation": "Line",
-      "count": 4,
-      "interval": 0.15,
-      "healthMultiplier": 2.45,
-      "speedMultiplier": 1.58
-    },
-    {
-      "startTime": 4.0,
       "enemy": "raider",
       "movement": "chase",
       "formation": "Column",
@@ -23,7 +13,7 @@
       "speedMultiplier": 1.58
     },
     {
-      "startTime": 7.2,
+      "startTime": 4.0,
       "enemy": "shielder",
       "movement": "sine",
       "formation": "Diagonal",
@@ -33,7 +23,7 @@
       "speedMultiplier": 1.58
     },
     {
-      "startTime": 10.5,
+      "startTime": 7.2,
       "enemy": "bomber",
       "movement": "sine",
       "formation": "Diagonal",
@@ -43,7 +33,7 @@
       "speedMultiplier": 1.58
     },
     {
-      "startTime": 13.7,
+      "startTime": 10.5,
       "enemy": "turret",
       "movement": "straight",
       "formation": "Scatter",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.58
     },
     {
-      "startTime": 16.9,
+      "startTime": 13.7,
       "enemy": "lancer",
       "movement": "chase",
       "formation": "Scatter",
@@ -63,22 +53,32 @@
       "speedMultiplier": 1.58
     },
     {
-      "startTime": 20.1,
-      "enemy": "shielder",
+      "startTime": 16.9,
+      "enemy": "splitter",
       "movement": "sine",
       "formation": "Scatter",
-      "count": 3,
+      "count": 2,
       "interval": 0.09,
       "healthMultiplier": 2.45,
       "speedMultiplier": 1.58
     },
     {
-      "startTime": 23.3,
-      "enemy": "lancer",
+      "startTime": 20.1,
+      "enemy": "shielder",
       "movement": "straight",
       "formation": "Diagonal",
-      "count": 12,
-      "interval": 0.11,
+      "count": 4,
+      "interval": 0.15,
+      "healthMultiplier": 2.45,
+      "speedMultiplier": 1.58
+    },
+    {
+      "startTime": 23.3,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 15,
+      "interval": 0.18,
       "healthMultiplier": 2.45,
       "speedMultiplier": 1.58
     }

@@ -8,32 +8,12 @@
       "movement": "sine",
       "formation": "Line",
       "count": 4,
-      "interval": 0.16,
-      "healthMultiplier": 2.3,
-      "speedMultiplier": 1.52
-    },
-    {
-      "startTime": 4.1,
-      "enemy": "turret",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 4,
-      "interval": 0.11,
-      "healthMultiplier": 2.3,
-      "speedMultiplier": 1.52
-    },
-    {
-      "startTime": 7.5,
-      "enemy": "turret",
-      "movement": "sine",
-      "formation": "Line",
-      "count": 4,
       "interval": 0.13,
       "healthMultiplier": 2.3,
       "speedMultiplier": 1.52
     },
     {
-      "startTime": 10.8,
+      "startTime": 4.1,
       "enemy": "spinner",
       "movement": "zigzag",
       "formation": "Column",
@@ -43,7 +23,7 @@
       "speedMultiplier": 1.52
     },
     {
-      "startTime": 14.2,
+      "startTime": 7.5,
       "enemy": "turret",
       "movement": "sine",
       "formation": "Line",
@@ -53,7 +33,7 @@
       "speedMultiplier": 1.52
     },
     {
-      "startTime": 17.5,
+      "startTime": 10.8,
       "enemy": "hulk",
       "movement": "straight",
       "formation": "Diagonal",
@@ -63,7 +43,7 @@
       "speedMultiplier": 1.52
     },
     {
-      "startTime": 20.8,
+      "startTime": 14.2,
       "enemy": "spinner",
       "movement": "straight",
       "formation": "Column",
@@ -73,12 +53,32 @@
       "speedMultiplier": 1.52
     },
     {
+      "startTime": 17.5,
+      "enemy": "spinner",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 9,
+      "interval": 0.19,
+      "healthMultiplier": 2.3,
+      "speedMultiplier": 1.52
+    },
+    {
+      "startTime": 20.8,
+      "enemy": "turret",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 6,
+      "interval": 0.16,
+      "healthMultiplier": 2.3,
+      "speedMultiplier": 1.52
+    },
+    {
       "startTime": 24.2,
-      "enemy": "raider",
+      "enemy": "hulk",
       "movement": "chase",
       "formation": "Column",
-      "count": 10,
-      "interval": 0.15,
+      "count": 2,
+      "interval": 0.1,
       "healthMultiplier": 2.3,
       "speedMultiplier": 1.52
     }

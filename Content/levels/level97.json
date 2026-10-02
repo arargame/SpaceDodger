@@ -4,26 +4,16 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "drone",
-      "movement": "zigzag",
-      "formation": "Line",
-      "count": 24,
-      "interval": 0.11,
+      "enemy": "wasp",
+      "movement": "sine",
+      "formation": "Diagonal",
+      "count": 20,
+      "interval": 0.08,
       "healthMultiplier": 3.4,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 3.4,
-      "enemy": "spinner",
-      "movement": "zigzag",
-      "formation": "Diagonal",
-      "count": 5,
-      "interval": 0.14,
-      "healthMultiplier": 3.4,
-      "speedMultiplier": 1.7
-    },
-    {
-      "startTime": 6.0,
       "enemy": "turret",
       "movement": "straight",
       "formation": "Scatter",
@@ -33,7 +23,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 8.6,
+      "startTime": 6.0,
       "enemy": "drone",
       "movement": "zigzag",
       "formation": "Scatter",
@@ -43,17 +33,17 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 11.2,
-      "enemy": "raider",
-      "movement": "chase",
+      "startTime": 8.6,
+      "enemy": "spinner",
+      "movement": "zigzag",
       "formation": "Diagonal",
-      "count": 7,
+      "count": 5,
       "interval": 0.12,
       "healthMultiplier": 3.4,
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 13.8,
+      "startTime": 11.2,
       "enemy": "fighter",
       "movement": "chase",
       "formation": "Line",
@@ -63,7 +53,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 16.4,
+      "startTime": 13.8,
       "enemy": "turret",
       "movement": "straight",
       "formation": "Diagonal",
@@ -73,12 +63,22 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 19.0,
+      "startTime": 16.4,
       "enemy": "spinner",
       "movement": "zigzag",
       "formation": "Diagonal",
       "count": 7,
       "interval": 0.15,
+      "healthMultiplier": 3.4,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 19.0,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Scatter",
+      "count": 3,
+      "interval": 0.13,
       "healthMultiplier": 3.4,
       "speedMultiplier": 1.7
     }

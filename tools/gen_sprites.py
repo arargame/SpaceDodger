@@ -57,6 +57,8 @@ RAMPS = {
                     l=rgba(160,214,60),  h=rgba(218,248,144), a=rgba(232,56,222),  b=rgba(252,172,246)),
     'void':    dict(k=rgba(8,6,18),    d=rgba(32,24,56),   m=rgba(62,48,100),
                     l=rgba(100,82,152),  h=rgba(154,136,208), a=rgba(255,52,116),  b=rgba(255,172,202)),
+    'khaki':   dict(k=rgba(18,22,10),   d=rgba(46,58,26),   m=rgba(88,108,48),
+                    l=rgba(138,164,66),  h=rgba(192,216,90),  a=rgba(245,200,32), b=rgba(255,242,96)),
 }
 
 
@@ -350,6 +352,19 @@ SHAPES['lancer'] = ('steel', mirror_down([
     "XXXXXXXXXXXXXXXX",
     "XAAXXXXXXXXXXXXX",
 ], has_center=True))
+
+# big dividing amoeba / cellular carrier (khaki green & yellow)
+SHAPES['splitter'] = ('khaki', mirror_down([
+    ".......XXXXXXXXXXX......",
+    "....XXXXXXXXXXXXXXXX....",
+    "..XXXXX...XXXX...XXXXX..",
+    ".XXXXXX.AAAAAA.XXXXXXX..",
+    "XXXXXXXXAAABBBAAXXXXXXXX",
+    "XXXXXXXXAAABBBAAXXXXXXXX",
+    ".XXXXXX.AAAAAA.XXXXXXX..",
+    "..XXXXX...XXXX...XXXXX..",
+    "....XXXXXXXXXXXXXXXX....",
+]))
 
 print("enemies:")
 for name, (colour, shape) in SHAPES.items():

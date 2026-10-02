@@ -34,10 +34,10 @@
     },
     {
       "startTime": 9.6,
-      "enemy": "shielder",
+      "enemy": "splitter",
       "movement": "straight",
       "formation": "Column",
-      "count": 6,
+      "count": 3,
       "interval": 0.09,
       "healthMultiplier": 2.83,
       "speedMultiplier": 1.7
@@ -64,20 +64,20 @@
     },
     {
       "startTime": 18.3,
-      "enemy": "hulk",
-      "movement": "straight",
+      "enemy": "turret",
+      "movement": "sine",
       "formation": "Line",
-      "count": 4,
-      "interval": 0.14,
+      "count": 3,
+      "interval": 0.15,
       "healthMultiplier": 2.83,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 21.2,
-      "enemy": "shielder",
+      "enemy": "splitter",
       "movement": "sine",
       "formation": "Scatter",
-      "count": 3,
+      "count": 2,
       "interval": 0.08,
       "healthMultiplier": 2.83,
       "speedMultiplier": 1.7

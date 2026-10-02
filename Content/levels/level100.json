@@ -4,16 +4,6 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "lancer",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 10,
-      "interval": 0.11,
-      "healthMultiplier": 3.48,
-      "speedMultiplier": 1.7
-    },
-    {
-      "startTime": 3.4,
       "enemy": "wasp",
       "movement": "zigzag",
       "formation": "Scatter",
@@ -23,7 +13,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 6.0,
+      "startTime": 3.4,
       "enemy": "spinner",
       "movement": "zigzag",
       "formation": "Column",
@@ -33,17 +23,17 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 8.6,
-      "enemy": "spinner",
-      "movement": "zigzag",
+      "startTime": 6.0,
+      "enemy": "splitter",
+      "movement": "sine",
       "formation": "Scatter",
-      "count": 12,
+      "count": 5,
       "interval": 0.1,
       "healthMultiplier": 3.48,
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 11.2,
+      "startTime": 8.6,
       "enemy": "wasp",
       "movement": "sine",
       "formation": "Scatter",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 13.8,
+      "startTime": 11.2,
       "enemy": "fighter",
       "movement": "sine",
       "formation": "Column",
@@ -63,7 +53,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 16.4,
+      "startTime": 13.8,
       "enemy": "spinner",
       "movement": "sine",
       "formation": "Scatter",
@@ -73,12 +63,22 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 19.0,
+      "startTime": 16.4,
       "enemy": "spinner",
       "movement": "zigzag",
       "formation": "Line",
       "count": 10,
       "interval": 0.1,
+      "healthMultiplier": 3.48,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 19.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 3,
+      "interval": 0.08,
       "healthMultiplier": 3.48,
       "speedMultiplier": 1.7
     },
@@ -93,8 +93,8 @@
     },
     {
       "startTime": 17.5,
-      "enemy": "spinner",
-      "movement": "sine",
+      "enemy": "raider",
+      "movement": "chase",
       "formation": "Diagonal",
       "count": 15,
       "interval": 0.5,

@@ -4,37 +4,27 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "shielder",
-      "movement": "sine",
+      "enemy": "raider",
+      "movement": "straight",
       "formation": "Column",
-      "count": 3,
-      "interval": 0.18,
+      "count": 6,
+      "interval": 0.25,
       "healthMultiplier": 1.88,
       "speedMultiplier": 1.35
     },
     {
       "startTime": 4.5,
-      "enemy": "spinner",
+      "enemy": "turret",
       "movement": "straight",
       "formation": "Column",
-      "count": 7,
-      "interval": 0.26,
+      "count": 3,
+      "interval": 0.15,
       "healthMultiplier": 1.88,
       "speedMultiplier": 1.35
     },
     {
       "startTime": 8.2,
-      "enemy": "fighter",
-      "movement": "sine",
-      "formation": "Column",
-      "count": 6,
-      "interval": 0.18,
-      "healthMultiplier": 1.88,
-      "speedMultiplier": 1.35
-    },
-    {
-      "startTime": 11.8,
-      "enemy": "shielder",
+      "enemy": "splitter",
       "movement": "straight",
       "formation": "Scatter",
       "count": 2,
@@ -43,7 +33,7 @@
       "speedMultiplier": 1.35
     },
     {
-      "startTime": 15.5,
+      "startTime": 11.8,
       "enemy": "bomber",
       "movement": "sine",
       "formation": "Diagonal",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.35
     },
     {
-      "startTime": 19.2,
+      "startTime": 15.5,
       "enemy": "raider",
       "movement": "chase",
       "formation": "Scatter",
@@ -63,22 +53,32 @@
       "speedMultiplier": 1.35
     },
     {
-      "startTime": 22.9,
-      "enemy": "shielder",
+      "startTime": 19.2,
+      "enemy": "splitter",
       "movement": "straight",
       "formation": "Column",
-      "count": 6,
+      "count": 2,
       "interval": 0.27,
       "healthMultiplier": 1.88,
       "speedMultiplier": 1.35
     },
     {
-      "startTime": 26.6,
+      "startTime": 22.9,
       "enemy": "shielder",
       "movement": "straight",
       "formation": "Line",
       "count": 2,
       "interval": 0.15,
+      "healthMultiplier": 1.88,
+      "speedMultiplier": 1.35
+    },
+    {
+      "startTime": 26.6,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 3,
+      "interval": 0.23,
       "healthMultiplier": 1.88,
       "speedMultiplier": 1.35
     }

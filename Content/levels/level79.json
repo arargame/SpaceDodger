@@ -14,10 +14,10 @@
     },
     {
       "startTime": 3.6,
-      "enemy": "lancer",
+      "enemy": "shielder",
       "movement": "straight",
       "formation": "Column",
-      "count": 7,
+      "count": 4,
       "interval": 0.11,
       "healthMultiplier": 2.95,
       "speedMultiplier": 1.7
@@ -34,11 +34,11 @@
     },
     {
       "startTime": 9.3,
-      "enemy": "spinner",
-      "movement": "straight",
+      "enemy": "splitter",
+      "movement": "sine",
       "formation": "Line",
-      "count": 4,
-      "interval": 0.1,
+      "count": 2,
+      "interval": 0.09,
       "healthMultiplier": 2.95,
       "speedMultiplier": 1.7
     },

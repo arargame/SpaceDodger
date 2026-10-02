@@ -4,16 +4,6 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "shielder",
-      "movement": "sine",
-      "formation": "Column",
-      "count": 4,
-      "interval": 0.19,
-      "healthMultiplier": 1.7,
-      "speedMultiplier": 1.28
-    },
-    {
-      "startTime": 4.6,
       "enemy": "raider",
       "movement": "chase",
       "formation": "Scatter",
@@ -23,7 +13,7 @@
       "speedMultiplier": 1.28
     },
     {
-      "startTime": 8.4,
+      "startTime": 4.6,
       "enemy": "raider",
       "movement": "chase",
       "formation": "Scatter",
@@ -33,17 +23,17 @@
       "speedMultiplier": 1.28
     },
     {
-      "startTime": 12.3,
-      "enemy": "shielder",
+      "startTime": 8.4,
+      "enemy": "splitter",
       "movement": "straight",
       "formation": "Line",
-      "count": 3,
+      "count": 2,
       "interval": 0.17,
       "healthMultiplier": 1.7,
       "speedMultiplier": 1.28
     },
     {
-      "startTime": 16.1,
+      "startTime": 12.3,
       "enemy": "turret",
       "movement": "straight",
       "formation": "Scatter",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.28
     },
     {
-      "startTime": 19.9,
+      "startTime": 16.1,
       "enemy": "spinner",
       "movement": "zigzag",
       "formation": "Column",
@@ -63,22 +53,32 @@
       "speedMultiplier": 1.28
     },
     {
-      "startTime": 23.7,
-      "enemy": "seeker",
-      "movement": "chase",
+      "startTime": 19.9,
+      "enemy": "lancer",
+      "movement": "straight",
       "formation": "Column",
-      "count": 9,
+      "count": 10,
       "interval": 0.18,
       "healthMultiplier": 1.7,
       "speedMultiplier": 1.28
     },
     {
-      "startTime": 27.5,
-      "enemy": "shielder",
+      "startTime": 23.7,
+      "enemy": "splitter",
       "movement": "straight",
       "formation": "Column",
-      "count": 3,
+      "count": 2,
       "interval": 0.26,
+      "healthMultiplier": 1.7,
+      "speedMultiplier": 1.28
+    },
+    {
+      "startTime": 27.5,
+      "enemy": "seeker",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 4,
+      "interval": 0.22,
       "healthMultiplier": 1.7,
       "speedMultiplier": 1.28
     }

@@ -4,36 +4,26 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "hulk",
-      "movement": "straight",
-      "formation": "Diagonal",
-      "count": 3,
-      "interval": 0.08,
+      "enemy": "splitter",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 5,
+      "interval": 0.15,
       "healthMultiplier": 3.18,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 3.4,
-      "enemy": "shielder",
+      "enemy": "raider",
       "movement": "sine",
-      "formation": "Column",
-      "count": 8,
+      "formation": "Diagonal",
+      "count": 12,
       "interval": 0.08,
       "healthMultiplier": 3.18,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 6.1,
-      "enemy": "spinner",
-      "movement": "sine",
-      "formation": "Diagonal",
-      "count": 6,
-      "interval": 0.13,
-      "healthMultiplier": 3.18,
-      "speedMultiplier": 1.7
-    },
-    {
-      "startTime": 8.7,
       "enemy": "spinner",
       "movement": "sine",
       "formation": "Scatter",
@@ -43,17 +33,17 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 11.4,
-      "enemy": "spinner",
-      "movement": "zigzag",
+      "startTime": 8.7,
+      "enemy": "splitter",
+      "movement": "sine",
       "formation": "Line",
-      "count": 9,
+      "count": 3,
       "interval": 0.1,
       "healthMultiplier": 3.18,
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 14.0,
+      "startTime": 11.4,
       "enemy": "lancer",
       "movement": "chase",
       "formation": "Diagonal",
@@ -63,7 +53,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 16.6,
+      "startTime": 14.0,
       "enemy": "bomber",
       "movement": "sine",
       "formation": "Scatter",
@@ -73,12 +63,22 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 19.3,
-      "enemy": "shielder",
+      "startTime": 16.6,
+      "enemy": "splitter",
       "movement": "sine",
       "formation": "Diagonal",
-      "count": 8,
+      "count": 3,
       "interval": 0.09,
+      "healthMultiplier": 3.18,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 19.3,
+      "enemy": "wasp",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 19,
+      "interval": 0.16,
       "healthMultiplier": 3.18,
       "speedMultiplier": 1.7
     }

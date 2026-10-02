@@ -4,26 +4,16 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "lancer",
-      "movement": "straight",
-      "formation": "Column",
-      "count": 14,
-      "interval": 0.1,
-      "healthMultiplier": 3.15,
-      "speedMultiplier": 1.7
-    },
-    {
-      "startTime": 3.5,
-      "enemy": "shielder",
+      "enemy": "splitter",
       "movement": "straight",
       "formation": "Line",
-      "count": 6,
+      "count": 3,
       "interval": 0.12,
       "healthMultiplier": 3.15,
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 6.1,
+      "startTime": 3.5,
       "enemy": "spinner",
       "movement": "sine",
       "formation": "Diagonal",
@@ -33,17 +23,17 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 8.8,
-      "enemy": "lancer",
+      "startTime": 6.1,
+      "enemy": "shielder",
       "movement": "straight",
       "formation": "Line",
-      "count": 11,
+      "count": 8,
       "interval": 0.07,
       "healthMultiplier": 3.15,
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 11.4,
+      "startTime": 8.8,
       "enemy": "turret",
       "movement": "sine",
       "formation": "Diagonal",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 14.1,
+      "startTime": 11.4,
       "enemy": "spinner",
       "movement": "straight",
       "formation": "Diagonal",
@@ -63,22 +53,32 @@
       "speedMultiplier": 1.7
     },
     {
+      "startTime": 14.1,
+      "enemy": "splitter",
+      "movement": "sine",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.1,
+      "healthMultiplier": 3.15,
+      "speedMultiplier": 1.7
+    },
+    {
       "startTime": 16.8,
       "enemy": "shielder",
       "movement": "sine",
-      "formation": "Diagonal",
-      "count": 6,
-      "interval": 0.11,
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.1,
       "healthMultiplier": 3.15,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 19.4,
-      "enemy": "turret",
-      "movement": "sine",
-      "formation": "Line",
-      "count": 5,
-      "interval": 0.1,
+      "enemy": "hulk",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 3,
+      "interval": 0.08,
       "healthMultiplier": 3.15,
       "speedMultiplier": 1.7
     }

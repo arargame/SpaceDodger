@@ -54,10 +54,10 @@
     },
     {
       "startTime": 15.0,
-      "enemy": "shielder",
+      "enemy": "splitter",
       "movement": "sine",
       "formation": "Scatter",
-      "count": 6,
+      "count": 3,
       "interval": 0.16,
       "healthMultiplier": 2.92,
       "speedMultiplier": 1.7

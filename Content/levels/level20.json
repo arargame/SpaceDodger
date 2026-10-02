@@ -5,35 +5,25 @@
     {
       "startTime": 0.8,
       "enemy": "mine",
-      "movement": "sine",
-      "formation": "Diagonal",
-      "count": 7,
-      "interval": 0.3,
+      "movement": "straight",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.29,
       "healthMultiplier": 1.48,
       "speedMultiplier": 1.19
     },
     {
       "startTime": 4.8,
-      "enemy": "drone",
+      "enemy": "shielder",
       "movement": "sine",
-      "formation": "Diagonal",
-      "count": 12,
-      "interval": 0.22,
+      "formation": "Column",
+      "count": 3,
+      "interval": 0.2,
       "healthMultiplier": 1.48,
       "speedMultiplier": 1.19
     },
     {
       "startTime": 8.8,
-      "enemy": "seeker",
-      "movement": "sine",
-      "formation": "Column",
-      "count": 6,
-      "interval": 0.24,
-      "healthMultiplier": 1.48,
-      "speedMultiplier": 1.19
-    },
-    {
-      "startTime": 12.8,
       "enemy": "scout",
       "movement": "zigzag",
       "formation": "Diagonal",
@@ -43,7 +33,7 @@
       "speedMultiplier": 1.19
     },
     {
-      "startTime": 16.8,
+      "startTime": 12.8,
       "enemy": "mine",
       "movement": "sine",
       "formation": "Scatter",
@@ -53,22 +43,32 @@
       "speedMultiplier": 1.19
     },
     {
-      "startTime": 20.8,
-      "enemy": "shielder",
+      "startTime": 16.8,
+      "enemy": "splitter",
       "movement": "straight",
       "formation": "Column",
-      "count": 5,
+      "count": 2,
       "interval": 0.3,
       "healthMultiplier": 1.48,
       "speedMultiplier": 1.19
     },
     {
-      "startTime": 24.8,
-      "enemy": "mine",
+      "startTime": 20.8,
+      "enemy": "bomber",
       "movement": "sine",
       "formation": "Line",
-      "count": 6,
+      "count": 4,
       "interval": 0.15,
+      "healthMultiplier": 1.48,
+      "speedMultiplier": 1.19
+    },
+    {
+      "startTime": 24.8,
+      "enemy": "bomber",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 5,
+      "interval": 0.27,
       "healthMultiplier": 1.48,
       "speedMultiplier": 1.19
     },
@@ -83,7 +83,7 @@
     },
     {
       "startTime": 21.8,
-      "enemy": "spinner",
+      "enemy": "shielder",
       "movement": "straight",
       "formation": "Diagonal",
       "count": 7,

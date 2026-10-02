@@ -5,16 +5,6 @@
     {
       "startTime": 0.8,
       "enemy": "turret",
-      "movement": "sine",
-      "formation": "Line",
-      "count": 5,
-      "interval": 0.13,
-      "healthMultiplier": 1.98,
-      "speedMultiplier": 1.39
-    },
-    {
-      "startTime": 4.4,
-      "enemy": "turret",
       "movement": "straight",
       "formation": "Diagonal",
       "count": 5,
@@ -23,7 +13,7 @@
       "speedMultiplier": 1.39
     },
     {
-      "startTime": 8.0,
+      "startTime": 4.4,
       "enemy": "drone",
       "movement": "straight",
       "formation": "Scatter",
@@ -33,7 +23,7 @@
       "speedMultiplier": 1.39
     },
     {
-      "startTime": 11.6,
+      "startTime": 8.0,
       "enemy": "spinner",
       "movement": "zigzag",
       "formation": "Line",
@@ -43,7 +33,7 @@
       "speedMultiplier": 1.39
     },
     {
-      "startTime": 15.2,
+      "startTime": 11.6,
       "enemy": "raider",
       "movement": "straight",
       "formation": "Scatter",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.39
     },
     {
-      "startTime": 18.8,
+      "startTime": 15.2,
       "enemy": "bomber",
       "movement": "straight",
       "formation": "Line",
@@ -63,7 +53,7 @@
       "speedMultiplier": 1.39
     },
     {
-      "startTime": 22.4,
+      "startTime": 18.8,
       "enemy": "wasp",
       "movement": "zigzag",
       "formation": "Line",
@@ -73,12 +63,22 @@
       "speedMultiplier": 1.39
     },
     {
-      "startTime": 26.0,
+      "startTime": 22.4,
       "enemy": "turret",
       "movement": "straight",
       "formation": "Line",
       "count": 6,
       "interval": 0.16,
+      "healthMultiplier": 1.98,
+      "speedMultiplier": 1.39
+    },
+    {
+      "startTime": 26.0,
+      "enemy": "hulk",
+      "movement": "chase",
+      "formation": "Column",
+      "count": 4,
+      "interval": 0.22,
       "healthMultiplier": 1.98,
       "speedMultiplier": 1.39
     },
@@ -93,8 +93,8 @@
     },
     {
       "startTime": 22.3,
-      "enemy": "raider",
-      "movement": "straight",
+      "enemy": "splitter",
+      "movement": "sine",
       "formation": "Diagonal",
       "count": 9,
       "interval": 0.5,

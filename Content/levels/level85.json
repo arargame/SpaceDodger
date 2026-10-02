@@ -4,16 +4,6 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "bomber",
-      "movement": "sine",
-      "formation": "Line",
-      "count": 6,
-      "interval": 0.15,
-      "healthMultiplier": 3.1,
-      "speedMultiplier": 1.7
-    },
-    {
-      "startTime": 3.5,
       "enemy": "seeker",
       "movement": "chase",
       "formation": "Line",
@@ -23,7 +13,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 6.2,
+      "startTime": 3.5,
       "enemy": "turret",
       "movement": "straight",
       "formation": "Diagonal",
@@ -33,7 +23,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 8.9,
+      "startTime": 6.2,
       "enemy": "spinner",
       "movement": "straight",
       "formation": "Column",
@@ -43,7 +33,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 11.6,
+      "startTime": 8.9,
       "enemy": "hulk",
       "movement": "chase",
       "formation": "Column",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 14.3,
+      "startTime": 11.6,
       "enemy": "hulk",
       "movement": "straight",
       "formation": "Column",
@@ -63,7 +53,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 17.0,
+      "startTime": 14.3,
       "enemy": "turret",
       "movement": "sine",
       "formation": "Column",
@@ -73,12 +63,22 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 19.7,
+      "startTime": 17.0,
       "enemy": "drone",
       "movement": "straight",
       "formation": "Column",
       "count": 14,
       "interval": 0.1,
+      "healthMultiplier": 3.1,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 19.7,
+      "enemy": "splitter",
+      "movement": "straight",
+      "formation": "Column",
+      "count": 3,
+      "interval": 0.11,
       "healthMultiplier": 3.1,
       "speedMultiplier": 1.7
     }

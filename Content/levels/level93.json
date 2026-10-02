@@ -4,26 +4,16 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "fighter",
-      "movement": "chase",
+      "enemy": "turret",
+      "movement": "straight",
       "formation": "Line",
-      "count": 10,
-      "interval": 0.13,
+      "count": 5,
+      "interval": 0.1,
       "healthMultiplier": 3.3,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 3.4,
-      "enemy": "wasp",
-      "movement": "sine",
-      "formation": "Line",
-      "count": 10,
-      "interval": 0.14,
-      "healthMultiplier": 3.3,
-      "speedMultiplier": 1.7
-    },
-    {
-      "startTime": 6.0,
       "enemy": "hulk",
       "movement": "straight",
       "formation": "Column",
@@ -33,7 +23,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 8.6,
+      "startTime": 6.0,
       "enemy": "hulk",
       "movement": "straight",
       "formation": "Line",
@@ -43,7 +33,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 11.2,
+      "startTime": 8.6,
       "enemy": "bomber",
       "movement": "straight",
       "formation": "Scatter",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 13.8,
+      "startTime": 11.2,
       "enemy": "turret",
       "movement": "sine",
       "formation": "Column",
@@ -63,22 +53,32 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 16.4,
-      "enemy": "shielder",
+      "startTime": 13.8,
+      "enemy": "splitter",
       "movement": "straight",
       "formation": "Scatter",
-      "count": 8,
+      "count": 3,
       "interval": 0.09,
       "healthMultiplier": 3.3,
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 19.0,
+      "startTime": 16.4,
       "enemy": "turret",
       "movement": "sine",
       "formation": "Line",
       "count": 5,
       "interval": 0.13,
+      "healthMultiplier": 3.3,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 19.0,
+      "enemy": "drone",
+      "movement": "sine",
+      "formation": "Column",
+      "count": 14,
+      "interval": 0.15,
       "healthMultiplier": 3.3,
       "speedMultiplier": 1.7
     }

@@ -4,36 +4,26 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "bomber",
+      "enemy": "shielder",
       "movement": "straight",
-      "formation": "Scatter",
+      "formation": "Line",
       "count": 7,
-      "interval": 0.1,
+      "interval": 0.11,
       "healthMultiplier": 3.45,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 3.4,
-      "enemy": "lancer",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 15,
-      "interval": 0.15,
+      "enemy": "splitter",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 2,
+      "interval": 0.14,
       "healthMultiplier": 3.45,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 6.0,
-      "enemy": "turret",
-      "movement": "straight",
-      "formation": "Scatter",
-      "count": 7,
-      "interval": 0.08,
-      "healthMultiplier": 3.45,
-      "speedMultiplier": 1.7
-    },
-    {
-      "startTime": 8.6,
       "enemy": "lancer",
       "movement": "straight",
       "formation": "Column",
@@ -43,7 +33,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 11.2,
+      "startTime": 8.6,
       "enemy": "bomber",
       "movement": "sine",
       "formation": "Diagonal",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 13.8,
+      "startTime": 11.2,
       "enemy": "scout",
       "movement": "straight",
       "formation": "Column",
@@ -63,7 +53,7 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 16.4,
+      "startTime": 13.8,
       "enemy": "drone",
       "movement": "sine",
       "formation": "Scatter",
@@ -73,10 +63,20 @@
       "speedMultiplier": 1.7
     },
     {
-      "startTime": 19.0,
+      "startTime": 16.4,
       "enemy": "turret",
       "movement": "sine",
       "formation": "Column",
+      "count": 7,
+      "interval": 0.11,
+      "healthMultiplier": 3.45,
+      "speedMultiplier": 1.7
+    },
+    {
+      "startTime": 19.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Diagonal",
       "count": 7,
       "interval": 0.11,
       "healthMultiplier": 3.45,

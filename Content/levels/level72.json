@@ -4,20 +4,20 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "spinner",
+      "enemy": "splitter",
       "movement": "sine",
       "formation": "Diagonal",
-      "count": 6,
-      "interval": 0.11,
+      "count": 2,
+      "interval": 0.16,
       "healthMultiplier": 2.78,
       "speedMultiplier": 1.7
     },
     {
       "startTime": 3.8,
-      "enemy": "shielder",
+      "enemy": "splitter",
       "movement": "sine",
       "formation": "Line",
-      "count": 3,
+      "count": 4,
       "interval": 0.1,
       "healthMultiplier": 2.78,
       "speedMultiplier": 1.7

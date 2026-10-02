@@ -135,8 +135,11 @@ namespace SpaceDodger.Entities
                 if (enemy.Position.X < _world.Left || enemy.Position.X > _world.Right + 8)
                     continue;
 
-                // Prioritize enemies not recently struck
+                // Prioritize enemies not recently struck; bosses can only be struck once per discharge
                 bool recentlyStruck = _recentTargets.Contains(enemy);
+                if (enemy.IsBoss && recentlyStruck)
+                    continue;
+
                 if (enemy == exclude && _allEnemies.Count > 1)
                     continue;
 
@@ -151,8 +154,8 @@ namespace SpaceDodger.Entities
                 }
             }
 
-            // Fallback: if all active enemies were in the penalty box, retarget any live enemy
-            if (best == null && exclude != null && exclude.Active)
+            // Fallback: if all active enemies were in the penalty box, retarget any live non-boss enemy
+            if (best == null && exclude != null && exclude.Active && !exclude.IsBoss)
             {
                 best = exclude;
             }

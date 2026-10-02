@@ -4,17 +4,7 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "lancer",
-      "movement": "chase",
-      "formation": "Scatter",
-      "count": 5,
-      "interval": 0.22,
-      "healthMultiplier": 2.1,
-      "speedMultiplier": 1.44
-    },
-    {
-      "startTime": 4.3,
-      "enemy": "shielder",
+      "enemy": "splitter",
       "movement": "straight",
       "formation": "Column",
       "count": 2,
@@ -23,7 +13,7 @@
       "speedMultiplier": 1.44
     },
     {
-      "startTime": 7.8,
+      "startTime": 4.3,
       "enemy": "bomber",
       "movement": "straight",
       "formation": "Line",
@@ -33,7 +23,7 @@
       "speedMultiplier": 1.44
     },
     {
-      "startTime": 11.3,
+      "startTime": 7.8,
       "enemy": "turret",
       "movement": "straight",
       "formation": "Scatter",
@@ -43,7 +33,7 @@
       "speedMultiplier": 1.44
     },
     {
-      "startTime": 14.8,
+      "startTime": 11.3,
       "enemy": "shielder",
       "movement": "straight",
       "formation": "Column",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.44
     },
     {
-      "startTime": 18.3,
+      "startTime": 14.8,
       "enemy": "spinner",
       "movement": "sine",
       "formation": "Line",
@@ -63,22 +53,32 @@
       "speedMultiplier": 1.44
     },
     {
-      "startTime": 21.8,
-      "enemy": "shielder",
+      "startTime": 18.3,
+      "enemy": "splitter",
       "movement": "sine",
-      "formation": "Line",
-      "count": 6,
-      "interval": 0.2,
+      "formation": "Diagonal",
+      "count": 4,
+      "interval": 0.15,
+      "healthMultiplier": 2.1,
+      "speedMultiplier": 1.44
+    },
+    {
+      "startTime": 21.8,
+      "enemy": "raider",
+      "movement": "straight",
+      "formation": "Diagonal",
+      "count": 10,
+      "interval": 0.17,
       "healthMultiplier": 2.1,
       "speedMultiplier": 1.44
     },
     {
       "startTime": 25.3,
-      "enemy": "turret",
+      "enemy": "splitter",
       "movement": "sine",
-      "formation": "Diagonal",
-      "count": 5,
-      "interval": 0.15,
+      "formation": "Scatter",
+      "count": 2,
+      "interval": 0.17,
       "healthMultiplier": 2.1,
       "speedMultiplier": 1.44
     }

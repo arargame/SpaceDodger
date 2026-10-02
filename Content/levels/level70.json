@@ -4,16 +4,6 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "raider",
-      "movement": "chase",
-      "formation": "Column",
-      "count": 7,
-      "interval": 0.12,
-      "healthMultiplier": 2.73,
-      "speedMultiplier": 1.69
-    },
-    {
-      "startTime": 3.8,
       "enemy": "lancer",
       "movement": "straight",
       "formation": "Column",
@@ -23,7 +13,7 @@
       "speedMultiplier": 1.69
     },
     {
-      "startTime": 6.8,
+      "startTime": 3.8,
       "enemy": "turret",
       "movement": "sine",
       "formation": "Column",
@@ -33,17 +23,17 @@
       "speedMultiplier": 1.69
     },
     {
-      "startTime": 9.8,
-      "enemy": "shielder",
+      "startTime": 6.8,
+      "enemy": "splitter",
       "movement": "straight",
       "formation": "Scatter",
-      "count": 4,
+      "count": 2,
       "interval": 0.1,
       "healthMultiplier": 2.73,
       "speedMultiplier": 1.69
     },
     {
-      "startTime": 12.8,
+      "startTime": 9.8,
       "enemy": "mine",
       "movement": "straight",
       "formation": "Diagonal",
@@ -53,17 +43,17 @@
       "speedMultiplier": 1.69
     },
     {
-      "startTime": 15.8,
-      "enemy": "lancer",
-      "movement": "chase",
+      "startTime": 12.8,
+      "enemy": "shielder",
+      "movement": "sine",
       "formation": "Column",
-      "count": 6,
+      "count": 3,
       "interval": 0.14,
       "healthMultiplier": 2.73,
       "speedMultiplier": 1.69
     },
     {
-      "startTime": 18.8,
+      "startTime": 15.8,
       "enemy": "drone",
       "movement": "straight",
       "formation": "Scatter",
@@ -73,11 +63,21 @@
       "speedMultiplier": 1.69
     },
     {
-      "startTime": 21.8,
+      "startTime": 18.8,
       "enemy": "mine",
       "movement": "straight",
       "formation": "Scatter",
       "count": 10,
+      "interval": 0.11,
+      "healthMultiplier": 2.73,
+      "speedMultiplier": 1.69
+    },
+    {
+      "startTime": 21.8,
+      "enemy": "splitter",
+      "movement": "straight",
+      "formation": "Scatter",
+      "count": 2,
       "interval": 0.11,
       "healthMultiplier": 2.73,
       "speedMultiplier": 1.69
@@ -93,8 +93,8 @@
     },
     {
       "startTime": 19.4,
-      "enemy": "lancer",
-      "movement": "straight",
+      "enemy": "raider",
+      "movement": "chase",
       "formation": "Diagonal",
       "count": 12,
       "interval": 0.5,

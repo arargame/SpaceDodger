@@ -4,26 +4,6 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "spinner",
-      "movement": "sine",
-      "formation": "Diagonal",
-      "count": 7,
-      "interval": 0.13,
-      "healthMultiplier": 2.65,
-      "speedMultiplier": 1.66
-    },
-    {
-      "startTime": 3.9,
-      "enemy": "drone",
-      "movement": "sine",
-      "formation": "Diagonal",
-      "count": 18,
-      "interval": 0.14,
-      "healthMultiplier": 2.65,
-      "speedMultiplier": 1.66
-    },
-    {
-      "startTime": 6.9,
       "enemy": "shielder",
       "movement": "straight",
       "formation": "Line",
@@ -33,7 +13,7 @@
       "speedMultiplier": 1.66
     },
     {
-      "startTime": 10.0,
+      "startTime": 3.9,
       "enemy": "turret",
       "movement": "sine",
       "formation": "Line",
@@ -43,17 +23,17 @@
       "speedMultiplier": 1.66
     },
     {
-      "startTime": 13.0,
-      "enemy": "turret",
-      "movement": "straight",
+      "startTime": 6.9,
+      "enemy": "raider",
+      "movement": "chase",
       "formation": "Line",
-      "count": 4,
+      "count": 7,
       "interval": 0.15,
       "healthMultiplier": 2.65,
       "speedMultiplier": 1.66
     },
     {
-      "startTime": 16.1,
+      "startTime": 10.0,
       "enemy": "bomber",
       "movement": "sine",
       "formation": "Diagonal",
@@ -63,7 +43,7 @@
       "speedMultiplier": 1.66
     },
     {
-      "startTime": 19.2,
+      "startTime": 13.0,
       "enemy": "hulk",
       "movement": "straight",
       "formation": "Line",
@@ -73,12 +53,32 @@
       "speedMultiplier": 1.66
     },
     {
-      "startTime": 22.2,
+      "startTime": 16.1,
       "enemy": "mine",
       "movement": "straight",
       "formation": "Scatter",
       "count": 6,
       "interval": 0.12,
+      "healthMultiplier": 2.65,
+      "speedMultiplier": 1.66
+    },
+    {
+      "startTime": 19.2,
+      "enemy": "spinner",
+      "movement": "zigzag",
+      "formation": "Scatter",
+      "count": 8,
+      "interval": 0.15,
+      "healthMultiplier": 2.65,
+      "speedMultiplier": 1.66
+    },
+    {
+      "startTime": 22.2,
+      "enemy": "splitter",
+      "movement": "sine",
+      "formation": "Scatter",
+      "count": 2,
+      "interval": 0.14,
       "healthMultiplier": 2.65,
       "speedMultiplier": 1.66
     }

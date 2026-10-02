@@ -4,26 +4,16 @@
   "waves": [
     {
       "startTime": 0.8,
-      "enemy": "lancer",
-      "movement": "straight",
+      "enemy": "splitter",
+      "movement": "sine",
       "formation": "Diagonal",
-      "count": 9,
-      "interval": 0.16,
+      "count": 4,
+      "interval": 0.22,
       "healthMultiplier": 2.15,
       "speedMultiplier": 1.46
     },
     {
       "startTime": 4.3,
-      "enemy": "shielder",
-      "movement": "straight",
-      "formation": "Line",
-      "count": 5,
-      "interval": 0.13,
-      "healthMultiplier": 2.15,
-      "speedMultiplier": 1.46
-    },
-    {
-      "startTime": 7.7,
       "enemy": "lancer",
       "movement": "chase",
       "formation": "Column",
@@ -33,7 +23,7 @@
       "speedMultiplier": 1.46
     },
     {
-      "startTime": 11.2,
+      "startTime": 7.7,
       "enemy": "raider",
       "movement": "chase",
       "formation": "Scatter",
@@ -43,7 +33,7 @@
       "speedMultiplier": 1.46
     },
     {
-      "startTime": 14.6,
+      "startTime": 11.2,
       "enemy": "lancer",
       "movement": "straight",
       "formation": "Line",
@@ -53,7 +43,7 @@
       "speedMultiplier": 1.46
     },
     {
-      "startTime": 18.1,
+      "startTime": 14.6,
       "enemy": "wasp",
       "movement": "sine",
       "formation": "Line",
@@ -63,7 +53,7 @@
       "speedMultiplier": 1.46
     },
     {
-      "startTime": 21.6,
+      "startTime": 18.1,
       "enemy": "hulk",
       "movement": "chase",
       "formation": "Scatter",
@@ -73,12 +63,22 @@
       "speedMultiplier": 1.46
     },
     {
-      "startTime": 25.0,
+      "startTime": 21.6,
       "enemy": "spinner",
       "movement": "zigzag",
       "formation": "Scatter",
       "count": 5,
       "interval": 0.12,
+      "healthMultiplier": 2.15,
+      "speedMultiplier": 1.46
+    },
+    {
+      "startTime": 25.0,
+      "enemy": "shielder",
+      "movement": "straight",
+      "formation": "Line",
+      "count": 5,
+      "interval": 0.2,
       "healthMultiplier": 2.15,
       "speedMultiplier": 1.46
     }
