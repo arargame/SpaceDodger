@@ -6,6 +6,7 @@ echo ======================================================================
 echo.
 
 set "ADB=%LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe"
+if not exist "%ADB%" set "ADB=C:\Program Files (x86)\Android\android-sdk\platform-tools\adb.exe"
 if not exist "%ADB%" (
     where adb >nul 2>&1
     if %ERRORLEVEL% equ 0 (
