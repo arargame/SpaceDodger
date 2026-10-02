@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "367408089240",
+    "project_id": "space-dodger-1e346",
+    "storage_bucket": "space-dodger-1e346.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367408089240:android:6960f5e126c8b1908ae8ed",
+        "android_client_info": {
+          "package_name": "com.arargames.spacedodger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqFG5PtG3KCfnII4J9Xunq2jPuY0wq7rM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
