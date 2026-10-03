@@ -159,7 +159,7 @@ def build(level):
         boss_name = BOSSES[level]
         waves.append(wave(
             boss_time, boss_name, BOSS_MOVEMENTS.get(boss_name, "boss"), 1, 1.0, "Column",
-            round(1.0 + (level // 10 - 1) * 0.08, 2), 1.0))
+            1.0, 1.0))
 
         candidates = [s for s in recent if s not in ("hulk", "turret")] or recent
         escort = random.choice(candidates)

@@ -88,8 +88,7 @@
       "movement": "lerp_boss",
       "formation": "Column",
       "count": 1,
-      "interval": 1.0,
-      "healthMultiplier": 1.72
+      "interval": 1.0
     },
     {
       "startTime": 17.5,

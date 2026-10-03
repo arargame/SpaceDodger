@@ -78,8 +78,7 @@
       "movement": "boss",
       "formation": "Column",
       "count": 1,
-      "interval": 1.0,
-      "healthMultiplier": 1.08
+      "interval": 1.0
     },
     {
       "startTime": 21.8,

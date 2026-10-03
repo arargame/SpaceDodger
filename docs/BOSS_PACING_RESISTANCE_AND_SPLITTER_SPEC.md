@@ -29,26 +29,37 @@ Previously in boss battles (levels 10, 20, 30, 40, etc.), authored minion waves 
 
 ---
 
-## 3. Boss Weapon Resistance (Normal Bullet Damage Cap)
+## 3. Boss Damage Balance & Health Progression Tuning
 
 ### Background & Balance Problem
-Special weapons—especially Tesla Chain Lightning, Sweep Lasers, and Wave Pulses—could deal devastating burst damage to bosses. Specifically, Chain Lightning would repeatedly bounce back and forth between a boss and adjacent targets, applying multiple high-damage hits and melting 60–140 HP bosses in seconds.
+Initially, all boss damage was capped to 1 per hit (`if (IsBoss && amount > 1) amount = 1;`) to prevent burst melting from special weapons. However, in late campaign progression (Level 40+), this had unintended game-breaking side effects:
+- The persistent campaign `Player.DamageBonus` (earned every 10 levels, e.g. +4 damage at Level 40) was completely nullified against bosses.
+- High-tier weapon upgrades (W2 through W5) dealt the exact same 1 damage as a starter pea-shooter.
+- Level 40 Boss (Core) required 236 individual bullet hits, and Level 100 required 1,548 hits, creating exhausting and unfair encounters.
 
-### Implementation (`Enemy.cs` & `ChainLightning.cs`)
-1. **Damage Resistance Cap (`Enemy.TakeDamage`):**
-   ```csharp
-   if (IsBoss && amount > 1)
-   {
-       amount = 1;
-   }
-   ```
-   All weapon impacts against a boss are resisted down to the damage of a standard player bullet (1 damage per hit). High-damage special weapons and plasma retain their wide coverage and screen-clearing utility against regular swarms, but cannot burst-shred bosses.
-2. **Chain Lightning Boss Re-Targeting Prevention (`ChainLightning.cs`):**
-   ```csharp
-   if (enemy.IsBoss && recentlyStruck)
-       continue;
-   ```
-   A single discharge of Tesla Chain Lightning will strike a boss at most **once** per shot, preventing rapid cyclical bouncing.
+### Resolution & Implementation
+1. **Removal of Artificial 1-Damage Cap (`Enemy.TakeDamage`):**
+   - The hardcap was removed from `Enemy.cs`. Player weapon damage and earned `DamageBonus` now fully apply to bosses, making weapon upgrades and level progression rewarding during boss battles.
+2. **Chain Lightning Protection (`ChainLightning.cs`):**
+   - Tesla Chain Lightning retains its strict anti-melt guard:
+     ```csharp
+     if (enemy.IsBoss && recentlyStruck)
+         continue;
+     ```
+     A single discharge strikes a boss at most **once**, preventing rapid back-and-forth ping-pong damage while allowing intended damage.
+3. **Rebalanced Arcade Boss Health Progression (`EnemyDefinition.cs` & `gen_levels.py`):**
+   - Boss waves no longer apply secondary multipliers (`healthMultiplier = 1.0`), ensuring that the values defined in `EnemyCatalog` are the exact in-game spawn HP.
+   - Smooth, accessible arcade progression curve:
+     - Level 10 (Warden): **50 HP** (was 60)
+     - Level 20 (Hydra): **75 HP** (was 103)
+     - Level 30 (Titan): **100 HP** (was 162)
+     - Level 40 (Core): **130 HP** (was 236)
+     - Level 50 (Nemesis): **170 HP** (was 343)
+     - Level 60 (Sentinel): **220 HP** (was 476)
+     - Level 70 (Serpent): **275 HP** (was 651)
+     - Level 80 (Leviathan): **330 HP** (was 874)
+     - Level 90 (Phantom): **390 HP** (was 1,148)
+     - Level 100 (Oblivion): **450 HP** (was 1,548)
 
 ---
 

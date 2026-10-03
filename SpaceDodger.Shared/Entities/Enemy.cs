@@ -156,13 +156,6 @@ namespace SpaceDodger.Entities
             if (!Active)
                 return;
 
-            // Boss resistance: bosses resist heavy weapon chunking;
-            // all player weapons deal normal bullet damage (1 per hit) against bosses.
-            if (IsBoss && amount > 1)
-            {
-                amount = 1;
-            }
-
             Health -= amount;
             _hitFlash = 0.08f;
 

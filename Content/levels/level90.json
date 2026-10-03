@@ -88,8 +88,7 @@
       "movement": "orbit_boss",
       "formation": "Column",
       "count": 1,
-      "interval": 1.0,
-      "healthMultiplier": 1.64
+      "interval": 1.0
     },
     {
       "startTime": 17.5,
