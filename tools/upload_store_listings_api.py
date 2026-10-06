@@ -20,9 +20,12 @@ PACKAGE_NAME = "com.arargames.spacedodger"
 DEFAULT_JSON = os.path.join(os.path.dirname(__file__), "..", "docs", "SpaceDodger_Store_Listings_All.json")
 
 
-def upload_listings(key_file, listings_json=DEFAULT_JSON, dry_run=False):
+def upload_listings(key_file, listings_json=DEFAULT_JSON, target_langs=None, dry_run=False):
     if not os.path.isfile(key_file):
         print(f"[ERROR] Service account key file not found: {key_file}")
+        print("\nGoogle Play Developer API'yi kullanabilmek için Google Play Console'dan")
+        print("bir 'Service Account (Hizmet Hesabı)' JSON anahtarı indirip yolunu belirtmeniz gerekir.")
+        print("Örnek: python tools/upload_store_listings_api.py --key play-service-account.json --langs en-US,de-DE,it-IT")
         sys.exit(1)
 
     try:
@@ -36,7 +39,15 @@ def upload_listings(key_file, listings_json=DEFAULT_JSON, dry_run=False):
     with open(listings_json, "r", encoding="utf-8") as f:
         listings = json.load(f)
 
-    print(f"[INFO] Loaded {len(listings)} localized listings from {listings_json}")
+    if target_langs:
+        # Match either exact code like 'en-US' or prefix like 'en', 'de', 'it'
+        req_langs = [l.strip().lower() for l in target_langs.split(",") if l.strip()]
+        listings = [
+            item for item in listings
+            if item["language"].lower() in req_langs or any(item["language"].lower().startswith(r) for r in req_langs)
+        ]
+
+    print(f"[INFO] Processing {len(listings)} localized listing(s)...")
     print(f"[INFO] Authenticating for package: {PACKAGE_NAME}...")
 
     credentials = service_account.Credentials.from_service_account_file(
@@ -90,7 +101,7 @@ def upload_listings(key_file, listings_json=DEFAULT_JSON, dry_run=False):
     try:
         commit_request = service.edits().commit(packageName=PACKAGE_NAME, editId=edit_id)
         commit_request.execute()
-        print("[SUCCESS] All store listings and video URLs successfully published to Google Play!")
+        print("[SUCCESS] All targeted store listings successfully published to Google Play!")
     except Exception as ex:
         print(f"[ERROR] Failed to commit edit session: {ex}")
         sys.exit(1)
@@ -100,10 +111,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Upload Space Dodger localized listings to Google Play Console API.")
     parser.add_argument("--key", required=False, default="play-service-account.json",
                         help="Path to Google Play Developer API Service Account JSON key.")
+    parser.add_argument("--langs", required=False, default=None,
+                        help="Comma-separated language codes to upload (e.g. 'en-US,de-DE,it-IT' or 'en,de,it'). Defaults to all.")
     parser.add_argument("--json", required=False, default=DEFAULT_JSON,
                         help="Path to SpaceDodger_Store_Listings_All.json")
     parser.add_argument("--dry-run", action="store_true",
                         help="Validate listings and create edit without committing.")
 
     args = parser.parse_args()
-    upload_listings(args.key, args.json, args.dry_run)
+    upload_listings(args.key, args.json, args.langs, args.dry_run)
