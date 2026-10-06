@@ -14,7 +14,7 @@
 | :--- | :--- | :--- |
 | **Title** | `Space Dodger` | 12 / 30 |
 | **Short Description** | `Dodge cosmic threats, blast alien fleets, and conquer 100 retro arcade levels!` | 78 / 80 |
-| **YouTube Promo Video** | `https://www.youtube.com/watch?v=nQAqKc2L_lY` | Valid YouTube URL |
+| **YouTube Promo Video** | `https://www.youtube.com/watch?v=MUCJ-uLL5cg` | Valid YouTube URL |
 
 ---
 

@@ -9,7 +9,7 @@ import json
 import csv
 import os
 
-VIDEO_URL = "https://www.youtube.com/watch?v=nQAqKc2L_lY"
+VIDEO_URL = "https://www.youtube.com/watch?v=MUCJ-uLL5cg"
 
 # Supported Google Play Console Languages and their localized metadata
 LOCALES = {

@@ -75,6 +75,8 @@ The video strictly adheres to **Google Play Store Video Flow** best practices:
 
 ---
 
-## 5. File Location
+## 5. File Location & Video URL
 - **Render Output:**
   `C:\Users\ararg\OneDrive\Masaüstü\Antigravity\Space Dodger\videos\SpaceDodger_Store_Trailer_90s.mp4`
+- **YouTube Video URL:**
+  `https://www.youtube.com/watch?v=MUCJ-uLL5cg`
