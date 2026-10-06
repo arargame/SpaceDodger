@@ -37,7 +37,7 @@ LOCALES = {
         "feat_head": "🚀 ÖNE ÇIKAN ÖZELLİKLER:",
         "f1": "⭐ 100 AKSİYON DOLU SEVİYE\nDestansı bir kozmik sefere çıkın. Her aşama yeni düşman dizilimleri, dinamik tehlikeler ve yoğun mermi desenleri getirir.",
         "f2": "⭐ DESTANSI BOSS SAVAŞLARI\nÖzgün saldırı stratejilerine ve hareket desenlerine sahip güçlü uzaylı ana gemileriyle ve bölüm sonu canavarlarıyla yüzleşin.",
-        "f3": "⭐ KÜRESEL LİDER TABLOLARI VE WORLD RANKING\nGalaksideki en keskin pilot olduğunuzu mu düşünüyorsunuz? Dünya çapındaki oyuncularla yarışın! Google Play Games lider tablolarına erişmek, dünya sıralamanızı görmek ve evrensel lider tablosunda 1 numaraya yükselmek için skor ekranındaki \"WORLD RANKING\" butonuna dokunun!",
+        "f3": "⭐ KÜRESEL LİDER TABLOLARI VE WORLD RANKING\nGalaksideki en keskin pilot olduğunuzu mu düşünüyorsunuz? Dünya çapındaki oyuncularla yarışın! Google Play Games lider tablolarına erişmek, dünya sıralamanızı görmek ve evrensel lider tablosunda zirveye yükselmek için skor ekranındaki \"WORLD RANKING\" butonuna dokunun!",
         "f4": "⭐ GÜÇLÜ YÜKSELTMELER VE KALKAN SİSTEMLERİ\nLazer ateş gücünüzü yükseltmek, aşılmaz enerji kalkanlarını açmak ve seri ateş desteği tetiklemek için oyun içi güçlendirmeleri toplayın.",
         "f5": "⭐ RETRO PİKSEL SANATI VE NOSTALJİK MÜZİKLER\nÖzenle işlenmiş piksel grafikleri ve dinamik chiptune ses efektleriyle klasik 90'lar arcade oyun atmosferini yaşayın.",
         "f6": "⭐ %100 ÇEVRİMDIŞI OYNAMA\nİnternet yok mu? Sorun değil! Aktif bir internet bağlantısı olmadan her yerde ve her zaman oynayın.",
