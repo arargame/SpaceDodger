@@ -48,9 +48,30 @@ python tools/upload_store_listings_api.py --key path/to/play-service-account.jso
 ---
 
 ## 4. Local Listing Datasets Updated
-All datasets have been recompiled with the official video link:
-- **`tools/generate_store_listings.py`:** `VIDEO_URL = "https://www.youtube.com/watch?v=MUCJ-uLL5cg"`
-- **`docs/SpaceDodger_Store_Listings_All.json`:** 74 locales compiled with localized metadata and trailer link.
+All datasets have been recompiled with the official video link and clean metadata:
+- **`tools/generate_store_listings.py`:** `VIDEO_URL = "https://www.youtube.com/watch?v=MUCJ-uLL5cg"`, hashtag spam block removed.
+- **`docs/SpaceDodger_Store_Listings_All.json`:** 74 locales compiled with localized metadata, trailer link, and zero hashtags.
 - **`docs/SpaceDodger_Store_Listings_All.csv`:** Full CSV export ready for manual import or external tooling.
-- **`docs/GOOGLE_PLAY_STORE_LISTING_EN.md`:** Updated metadata specification.
+- **`docs/GOOGLE_PLAY_STORE_LISTING_EN.md`:** Updated metadata specification (clean description without hashtags).
 - **`docs/STORE_TRAILER_90S_SPEC.md`:** Technical video and EDL profile with official video URL.
+
+---
+
+## 5. Metadata Policy Compliance (Oct 6 Policy Enforcement Resolution)
+
+### The Issue
+Google Play Console flagged:
+- **Policy Violation:** `Metadata policy: Violation of Metadata policy (Text spam)`
+- **Location:** `Full description`
+- **Evidence:** `Translated description contains hashtag spam.`
+
+### Root Cause
+Google Play's Metadata Policy strictly forbids hashtag lists and repeated keyword blocks in store listings (hashtags are reserved for platforms like YouTube/Twitter, not Google Play descriptions). All 74 generated translations previously contained an end-of-description hashtag block:
+`#SpaceDodger #RetroGaming #ArcadeShooter #SpaceShooter #PixelArt #ShootEmUp #CasualGame #IndieGame #OfflineGames #SciFiGame #WorldRanking #Leaderboard`
+Additionally, references to `#1 spot` were sanitized to `top spot` to avoid ranking claim detection.
+
+### Resolution
+1. Stripped all `#` characters and hashtag blocks from all 74 languages in `tools/generate_store_listings.py`.
+2. Regenerated both `SpaceDodger_Store_Listings_All.json` and `SpaceDodger_Store_Listings_All.csv`.
+3. Validated 100% compliance: exactly 0 `#` occurrences across all 74 languages and all fields strictly within character limits.
+

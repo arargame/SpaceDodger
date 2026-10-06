@@ -36,7 +36,7 @@ Embark on an epic cosmic campaign. Each stage brings new enemy formations, dynam
 Face off against powerful alien motherships and bosses with unique attack strategies and movement patterns.
 
 ⭐ GLOBAL LEADERBOARDS & WORLD RANKING
-Think you're the sharpest pilot in deep space? Compete with players worldwide! Tap the "WORLD RANKING" button on the high score screen to access Google Play Games leaderboards, track your rank against top aces across the globe, and fight for the #1 spot on the universal leaderboard!
+Think you're the sharpest pilot in deep space? Compete with players worldwide! Tap the "WORLD RANKING" button on the high score screen to access Google Play Games leaderboards, track your rank against top aces across the globe, and fight for the top spot on the universal leaderboard!
 
 ⭐ POWERFUL UPGRADES & SHIELD SYSTEMS
 Collect in-game power-ups to upgrade your laser firepower, activate impenetrable energy shields, and trigger rapid-fire boosts.
@@ -61,8 +61,6 @@ HOW TO PLAY:
 - Tap "WORLD RANKING" to challenge top pilots and compare your best scores on the global leaderboard!
 
 Gear up, pilot! The galaxy needs a hero. Download Space Dodger now and start dodging!
-
-#SpaceDodger #RetroGaming #ArcadeShooter #SpaceShooter #PixelArt #ShootEmUp #CasualGame #IndieGame #OfflineGames #SciFiGame #WorldRanking #Leaderboard
 ```
 
 ---

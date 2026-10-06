@@ -21,7 +21,7 @@ LOCALES = {
         "feat_head": "🚀 KEY FEATURES:",
         "f1": "⭐ 100 ACTION-PACKED LEVELS\nEmbark on an epic cosmic campaign. Each stage brings new enemy formations, dynamic hazards, and intense bullet patterns.",
         "f2": "⭐ EPIC BOSS ENCOUNTERS\nFace off against powerful alien motherships and bosses with unique attack strategies and movement patterns.",
-        "f3": "⭐ GLOBAL LEADERBOARDS & WORLD RANKING\nThink you're the sharpest pilot in deep space? Compete with players worldwide! Tap the \"WORLD RANKING\" button on the high score screen to access Google Play Games leaderboards, track your rank against top aces across the globe, and fight for the #1 spot on the universal leaderboard!",
+        "f3": "⭐ GLOBAL LEADERBOARDS & WORLD RANKING\nThink you're the sharpest pilot in deep space? Compete with players worldwide! Tap the \"WORLD RANKING\" button on the high score screen to access Google Play Games leaderboards, track your rank against top aces across the globe, and fight for the top spot on the universal leaderboard!",
         "f4": "⭐ POWERFUL UPGRADES & SHIELD SYSTEMS\nCollect in-game power-ups to upgrade your laser firepower, activate impenetrable energy shields, and trigger rapid-fire boosts.",
         "f5": "⭐ RETRO PIXEL ART & NOSTALGIC SOUNDTRACK\nExperience classic 90s handheld and arcade gaming vibes with handcrafted pixel graphics and dynamic chiptune sound effects.",
         "f6": "⭐ 100% OFFLINE PLAY\nNo Wi-Fi? No internet? No problem! Play anywhere, anytime without an active internet connection.",
@@ -117,7 +117,7 @@ LOCALES = {
         "feat_head": "🚀 CARACTERÍSTICAS PRINCIPALES:",
         "f1": "⭐ 100 NIVELES CARGADOS DE ACCIÓN\nVive una épica campaña cósmica con patrones de disparo intensos y formaciones de enemigos variadas.",
         "f2": "⭐ JEFES ESPACIALES IMPONENTES\nEnfréntate a colosales naves nodriza alienígenas con estrategias de ataque y movimientos únicos.",
-        "f3": "⭐ TABLAS GLOBALES Y WORLD RANKING\n¿Tienes lo necesario para ser el as de la galaxia? ¡Compite contra pilotos de todo el mundo! Toca \"WORLD RANKING\" en la pantalla de récords para acceder a los marcadores de Google Play Games y pelear por el puesto #1 del universo.",
+        "f3": "⭐ TABLAS GLOBALES Y WORLD RANKING\n¿Tienes lo necesario para ser el as de la galaxia? ¡Compite contra pilotos de todo el mundo! Toca \"WORLD RANKING\" en la pantalla de récords para acceder a los marcadores de Google Play Games y pelear por el primer puesto del universo.",
         "f4": "⭐ MEJORAS DE ARMAS Y ESCUDOS DE ENERGÍA\nRecoge power-ups en el camino para multiplicar tu fuego láser, activar escudos y desatar ráfagas veloces.",
         "f5": "⭐ PIXEL ART RETRO Y MÚSICA NOSTÁLGICA\nSiente la vibra de los arcades noventeros con gráficos pixel art hechos a mano y efectos de sonido chiptune.",
         "f6": "⭐ JUEGA 100% OFFLINE\n¿No tienes internet ni datos? ¡No te preocupes! Juega en cualquier momento y lugar sin conexión.",
@@ -399,9 +399,7 @@ def build_full_description(loc_data):
         "",
         loc_data["how_play"],
         "",
-        loc_data["call_action"],
-        "",
-        "#SpaceDodger #RetroGaming #ArcadeShooter #SpaceShooter #PixelArt #ShootEmUp #CasualGame #IndieGame #OfflineGames #SciFiGame #WorldRanking #Leaderboard"
+        loc_data["call_action"]
     ]
     return "\n".join(body)
 
