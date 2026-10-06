@@ -3,7 +3,8 @@
   <PropertyGroup>
     <!-- Play Console: API 36 (Android 16) zorunlulugu -->
     <TargetFramework>net9.0-android36.0</TargetFramework>
-    <SupportedOSPlatformVersion>23</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>24</SupportedOSPlatformVersion>
+    <AndroidMinimumDotNetApiLevel>24</AndroidMinimumDotNetApiLevel>
     <AndroidTargetSdkVersion>36</AndroidTargetSdkVersion>
     <!-- Play Store & Cihaz Uyumlulugu: Samsung A10 gibi 32-bit (ARM) ve modern 64-bit cihazlari destekle -->
     <RuntimeIdentifiers>android-arm;android-arm64;android-x64</RuntimeIdentifiers>
@@ -63,4 +64,12 @@
     <AndroidAsset Include="..\Content\**\*.*" Link="Assets\Content\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 
+  <!-- AutoVersion: Tarih tabanli otomatik versiyon kodu olusturucu -->
+  <Target Name="AutoVersion" BeforeTargets="BeforeBuild" Condition="'$(AutoVersionSet)' != 'true'">
+    <PropertyGroup>
+      <ApplicationVersion>$([System.DateTime]::Now.ToString('yy').Substring(1))$([System.DateTime]::Now.ToString('MMddHHmm'))</ApplicationVersion>
+      <AutoVersionSet>true</AutoVersionSet>
+    </PropertyGroup>
+    <Message Importance="High" Text="[AutoVersion] Version Code SET (tek sefer): $(ApplicationVersion)" />
+  </Target>
 </Project>
