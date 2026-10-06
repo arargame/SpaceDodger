@@ -1,7 +1,7 @@
 # Space Dodger - Official YouTube Video Metadata Specification
 
-> **Official Trailer Video:** https://www.youtube.com/watch?v=MUCJ-uLL5cg  
-> **Short Link:** https://youtu.be/MUCJ-uLL5cg
+> **Official Trailer Video:** https://www.youtube.com/watch?v=DO-CvfDPrEc  
+> **Short Link:** https://youtu.be/DO-CvfDPrEc
 
 ## 1. Video Title Options
 
