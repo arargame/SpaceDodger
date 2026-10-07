@@ -28,9 +28,11 @@ namespace SpaceDodger.Droid
 #if DEBUG
         private const string BannerAdUnitId = "ca-app-pub-3940256099942544/6300978111"; // Google Official Test Banner ID
         private const string RewardedAdUnitId = "ca-app-pub-3940256099942544/5224354917"; // Google Official Test Rewarded ID
+        private const string RewardedSecondChanceAdUnitId = "ca-app-pub-3940256099942544/5224354917"; // Google Official Test Rewarded ID
 #else
         private const string BannerAdUnitId = "ca-app-pub-3062759184051966/8797177752"; // Space Dodger Production Banner ID
         private const string RewardedAdUnitId = "ca-app-pub-3062759184051966/5568379185"; // Space Dodger Production Rewarded ID
+        private const string RewardedSecondChanceAdUnitId = "ca-app-pub-3062759184051966/9033505530"; // Space Dodger Production Second Chance ID
 #endif
 
         private SpaceDodgerGame _game;
@@ -41,8 +43,8 @@ namespace SpaceDodger.Droid
         private AdView _adView;
         private BannerAdListener _bannerListener;
         private bool _isBannerVisible;
-        private RewardedAd _rewardedAd;
-        private bool _isLoadingRewarded;
+        private RewardedAdSlot _generalRewardedSlot;
+        private RewardedAdSlot _secondChanceRewardedSlot;
         private AndroidIAPService _iapService;
 
         public GameContext GameContext => _game?.Context;
@@ -58,6 +60,9 @@ namespace SpaceDodger.Droid
 
             _iapService = new AndroidIAPService(this);
             _platform = new AndroidPlatform(this);
+
+            _generalRewardedSlot = new RewardedAdSlot(this, RewardedAdUnitId, "GeneralRewarded");
+            _secondChanceRewardedSlot = new RewardedAdSlot(this, RewardedSecondChanceAdUnitId, "SecondChanceRewarded");
 
             // Initialize Firebase Analytics on background thread (0 ms cold-start impact)
             Services.FirebaseAnalyticsService.Attach(ApplicationContext);
@@ -80,6 +85,7 @@ namespace SpaceDodger.Droid
                 try
                 {
                     MobileAds.Initialize(this);
+                    LoadSecondChanceAd();
                     LoadRewardedAd();
                 }
                 catch (System.Exception ex)
@@ -152,120 +158,146 @@ namespace SpaceDodger.Droid
             });
         }
 
-        public bool IsRewardedAdReady() => _rewardedAd != null;
+        public bool IsRewardedAdReady() => _generalRewardedSlot?.IsReady ?? false;
+        public void LoadRewardedAd() => _generalRewardedSlot?.Load();
+        public void ShowRewardedAd(System.Action onRewardEarned, System.Action onClosed = null) =>
+            _generalRewardedSlot?.Show(onRewardEarned, onClosed);
 
-        public void LoadRewardedAd()
+        public bool IsSecondChanceAdReady() => _secondChanceRewardedSlot?.IsReady ?? false;
+        public void LoadSecondChanceAd() => _secondChanceRewardedSlot?.Load();
+        public void ShowSecondChanceAd(System.Action onRewardEarned, System.Action onClosed = null) =>
+            _secondChanceRewardedSlot?.Show(onRewardEarned, onClosed);
+
+        private sealed class RewardedAdSlot
         {
-            if (_rewardedAd != null || _isLoadingRewarded) return;
-            _isLoadingRewarded = true;
+            private readonly MainActivity _activity;
+            private readonly string _adUnitId;
+            private readonly string _tag;
+            private RewardedAd _ad;
+            private bool _isLoading;
 
-            RunOnUiThread(() =>
+            public RewardedAdSlot(MainActivity activity, string adUnitId, string tag)
             {
-                try
-                {
-                    var adRequest = new AdRequest.Builder().Build();
-                    var callback = new MyRewardedAdLoadCallback(
-                        onLoaded: (ad) =>
-                        {
-                            _rewardedAd = ad;
-                            _isLoadingRewarded = false;
-                            System.Diagnostics.Debug.WriteLine("[AdMob] Rewarded ad preloaded successfully.");
-                        },
-                        onFailed: (error) =>
-                        {
-                            _rewardedAd = null;
-                            _isLoadingRewarded = false;
-                            System.Diagnostics.Debug.WriteLine($"[AdMob] Rewarded ad failed to preload: {error?.Message}");
-                        });
+                _activity = activity;
+                _adUnitId = adUnitId;
+                _tag = tag;
+            }
 
-                    RewardedAd.Load(this, RewardedAdUnitId, adRequest, callback);
-                }
-                catch (System.Exception ex)
-                {
-                    _isLoadingRewarded = false;
-                    System.Diagnostics.Debug.WriteLine($"[AdMob] LoadRewardedAd exception: {ex.Message}");
-                }
-            });
-        }
+            public bool IsReady => _ad != null;
 
-        public void ShowRewardedAd(System.Action onRewardEarned, System.Action onClosed = null)
-        {
-            RunOnUiThread(() =>
+            public void Load()
             {
-                HideBannerAd();
+                if (_ad != null || _isLoading) return;
+                _isLoading = true;
 
-                object lockObj = new object();
-                bool earnedCalled = false;
-                bool closedCalled = false;
-
-                System.Action safeOnRewardEarned = () =>
+                _activity.RunOnUiThread(() =>
                 {
-                    lock (lockObj)
-                    {
-                        if (earnedCalled) return;
-                        earnedCalled = true;
-                    }
-                    onRewardEarned?.Invoke();
-                };
-
-                System.Action safeOnClosed = () =>
-                {
-                    lock (lockObj)
-                    {
-                        if (closedCalled) return;
-                        closedCalled = true;
-                    }
-                    LoadRewardedAd();
-                    onClosed?.Invoke();
-                };
-
-                try
-                {
-                    if (_rewardedAd != null)
-                    {
-                        var adToShow = _rewardedAd;
-                        _rewardedAd = null;
-
-                        adToShow.FullScreenContentCallback = new MyRewardedFullScreenCallback(safeOnClosed);
-                        var rewardListener = new MyOnUserEarnedRewardListener(safeOnRewardEarned);
-                        adToShow.Show(this, rewardListener);
-                    }
-                    else
+                    try
                     {
                         var adRequest = new AdRequest.Builder().Build();
                         var callback = new MyRewardedAdLoadCallback(
                             onLoaded: (ad) =>
                             {
-                                RunOnUiThread(() =>
-                                {
-                                    try
-                                    {
-                                        ad.FullScreenContentCallback = new MyRewardedFullScreenCallback(safeOnClosed);
-                                        var rewardListener = new MyOnUserEarnedRewardListener(safeOnRewardEarned);
-                                        ad.Show(this, rewardListener);
-                                    }
-                                    catch (System.Exception ex)
-                                    {
-                                        System.Diagnostics.Debug.WriteLine($"[AdMob] Show on loaded ad failed: {ex.Message}");
-                                        safeOnClosed();
-                                    }
-                                });
+                                _ad = ad;
+                                _isLoading = false;
+                                System.Diagnostics.Debug.WriteLine($"[AdMob] {_tag} preloaded successfully.");
                             },
                             onFailed: (error) =>
                             {
-                                System.Diagnostics.Debug.WriteLine($"[AdMob] On-demand rewarded ad failed to load: {error?.Message}");
-                                safeOnClosed();
+                                _ad = null;
+                                _isLoading = false;
+                                System.Diagnostics.Debug.WriteLine($"[AdMob] {_tag} failed to preload: {error?.Message}");
                             });
 
-                        RewardedAd.Load(this, RewardedAdUnitId, adRequest, callback);
+                        RewardedAd.Load(_activity, _adUnitId, adRequest, callback);
                     }
-                }
-                catch (System.Exception ex)
+                    catch (System.Exception ex)
+                    {
+                        _isLoading = false;
+                        System.Diagnostics.Debug.WriteLine($"[AdMob] {_tag} Load exception: {ex.Message}");
+                    }
+                });
+            }
+
+            public void Show(System.Action onRewardEarned, System.Action onClosed = null)
+            {
+                _activity.RunOnUiThread(() =>
                 {
-                    System.Diagnostics.Debug.WriteLine($"[AdMob] ShowRewardedAd outer exception: {ex.Message}");
-                    safeOnClosed();
-                }
-            });
+                    _activity.HideBannerAd();
+
+                    object lockObj = new object();
+                    bool earnedCalled = false;
+                    bool closedCalled = false;
+
+                    System.Action safeOnRewardEarned = () =>
+                    {
+                        lock (lockObj)
+                        {
+                            if (earnedCalled) return;
+                            earnedCalled = true;
+                        }
+                        onRewardEarned?.Invoke();
+                    };
+
+                    System.Action safeOnClosed = () =>
+                    {
+                        lock (lockObj)
+                        {
+                            if (closedCalled) return;
+                            closedCalled = true;
+                        }
+                        Load();
+                        onClosed?.Invoke();
+                    };
+
+                    try
+                    {
+                        if (_ad != null)
+                        {
+                            var adToShow = _ad;
+                            _ad = null;
+
+                            adToShow.FullScreenContentCallback = new MyRewardedFullScreenCallback(safeOnClosed);
+                            var rewardListener = new MyOnUserEarnedRewardListener(safeOnRewardEarned);
+                            adToShow.Show(_activity, rewardListener);
+                        }
+                        else
+                        {
+                            var adRequest = new AdRequest.Builder().Build();
+                            var callback = new MyRewardedAdLoadCallback(
+                                onLoaded: (ad) =>
+                                {
+                                    _activity.RunOnUiThread(() =>
+                                    {
+                                        try
+                                        {
+                                            ad.FullScreenContentCallback = new MyRewardedFullScreenCallback(safeOnClosed);
+                                            var rewardListener = new MyOnUserEarnedRewardListener(safeOnRewardEarned);
+                                            ad.Show(_activity, rewardListener);
+                                        }
+                                        catch (System.Exception ex)
+                                        {
+                                            System.Diagnostics.Debug.WriteLine($"[AdMob] {_tag} show on loaded ad failed: {ex.Message}");
+                                            safeOnClosed();
+                                        }
+                                    });
+                                },
+                                onFailed: (error) =>
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"[AdMob] {_tag} on-demand failed to load: {error?.Message}");
+                                    safeOnClosed();
+                                });
+
+                            RewardedAd.Load(_activity, _adUnitId, adRequest, callback);
+                        }
+                    }
+                    catch (System.Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[AdMob] {_tag} Show outer exception: {ex.Message}");
+                        safeOnClosed();
+                    }
+                });
+            }
         }
 
         public void ShowBannerAd(int x, int y, int width, int height)

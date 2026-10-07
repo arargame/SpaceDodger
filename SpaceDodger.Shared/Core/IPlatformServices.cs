@@ -29,6 +29,9 @@ namespace SpaceDodger.Core
         bool IsRewardedAdReady() => false;
         void LoadRewardedAd() { }
         void ShowRewardedAd(System.Action onRewardEarned, System.Action onClosed = null) { onClosed?.Invoke(); }
+        bool IsSecondChanceAdReady() => false;
+        void LoadSecondChanceAd() { }
+        void ShowSecondChanceAd(System.Action onRewardEarned, System.Action onClosed = null) { onClosed?.Invoke(); }
         void ShowBannerAd(int x, int y, int width, int height) { }
         void HideBannerAd() { }
     }

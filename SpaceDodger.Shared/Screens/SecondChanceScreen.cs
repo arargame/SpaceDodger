@@ -32,8 +32,8 @@ namespace SpaceDodger.Screens
 
         public override void Load()
         {
-            // Ensure rewarded ad is preloaded or loading
-            Context.Platform.LoadRewardedAd();
+            // Ensure second chance rewarded ad is preloaded or loading
+            Context.Platform.LoadSecondChanceAd();
 
             Analytics.AnalyticsManager.LogSecondChanceOffered(Context.Save.Data.ResumeLevel, 0);
 
@@ -49,7 +49,7 @@ namespace SpaceDodger.Screens
             _isAdShowing = true;
             _statusMessage = "LOADING AD...";
 
-            Context.Platform.ShowRewardedAd(
+            Context.Platform.ShowSecondChanceAd(
                 onRewardEarned: () =>
                 {
                     _rewardEarned = true;

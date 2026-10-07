@@ -89,5 +89,20 @@ namespace SpaceDodger.Droid
             else
                 onClosed?.Invoke();
         }
+
+        public bool IsSecondChanceAdReady() =>
+            (_context as MainActivity ?? MainActivity.Instance)?.IsSecondChanceAdReady() ?? false;
+
+        public void LoadSecondChanceAd() =>
+            (_context as MainActivity ?? MainActivity.Instance)?.LoadSecondChanceAd();
+
+        public void ShowSecondChanceAd(System.Action onRewardEarned, System.Action onClosed = null)
+        {
+            var activity = _context as MainActivity ?? MainActivity.Instance;
+            if (activity != null)
+                activity.ShowSecondChanceAd(onRewardEarned, onClosed);
+            else
+                onClosed?.Invoke();
+        }
     }
 }

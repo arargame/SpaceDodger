@@ -6,8 +6,12 @@
 - **Platform Constraint:** Desktop builds (`SpaceDodger.Desktop`) contain **NO** ad systems or ad UI whatsoever (`Context.Platform.IsMobile == false`).
 - **Ad Unit IDs (Debug vs Release):**
   - **Debug (Test Mode):** Official Google Test Rewarded Ad Unit ID (`ca-app-pub-3940256099942544/5224354917`).
-  - **Release (Production):** Space Dodger Production Rewarded Ad Unit ID (`ca-app-pub-3062759184051966/5568379185`).
+  - **Release (Production - Second Chance):** Space Dodger Dedicated Second Chance Ad Unit ID (`ca-app-pub-3062759184051966/9033505530`).
+  - **Release (Production - General Rewarded):** Space Dodger General Rewarded Ad Unit ID (`ca-app-pub-3062759184051966/5568379185`).
   - Switched automatically at compile time via `#if DEBUG` in `MainActivity.cs`.
+
+## 1.1 AdMob Policy Compliance Note
+- **No "Watch ad to help / Support developer"**: Google AdMob strictly prohibits asking users to watch ads to "help" or "support" the developer without a tangible in-app reward (violates AdMob *Encouraging Clicks / Views* policy). Rewarded ads must grant concrete gameplay rewards (e.g., revive lives, starting boost).
 
 ## 2. Architecture & Design Patterns (SOLID / DIP / OCP)
 
