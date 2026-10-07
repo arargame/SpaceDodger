@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -53,9 +53,9 @@ namespace SpaceDodger.Screens
             if (_items.Count == 0)
                 return;
 
-            if (input.UpPressed)
+            if (input.UpPressed || input.LeftPressed)
                 MoveSelection(-1);
-            if (input.DownPressed)
+            if (input.DownPressed || input.RightPressed)
                 MoveSelection(1);
 
             if (input.Tap.HasValue)

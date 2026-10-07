@@ -111,6 +111,15 @@ namespace SpaceDodger.Droid
             _platform?.RequestBack();
         }
 
+        public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
+        {
+            if (keyCode == Keycode.Escape || keyCode == Keycode.Back)
+            {
+                _platform?.RequestBack();
+            }
+            return base.OnKeyDown(keyCode, e);
+        }
+
         /// <summary>
         /// Safely exits the application, terminates the activity and cleans up the OS process.
         /// Resolves both the Visual Studio hanging session and the OpenGL black-texture artifact on relaunch.
