@@ -105,8 +105,8 @@ namespace SpaceDodger.Screens
 
             if (Context.Platform.IsMobile)
             {
-                DrawButton(spriteBatch, _worldButton, "WORLD RANKING");
-                DrawButton(spriteBatch, _backButton, "BACK");
+                DrawButton(spriteBatch, _worldButton, "WORLD RANKING", _mobileButtonIndex == 0);
+                DrawButton(spriteBatch, _backButton, "BACK", _mobileButtonIndex == 1);
             }
             else
             {
@@ -116,9 +116,15 @@ namespace SpaceDodger.Screens
             }
         }
 
-        private void DrawButton(SpriteBatch batch, Rectangle rect, string label)
+        private void DrawButton(SpriteBatch batch, Rectangle rect, string label, bool selected = false)
         {
-            batch.Draw(Context.Textures.Pixel, rect, new Color(42, 48, 68));
+            if (selected)
+            {
+                var frame = rect;
+                frame.Inflate(2, 2);
+                batch.Draw(Context.Textures.Pixel, frame, Header * 0.4f);
+            }
+            batch.Draw(Context.Textures.Pixel, rect, selected ? new Color(60, 70, 100) : new Color(42, 48, 68));
             Context.Font.DrawCentered(batch, label, rect.Center.X, rect.Y + 6, Header);
         }
     }
