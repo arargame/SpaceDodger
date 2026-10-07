@@ -88,6 +88,12 @@ namespace SpaceDodger.Screens
             if (_isAdShowing)
                 return;
 
+            if (input.BackPressed)
+            {
+                GiveUp();
+                return;
+            }
+
             _menu.Update(input);
         }
 

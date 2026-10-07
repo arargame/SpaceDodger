@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
 using SpaceDodger.Input;
@@ -75,6 +75,12 @@ namespace SpaceDodger.Screens
             if (_enteringName)
             {
                 UpdateNameEntry(input);
+                return;
+            }
+
+            if (input.BackPressed)
+            {
+                ToMenu();
                 return;
             }
 

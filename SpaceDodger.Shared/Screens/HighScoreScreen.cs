@@ -14,6 +14,7 @@ namespace SpaceDodger.Screens
         private Rectangle _worldButton;
         private Rectangle _backButton;
         private float _scrollOffset;
+        private int _mobileButtonIndex = 1;
 
         public HighScoreScreen(GameContext context) : base(context) { }
 
@@ -38,11 +39,32 @@ namespace SpaceDodger.Screens
 
             if (input.BackPressed)
                 Context.Screens.Pop();
-            else if (Context.Platform.IsMobile && input.Tap.HasValue)
+            else if (Context.Platform.IsMobile)
             {
-                var tap = input.Tap.Value;
-                if (_worldButton.Contains((int)tap.X, (int)tap.Y)) Context.Games.ShowLeaderboards();
-                else if (_backButton.Contains((int)tap.X, (int)tap.Y)) Context.Screens.Pop();
+                if (input.LeftPressed || input.UpPressed) _mobileButtonIndex = 0;
+                if (input.RightPressed || input.DownPressed) _mobileButtonIndex = 1;
+
+                if (input.ConfirmPressed)
+                {
+                    if (_mobileButtonIndex == 0) Context.Games.ShowLeaderboards();
+                    else Context.Screens.Pop();
+                    return;
+                }
+
+                if (input.Tap.HasValue)
+                {
+                    var tap = input.Tap.Value;
+                    if (_worldButton.Contains((int)tap.X, (int)tap.Y))
+                    {
+                        _mobileButtonIndex = 0;
+                        Context.Games.ShowLeaderboards();
+                    }
+                    else if (_backButton.Contains((int)tap.X, (int)tap.Y))
+                    {
+                        _mobileButtonIndex = 1;
+                        Context.Screens.Pop();
+                    }
+                }
             }
             
             if (_menu != null)
