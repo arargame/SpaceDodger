@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Core;
 using SpaceDodger.Input;
@@ -188,7 +188,7 @@ namespace SpaceDodger.Screens
 
             Context.Font.DrawCentered(
                 spriteBatch,
-                Context.Platform.IsMobile ? "SWIPE OR TAP A LEVEL" : "ARROWS / WHEEL, ESC TO GO BACK",
+                Context.Platform.IsMobile ? "TAP / ARROWS / ESC: BACK" : "ARROWS / WHEEL, ESC TO GO BACK",
                 cx, Context.Screen.Height - 14, new Color(90, 96, 116));
         }
     }

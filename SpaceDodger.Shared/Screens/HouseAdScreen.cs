@@ -79,8 +79,8 @@ namespace SpaceDodger.Screens
                 }
             }
 
-            // Masaüstü klavye kontrolü (Space / Enter ile geçiş)
-            if (!Context.Platform.IsMobile && mayContinue && input.ConfirmPressed)
+            // Klavye kontrolü (Space / Enter / Escape ile geçiş)
+            if (mayContinue && (input.ConfirmPressed || input.BackPressed))
             {
                 Continue();
             }

@@ -187,8 +187,8 @@ namespace SpaceDodger.Screens
         public void DrawTouchHint(SpriteBatch spriteBatch, float alpha)
         {
             var color = Color.White * alpha;
-            _font.Draw(spriteBatch, "DRAG TO MOVE", new Vector2(20, _bounds.Height - 22), color);
-            _font.Draw(spriteBatch, "AUTO FIRE", new Vector2(_bounds.Width - 66, _bounds.Height - 22), color);
+            _font.Draw(spriteBatch, "DRAG / WASD: MOVE", new Vector2(20, _bounds.Height - 22), color);
+            _font.Draw(spriteBatch, "SPACE / CLICK: FIRE", new Vector2(_bounds.Width - 110, _bounds.Height - 22), color);
         }
     }
 }
