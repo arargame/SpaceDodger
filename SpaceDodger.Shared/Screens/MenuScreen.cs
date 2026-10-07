@@ -96,7 +96,7 @@ namespace SpaceDodger.Screens
             _menu.Draw(spriteBatch);
 
             string hint = Context.Platform.IsMobile
-                ? "TAP TO SELECT"
+                ? "TAP OR ARROWS + ENTER"
                 : "ARROWS + ENTER";
             Context.Font.DrawCentered(
                 spriteBatch, hint, cx, Context.Screen.Height - 22, new Color(90, 96, 116));
