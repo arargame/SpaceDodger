@@ -329,6 +329,16 @@ namespace SpaceDodger.Systems
             return true;
         }
 
+        /// <summary>Creates a supply crate during active boss encounters entering from the right side of the playfield.</summary>
+        public bool TrySpawnBossSupplyDrift(Vector2 position, float healthSupplyBias)
+        {
+            if (PowerUps.CountActive >= GameConfig.MaximumActivePowerUps)
+                return false;
+
+            SpawnPowerUp(RollCommonDrop(healthSupplyBias), position);
+            return true;
+        }
+
         private bool CanSpawnPowerUp() =>
             _powerUpDropCooldown <= 0f && PowerUps.CountActive < GameConfig.MaximumActivePowerUps;
 

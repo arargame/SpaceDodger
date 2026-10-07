@@ -44,6 +44,7 @@ namespace SpaceDodger.Systems
         private float _fatDrifterTimer;
         private float _splitterDrifterTimer;
         private float _bossAddTimer;
+        private float _bossSupplyTimer;
 
         public LevelData Level { get; private set; }
 
@@ -71,6 +72,7 @@ namespace SpaceDodger.Systems
             _fatDrifterTimer = 12f + (float)_random.NextDouble() * 8f;
             _splitterDrifterTimer = 18f + (float)_random.NextDouble() * 12f;
             _bossAddTimer = 10f;
+            _bossSupplyTimer = GameConfig.BossSupplyCheckInterval;
             _supplyDriftTimer = GameConfig.SupplyDriftMinimumInterval +
                 (float)_random.NextDouble() * (GameConfig.SupplyDriftMaximumInterval - GameConfig.SupplyDriftMinimumInterval);
             _waves.Clear();
@@ -149,6 +151,7 @@ namespace SpaceDodger.Systems
             UpdateFatDrifter(dt);
             UpdateSplitterDrifter(dt);
             UpdateSupplyDrift(dt);
+            UpdateBossSupplyDrift(dt);
         }
 
         private bool IsBossActive()
@@ -337,6 +340,25 @@ namespace SpaceDodger.Systems
             {
                 // Recheck soon after a crate is collected instead of creating a backlog.
                 _supplyDriftTimer = 1.5f;
+            }
+        }
+
+        private void UpdateBossSupplyDrift(float dt)
+        {
+            if (!IsBossActive())
+                return;
+
+            _bossSupplyTimer -= dt;
+            if (_bossSupplyTimer > 0f)
+                return;
+
+            _bossSupplyTimer = GameConfig.BossSupplyCheckInterval;
+
+            if (_random.NextDouble() < GameConfig.BossSupplyChance)
+            {
+                _factory.TrySpawnBossSupplyDrift(
+                    new Vector2(_world.Bounds.Right + 10f, RandomLane()),
+                    _director.HealthSupplyBias);
             }
         }
 

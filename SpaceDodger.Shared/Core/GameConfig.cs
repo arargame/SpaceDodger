@@ -20,7 +20,7 @@ namespace SpaceDodger.Core
         public const int PlayerLives = 3;
         public const float PlayerSpeed = 95f;          // px/s in virtual space
         public const float PlayerFireCooldown = 0.22f; // seconds
-        public const float PlayerInvulnTime = 2.0f;    // seconds after a hit
+        public const float PlayerInvulnTime = 4.0f;    // seconds after a hit (doubled for extended mercy frames)
         public const int MaxWeaponLevel = 5;
         public const float WeaponTier2MinimumDuration = 15f; // was 12f (+25%)
         public const float WeaponTier2MaximumDuration = 24f; // was 20f (+20%)
@@ -46,6 +46,10 @@ namespace SpaceDodger.Core
         public const float PowerUpDropCooldown = 3.5f;
         public const float SupplyDriftMinimumInterval = 11f;
         public const float SupplyDriftMaximumInterval = 17f;
+        /// <summary>Interval in seconds between supply drop rolls during active boss encounters.</summary>
+        public const float BossSupplyCheckInterval = 20.0f;
+        /// <summary>Chance (0.0 - 1.0) of a supply drop entering the playfield on each boss supply check.</summary>
+        public const float BossSupplyChance = 0.20f;
 
         /// <summary>Supply magnet capture tuning (derived from Blocked project, adapted to 320x180 playfield).</summary>
         public const float SupplyMagnetRadius = 60f;     // px capture radius around the ship
