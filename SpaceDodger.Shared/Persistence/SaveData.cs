@@ -33,6 +33,7 @@ namespace SpaceDodger.Persistence
         public int ResumeSpecialCharges;
         public int ResumeOrbitCount;
         public float ResumeOrbitTime;
+        public int BonusStartingLives;
 
         public bool RecordRun(int score, int level)
         {

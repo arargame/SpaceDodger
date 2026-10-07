@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDodger.Input;
@@ -23,6 +24,18 @@ namespace SpaceDodger.Screens
         private readonly Rectangle _paintAndroidBtn = new Rectangle(240, 44, 44, 20);
         private readonly Rectangle _paintMsStoreBtn = new Rectangle(240, 68, 44, 20);
 
+        // Rewarded ad bonus lives state
+        private bool _isAdLoading;
+        private bool _rewardEarned;
+        private bool _adClosed;
+        private string _statusMessage = string.Empty;
+        private float _statusTimer;
+
+        // Floating gold text animation
+        private string _floatingText = string.Empty;
+        private float _floatingTextTimer;
+        private float _floatingTextY;
+
         public SupportCreditsScreen(Core.GameContext context) : base(context) { }
 
         public override void Load()
@@ -31,12 +44,37 @@ namespace SpaceDodger.Screens
             _blocked = Context.Textures.Get("ui/blocked");
             _iconAndroid = Context.Textures.Get("ui/market_icons_android");
             _iconMsStore = Context.Textures.Get("ui/market_icons_microsoftstore");
-            
+
+            if (Context.Platform.IsMobile)
+            {
+                Context.Platform.LoadRewardedAd();
+            }
+
+            BuildMenu();
+        }
+
+        private void BuildMenu()
+        {
             if (Context.Platform.IsMobile)
             {
                 string removeAdsLabel = Context.Save.Data.AdsRemoved ? "ADS REMOVED (ACTIVE)" : "REMOVE ADS";
+                
+                string adBonusLabel;
+                if (_isAdLoading)
+                {
+                    adBonusLabel = "LOADING AD...";
+                }
+                else if (Context.Save.Data.BonusStartingLives > 0)
+                {
+                    adBonusLabel = $"WATCH AD (+2 STARTING LIFE) [+{Context.Save.Data.BonusStartingLives}]";
+                }
+                else
+                {
+                    adBonusLabel = "WATCH AD (+2 STARTING LIFE)";
+                }
 
-                _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 116f)
+                _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 108f, spacing: 12)
+                    .Add(adBonusLabel, WatchAdForBonusLives, enabled: !_isAdLoading)
                     .Add("BUY ME A COFFEE", BuyCoffee)
                     .Add(removeAdsLabel, BuyRemoveAds)
                     .Add("RESTORE PURCHASES", RestorePurchases)
@@ -48,6 +86,28 @@ namespace SpaceDodger.Screens
                 _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 136f)
                     .Add("BACK", () => Context.Screens.Pop());
             }
+        }
+
+        private void WatchAdForBonusLives()
+        {
+            if (_isAdLoading) return;
+
+            _isAdLoading = true;
+            _rewardEarned = false;
+            _adClosed = false;
+            _statusMessage = "LOADING AD...";
+            _statusTimer = 5.0f;
+            BuildMenu();
+
+            Context.Platform.ShowRewardedAd(
+                onRewardEarned: () =>
+                {
+                    _rewardEarned = true;
+                },
+                onClosed: () =>
+                {
+                    _adClosed = true;
+                });
         }
 
         private void BuyCoffee() => Context.Platform.PurchaseConsumable(ArarGamesApplications.CoffeeProductId);
@@ -62,6 +122,47 @@ namespace SpaceDodger.Screens
 
         public override void Update(float dt, in InputState input)
         {
+            if (_adClosed)
+            {
+                _adClosed = false;
+                _isAdLoading = false;
+
+                if (_rewardEarned)
+                {
+                    _rewardEarned = false;
+                    Context.Save.Data.BonusStartingLives += 2;
+                    Context.Save.Data.ResumeLives += 2;
+                    Context.Save.Save();
+
+                    _floatingText = "+2 LIFE GRANTED";
+                    _floatingTextTimer = 2.8f;
+                    _floatingTextY = 104f;
+                    _statusMessage = string.Empty;
+
+                    try { Context.Audio.Play("pickup", 0.4f); } catch { }
+                }
+                else
+                {
+                    _statusMessage = "AD NOT COMPLETED";
+                    _statusTimer = 2.5f;
+                }
+
+                BuildMenu();
+            }
+
+            if (_floatingTextTimer > 0f)
+            {
+                _floatingTextTimer -= dt;
+                _floatingTextY -= dt * 18f; // floats upwards smoothly
+            }
+
+            if (_statusTimer > 0f)
+            {
+                _statusTimer -= dt;
+                if (_statusTimer <= 0f)
+                    _statusMessage = string.Empty;
+            }
+
             if (input.BackPressed) { Context.Screens.Pop(); return; }
             if (input.Tap.HasValue)
             {
@@ -89,6 +190,26 @@ namespace SpaceDodger.Screens
             Context.Font.DrawCentered(spriteBatch, "PAINT TREK", 210, 95, new Color(150,160,190));
             
             _menu.Draw(spriteBatch);
+
+            // Floating gold grant text
+            if (_floatingTextTimer > 0f)
+            {
+                float alpha = MathHelper.Clamp(_floatingTextTimer / 0.8f, 0f, 1f);
+                Color goldColor = new Color(255, 215, 0) * alpha;
+                Color shadowColor = new Color(0, 0, 0, 200) * alpha;
+
+                // Subtle shadow for legibility over any graphics
+                Context.Font.DrawCentered(spriteBatch, _floatingText, cx + 1, _floatingTextY + 1, shadowColor, 1.5f);
+                Context.Font.DrawCentered(spriteBatch, _floatingText, cx, _floatingTextY, goldColor, 1.5f);
+            }
+            else if (!string.IsNullOrEmpty(_statusMessage))
+            {
+                var statusColor = _isAdLoading
+                    ? new Color(100, 200, 255)
+                    : new Color(240, 80, 80);
+
+                Context.Font.DrawCentered(spriteBatch, _statusMessage, cx, 168f, statusColor);
+            }
         }
 
         /// <summary>Draw high-res game posters and market icons at real screen resolution.</summary>

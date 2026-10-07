@@ -46,10 +46,12 @@ namespace SpaceDodger.Screens
         private void StartNewGame()
         {
             Context.Save.Data.ResumeLevel = 1;
-            Context.Save.Data.ResumeLives = GameConfig.PlayerLives;
+            int startingLives = GameConfig.PlayerLives + Context.Save.Data.BonusStartingLives;
+            Context.Save.Data.ResumeLives = startingLives;
             Context.Save.Data.ResumeWeaponLevel = 1;
             Context.Save.Data.ResumeShieldTime = 0f;
             Context.Save.Data.ResumeRapidTime = 0f;
+            Context.Save.Data.BonusStartingLives = 0;
             Context.Save.Save();
             Context.Screens.Replace(new GameplayScreen(Context, _levels, 1));
         }

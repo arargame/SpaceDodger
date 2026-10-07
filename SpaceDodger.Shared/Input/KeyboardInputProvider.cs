@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SpaceDodger.Graphics;
 
@@ -41,10 +41,10 @@ namespace SpaceDodger.Input
             State = new InputState
             {
                 Move = move,
-                Fire = Down(Keys.Space) || Down(Keys.J),
+                Fire = Down(Keys.Space) || Down(Keys.J) || (_mouse.LeftButton == ButtonState.Pressed),
                 ConfirmPressed = Pressed(Keys.Enter) || Pressed(Keys.Space),
-                BackPressed = Pressed(Keys.Escape),
-                PausePressed = Pressed(Keys.P) || Pressed(Keys.Escape),
+                BackPressed = Pressed(Keys.Escape) || Pressed(Keys.Back),
+                PausePressed = Pressed(Keys.P) || Pressed(Keys.Escape) || Pressed(Keys.Pause),
                 UpPressed = Pressed(Keys.Up) || Pressed(Keys.W),
                 DownPressed = Pressed(Keys.Down) || Pressed(Keys.S),
                 LeftPressed = Pressed(Keys.Left) || Pressed(Keys.A),

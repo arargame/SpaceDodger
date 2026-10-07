@@ -13,6 +13,14 @@
 ## 1.1 AdMob Policy Compliance Note
 - **No "Watch ad to help / Support developer"**: Google AdMob strictly prohibits asking users to watch ads to "help" or "support" the developer without a tangible in-app reward (violates AdMob *Encouraging Clicks / Views* policy). Rewarded ads must grant concrete gameplay rewards (e.g., revive lives, starting boost).
 
+## 1.2 Support Menu Pilot Boost (+2 Starting Lives)
+- **Placement:** `SupportCreditsScreen.cs` on Mobile and Google Play Games (Android runtime).
+- **Label:** `"WATCH AD (+2 STARTING LIFE)"` (displays active stack count once granted).
+- **Reward Mechanism:** Watching the rewarded video awards `+2 BonusStartingLives` persisted in `SaveData`.
+- **Gameplay Application:** On the next mission start (New Game or Level Select) or run resume, starting lives increase from 3 to 5 (`+2` bonus), activating the Boosted ship visuals.
+- **Visual Feedback:** Upon ad completion, a floating gold text (`"+2 LIFE GRANTED"`) drifts smoothly upwards with a sound chime, confirming the reward without interrupting navigation.
+- **Safety & Flow:** Button displays `"LOADING AD..."` and prevents duplicate clicks while an ad is fetching/displaying. If dismissed before reward completion, a status warning is shown and no reward is granted.
+
 ## 2. Architecture & Design Patterns (SOLID / DIP / OCP)
 
 Following Dependency Inversion and Single Responsibility Principles:

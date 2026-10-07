@@ -13,7 +13,8 @@ namespace SpaceDodger.Droid
     public sealed class AndroidPlatform : IPlatformServices
     {
         private readonly Context _context;
-        private TouchInputProvider _input;
+        private TouchInputProvider _touchInput;
+        private IInputProvider _input;
 
         public AndroidPlatform(Context context) => _context = context;
 
@@ -21,8 +22,12 @@ namespace SpaceDodger.Droid
 
         public string SaveDirectory => _context.FilesDir.AbsolutePath;
 
-        public IInputProvider CreateInputProvider(VirtualScreen screen) =>
-            _input = new TouchInputProvider(screen);
+        public IInputProvider CreateInputProvider(VirtualScreen screen)
+        {
+            _touchInput = new TouchInputProvider(screen);
+            var keyboardInput = new KeyboardInputProvider(screen);
+            return _input = new CompositeInputProvider(_touchInput, keyboardInput);
+        }
 
         private AndroidPlayGamesService _gameServices;
 
@@ -37,7 +42,7 @@ namespace SpaceDodger.Droid
             return _gameServices ?? (IGameServices)NullGameServices.Instance;
         }
 
-        public void RequestBack() => _input?.RequestBack();
+        public void RequestBack() => _touchInput?.RequestBack();
 
         public void OpenUrl(string url)
         {

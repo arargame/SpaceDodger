@@ -87,13 +87,22 @@ namespace SpaceDodger.Screens
             _stars = new Starfield(Context.Textures.Pixel, bounds.Width, bounds.Height);
             _hud = new Hud(Context.Font, Context.Textures.Pixel, bounds, Context.Platform.IsMobile);
 
+            int startingLives = GameConfig.PlayerLives;
+            if (Context.Save.Data.BonusStartingLives > 0)
+            {
+                startingLives += Context.Save.Data.BonusStartingLives;
+                Context.Save.Data.ResumeLives = Math.Max(Context.Save.Data.ResumeLives, startingLives);
+                Context.Save.Data.BonusStartingLives = 0;
+                Context.Save.Save();
+            }
+
             _player = new Player(_animations.Player, _animations.PlayerBoosted, playfield);
             _player.Fired += OnPlayerFired;
             _player.Damaged += OnPlayerDamaged;
             _player.Died += OnPlayerDied;
             _player.Reset(
                 new Vector2(playfield.Left + 40, playfield.Center.Y),
-                GameConfig.PlayerLives);
+                startingLives);
             if (_startLevel == Context.Save.Data.ResumeLevel)
                 _player.RestoreProgress(Context.Save.Data.ResumeLives, Context.Save.Data.ResumeWeaponLevel,
                     Context.Save.Data.ResumeShieldTime, Context.Save.Data.ResumeRapidTime,
