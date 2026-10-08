@@ -40,7 +40,7 @@ namespace SpaceDodger.Input
             {
                 Move = movement,
                 Fire = keyboardState.Fire || touchState.Fire,
-                ConfirmPressed = keyboardState.ConfirmPressed || touchState.ConfirmPressed,
+                ConfirmPressed = keyboardState.ConfirmPressed,
                 BackPressed = keyboardState.BackPressed || touchState.BackPressed,
                 PausePressed = keyboardState.PausePressed || touchState.PausePressed,
                 UpPressed = keyboardState.UpPressed || touchState.UpPressed,

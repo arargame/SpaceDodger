@@ -68,7 +68,13 @@ namespace SpaceDodger.Screens
         private void OpenSupport() =>
             Context.Screens.Push(new SupportCreditsScreen(Context));
 
-        private void Quit() => Context.Game.Exit();
+        private void Quit()
+        {
+            if (Context.Platform.IsMobile)
+                Context.Platform.ExitGame();
+            else
+                Context.Game.Exit();
+        }
 
         public override void Update(float dt, in InputState input)
         {

@@ -32,6 +32,12 @@ namespace SpaceDodger.Screens
 
         public int SelectedIndex { get; private set; }
 
+        public void SetSelection(int index)
+        {
+            if (index >= 0 && index < _items.Count && _items[index].Enabled)
+                SelectedIndex = index;
+        }
+
         public MenuList(PixelFont font, float centerX, float topY, int spacing = 14)
         {
             _font = font;

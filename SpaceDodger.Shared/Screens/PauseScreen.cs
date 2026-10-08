@@ -36,8 +36,8 @@ namespace SpaceDodger.Screens
 
         public override void Update(float dt, in InputState input)
         {
-            // The pause key also un-pauses.
-            if (input.BackPressed)
+            // The pause key or back key also un-pauses.
+            if (input.BackPressed || input.PausePressed)
             {
                 Resume();
                 return;

@@ -16,11 +16,13 @@ namespace SpaceDodger.Screens
 
         private void BuildMenu()
         {
+            int prevIndex = _menu?.SelectedIndex ?? 0;
             _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 78f)
                 .Add($"MUSIC: {OnOff(Context.Save.Data.MusicEnabled)}", ToggleMusic)
                 .Add($"SOUND FX: {OnOff(Context.Save.Data.SoundEnabled)}", ToggleSound)
                 .Add($"AUTO-ATTACK: {OnOff(Context.Save.Data.AutoAttackEnabled)}", ToggleAutoAttack)
                 .Add("BACK", Back);
+            _menu.SetSelection(prevIndex);
         }
 
         private static string OnOff(bool enabled) => enabled ? "ON" : "OFF";

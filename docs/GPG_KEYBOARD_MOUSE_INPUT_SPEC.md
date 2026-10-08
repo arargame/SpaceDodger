@@ -62,3 +62,31 @@ To deliver a native desktop experience on Google Play Games for PC without compr
 - On standard mobile smartphones without physical keyboards, `Keyboard.GetState()` reports no keys down.
 - `CompositeInputProvider` falls back directly to `TouchInputProvider`.
 - Touch joystick movement, touch auto-fire, and touch tap detection operate with 100% fidelity identical to earlier builds.
+
+---
+
+## 5. Input Decoupling & Conflict Prevention Audit
+
+### Bug Analysis: Touch Release vs. ConfirmPressed
+- **Symptom:** In `HighScoreScreen`, tapping "WORLD RANKING" caused the screen to immediately pop back to `MenuScreen`.
+- **Root Cause:**
+  1. `TouchInputProvider` previously set `state.ConfirmPressed = true` on `TouchLocationState.Released`.
+  2. `CompositeInputProvider` aggregated `ConfirmPressed = keyboardState.ConfirmPressed || touchState.ConfirmPressed`.
+  3. Consequently, every touch tap simultaneously raised both `Tap` (with position) AND `ConfirmPressed = true`.
+  4. In `HighScoreScreen`, `_mobileButtonIndex` defaulted to `1` (BACK). If `ConfirmPressed` was evaluated, it triggered the BACK action regardless of where the finger tapped.
+- **Architectural Fix:**
+  - **Single Responsibility Principle (SRP) & Semantic Separation:**
+    - `InputState.Tap`: Position-aware pointer interaction (touch taps, mouse clicks).
+    - `InputState.ConfirmPressed`: One-shot confirmation triggered strictly by physical keyboard keys (`Keys.Enter` / `Keys.Space`).
+  - `TouchInputProvider` no longer flags `ConfirmPressed`.
+  - `CompositeInputProvider` strictly delegates `ConfirmPressed` to `keyboardState.ConfirmPressed`.
+  - `MenuList`, `LevelSelectScreen`, `HighScoreScreen`, and `HouseAdScreen` prioritize `Tap` hit-testing and treat `ConfirmPressed` exclusively as a keyboard event.
+
+### Global Screen Hardening:
+- **`HighScoreScreen`**: Separated `input.BackPressed` check with explicit early `return`. Guarded `ConfirmPressed` with `!input.Tap.HasValue`.
+- **`MenuList`**: Added `SetSelection(index)` API to preserve selected menu item indices when menus are rebuilt dynamically (e.g., toggling audio options in `OptionsScreen` or rewarded ad loading in `SupportCreditsScreen`).
+- **`OptionsScreen`**: Preserves cursor position across audio toggle re-renders, preventing unwanted focus reset to index 0 on keyboard Enter.
+- **`SupportCreditsScreen`**: Preserves cursor position across ad status and purchase state updates.
+- **`PauseScreen`**: Supports both `Escape` (`BackPressed`) and `P` (`PausePressed`) to resume gameplay.
+- **`MenuScreen`**: Clean exit routing via `Context.Platform.ExitGame()` on mobile / GPG and `Game.Exit()` on desktop.
+

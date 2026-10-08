@@ -101,7 +101,6 @@ namespace SpaceDodger.Input
                     else if (touch.State == TouchLocationState.Released)
                     {
                         state.Tap = pos;
-                        state.ConfirmPressed = true;
                         _tapCandidateId = -1;
                     }
                 }

@@ -55,6 +55,7 @@ namespace SpaceDodger.Screens
 
         private void BuildMenu()
         {
+            int prevIndex = _menu?.SelectedIndex ?? 0;
             if (Context.Platform.IsMobile)
             {
                 string removeAdsLabel = Context.Save.Data.AdsRemoved ? "ADS REMOVED (ACTIVE)" : "REMOVE ADS";
@@ -86,6 +87,7 @@ namespace SpaceDodger.Screens
                 _menu = new MenuList(Context.Font, Context.Screen.Width / 2f, 136f)
                     .Add("BACK", () => Context.Screens.Pop());
             }
+            _menu.SetSelection(prevIndex);
         }
 
         private void WatchAdForBonusLives()

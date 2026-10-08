@@ -38,8 +38,12 @@ namespace SpaceDodger.Screens
             _scrollOffset = MathHelper.Clamp(_scrollOffset, minimum, 0f);
 
             if (input.BackPressed)
+            {
                 Context.Screens.Pop();
-            else if (Context.Platform.IsMobile)
+                return;
+            }
+
+            if (Context.Platform.IsMobile)
             {
                 if (input.Tap.HasValue)
                 {
