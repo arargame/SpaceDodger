@@ -193,18 +193,7 @@ namespace SpaceDodger.Screens
             
             _menu.Draw(spriteBatch);
 
-            // Floating gold grant text
-            if (_floatingTextTimer > 0f)
-            {
-                float alpha = MathHelper.Clamp(_floatingTextTimer / 0.8f, 0f, 1f);
-                Color goldColor = new Color(255, 215, 0) * alpha;
-                Color shadowColor = new Color(0, 0, 0, 200) * alpha;
-
-                // Subtle shadow for legibility over any graphics
-                Context.Font.DrawCentered(spriteBatch, _floatingText, cx + 1, _floatingTextY + 1, shadowColor, 1.5f);
-                Context.Font.DrawCentered(spriteBatch, _floatingText, cx, _floatingTextY, goldColor, 1.5f);
-            }
-            else if (!string.IsNullOrEmpty(_statusMessage))
+            if (!string.IsNullOrEmpty(_statusMessage))
             {
                 var statusColor = _isAdLoading
                     ? new Color(100, 200, 255)
@@ -214,7 +203,7 @@ namespace SpaceDodger.Screens
             }
         }
 
-        /// <summary>Draw high-res game posters and market icons at real screen resolution.</summary>
+        /// <summary>Draw high-res game posters, market icons, and top-layer notifications at real screen resolution.</summary>
         public override void DrawHighRes(SpriteBatch spriteBatch, Graphics.VirtualScreen screen)
         {
             // Map virtual rectangles to physical backbuffer coordinates
@@ -224,6 +213,43 @@ namespace SpaceDodger.Screens
             spriteBatch.Draw(_iconMsStore, screen.ToPhysical(_blockedMsStoreBtn), Color.White);
             spriteBatch.Draw(_iconAndroid, screen.ToPhysical(_paintAndroidBtn), Color.White);
             spriteBatch.Draw(_iconMsStore, screen.ToPhysical(_paintMsStoreBtn), Color.White);
+
+            // Floating gold grant text drawn on the absolute topmost layer over all icons and posters
+            if (_floatingTextTimer > 0f)
+            {
+                float alpha = MathHelper.Clamp(_floatingTextTimer / 0.8f, 0f, 1f);
+                Color goldColor = new Color(255, 215, 0) * alpha;
+                Color shadowColor = new Color(0, 0, 0, 220) * alpha;
+
+                float cx = screen.Width / 2f;
+                Vector2 physicalPos = screen.ToPhysical(new Vector2(cx, _floatingTextY));
+                float fontScale = 1.5f * screen.ScaleY;
+                float shadowOffset = Math.Max(1f, 1.5f * screen.ScaleY);
+
+                // Sleek backdrop badge to guarantee readability over high-contrast images
+                Vector2 textSize = Context.Font.Measure(_floatingText, fontScale);
+                float padX = 8f * screen.ScaleX;
+                float padY = 4f * screen.ScaleY;
+                var badgeRect = new Rectangle(
+                    (int)(physicalPos.X - textSize.X / 2f - padX),
+                    (int)(physicalPos.Y - padY),
+                    (int)(textSize.X + padX * 2f),
+                    (int)(textSize.Y + padY * 2f));
+
+                Color badgeBg = new Color(12, 14, 24, (int)(220 * alpha));
+                spriteBatch.Draw(Context.Textures.Pixel, badgeRect, badgeBg);
+
+                Color borderCol = new Color(255, 215, 0, (int)(160 * alpha));
+                int borderThickness = Math.Max(1, (int)(1f * screen.ScaleY));
+                spriteBatch.Draw(Context.Textures.Pixel, new Rectangle(badgeRect.X, badgeRect.Y, badgeRect.Width, borderThickness), borderCol);
+                spriteBatch.Draw(Context.Textures.Pixel, new Rectangle(badgeRect.X, badgeRect.Bottom - borderThickness, badgeRect.Width, borderThickness), borderCol);
+                spriteBatch.Draw(Context.Textures.Pixel, new Rectangle(badgeRect.X, badgeRect.Y, borderThickness, badgeRect.Height), borderCol);
+                spriteBatch.Draw(Context.Textures.Pixel, new Rectangle(badgeRect.Right - borderThickness, badgeRect.Y, borderThickness, badgeRect.Height), borderCol);
+
+                // Subtle shadow for legibility over any graphics
+                Context.Font.DrawCentered(spriteBatch, _floatingText, physicalPos.X + shadowOffset, physicalPos.Y + shadowOffset, shadowColor, fontScale);
+                Context.Font.DrawCentered(spriteBatch, _floatingText, physicalPos.X, physicalPos.Y, goldColor, fontScale);
+            }
         }
     }
 }

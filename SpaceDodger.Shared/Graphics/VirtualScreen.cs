@@ -74,6 +74,20 @@ namespace SpaceDodger.Graphics
                 (int)(virtualRect.Height * scaleY));
         }
 
+        /// <summary>Convert a virtual-space vector position to physical backbuffer coordinates.</summary>
+        public Vector2 ToPhysical(Vector2 virtualPos)
+        {
+            var dest = Destination;
+            float scaleX = (float)dest.Width / Width;
+            float scaleY = (float)dest.Height / Height;
+            return new Vector2(
+                dest.X + virtualPos.X * scaleX,
+                dest.Y + virtualPos.Y * scaleY);
+        }
+
+        public float ScaleX => (float)Destination.Width / Width;
+        public float ScaleY => (float)Destination.Height / Height;
+
         private Rectangle ComputeDestination()
         {
             int screenW = _device.PresentationParameters.BackBufferWidth;
