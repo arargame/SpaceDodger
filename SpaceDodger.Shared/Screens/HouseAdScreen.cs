@@ -80,7 +80,7 @@ namespace SpaceDodger.Screens
             }
 
             // Klavye kontrolü (Space / Enter / Escape ile geçiş)
-            if (mayContinue && (input.ConfirmPressed || input.BackPressed))
+            if (mayContinue && !input.Tap.HasValue && (input.ConfirmPressed || input.BackPressed))
             {
                 Continue();
             }

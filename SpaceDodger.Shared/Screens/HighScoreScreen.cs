@@ -41,16 +41,6 @@ namespace SpaceDodger.Screens
                 Context.Screens.Pop();
             else if (Context.Platform.IsMobile)
             {
-                if (input.LeftPressed || input.UpPressed) _mobileButtonIndex = 0;
-                if (input.RightPressed || input.DownPressed) _mobileButtonIndex = 1;
-
-                if (input.ConfirmPressed)
-                {
-                    if (_mobileButtonIndex == 0) Context.Games.ShowLeaderboards();
-                    else Context.Screens.Pop();
-                    return;
-                }
-
                 if (input.Tap.HasValue)
                 {
                     var tap = input.Tap.Value;
@@ -58,12 +48,24 @@ namespace SpaceDodger.Screens
                     {
                         _mobileButtonIndex = 0;
                         Context.Games.ShowLeaderboards();
+                        return;
                     }
                     else if (_backButton.Contains((int)tap.X, (int)tap.Y))
                     {
                         _mobileButtonIndex = 1;
                         Context.Screens.Pop();
+                        return;
                     }
+                }
+
+                if (input.LeftPressed || input.UpPressed) _mobileButtonIndex = 0;
+                if (input.RightPressed || input.DownPressed) _mobileButtonIndex = 1;
+
+                if (input.ConfirmPressed && !input.Tap.HasValue)
+                {
+                    if (_mobileButtonIndex == 0) Context.Games.ShowLeaderboards();
+                    else Context.Screens.Pop();
+                    return;
                 }
             }
             
