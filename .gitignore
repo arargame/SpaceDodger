@@ -6,5 +6,6 @@ obj/
 .idea/
 *.apk
 *.aab
+SpaceDodger.Android/Logs/
 __pycache__/
 *.py[cod]

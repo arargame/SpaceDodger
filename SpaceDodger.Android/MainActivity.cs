@@ -6,7 +6,9 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using SpaceDodger.Core;
+using SpaceDodger.Input;
 
 namespace SpaceDodger.Droid
 {
@@ -101,9 +103,9 @@ namespace SpaceDodger.Droid
         {
             base.OnWindowFocusChanged(hasFocus);
             if (hasFocus)
-            {
                 EnableImmersiveMode();
-            }
+            else
+                HardwareKeyboardBridge.Clear();
         }
 
         public override void OnBackPressed()
@@ -111,13 +113,79 @@ namespace SpaceDodger.Droid
             _platform?.RequestBack();
         }
 
+        /// <summary>
+        /// GPG PC forwards physical keyboard input as Android KeyEvents. MonoGame's
+        /// Keyboard.GetState is empty on that host, so bridge the events before
+        /// Android dispatches them to the game view.
+        /// </summary>
+        public override bool DispatchKeyEvent(KeyEvent e)
+        {
+            if (e == null)
+                return base.DispatchKeyEvent(e);
+
+            var key = MapKeycodeToKey(e.KeyCode);
+            if (key != Keys.None)
+            {
+                if (e.Action == KeyEventActions.Down)
+                    HardwareKeyboardBridge.Press(key);
+                else if (e.Action == KeyEventActions.Up)
+                    HardwareKeyboardBridge.Release(key);
+
+#if DEBUG
+                global::Android.Util.Log.Debug("SpaceDodger",
+                    $"[Input] key={e.KeyCode} action={e.Action} source={e.Source}");
+#endif
+            }
+
+            if (e.KeyCode == Keycode.Back)
+            {
+                if (e.Action == KeyEventActions.Down)
+                    _platform?.RequestBack();
+                return true;
+            }
+
+            return base.DispatchKeyEvent(e);
+        }
+
         public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
         {
-            if (keyCode == Keycode.Escape || keyCode == Keycode.Back)
+            if (keyCode == Keycode.Back)
             {
                 _platform?.RequestBack();
+                return true;
             }
+
+            HardwareKeyboardBridge.Press(MapKeycodeToKey(keyCode));
             return base.OnKeyDown(keyCode, e);
+        }
+
+        public override bool OnKeyUp(Keycode keyCode, KeyEvent e)
+        {
+            HardwareKeyboardBridge.Release(MapKeycodeToKey(keyCode));
+            return base.OnKeyUp(keyCode, e);
+        }
+
+        private static Keys MapKeycodeToKey(Keycode keyCode)
+        {
+            switch (keyCode)
+            {
+                case Keycode.W: return Keys.W;
+                case Keycode.A: return Keys.A;
+                case Keycode.S: return Keys.S;
+                case Keycode.D: return Keys.D;
+                case Keycode.J: return Keys.J;
+                case Keycode.P: return Keys.P;
+                case Keycode.DpadUp: return Keys.Up;
+                case Keycode.DpadDown: return Keys.Down;
+                case Keycode.DpadLeft: return Keys.Left;
+                case Keycode.DpadRight: return Keys.Right;
+                case Keycode.Enter:
+                case Keycode.DpadCenter: return Keys.Enter;
+                case Keycode.Space: return Keys.Space;
+                case Keycode.Escape:
+                case Keycode.Back: return Keys.Escape;
+                default: return Keys.None;
+            }
         }
 
         /// <summary>
@@ -442,6 +510,7 @@ namespace SpaceDodger.Droid
         protected override void OnPause()
         {
             base.OnPause();
+            HardwareKeyboardBridge.Clear();
             try { _adView?.Pause(); } catch { }
         }
 

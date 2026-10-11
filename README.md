@@ -62,6 +62,11 @@ For a signed Play Console AAB, use
 including the automatic versioning and signing flow, is in
 [`docs/ANDROID_RELEASE_DEPLOYMENT.md`](docs/ANDROID_RELEASE_DEPLOYMENT.md).
 
+For a local Google Play Games Developer Emulator keyboard/mouse test, run
+`SpaceDodger.Android/DeployAndFix/GooglePlayGamesTest.bat`. See
+[`docs/GOOGLE_PLAY_GAMES_EMULATOR_TESTING.md`](docs/GOOGLE_PLAY_GAMES_EMULATOR_TESTING.md)
+for its prerequisites and test pass.
+
 ## Controls
 
 | Action | Desktop | Android |

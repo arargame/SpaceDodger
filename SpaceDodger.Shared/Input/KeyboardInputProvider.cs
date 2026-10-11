@@ -22,7 +22,7 @@ namespace SpaceDodger.Input
         {
             _previousKeyboard = _keyboard;
             _previousMouse = _mouse;
-            _keyboard = Keyboard.GetState();
+            _keyboard = HardwareKeyboardBridge.Merge(Keyboard.GetState());
             _mouse = Mouse.GetState();
 
             var move = Vector2.Zero;
