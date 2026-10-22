@@ -111,6 +111,7 @@ namespace SpaceDodger.Entities
                 ["fat_drifter"] = new EnemyDefinition("fat_drifter", "sprites/enemy_bomber", 2, 3f,
                     maxHealth: 3, score: 75, speed: 25f, tint: new Color(238, 218, 175)),
                 ["splitter"] = Def("splitter", 2, 4f, hp: 8, score: 60, speed: 32f),
+                ["asteroid"] = Def("asteroid", 2, 4f, hp: 2, score: 30, speed: 38f),
 
                 // --- bosses (one per 10 levels) -----------------------------
                 ["boss_warden"] = Def("boss_warden", 2, 5f, hp: 50, score: 500, speed: 30f,

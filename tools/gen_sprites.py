@@ -366,10 +366,43 @@ SHAPES['splitter'] = ('khaki', mirror_down([
     "....XXXXXXXXXXXXXXXX....",
 ]))
 
+# craggy procedural tumbling asteroid
+ASTEROID_A = [
+    "...XXXXXX...",
+    "..XXXXXXXX..",
+    ".XXXXXXXXXXX",
+    "XXXXXAXXXXXX",
+    "XXXXAAXXXXXX",
+    "XXXXXXXXXXXX",
+    "XXXXXXXXXXXX",
+    "XXXXXXAAXXXX",
+    "XXXXXXXAXXXX",
+    ".XXXXXXXXXX.",
+    "..XXXXXXXX..",
+    "...XXXXXX...",
+]
+ASTEROID_B = [
+    "..XXXXXXX...",
+    ".XXXXXXXXX..",
+    "XXXXXXXXXXXX",
+    "XXXXXXXXXXXX",
+    "XXXXXXAAXXXX",
+    "XXXXXXXAXXXX",
+    "XXXXXXXXXXXX",
+    "XXXXAXXXXXXX",
+    "XXXAAXXXXXXX",
+    ".XXXXXXXXXXX",
+    "..XXXXXXXX..",
+    "...XXXXX....",
+]
+SHAPES['asteroid'] = ('brown', ASTEROID_A)
+
 print("enemies:")
 for name, (colour, shape) in SHAPES.items():
     if name == 'spinner':
         frames = [shade(SPINNER_A, colour), shade(SPINNER_B, colour)]
+    elif name == 'asteroid':
+        frames = [shade(ASTEROID_A, colour), shade(ASTEROID_B, colour)]
     else:
         # Frame 2 bobs by a pixel: cheap, readable idle animation.
         frames = [shade(shape, colour), shade(shift_rows(shape, 1), colour)]

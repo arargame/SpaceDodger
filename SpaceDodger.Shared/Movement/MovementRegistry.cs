@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace SpaceDodger.Movement
 {
@@ -24,6 +25,9 @@ namespace SpaceDodger.Movement
                 ["drift_boss"] = new DriftMovement(),
                 ["sine_boss"] = new SineBossMovement(),
                 ["rebound"] = new ReboundMovement(),
+                ["binary_orbit"] = new BinaryOrbitMovement(0f),
+                ["binary_orbit_a"] = new BinaryOrbitMovement(0f),
+                ["binary_orbit_b"] = new BinaryOrbitMovement(MathHelper.Pi),
             };
 
         public static IMovementStrategy Get(string name) =>

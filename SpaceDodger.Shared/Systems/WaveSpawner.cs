@@ -43,6 +43,7 @@ namespace SpaceDodger.Systems
         private float _supplyDriftTimer;
         private float _fatDrifterTimer;
         private float _splitterDrifterTimer;
+        private float _binaryAsteroidTimer;
         private float _bossAddTimer;
         private float _bossSupplyTimer;
 
@@ -71,6 +72,7 @@ namespace SpaceDodger.Systems
             _reinforcementTimer = 4.5f;
             _fatDrifterTimer = 12f + (float)_random.NextDouble() * 8f;
             _splitterDrifterTimer = 18f + (float)_random.NextDouble() * 12f;
+            _binaryAsteroidTimer = 9f + (float)_random.NextDouble() * 8f;
             _bossAddTimer = 10f;
             _bossSupplyTimer = GameConfig.BossSupplyCheckInterval;
             _supplyDriftTimer = GameConfig.SupplyDriftMinimumInterval +
@@ -150,6 +152,7 @@ namespace SpaceDodger.Systems
             UpdateAdaptiveReinforcements(dt);
             UpdateFatDrifter(dt);
             UpdateSplitterDrifter(dt);
+            UpdateBinaryAsteroids(dt);
             UpdateSupplyDrift(dt);
             UpdateBossSupplyDrift(dt);
         }
@@ -299,6 +302,36 @@ namespace SpaceDodger.Systems
             var movement = MovementRegistry.Get("straight");
             var pos = new Vector2(_world.Bounds.Right + 16f, RandomLane());
             SpawnEnemy(def, movement, pos, 1f, 1f);
+        }
+
+        private void UpdateBinaryAsteroids(float dt)
+        {
+            if (AllWavesSpawned || Level.Number % GameConfig.BossEvery == 0)
+                return;
+
+            _binaryAsteroidTimer -= dt;
+            if (_binaryAsteroidTimer > 0f)
+                return;
+
+            _binaryAsteroidTimer = 18f + (float)_random.NextDouble() * 10f;
+            SpawnProceduralBinaryAsteroids();
+        }
+
+        private void SpawnProceduralBinaryAsteroids()
+        {
+            var def = EnemyCatalog.Get("asteroid");
+            var movementA = MovementRegistry.Get("binary_orbit_a");
+            var movementB = MovementRegistry.Get("binary_orbit_b");
+
+            // Generous vertical margin so the binary orbit (18px radius) stays inside screen bounds
+            const float margin = 26f;
+            float usableHeight = _world.Bounds.Height - margin * 2f;
+            float centerY = _world.Bounds.Top + margin + (float)_random.NextDouble() * Math.Max(10f, usableHeight);
+            var pos = new Vector2(_world.Bounds.Right + 24f, centerY);
+
+            // HealthMultiplier 1.0f ensures each asteroid has MaxHealth = 2 (takes 2 hits to destroy)
+            SpawnEnemy(def, movementA, pos, 1f, 1f);
+            SpawnEnemy(def, movementB, pos, 1f, 1f);
         }
 
         private int FindMinimumEnemyHealthInLevel(LevelData level)
