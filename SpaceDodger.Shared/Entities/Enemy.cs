@@ -146,9 +146,12 @@ namespace SpaceDodger.Entities
 
             // Standard waves leave through the left edge; procedural dive and
             // flock enemies leave below the playfield. Both paths award no score.
-            if (Position.X < _world.Left - _animation.FrameWidth ||
-                Position.Y > _world.Bottom + _animation.FrameHeight)
+            // Bosses must NEVER be despawned by off-screen boundary checks.
+            if (!IsBoss && (Position.X < _world.Left - _animation.FrameWidth ||
+                Position.Y > _world.Bottom + _animation.FrameHeight))
+            {
                 Deactivate();
+            }
         }
 
         public void TakeDamage(int amount)
